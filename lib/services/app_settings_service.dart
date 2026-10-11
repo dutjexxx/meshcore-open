@@ -317,6 +317,24 @@ class AppSettingsService extends ChangeNotifier {
     await updateSettings(_settings.copyWith(imageMessagesEnabled: value));
   }
 
+  Future<void> setIpfsImageSettings({
+    required String publicGateway,
+    required String uploadGateway,
+    required String uploadEndpoint,
+    required String uploadApiKey,
+  }) async {
+    final normalizedPublicGateway = normalizeIpfsGateway(publicGateway);
+    final normalizedUploadGateway = normalizeIpfsGateway(uploadGateway);
+    await updateSettings(
+      _settings.copyWith(
+        publicIpfsGateway: normalizedPublicGateway,
+        uploadIpfsGateway: normalizedUploadGateway,
+        uploadIpfsEndpoint: uploadEndpoint.trim(),
+        uploadIpfsApiKey: uploadApiKey.trim(),
+      ),
+    );
+  }
+
   /// See [AppSettings.imageProcessAutomatically]. `main.dart` mirrors this into
   /// `ReceivedImageStore.processAutomatically` on every settings change; the
   /// store applies it to future arrivals only, so flipping it does not

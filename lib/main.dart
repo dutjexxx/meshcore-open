@@ -132,6 +132,14 @@ void main() async {
 
   // Initialize notification service
   final notificationService = NotificationService();
+  notificationService.setPublicIpfsGateway(
+    appSettingsService.settings.publicIpfsGateway,
+  );
+  appSettingsService.addListener(() {
+    notificationService.setPublicIpfsGateway(
+      appSettingsService.settings.publicIpfsGateway,
+    );
+  });
   await notificationService.initialize();
   await backgroundService.initialize();
   backgroundService.setLanguageOverrideProvider(

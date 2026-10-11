@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:file_selector/file_selector.dart' as file_selector;
 import 'package:provider/provider.dart';
 
 import '../utils/app_logger.dart';
@@ -20,6 +21,7 @@ import '../widgets/message_status_icon.dart';
 import '../widgets/empty_state.dart';
 import '../helpers/chat_scroll_controller.dart';
 import '../helpers/gif_helper.dart';
+import '../helpers/ipfs_upload_helper.dart';
 import '../models/channel_message.dart';
 import '../models/contact.dart';
 import '../l10n/contact_localization.dart';
@@ -507,7 +509,46 @@ class _ChatScreenState extends State<ChatScreen> {
                         Offset.zero,
                         ancestor: overlay,
                       );
-                      const menuHeight = 2 * kMinInteractiveDimension + 16;
+                      final items = <PopupMenuEntry<String>>[
+                        PopupMenuItem(
+                          value: 'gif',
+                          child: Row(
+                            children: [
+                              const Icon(Icons.gif_box),
+                              const SizedBox(width: 12),
+                              Text(context.l10n.chat_sendGif),
+                            ],
+                          ),
+                        ),
+                      ];
+                      if (settings.uploadIpfsEndpoint.trim().isNotEmpty) {
+                        items.add(
+                          PopupMenuItem(
+                            value: 'ipfs-image',
+                            child: Row(
+                              children: [
+                                const Icon(Icons.cloud_upload_outlined),
+                                const SizedBox(width: 12),
+                                Text(context.l10n.chat_sendImageIpfs),
+                              ],
+                            ),
+                          ),
+                        );
+                      }
+                      items.add(
+                        PopupMenuItem(
+                          value: 'send-my-location',
+                          child: Row(
+                            children: [
+                              const Icon(Icons.my_location),
+                              const SizedBox(width: 12),
+                              Text(context.l10n.chat_shareMyLocation),
+                            ],
+                          ),
+                        ),
+                      );
+                      final menuHeight =
+                          items.length * kMinInteractiveDimension + 16;
                       final menuTop = (buttonOffset.dy - menuHeight).clamp(
                         8.0,
                         overlay.size.height,
@@ -524,34 +565,16 @@ class _ChatScreenState extends State<ChatScreen> {
                       final selected = await showMenu<String>(
                         context: menuContext,
                         position: position,
-                        items: [
-                          PopupMenuItem(
-                            value: 'gif',
-                            child: Row(
-                              children: [
-                                const Icon(Icons.gif_box),
-                                const SizedBox(width: 12),
-                                Text(context.l10n.chat_sendGif),
-                              ],
-                            ),
-                          ),
-                          PopupMenuItem(
-                            value: 'send-my-location',
-                            child: Row(
-                              children: [
-                                const Icon(Icons.my_location),
-                                const SizedBox(width: 12),
-                                Text(context.l10n.chat_shareMyLocation),
-                              ],
-                            ),
-                          ),
-                        ],
+                        items: items,
                       );
                       if (!mounted || !menuContext.mounted) return;
                       if (selected == null) return;
                       switch (selected) {
                         case 'gif':
                           _showGifPicker(context);
+                          break;
+                        case 'ipfs-image':
+                          _sendImageViaIpfs();
                           break;
                         case 'send-my-location':
                           await _shareMyLocation(
@@ -572,6 +595,7 @@ class _ChatScreenState extends State<ChatScreen> {
               // No image button here: the image wire format is GRP_DATA, a
               // channel primitive with no DM equivalent (see the note at the
               // top of this file).
+              // IPFS shares a URL as ordinary text instead.
               Expanded(
                 child: ValueListenableBuilder<TextEditingValue>(
                   valueListenable: _textController,
@@ -720,6 +744,112 @@ class _ChatScreenState extends State<ChatScreen> {
         },
       ),
     );
+  }
+
+  Future<void> _sendImageViaIpfs() async {
+    final l10n = context.l10n;
+    final settings = context.read<AppSettingsService>().settings;
+    if (settings.uploadIpfsEndpoint.trim().isEmpty) {
+      showDismissibleSnackBar(
+        context,
+        content: Text(l10n.chat_ipfsUploadNotConfigured),
+      );
+      return;
+    }
+
+    final file_selector.XFile? file;
+    try {
+      file = await file_selector.openFile();
+    } on Exception catch (error) {
+      if (!mounted) return;
+      showDismissibleSnackBar(
+        context,
+        content: Text(l10n.chat_ipfsUploadFailed('$error')),
+      );
+      return;
+    }
+    if (file == null || !mounted) return;
+
+    final Uint8List bytes;
+    try {
+      bytes = await file.readAsBytes();
+    } on Exception catch (error) {
+      if (!mounted) return;
+      showDismissibleSnackBar(
+        context,
+        content: Text(l10n.chat_ipfsUploadFailed('$error')),
+      );
+      return;
+    }
+    if (!mounted) return;
+    if (bytes.isEmpty) {
+      showDismissibleSnackBar(
+        context,
+        content: Text(
+          l10n.chat_ipfsUploadFailed('The selected file is empty.'),
+        ),
+      );
+      return;
+    }
+
+    final String messageUrl;
+    try {
+      messageUrl = await IpfsUploadHelper.uploadImageWithSettings(
+        settings: settings,
+        bytes: bytes,
+        fileName: file.name,
+        mimeType: IpfsUploadHelper.mimeTypeForFileName(file.name),
+      );
+    } on Exception catch (error) {
+      if (!mounted) return;
+      showDismissibleSnackBar(
+        context,
+        content: Text(l10n.chat_ipfsUploadFailed('$error')),
+      );
+      return;
+    }
+    if (!mounted) return;
+
+    final connector = context.read<MeshCoreConnector>();
+    final contact = _resolveContact(connector);
+    final existingText = _textController.text.trim();
+    var messageText = existingText.isEmpty
+        ? '$messageUrl '
+        : '$messageUrl\n$existingText';
+    final maxBytes = maxContactMessageBytes();
+    var encodedText = connector.prepareContactOutboundText(
+      contact,
+      messageText,
+    );
+    if (utf8.encode(encodedText).length > maxBytes && existingText.isNotEmpty) {
+      final originalCharacters = existingText.characters.toList();
+      for (var count = originalCharacters.length - 1; count >= 0; count--) {
+        final shortened = originalCharacters.take(count).join();
+        final candidate = '$messageUrl\n$shortened';
+        final candidateEncoded = connector.prepareContactOutboundText(
+          contact,
+          candidate,
+        );
+        if (utf8.encode(candidateEncoded).length <= maxBytes) {
+          messageText = candidate;
+          encodedText = candidateEncoded;
+          break;
+        }
+      }
+    }
+    if (utf8.encode(encodedText).length > maxBytes) {
+      showDismissibleSnackBar(
+        context,
+        content: Text(l10n.chat_messageTooLong(maxBytes)),
+      );
+      return;
+    }
+
+    _textController.value = TextEditingValue(
+      text: messageText,
+      selection: TextSelection.collapsed(offset: messageText.length),
+    );
+    _textFieldFocusNode.requestFocus();
   }
 
   Future<void> _showTranslationOptions() async {
@@ -1502,6 +1632,7 @@ class _MessageBubble extends StatelessWidget {
     final urlImagesEnabled = context.select<MeshCoreConnector, bool>(
       (connector) => connector.isContactUrlImagesEnabled(sourceId),
     );
+    final publicIpfsGateway = settingsService.settings.publicIpfsGateway;
 
     // Bubble colors — outgoing uses MeshPalette.me / meBorder / meInk.
     final bubbleColor = isFailed
@@ -1664,6 +1795,7 @@ class _MessageBubble extends StatelessWidget {
                             MessageUrlImageFutureBuilder(
                               messageId: message.messageId,
                               text: message.text,
+                              publicGateway: publicIpfsGateway,
                               builder: (context, snapshot) {
                                 final imageAttachment = snapshot.data;
 
