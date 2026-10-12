@@ -345,6 +345,20 @@ class AppLocalizationsKo extends AppLocalizations {
   String get scanner_enableBluetooth => '블루투스 켜기';
 
   @override
+  String get scanner_getNodeTitle => '새 노드가 필요하신가요?';
+
+  @override
+  String get scanner_getNodeBody =>
+      '지갑 크기에 MeshCore 구동, 듀얼 밴드 GPS, 방수, 5일 배터리.';
+
+  @override
+  String get scanner_getNodeAction => '여기서 구하기';
+
+  @override
+  String get scanner_getNodeDisclosure =>
+      '제휴 링크: 구매할 때마다 MeshCore Open을 후원하게 됩니다.';
+
+  @override
   String get scanner_bluetoothWebUnsupported =>
       '브라우저에서는 블루투스를 사용할 수 없습니다. 대신 USB로 연결하세요.';
 
@@ -414,6 +428,27 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get settings_regionDefaultNone => '없음';
+
+  @override
+  String settings_regionUseRadioDefault(String region) {
+    return '무전기 기본값 ($region)';
+  }
+
+  @override
+  String get settings_regionNoRegion => '지역 없음 (범위 미지정)';
+
+  @override
+  String get settings_regionRadioDefault => '무전기 기본 지역';
+
+  @override
+  String get settings_regionRadioDefaultSubtitle =>
+      '무전기에 저장됩니다. 지역 없이 보내는 플러딩은 이 앱과 무전기에 연결된 다른 앱 모두 이 지역을 사용합니다.';
+
+  @override
+  String get settings_regionRadioDefaultUpdated => '무전기 기본 지역을 업데이트했습니다';
+
+  @override
+  String get settings_regionRadioDefaultFailed => '무전기 기본 지역을 업데이트하지 못했습니다';
 
   @override
   String get settings_regionManagement_screenTitle => '지역 관리';
@@ -675,7 +710,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get settings_radioMatchWarning =>
-      '통신하는 모든 노드가 동일한 주파수, 대역폭, 확산 계수, 코딩 속도를 사용해야 합니다.';
+      '통신하는 모든 노드가 동일한 주파수, 대역폭, 확산 계수를 사용해야 합니다. 코딩 속도(CR)는 달라도 됩니다.';
 
   @override
   String get settings_frequency => '주파수 (MHz)';
@@ -841,11 +876,32 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String get appSettings_channelMinHopsCountRepeaters => '근처의 다른 리피터도 포함';
+
+  @override
+  String appSettings_channelMinHopsCountRepeatersSubtitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '근처의 서로 다른 리피터 $count대',
+      one: '근처 리피터 1대',
+    );
+    return '$_temp0가 다시 전송하면, 그 너머로 전달되는 것이 들리지 않아도 전송된 것으로 처리합니다.';
+  }
+
+  @override
   String get appSettings_enableMessageTracing => '메시지 추적 기능 활성화';
 
   @override
   String get appSettings_enableMessageTracingSubtitle =>
       '메시지에 대한 상세한 경로 및 시간 정보를 표시';
+
+  @override
+  String get appSettings_regionOnHopsLine => '홉 수 옆에 지역 표시';
+
+  @override
+  String get appSettings_regionOnHopsLineSubtitle =>
+      '채널 메시지의 지역을 홉 수 아래가 아닌 같은 줄에 표시합니다.';
 
   @override
   String get appSettings_notifications => '알림';
@@ -1530,6 +1586,14 @@ class AppLocalizationsKo extends AppLocalizations {
   String get channels_regionDefaultSuffix => '(기본값)';
 
   @override
+  String get channels_regionRadioDefaultSuffix => '(무전기 기본값)';
+
+  @override
+  String channels_regionRadioDefaultApplies(String region) {
+    return '이 무전기는 지역 없는 플러딩을 기본 지역으로 보냅니다: $region.';
+  }
+
+  @override
   String get channels_regionSelectExplanation =>
       '이 채널의 플러딩 메시지는 선택한 지역 안의 리피터만 전달합니다.';
 
@@ -1573,6 +1637,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get chat_typeMessage => '메시지를 입력하세요...';
 
   @override
+  String get chat_futureTimestampWarning =>
+      '이 메시지의 시간이 미래입니다. 보낸 사람의 시계가 잘못되었을 수 있습니다. 도착한 순서대로 표시됩니다.';
+
+  @override
   String chat_messageTooLong(int maxBytes) {
     return '메시지가 너무 길어서 (최대 $maxBytes 바이트).';
   }
@@ -1596,6 +1664,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get chat_sendGif => 'GIF 보내기';
+
+  @override
+  String get chat_shareMyLocation => '내 위치 공유';
+
+  @override
+  String get chat_noRadioLocation => '무전기에 위치가 설정되어 있지 않습니다';
 
   @override
   String get chat_removeGif => 'GIF 제거';
@@ -2096,6 +2170,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get map_label => '레이블';
+
+  @override
+  String get map_labelUpdateHint =>
+      '이전과 같은 레이블을 사용하면 MeshCore Open 수신자에게 표시된 마커가 업데이트됩니다.';
 
   @override
   String get map_pointOfInterest => '관심 지점';
@@ -4337,6 +4415,53 @@ class AppLocalizationsKo extends AppLocalizations {
   String get contacts_contactImportFailed => '연락처를 가져오지 못했습니다.';
 
   @override
+  String get discoveredContacts_export => '발견된 연락처 내보내기';
+
+  @override
+  String get discoveredContacts_import => '발견된 연락처 가져오기';
+
+  @override
+  String discoveredContacts_exported(String path) {
+    return '발견된 연락처를 $path(으)로 내보냈습니다.';
+  }
+
+  @override
+  String discoveredContacts_exportFailed(String error) {
+    return '발견된 연락처 내보내기에 실패했습니다: $error';
+  }
+
+  @override
+  String discoveredContacts_imported(int count) {
+    return '발견된 연락처 $count개를 가져왔습니다.';
+  }
+
+  @override
+  String get discoveredContacts_importNoContacts => '가져오기 파일에서 연락처를 찾을 수 없습니다.';
+
+  @override
+  String discoveredContacts_importSummary(
+    int imported,
+    int skipped,
+    int invalid,
+  ) {
+    return '가져옴: $imported개, 건너뜀(이미 등록됨): $skipped개, 읽을 수 없는 항목: $invalid개.';
+  }
+
+  @override
+  String get discoveredContacts_importInvalidFile =>
+      '이 파일은 발견된 연락처 내보내기 파일이 아닙니다.';
+
+  @override
+  String discoveredContacts_importTooLarge(int maxMb) {
+    return '가져오기 파일이 너무 큽니다(최대 ${maxMb}MB).';
+  }
+
+  @override
+  String discoveredContacts_importFailed(String error) {
+    return '발견된 연락처 가져오기에 실패했습니다: $error';
+  }
+
+  @override
   String get contacts_zeroHopAdvert => '제로 홉 어드버트';
 
   @override
@@ -4565,6 +4690,14 @@ class AppLocalizationsKo extends AppLocalizations {
       '연락처 목록이 가득 차면, 가장 오래된 (선호하지 않은) 연락처가 대체됩니다.';
 
   @override
+  String get contactsSettings_evictDiscoveredContactsTitle => '발견된 연락처 삭제';
+
+  @override
+  String contactsSettings_evictDiscoveredContactsSubtitle(int limit) {
+    return '활성화하면 발견된 연락처 목록이 $limit개의 한도에 도달했을 때 가장 오래된 발견된 연락처를 삭제합니다.';
+  }
+
+  @override
   String get discoveredContacts_Title => '연락처 찾기';
 
   @override
@@ -4591,6 +4724,51 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get discoveredContacts_deleteContactAllContent =>
       '정말로 모든 검색된 연락처를 삭제하시겠습니까?';
+
+  @override
+  String get discoveredContacts_scan => '근처 노드 스캔';
+
+  @override
+  String get discoveredContacts_scanTitle => '근처 노드';
+
+  @override
+  String get discoveredContacts_scanExplanation =>
+      '직접 전파가 닿는 범위의 노드에게 응답을 요청합니다. 리피터와 센서가 응답합니다. 룸 서버와 컴패니언은 보통 응답하지 않습니다.';
+
+  @override
+  String get discoveredContacts_scanning => '스캔 중…';
+
+  @override
+  String discoveredContacts_scanFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '노드 $count개 발견',
+      one: '노드 1개 발견',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get discoveredContacts_scanNoResults =>
+      '응답한 노드가 없습니다. 리피터는 응답 횟수를 제한하므로 1분 후에 다시 시도하세요.';
+
+  @override
+  String get discoveredContacts_scanAgain => '다시 스캔';
+
+  @override
+  String get discoveredContacts_scanFailed => '스캔 요청을 보내지 못했습니다.';
+
+  @override
+  String discoveredContacts_scanSignal(String snr, String remoteSnr) {
+    return '신호 $snr dB · 상대방 수신 $remoteSnr dB';
+  }
+
+  @override
+  String get discoveredContacts_scanInContacts => '이미 연락처에 있음';
+
+  @override
+  String get discoveredContacts_scanNameLater => '다음 어드버트 후에 이름이 표시됩니다';
 
   @override
   String get chat_sendCooldown => '다시 보내기 전에 잠시 기다려 주시기 바랍니다.';
@@ -5225,4 +5403,630 @@ class AppLocalizationsKo extends AppLocalizations {
   String chat_longMessageRetryNote(int count) {
     return '158바이트 초과 시: 최대 $count회 전송됩니다';
   }
+
+  @override
+  String get reviewMode_dialogTitle => '검토 모드로 들어갈까요?';
+
+  @override
+  String get reviewMode_dialogBody =>
+      '검토 모드는 샘플 연락처, 채널, 메시지가 있는 시뮬레이션 기기에 연결합니다. 실제 기기는 필요하지 않습니다.';
+
+  @override
+  String get reviewMode_confirm => '들어가기';
+
+  @override
+  String get reviewMode_cancel => '취소';
+
+  @override
+  String get reviewMode_banner => '검토 모드 — 시뮬레이션 데이터';
+
+  @override
+  String get reviewMode_sendTest => '테스트 메시지 보내기';
+
+  @override
+  String get reviewMode_testSent => '잠시 후 테스트 메시지가 도착합니다.';
+
+  @override
+  String get reviewMode_exit => '나가기';
+
+  @override
+  String reviewMode_connectFailed(String error) {
+    return '검토 모드를 시작할 수 없습니다: $error';
+  }
+
+  @override
+  String get channels_waitForSync =>
+      '채널을 무전기에서 아직 불러오는 중입니다. 동기화가 끝난 후 다시 시도하세요.';
+
+  @override
+  String channels_nameTooLong(int maxBytes) {
+    return '이름이 너무 깁니다 (최대 $maxBytes바이트).';
+  }
+
+  @override
+  String repeater_valueRequired(String field) {
+    return '$field: 값을 입력하세요';
+  }
+
+  @override
+  String get losMapDetailTooltip => '지도 상세';
+
+  @override
+  String get losUnitsTooltip => '단위';
+
+  @override
+  String get losDistance => '거리';
+
+  @override
+  String get losClearance => '여유 공간';
+
+  @override
+  String get losBlockedBy => '가로막는 대상';
+
+  @override
+  String get losObstruction => '장애물';
+
+  @override
+  String losDistanceFromA(String distance) {
+    return 'A에서 $distance';
+  }
+
+  @override
+  String get losWorstBadge => '최악';
+
+  @override
+  String losBlockedAmount(String amount) {
+    return '$amount 차단됨';
+  }
+
+  @override
+  String get losFromA => 'A 기준';
+
+  @override
+  String get losFromB => 'B 기준';
+
+  @override
+  String get losElevation => '고도';
+
+  @override
+  String get losCenterOnMap => '지도 중앙으로';
+
+  @override
+  String get losStatusClear => '양호';
+
+  @override
+  String get losStatusMarginal => '경계';
+
+  @override
+  String get losStatusBlocked => '차단됨';
+
+  @override
+  String get losStatusCheckingShort => '확인 중';
+
+  @override
+  String get losStatusNoResult => '결과 없음';
+
+  @override
+  String get losSelectedPill => '선택됨';
+
+  @override
+  String get gif_tapToLoad => '탭하여 GIF 불러오기';
+
+  @override
+  String get gif_loadFailedRetry => 'GIF를 불러올 수 없습니다\n탭하여 다시 시도';
+
+  @override
+  String get qr_cameraPermissionDenied =>
+      '카메라 권한이 거부되었습니다.\n설정에서 카메라 접근을 허용해 주세요.';
+
+  @override
+  String get qr_cameraUnsupported => '이 기기는 카메라를 지원하지 않습니다.';
+
+  @override
+  String qr_cameraStartFailed(String details) {
+    return '카메라를 시작하지 못했습니다.\n$details';
+  }
+
+  @override
+  String imageMessages_downloadFailedWithError(String error) {
+    return '이미지 모델을 다운로드하지 못했습니다: $error';
+  }
+
+  @override
+  String get map_nodeId => 'ID';
+
+  @override
+  String get map_markerHideHint => '숨기기: 지도를 벗어날 때까지 숨겨집니다.';
+
+  @override
+  String get map_markerRemoveHint => '삭제: 필터 메뉴에서 복원하기 전까지 숨겨진 상태로 유지됩니다.';
+
+  @override
+  String get map_markerRemoved => '마커를 삭제했습니다';
+
+  @override
+  String get map_restoreRemovedMarkers => '삭제한 마커 복원';
+
+  @override
+  String map_restoreRemovedMarkersSubtitle(int count) {
+    return '$count개 삭제됨';
+  }
+
+  @override
+  String map_markersRestored(int count) {
+    return '마커 $count개를 복원했습니다';
+  }
+
+  @override
+  String get map_setLocationConfirmTitle => '내 위치로 설정할까요?';
+
+  @override
+  String map_setLocationConfirmBody(String lat, String lon) {
+    return '노드가 다음 위치를 어드버트합니다:\n$lat, $lon';
+  }
+
+  @override
+  String get map_setLocationAction => '위치 설정';
+
+  @override
+  String get map_locationSetSuccess => '노드 위치를 업데이트했습니다';
+
+  @override
+  String get map_locationSetFailed => '장치가 새 위치를 확인하지 않았습니다. 다시 시도하세요.';
+
+  @override
+  String map_poiClusterTitle(int count) {
+    return '여기에 마커 $count개';
+  }
+
+  @override
+  String map_poiClusterSemantics(int count) {
+    return '공유 마커 $count개. 탭하여 목록을 확인하세요.';
+  }
+
+  @override
+  String map_youWithMarkers(int count) {
+    return '나와 마커 $count개';
+  }
+
+  @override
+  String map_sharedMarkerSemantics(String label) {
+    return '공유 마커: $label';
+  }
+
+  @override
+  String map_nodeMarkerSemantics(String name, String type, String status) {
+    return '$name, $type, $status';
+  }
+
+  @override
+  String mapCache_zoomLevel(int zoom) {
+    return '줌 $zoom';
+  }
+
+  @override
+  String mapCache_sizeBytes(String size) {
+    return '$size B';
+  }
+
+  @override
+  String mapCache_sizeKilobytes(String size) {
+    return '$size KB';
+  }
+
+  @override
+  String mapCache_sizeMegabytes(String size) {
+    return '$size MB';
+  }
+
+  @override
+  String mapCache_sizeGigabytes(String size) {
+    return '$size GB';
+  }
+
+  @override
+  String mapCache_downloadCancelled(int count) {
+    return '다운로드가 취소되었습니다. 타일 $count개를 캐시했습니다.';
+  }
+
+  @override
+  String get mapCache_tooManyTilesTitle => '영역이 너무 큽니다';
+
+  @override
+  String mapCache_tooManyTiles(int count, int max) {
+    return '이 영역에는 타일 $count개가 필요하며 제한인 $max개를 초과합니다. 더 작은 영역을 선택하거나 최대 줌을 낮추세요.';
+  }
+
+  @override
+  String get chat_clearChatConfirm => '이 대화의 모든 메시지를 이 기기에서 삭제합니다. 되돌릴 수 없습니다.';
+
+  @override
+  String get channels_clearChatConfirm =>
+      '받은 이미지를 포함해 이 채널의 모든 메시지를 이 기기에서 삭제합니다. 되돌릴 수 없습니다.';
+
+  @override
+  String get channels_timeNow => '지금';
+
+  @override
+  String channels_timeMinutes(int minutes) {
+    return '$minutes분';
+  }
+
+  @override
+  String channels_timeHours(int hours) {
+    return '$hours시간';
+  }
+
+  @override
+  String channels_timeDays(int days) {
+    return '$days일';
+  }
+
+  @override
+  String channels_indexChip(int index) {
+    return 'CH $index';
+  }
+
+  @override
+  String get reaction_unknownSender => '알 수 없음';
+
+  @override
+  String get pathMap_noSelfGpsFix => '로컬 노드에 GPS 위치가 없습니다';
+
+  @override
+  String pathTrace_sendFailed(String error) {
+    return '경로 추적을 보낼 수 없습니다: $error';
+  }
+
+  @override
+  String get losErrorNoInternet => '고도 데이터에는 인터넷 연결이 필요합니다';
+
+  @override
+  String get losResultStale => '오래된 결과: 안테나 높이가 변경되었습니다';
+
+  @override
+  String losSnrValue(String snr) {
+    return '$snr dB';
+  }
+
+  @override
+  String losFrequencyValue(String frequency) {
+    return '$frequency MHz';
+  }
+
+  @override
+  String losKFactorValue(String kFactor) {
+    return 'k=$kFactor';
+  }
+
+  @override
+  String get losEndpointA => 'A';
+
+  @override
+  String get losEndpointB => 'B';
+
+  @override
+  String get units_km => 'km';
+
+  @override
+  String get units_mi => 'mi';
+
+  @override
+  String get units_m => 'm';
+
+  @override
+  String get units_ft => 'ft';
+
+  @override
+  String get telemetry_loading => '텔레메트리 불러오는 중…';
+
+  @override
+  String telemetry_axisValue(String x, String y, String z) {
+    return 'X: $x, Y: $y, Z: $z';
+  }
+
+  @override
+  String telemetry_colourValue(String red, String green, String blue) {
+    return 'R: $red, G: $green, B: $blue';
+  }
+
+  @override
+  String telemetry_altitudeValueFeet(String feet) {
+    return '$feet ft';
+  }
+
+  @override
+  String telemetry_distanceValueFeet(String feet) {
+    return '$feet ft';
+  }
+
+  @override
+  String get settings_notConnectedError => '무전기에 연결되어 있지 않습니다. 연결한 후 다시 시도하세요.';
+
+  @override
+  String get settings_requiresConnection => '사용하려면 무전기에 연결하세요';
+
+  @override
+  String settings_txPowerInvalidRange(int min, int max) {
+    return '잘못된 TX 출력입니다($min~$max dBm)';
+  }
+
+  @override
+  String get settings_contactSettingsSaved => '연락처 설정을 저장했습니다';
+
+  @override
+  String get settings_batteryToggleHint => '탭하여 퍼센트와 전압 전환';
+
+  @override
+  String get settings_publicKeyCopyHint => '공개 키 복사';
+
+  @override
+  String get settings_locationClearHelper => '위치를 삭제하려면 두 입력란을 모두 비워 두세요.';
+
+  @override
+  String get settings_locationCleared => '위치를 삭제했습니다';
+
+  @override
+  String get settings_regionFetchDiscovering => '주변 리피터를 찾는 중…';
+
+  @override
+  String settings_regionFetchProgress(int current, int total) {
+    return '리피터 $current/$total에 요청하는 중…';
+  }
+
+  @override
+  String get settings_regionFetchNoRepeaters =>
+      '알려진 리피터가 아직 없습니다. 리피터를 연락처로 추가하거나 어드버트를 기다린 후 다시 시도하세요.';
+
+  @override
+  String get settings_regionFetchNoneResponded =>
+      '응답한 주변 리피터가 없습니다. 리피터에 더 가까이 이동한 후 다시 시도하세요.';
+
+  @override
+  String appSettings_sourceSummary(String label, String description) {
+    return '$label - $description';
+  }
+
+  @override
+  String get appSettings_routingSection => '라우팅';
+
+  @override
+  String get appSettings_imageMessagesSection => '이미지 메시지';
+
+  @override
+  String get appSettings_showApiKey => 'API 키 표시';
+
+  @override
+  String get appSettings_hideApiKey => 'API 키 숨기기';
+
+  @override
+  String get translation_defaultModelName => '모델';
+
+  @override
+  String translation_downloadProgressBytes(String fileName, String current) {
+    return '$fileName: $current MB';
+  }
+
+  @override
+  String translation_downloadProgressTotal(
+    String fileName,
+    String current,
+    String total,
+    String percent,
+  ) {
+    return '$fileName: $current / $total MB ($percent%)';
+  }
+
+  @override
+  String translation_downloadedModelDetails(String size, String source) {
+    return '$size MB • $source';
+  }
+
+  @override
+  String get repeater_radioDisconnected => '무전기 연결 끊김';
+
+  @override
+  String get repeater_radioDisconnectedHint =>
+      '명령을 보내거나 새로고침 또는 변경 사항을 저장하려면 무전기에 다시 연결하세요.';
+
+  @override
+  String get repeater_cliSend => '명령 보내기';
+
+  @override
+  String get repeater_cliCopyTranscript => '기록 복사';
+
+  @override
+  String get repeater_cliShareTranscript => '기록 공유';
+
+  @override
+  String get repeater_cliTranscriptCopied => '기록을 복사했습니다';
+
+  @override
+  String get repeater_cliClearHistoryConfirm => '명령 기록을 지울까요? 되돌릴 수 없습니다.';
+
+  @override
+  String get repeater_cliSearchCommands => '명령 검색';
+
+  @override
+  String get repeater_cliNoMatchingCommands => '일치하는 명령이 없습니다';
+
+  @override
+  String get debugLog_clearConfirm => '모든 로그 항목을 지울까요? 되돌릴 수 없습니다.';
+
+  @override
+  String get repeater_unsavedChangesTitle => '저장하지 않은 변경 사항';
+
+  @override
+  String get repeater_unsavedChangesMessage => '리피터에 저장되지 않은 변경 사항이 있습니다.';
+
+  @override
+  String get repeater_discardChanges => '취소';
+
+  @override
+  String repeater_actionSentNoReply(String action) {
+    return '$action: 명령을 보냈습니다. 리피터는 이 명령에 응답하지 않습니다.';
+  }
+
+  @override
+  String repeater_invalidSettingValue(String setting, String value) {
+    return '$setting: $value은(는) 올바르지 않습니다';
+  }
+
+  @override
+  String repeater_txPowerOutOfRange(String value, int min, int max) {
+    return 'TX 출력 $value이(가) 범위를 벗어났습니다($min~$max dBm)';
+  }
+
+  @override
+  String repeater_prvKeyLengthError(int length) {
+    return '개인 키는 정확히 16진수 $length자여야 합니다';
+  }
+
+  @override
+  String get contacts_advertFailed => '어드버트를 보낼 수 없습니다';
+
+  @override
+  String get contacts_manageGroups => '그룹 관리';
+
+  @override
+  String community_shortId(String id) {
+    return 'ID: $id…';
+  }
+
+  @override
+  String get tcpSectionTitle => 'TCP / IP';
+
+  @override
+  String get tcpConnectedToHeader => '연결 대상';
+
+  @override
+  String get usbChooseSerialPort => '시리얼 포트 선택';
+
+  @override
+  String neighbors_durationSeconds(String seconds) {
+    return '$seconds초';
+  }
+
+  @override
+  String neighbors_durationMinutes(int minutes, String seconds) {
+    return '$minutes분 $seconds초';
+  }
+
+  @override
+  String neighbors_durationHours(int hours, int minutes) {
+    return '$hours시간 $minutes분';
+  }
+
+  @override
+  String get networkMap_settingsSection => '네트워크 지도';
+
+  @override
+  String get networkMap_uploadTitle => '내 라디오가 수신한 정보 공유';
+
+  @override
+  String get networkMap_uploadExplanation =>
+      '이 기능을 켜고 라디오가 연결되어 있으면, 앱이 라디오가 수신한 패킷의 요약 정보를 MeshCore Open 네트워크 지도로 보내 어떤 리피터가 있고 서로 어떻게 연결되는지 모두가 볼 수 있게 합니다. 각 패킷의 종류, 경로, 홉 수, 신호 세기, 크기와 함께 리피터 자체 어드버트에 담긴 이름과 대략적인 위치를 보냅니다. 메시지 내용, 누가 누구와 대화하는지, 채널 이름, 연락처, 정확한 위치는 절대 보내지 않습니다. 위치는 약 2km 단위로 반올림되며, 앱 ID는 매일 새로운 무작위 값으로 바뀝니다.';
+
+  @override
+  String get networkMap_whatWeCollect => '수집하는 정보';
+
+  @override
+  String get networkMap_promptTitle => '네트워크 지도 만들기에 참여하시겠어요?';
+
+  @override
+  String get networkMap_promptBody =>
+      'MeshCore Open은 라디오가 수신한 정보를 map.meshcoreopen.org의 공개 네트워크 지도와 공유하여, 어떤 리피터가 있고 서로 어떻게 연결되는지 모두가 볼 수 있게 할 수 있습니다.\n\n메시지 내용, 누가 누구와 대화하는지, 채널 이름, 연락처, 정확한 위치는 절대 보내지 않습니다. 위치는 약 2km 단위로 반올림됩니다.';
+
+  @override
+  String get networkMap_promptSettingsHint =>
+      '설정 → 앱 설정 → 네트워크 지도에서 언제든지 변경할 수 있습니다.';
+
+  @override
+  String get networkMap_promptAccept => '공유';
+
+  @override
+  String get networkMap_promptDecline => '괜찮아요';
+
+  @override
+  String get networkMap_statusOff => '꺼짐. 아무것도 전송되지 않습니다.';
+
+  @override
+  String get networkMap_statusWaiting => '켜짐. 라디오 연결을 기다리는 중입니다.';
+
+  @override
+  String get networkMap_statusNothingSent => '켜짐. 아직 전송한 내용이 없습니다.';
+
+  @override
+  String networkMap_statusLastSent(String time, int count) {
+    return '마지막 전송 $time. 오늘 패킷 $count개.';
+  }
+
+  @override
+  String get networkMap_sourceLocal => '로컬';
+
+  @override
+  String get networkMap_sourceOnline => '온라인';
+
+  @override
+  String get networkMap_sourceBoth => '모두';
+
+  @override
+  String get networkMap_zoomInHint => '온라인 네트워크 지도를 보려면 확대하세요';
+
+  @override
+  String get networkMap_loadFailed => '온라인 네트워크 지도를 불러오지 못했습니다';
+
+  @override
+  String get networkMap_inYourContacts => '내 연락처에 있음';
+
+  @override
+  String get networkMap_status => '상태';
+
+  @override
+  String get networkMap_statusActive => '최근 1시간 이내 활동';
+
+  @override
+  String get networkMap_statusRecent => '최근 하루 이내 수신';
+
+  @override
+  String get networkMap_statusStale => '최근 수신 없음';
+
+  @override
+  String get networkMap_confirmed => '확인됨';
+
+  @override
+  String get networkMap_singleSource => '단일 출처, 아직 확인되지 않음';
+
+  @override
+  String get networkMap_reports => '보고';
+
+  @override
+  String get networkMap_locationEstimated => '대략적인 위치, 수신한 노드를 기준으로 추정';
+
+  @override
+  String get networkMap_locationAdvertised => '대략적인 위치, 자체 어드버트 기준';
+
+  @override
+  String get networkMap_heardByRadio => '내 라디오가 수신함';
+
+  @override
+  String get networkMap_inYourArea => '내 주변 지역';
+
+  @override
+  String get networkMap_farAway => '멀리 떨어져 있어 관리할 수 없습니다.';
+
+  @override
+  String get networkMap_addToContacts => '연락처에 추가';
+
+  @override
+  String get networkMap_manage => '관리';
+
+  @override
+  String get networkMap_addedToContacts => '연락처에 추가됨';
+
+  @override
+  String get networkMap_addFailed => '연락처에 추가하지 못했습니다';
+
+  @override
+  String get networkMap_unnamed => '이름 없는 리피터';
 }

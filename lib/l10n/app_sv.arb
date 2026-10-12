@@ -454,6 +454,8 @@
     }
   },
   "chat_location": "Plats",
+  "chat_noRadioLocation": "Din radio har ingen plats inställd",
+  "chat_shareMyLocation": "Dela min plats",
   "chat_sendMessageTo": "Skicka ett meddelande till {contactName}",
   "@chat_sendMessageTo": {
     "placeholders": {
@@ -690,6 +692,7 @@
   "map_shareMarkerHere": "Dela markeringen här",
   "map_pinLabel": "Fästetikett",
   "map_label": "Etikett",
+  "map_labelUpdateHint": "Om du använder samma etikett som tidigare uppdateras markören för mottagare med MeshCore Open.",
   "map_pointOfInterest": "Plats av intresse",
   "map_sendToContact": "Skicka till kontakt",
   "map_sendToChannel": "Skicka till kanal",
@@ -2018,7 +2021,47 @@
   "discoveredContacts_contactAdded": "Kontakt tillagd",
   "discoveredContacts_addContact": "Lägg till kontakt",
   "discoveredContacts_copyContact": "Kopiera kontakt till urklipp",
+  "discoveredContacts_export": "Exportera upptäckta kontakter",
+  "discoveredContacts_import": "Importera upptäckta kontakter",
+  "discoveredContacts_exported": "Upptäckta kontakter exporterades till {path}.",
+  "@discoveredContacts_exported": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "discoveredContacts_exportFailed": "Det gick inte att exportera upptäckta kontakter: {error}",
+  "@discoveredContacts_exportFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "discoveredContacts_imported": "Importerade {count} upptäckta kontakter.",
+  "@discoveredContacts_imported": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "discoveredContacts_importNoContacts": "Inga kontakter hittades i importfilen.",
+  "discoveredContacts_importFailed": "Det gick inte att importera upptäckta kontakter: {error}",
+  "@discoveredContacts_importFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "discoveredContacts_importInvalidFile": "Filen är inte en export av upptäckta kontakter.",
+  "discoveredContacts_importSummary": "Importerade: {imported}, hoppade över redan kända: {skipped}, oläsliga poster: {invalid}.",
+  "discoveredContacts_importTooLarge": "Importfilen är för stor (högst {maxMb} MB).",
   "contactsSettings_overwriteOldestSubtitle": "När kontaktlistan är full ersätts den äldsta icke-favoriterade kontakten.",
+  "contactsSettings_evictDiscoveredContactsTitle": "Rensa upptäckta kontakter",
+  "contactsSettings_evictDiscoveredContactsSubtitle": "När detta är aktiverat tar appen bort de äldsta upptäckta kontakterna när listan över upptäckta kontakter når sin gräns på {limit} poster.",
   "common_deleteAll": "Ta bort alla",
   "discoveredContacts_deleteContactAllContent": "Är du säker på att du vill ta bort alla upptäckta kontakter?",
   "discoveredContacts_deleteContactAll": "Ta bort alla upptäckta kontakter",
@@ -2252,12 +2295,6 @@
   "scanner_linuxPairingHidePin": "Dölj PIN",
   "repeater_cliQuickDiscovery": "Upptäck grannar",
   "repeater_cliQuickClockSync": "Synkronisera klocka",
-  "@repeater_clockSyncAfterLogin": {
-    "description": "Repeater setting: auto sync device clock after successful login"
-  },
-  "@repeater_clockSyncAfterLoginSubtitle": {
-    "description": "Repeater setting subtitle: describes the clock sync after login behavior"
-  },
   "repeater_clockSyncAfterLoginSubtitle": "Automatiskt skicka \"klocksynkronisering\" efter en lyckad inloggning.",
   "repeater_clockSyncAfterLogin": "Synkronisera klockan efter inloggning",
   "repeater_guest": "Repeaterinformation",
@@ -2876,6 +2913,13 @@
     }
   },
   "messageStatus_hopsNotReached": "Skickat, men endast hört tillbaka via {hops} av {required} repeatrar. Det kan ha kommit längre än din radio kan höra.",
+  "@contactsSettings_evictDiscoveredContactsSubtitle": {
+    "placeholders": {
+      "limit": {
+        "type": "int"
+      }
+    }
+  },
   "@messageStatus_hopsNotReached": {
     "placeholders": {
       "hops": {
@@ -2904,7 +2948,7 @@
   "settings_telemetryPerContactHint": "För att tillåta en kontakt öppnar du chatten och väljer Kontaktinställningar i menyn.",
   "settings_multiAckSubtitle": "Skicka extra ACK för bättre leverans; använder mer sändningstid",
   "settings_presetCustom": "Anpassad",
-  "settings_radioMatchWarning": "Alla noder du kommunicerar med måste använda samma frekvens, bandbredd, SF och CR.",
+  "settings_radioMatchWarning": "Alla noder du kommunicerar med måste använda samma frekvens, bandbredd och SF. Kodningshastigheten (CR) får skilja sig.",
   "settings_txPowerRangeHelper": "{min} till {max} dBm",
   "@settings_txPowerRangeHelper": {
     "placeholders": {
@@ -3052,5 +3096,214 @@
       }
     }
   },
-  "receivedImage_saveFailed": "Kunde inte spara bilden"
+  "receivedImage_saveFailed": "Kunde inte spara bilden",
+  "reviewMode_dialogTitle": "Aktivera granskningsläge?",
+  "reviewMode_dialogBody": "Granskningsläget ansluter till en simulerad radio med exempelkontakter, kanaler och meddelanden. Ingen riktig radio behövs.",
+  "reviewMode_confirm": "Aktivera",
+  "reviewMode_cancel": "Avbryt",
+  "reviewMode_banner": "Granskningsläge — simulerad data",
+  "reviewMode_sendTest": "Skicka testmeddelande",
+  "reviewMode_testSent": "Ett testmeddelande kommer snart.",
+  "reviewMode_exit": "Avsluta",
+  "reviewMode_connectFailed": "Det gick inte att starta granskningsläget: {error}",
+  "settings_regionUseRadioDefault": "Radions standard ({region})",
+  "settings_regionNoRegion": "Ingen region (utan begränsning)",
+  "settings_regionRadioDefault": "Radions standardregion",
+  "settings_regionRadioDefaultSubtitle": "Sparas på radion. Floods som skickas utan region använder den, från den här appen och från alla andra appar som är anslutna till radion.",
+  "settings_regionRadioDefaultUpdated": "Radions standardregion uppdaterad",
+  "settings_regionRadioDefaultFailed": "Det gick inte att uppdatera radions standardregion",
+  "appSettings_channelMinHopsCountRepeaters": "Räkna även olika repeatrar i närheten",
+  "appSettings_channelMinHopsCountRepeatersSubtitle": "Betrakta meddelandet som skickat när {count, plural, =1{1 repeater i närheten} other{{count} olika repeatrar i närheten}} upprepar det, även om du inte hör det färdas vidare.",
+  "appSettings_regionOnHopsLine": "Region bredvid hoppantal",
+  "appSettings_regionOnHopsLineSubtitle": "Visa ett kanalmeddelandes region på samma rad som dess hoppantal i stället för under det.",
+  "channels_regionRadioDefaultSuffix": "(radions standard)",
+  "channels_regionRadioDefaultApplies": "Den här radion skickar floods utan region i sin standardregion: {region}.",
+  "chat_futureTimestampWarning": "Det här meddelandets tid ligger i framtiden, så avsändarens klocka kan vara fel. Det visas i den ordning det kom in.",
+  "discoveredContacts_scan": "Sök efter noder i närheten",
+  "discoveredContacts_scanTitle": "Noder i närheten",
+  "discoveredContacts_scanExplanation": "Ber noder inom direkt radioräckvidd att identifiera sig. Repeatrar och sensorer svarar. Rumsservrar och companions gör det oftast inte.",
+  "discoveredContacts_scanning": "Söker…",
+  "discoveredContacts_scanFound": "{count, plural, =1{1 nod hittades} other{{count} noder hittades}}",
+  "discoveredContacts_scanNoResults": "Inga noder svarade. Repeatrar begränsar hur ofta de svarar, så försök igen om en minut.",
+  "discoveredContacts_scanAgain": "Sök igen",
+  "discoveredContacts_scanFailed": "Det gick inte att skicka sökförfrågan.",
+  "discoveredContacts_scanSignal": "Signal {snr} dB · de hörde oss med {remoteSnr} dB",
+  "discoveredContacts_scanInContacts": "Finns redan i kontakter",
+  "discoveredContacts_scanNameLater": "Namnet visas efter nästa annons",
+  "channels_waitForSync": "Kanalerna laddas fortfarande från radion. Försök igen när synkroniseringen är klar.",
+  "channels_nameTooLong": "Namnet är för långt (max {maxBytes} byte).",
+  "repeater_valueRequired": "{field}: ange ett värde",
+  "losMapDetailTooltip": "Kartdetaljer",
+  "losUnitsTooltip": "Enheter",
+  "losDistance": "Avstånd",
+  "losClearance": "Frigång",
+  "losBlockedBy": "Blockeras av",
+  "losObstruction": "Hinder",
+  "losDistanceFromA": "{distance} från A",
+  "losWorstBadge": "VÄRST",
+  "losBlockedAmount": "Blockerad {amount}",
+  "losFromA": "Från A",
+  "losFromB": "Från B",
+  "losElevation": "Höjd",
+  "losCenterOnMap": "Centrera på kartan",
+  "losStatusClear": "Fri",
+  "losStatusMarginal": "Marginell",
+  "losStatusBlocked": "Blockerad",
+  "losStatusCheckingShort": "Kontrollerar",
+  "losStatusNoResult": "Inget resultat",
+  "losSelectedPill": "Vald",
+  "gif_tapToLoad": "Tryck för att ladda GIF",
+  "gif_loadFailedRetry": "Det gick inte att ladda GIF\nTryck för att försöka igen",
+  "qr_cameraPermissionDenied": "Kamerabehörighet nekades.\nAktivera kameraåtkomst i inställningarna.",
+  "qr_cameraUnsupported": "Kameran stöds inte på den här enheten.",
+  "qr_cameraStartFailed": "Det gick inte att starta kameran.\n{details}",
+  "imageMessages_downloadFailedWithError": "Bildmodellen kunde inte laddas ned: {error}",
+  "map_nodeId": "ID",
+  "map_markerHideHint": "Dölj: dold tills du lämnar kartan.",
+  "map_markerRemoveHint": "Ta bort: förblir dold tills du återställer den från filtermenyn.",
+  "map_markerRemoved": "Markör borttagen",
+  "map_restoreRemovedMarkers": "Återställ borttagna markörer",
+  "map_restoreRemovedMarkersSubtitle": "{count} borttagna",
+  "map_markersRestored": "Återställde {count} markörer",
+  "map_setLocationConfirmTitle": "Ange som din plats?",
+  "map_setLocationConfirmBody": "Din nod kommer att annonsera denna position:\n{lat}, {lon}",
+  "map_setLocationAction": "Ange plats",
+  "map_locationSetSuccess": "Nodens plats uppdaterad",
+  "map_locationSetFailed": "Enheten bekräftade inte den nya platsen. Försök igen.",
+  "map_poiClusterTitle": "{count} markörer här",
+  "map_poiClusterSemantics": "{count} delade markörer. Tryck för att visa dem.",
+  "map_youWithMarkers": "Du och {count} markörer",
+  "map_sharedMarkerSemantics": "Delad markör: {label}",
+  "map_nodeMarkerSemantics": "{name}, {type}, {status}",
+  "mapCache_zoomLevel": "Zoom {zoom}",
+  "mapCache_sizeBytes": "{size} B",
+  "mapCache_sizeKilobytes": "{size} KB",
+  "mapCache_sizeMegabytes": "{size} MB",
+  "mapCache_sizeGigabytes": "{size} GB",
+  "mapCache_downloadCancelled": "Nedladdningen avbröts. {count} brickor cachades.",
+  "mapCache_tooManyTilesTitle": "Området är för stort",
+  "mapCache_tooManyTiles": "Det här området kräver {count} brickor, vilket överskrider gränsen på {max}. Välj ett mindre område eller sänk maximal zoom.",
+  "chat_clearChatConfirm": "Detta raderar alla meddelanden i den här konversationen från den här enheten. Det går inte att ångra.",
+  "channels_clearChatConfirm": "Detta raderar alla meddelanden i den här kanalen från den här enheten, inklusive mottagna bilder. Det går inte att ångra.",
+  "channels_timeNow": "nu",
+  "channels_timeMinutes": "{minutes} min",
+  "channels_timeHours": "{hours} h",
+  "channels_timeDays": "{days} d",
+  "channels_indexChip": "KAN {index}",
+  "reaction_unknownSender": "Okänd",
+  "pathMap_noSelfGpsFix": "Den lokala noden har ingen GPS-fix",
+  "pathTrace_sendFailed": "Kunde inte skicka sökvägsspårningen: {error}",
+  "losErrorNoInternet": "Höjddata kräver internetanslutning",
+  "losResultStale": "Föråldrat: antennhöjden har ändrats",
+  "losSnrValue": "{snr} dB",
+  "losFrequencyValue": "{frequency} MHz",
+  "losKFactorValue": "k={kFactor}",
+  "losEndpointA": "A",
+  "losEndpointB": "B",
+  "units_km": "km",
+  "units_mi": "mi",
+  "units_m": "m",
+  "units_ft": "ft",
+  "telemetry_loading": "Läser in telemetri…",
+  "telemetry_axisValue": "X: {x}, Y: {y}, Z: {z}",
+  "telemetry_colourValue": "R: {red}, G: {green}, B: {blue}",
+  "telemetry_altitudeValueFeet": "{feet} ft",
+  "telemetry_distanceValueFeet": "{feet} ft",
+  "settings_notConnectedError": "Inte ansluten till en radio. Anslut och försök igen.",
+  "settings_requiresConnection": "Anslut till en radio för att använda detta",
+  "settings_txPowerInvalidRange": "Ogiltig TX-effekt ({min} till {max} dBm)",
+  "settings_contactSettingsSaved": "Kontaktinställningar sparade",
+  "settings_batteryToggleHint": "Tryck för att växla mellan procent och spänning",
+  "settings_publicKeyCopyHint": "Kopiera publik nyckel",
+  "settings_locationClearHelper": "Lämna båda fälten tomma för att ta bort din plats.",
+  "settings_locationCleared": "Platsen borttagen",
+  "settings_regionFetchDiscovering": "Söker efter repeatrar i närheten…",
+  "settings_regionFetchProgress": "Frågar repeater {current} av {total}…",
+  "settings_regionFetchNoRepeaters": "Inga repeatrar är kända ännu. Lägg till en repeater som kontakt eller vänta tills en annonserar, och försök sedan igen.",
+  "settings_regionFetchNoneResponded": "Ingen repeater i närheten svarade. Flytta dig närmare en repeater och försök igen.",
+  "appSettings_sourceSummary": "{label} - {description}",
+  "appSettings_routingSection": "Routing",
+  "appSettings_imageMessagesSection": "Bildmeddelanden",
+  "appSettings_showApiKey": "Visa API-nyckel",
+  "appSettings_hideApiKey": "Dölj API-nyckel",
+  "translation_defaultModelName": "Modell",
+  "translation_downloadProgressBytes": "{fileName}: {current} MB",
+  "translation_downloadProgressTotal": "{fileName}: {current} / {total} MB ({percent}%)",
+  "translation_downloadedModelDetails": "{size} MB • {source}",
+  "repeater_radioDisconnected": "Radion frånkopplad",
+  "repeater_radioDisconnectedHint": "Återanslut till din radio för att skicka kommandon, uppdatera eller spara ändringar.",
+  "repeater_cliSend": "Skicka kommando",
+  "repeater_cliCopyTranscript": "Kopiera utskrift",
+  "repeater_cliShareTranscript": "Dela utskrift",
+  "repeater_cliTranscriptCopied": "Utskrift kopierad",
+  "repeater_cliClearHistoryConfirm": "Rensa kommandohistoriken? Det går inte att ångra.",
+  "repeater_cliSearchCommands": "Sök kommandon",
+  "repeater_cliNoMatchingCommands": "Inga matchande kommandon",
+  "debugLog_clearConfirm": "Rensa alla loggposter? Det går inte att ångra.",
+  "repeater_unsavedChangesTitle": "Osparade ändringar",
+  "repeater_unsavedChangesMessage": "Du har ändringar som inte har sparats i repeatern.",
+  "repeater_discardChanges": "Förkasta",
+  "repeater_actionSentNoReply": "{action}: kommando skickat. Repeatern svarar inte på detta kommando.",
+  "repeater_invalidSettingValue": "{setting}: {value} är inte giltigt",
+  "repeater_txPowerOutOfRange": "TX-effekt {value} ligger utanför intervallet ({min} till {max} dBm)",
+  "repeater_prvKeyLengthError": "Privat nyckel måste vara exakt {length} hexadecimala tecken",
+  "contacts_advertFailed": "Kunde inte skicka annonsen",
+  "contacts_manageGroups": "Hantera grupper",
+  "community_shortId": "ID: {id}…",
+  "tcpSectionTitle": "TCP / IP",
+  "tcpConnectedToHeader": "Ansluten till",
+  "usbChooseSerialPort": "Välj serieport",
+  "neighbors_durationSeconds": "{seconds} s",
+  "neighbors_durationMinutes": "{minutes} min {seconds} s",
+  "neighbors_durationHours": "{hours} h {minutes} min",
+  "scanner_getNodeTitle": "Behöver du en ny nod?",
+  "scanner_getNodeBody": "Plånboksstorlek, kör MeshCore, GPS med dubbla band, vattentät, 5 dagars batteritid.",
+  "scanner_getNodeAction": "Skaffa en här",
+  "scanner_getNodeDisclosure": "Affiliatelänk: varje köp stöder MeshCore Open.",
+  "networkMap_settingsSection": "Nätverkskarta",
+  "networkMap_uploadTitle": "Dela vad min radio hör",
+  "networkMap_uploadExplanation": "När detta är på och din radio är ansluten skickar appen en kort sammanfattning av paketen som din radio hör till MeshCore Opens nätverkskarta, så att alla kan se vilka repeaters som finns och hur de hänger ihop. Den skickar varje pakets typ, rutt, antal hopp, signalstyrka och storlek, plus repeaternamn och ungefärliga platser från deras egna annonser. Den skickar aldrig meddelandetext, vem som pratar med vem, kanalnamn, dina kontakter eller din exakta position: platser avrundas till cirka 2 km, och din app får ett nytt slumpmässigt ID varje dag.",
+  "networkMap_whatWeCollect": "Vad vi samlar in",
+  "networkMap_promptTitle": "Hjälpa till att bygga nätverkskartan?",
+  "networkMap_promptBody": "MeshCore Open kan dela vad din radio hör med den offentliga nätverkskartan på map.meshcoreopen.org, så att alla kan se vilka repeaters som finns och hur de hänger ihop.\n\nDen skickar aldrig meddelandetext, vem som pratar med vem, kanalnamn, dina kontakter eller din exakta position. Platser avrundas till cirka 2 km.",
+  "networkMap_promptSettingsHint": "Du kan ändra detta när som helst under Inställningar → Appinställningar → Nätverkskarta.",
+  "networkMap_promptAccept": "Dela",
+  "networkMap_promptDecline": "Nej tack",
+  "networkMap_statusOff": "Av. Inget skickas.",
+  "networkMap_statusWaiting": "På. Väntar på radioanslutning.",
+  "networkMap_statusNothingSent": "På. Inget skickat ännu.",
+  "networkMap_statusLastSent": "Senast skickat {time}. {count} paket idag.",
+  "@networkMap_statusLastSent": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "networkMap_sourceLocal": "Lokal",
+  "networkMap_sourceOnline": "Online",
+  "networkMap_sourceBoth": "Båda",
+  "networkMap_zoomInHint": "Zooma in för att se nätverkskartan online",
+  "networkMap_loadFailed": "Det gick inte att ladda nätverkskartan online",
+  "networkMap_inYourContacts": "I dina kontakter",
+  "networkMap_status": "Status",
+  "networkMap_statusActive": "Aktiv den senaste timmen",
+  "networkMap_statusRecent": "Hörd under det senaste dygnet",
+  "networkMap_statusStale": "Inte hörd på sistone",
+  "networkMap_confirmed": "Bekräftad",
+  "networkMap_singleSource": "Enskild källa, ännu inte bekräftad",
+  "networkMap_reports": "Rapporter",
+  "networkMap_locationEstimated": "Ungefärlig plats, uppskattad utifrån vilka som hörde den",
+  "networkMap_locationAdvertised": "Ungefärlig plats, från dess egen annons",
+  "networkMap_heardByRadio": "Hörd av din radio",
+  "networkMap_inYourArea": "I ditt område",
+  "networkMap_farAway": "Långt bort. Hantering når inte dit.",
+  "networkMap_addToContacts": "Lägg till i kontakter",
+  "networkMap_manage": "Hantera",
+  "networkMap_addedToContacts": "Tillagd i kontakter",
+  "networkMap_addFailed": "Det gick inte att lägga till i kontakter",
+  "networkMap_unnamed": "Namnlös repeater"
 }
