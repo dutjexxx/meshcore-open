@@ -178,6 +178,10 @@
   "scanner_chromeRequired": "Chrome Browser Required",
   "scanner_chromeRequiredMessage": "This web application requires Google Chrome or a Chromium-based browser for Bluetooth support.",
   "scanner_enableBluetooth": "Enable Bluetooth",
+  "scanner_getNodeTitle": "Need a new node?",
+  "scanner_getNodeBody": "Wallet-sized, runs MeshCore, dual-band GPS, waterproof, 5-day battery.",
+  "scanner_getNodeAction": "Get one here",
+  "scanner_getNodeDisclosure": "Affiliate link: each purchase supports MeshCore Open.",
   "scanner_bluetoothWebUnsupported": "Bluetooth isn't available in the browser. Connect over USB instead.",
   "device_quickSwitch": "Quick switch",
   "device_meshcore": "MeshCore",
@@ -201,6 +205,19 @@
   "settings_regionDefault": "Default region",
   "settings_regionDefaultSubtitle": "Used by channels without their own region",
   "settings_regionDefaultNone": "None",
+  "settings_regionUseRadioDefault": "Radio default ({region})",
+  "@settings_regionUseRadioDefault": {
+    "placeholders": {
+      "region": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_regionNoRegion": "No region (unscoped)",
+  "settings_regionRadioDefault": "Radio default region",
+  "settings_regionRadioDefaultSubtitle": "Saved on the radio. Floods sent without a region use it, from this app and any other app connected to the radio.",
+  "settings_regionRadioDefaultUpdated": "Radio default region updated",
+  "settings_regionRadioDefaultFailed": "Could not update the radio default region",
   "settings_regionManagement_screenTitle": "Region Management",
   "settings_regionNameHint": "Enter region name",
   "settings_regionAddRegion": "Add region",
@@ -296,7 +313,7 @@
   "settings_infoFirmware": "Firmware",
   "settings_presets": "Presets",
   "settings_presetCustom": "Custom",
-  "settings_radioMatchWarning": "All nodes you talk to must use the same frequency, bandwidth, SF and CR.",
+  "settings_radioMatchWarning": "All nodes you talk to must use the same frequency, bandwidth and SF. The coding rate (CR) can differ.",
   "settings_frequency": "Frequency (MHz)",
   "settings_frequencyHelper": "150.0 - 2500.0",
   "settings_frequencyInvalid": "Invalid frequency (150-2500 MHz)",
@@ -389,8 +406,19 @@
       }
     }
   },
+  "appSettings_channelMinHopsCountRepeaters": "Also count different nearby repeaters",
+  "appSettings_channelMinHopsCountRepeatersSubtitle": "Treat the message as sent when {count, plural, =1{1 nearby repeater} other{{count} different nearby repeaters}} repeat it, even if you can't hear it travel further.",
+  "@appSettings_channelMinHopsCountRepeatersSubtitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "appSettings_enableMessageTracing": "Show full repeater path in messages",
   "appSettings_enableMessageTracingSubtitle": "Also show repeat counts and trip times. Long-press a message and choose Path for full details.",
+  "appSettings_regionOnHopsLine": "Region next to hop count",
+  "appSettings_regionOnHopsLineSubtitle": "Show a channel message's region on the same line as its hop count instead of below it.",
   "appSettings_notifications": "Notifications",
   "appSettings_enableNotifications": "Enable Notifications",
   "appSettings_enableNotificationsSubtitle": "Receive notifications for messages and adverts",
@@ -808,6 +836,15 @@
   "channels_regionSelect_Title": "Select a region",
   "channels_clearRegion": "Clear region",
   "channels_regionDefaultSuffix": "(default)",
+  "channels_regionRadioDefaultSuffix": "(radio default)",
+  "channels_regionRadioDefaultApplies": "This radio sends floods without a region in its default region: {region}.",
+  "@channels_regionRadioDefaultApplies": {
+    "placeholders": {
+      "region": {
+        "type": "String"
+      }
+    }
+  },
   "channels_regionSelectExplanation": "Flood messages on this channel will only be forwarded by repeaters in the selected region.",
   "channels_regionEmpty": "No regions yet.",
   "channels_manageRegions": "Manage regions",
@@ -841,6 +878,7 @@
   },
   "chat_location": "Location",
   "chat_typeMessage": "Type a message...",
+  "chat_futureTimestampWarning": "This message's time is in the future, so the sender's clock may be wrong. It is shown in the order it arrived.",
   "chat_messageTooLong": "Message too long (max {maxBytes} bytes).",
   "@chat_messageTooLong": {
     "placeholders": {
@@ -865,6 +903,14 @@
   },
   "chat_selectSendAction": "Select send action",
   "chat_sendGif": "Send GIF",
+  "chat_shareMyLocation": "Share my location",
+  "@chat_shareMyLocation": {
+    "description": "Chat input menu action that shares the radio's own position as a map marker"
+  },
+  "chat_noRadioLocation": "Your radio has no location set",
+  "@chat_noRadioLocation": {
+    "description": "Shown when sharing a location but the radio reports no usable position"
+  },
   "chat_removeGif": "Remove GIF",
   "chat_cancelReply": "Cancel reply",
   "chat_sendImageLora": "Send low-res image over radio",
@@ -1145,6 +1191,7 @@
   "map_setAsMyLocation": "Set as my location",
   "map_pinLabel": "Pin label",
   "map_label": "Label",
+  "map_labelUpdateHint": "Using the same label as before will update the marker for MeshCore Open recipients.",
   "map_pointOfInterest": "Point of interest",
   "map_sendToContact": "Send to contact",
   "map_sendToChannel": "Send to channel",
@@ -2557,6 +2604,64 @@
   "contacts_invalidAdvertFormat": "Invalid contact data",
   "contacts_contactImported": "Contact has been imported.",
   "contacts_contactImportFailed": "Failed to import contact.",
+  "discoveredContacts_export": "Export discovered contacts",
+  "discoveredContacts_import": "Import discovered contacts",
+  "discoveredContacts_exported": "Exported discovered contacts to {path}.",
+  "@discoveredContacts_exported": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "discoveredContacts_exportFailed": "Failed to export discovered contacts: {error}",
+  "@discoveredContacts_exportFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "discoveredContacts_imported": "Imported {count} discovered contacts.",
+  "@discoveredContacts_imported": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "discoveredContacts_importNoContacts": "No contacts found in import file.",
+  "discoveredContacts_importSummary": "Imported {imported} discovered contacts. Skipped {skipped} already known and {invalid} unreadable entries.",
+  "@discoveredContacts_importSummary": {
+    "placeholders": {
+      "imported": {
+        "type": "int"
+      },
+      "skipped": {
+        "type": "int"
+      },
+      "invalid": {
+        "type": "int"
+      }
+    }
+  },
+  "discoveredContacts_importInvalidFile": "The file is not a discovered contacts export.",
+  "discoveredContacts_importTooLarge": "The import file is too large (maximum {maxMb} MB).",
+  "@discoveredContacts_importTooLarge": {
+    "placeholders": {
+      "maxMb": {
+        "type": "int"
+      }
+    }
+  },
+  "discoveredContacts_importFailed": "Failed to import discovered contacts: {error}",
+  "@discoveredContacts_importFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "contacts_zeroHopAdvert": "Zero Hop Advert",
   "contacts_floodAdvert": "Flood Advert",
   "contacts_copyAdvertToClipboard": "Copy Advert to Clipboard",
@@ -2661,6 +2766,15 @@
   "contactsSettings_autoAddSensorsSubtitle": "Allow the companion to automatically add discovered sensors.",
   "contactsSettings_overwriteOldestTitle": "Overwrite Oldest",
   "contactsSettings_overwriteOldestSubtitle": "When the contact list is full, the oldest non-favorited contact will be replaced.",
+  "contactsSettings_evictDiscoveredContactsTitle": "Evict discovered contacts",
+  "contactsSettings_evictDiscoveredContactsSubtitle": "When enabled, the app removes the oldest discovered contacts once the discovery list reaches its limit of {limit} entries.",
+  "@contactsSettings_evictDiscoveredContactsSubtitle": {
+    "placeholders": {
+      "limit": {
+        "type": "int"
+      }
+    }
+  },
   "discoveredContacts_Title": "Discovered Contacts",
   "discoveredContacts_noMatching": "No matching contacts",
   "discoveredContacts_searchHint": "Search discovered contacts",
@@ -2670,6 +2784,34 @@
   "discoveredContacts_deleteContact": "Delete Discovered Contact",
   "discoveredContacts_deleteContactAll": "Delete All Discovered Contacts",
   "discoveredContacts_deleteContactAllContent": "Are you sure you want to delete all discovered contacts?",
+  "discoveredContacts_scan": "Scan for nearby nodes",
+  "discoveredContacts_scanTitle": "Nearby nodes",
+  "discoveredContacts_scanExplanation": "Asks nodes within direct radio range to identify themselves. Repeaters and sensors answer. Room servers and companions usually don't.",
+  "discoveredContacts_scanning": "Scanning…",
+  "discoveredContacts_scanFound": "{count, plural, =1{1 node found} other{{count} nodes found}}",
+  "@discoveredContacts_scanFound": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "discoveredContacts_scanNoResults": "No nodes answered. Repeaters limit how often they reply, so try again in a minute.",
+  "discoveredContacts_scanAgain": "Scan again",
+  "discoveredContacts_scanFailed": "Could not send the scan request.",
+  "discoveredContacts_scanSignal": "Signal {snr} dB · they heard us at {remoteSnr} dB",
+  "@discoveredContacts_scanSignal": {
+    "placeholders": {
+      "snr": {
+        "type": "String"
+      },
+      "remoteSnr": {
+        "type": "String"
+      }
+    }
+  },
+  "discoveredContacts_scanInContacts": "Already in contacts",
+  "discoveredContacts_scanNameLater": "Name appears after its next advert",
   "chat_sendCooldown": "Please wait a moment before sending again.",
   "appSettings_jumpToOldestUnread": "Jump to oldest unread",
   "appSettings_jumpToOldestUnreadSubtitle": "When opening a chat with unread messages, scroll to the first unread instead of the latest.",
@@ -3119,5 +3261,241 @@
         "type": "int"
       }
     }
-  }
+  },
+  "reviewMode_dialogTitle": "Enter review mode?",
+  "@reviewMode_dialogTitle": {"description": "Title of the review mode confirmation dialog"},
+  "reviewMode_dialogBody": "Review mode connects to a simulated radio with sample contacts, channels and messages. No real radio is needed.",
+  "@reviewMode_dialogBody": {"description": "Body of the review mode confirmation dialog"},
+  "reviewMode_confirm": "Enter",
+  "@reviewMode_confirm": {"description": "Confirm button of the review mode dialog"},
+  "reviewMode_cancel": "Cancel",
+  "@reviewMode_cancel": {"description": "Cancel button of the review mode dialog"},
+  "reviewMode_banner": "Review mode — simulated data",
+  "@reviewMode_banner": {"description": "Label of the banner shown while review mode is active"},
+  "reviewMode_sendTest": "Send test message",
+  "@reviewMode_sendTest": {"description": "Banner action that makes the simulated radio deliver a message"},
+  "reviewMode_testSent": "A test message will arrive shortly.",
+  "@reviewMode_testSent": {"description": "Snackbar shown after requesting a test message"},
+  "reviewMode_exit": "Exit",
+  "@reviewMode_exit": {"description": "Banner action that leaves review mode"},
+  "reviewMode_connectFailed": "Could not start review mode: {error}",
+  "@reviewMode_connectFailed": {"description": "Snackbar shown when review mode fails to connect", "placeholders": {"error": {"type": "String"}}},
+  "channels_waitForSync": "Channels are still loading from the radio. Try again when the sync finishes.",
+  "@channels_waitForSync": {"description": "Snackbar when the user tries to add a channel before the channel list has fully synced"},
+  "channels_nameTooLong": "Name is too long (max {maxBytes} bytes).",
+  "@channels_nameTooLong": {"description": "Snackbar when a channel name would not fit on the radio", "placeholders": {"maxBytes": {"type": "int"}}},
+  "repeater_valueRequired": "{field}: enter a value",
+  "@repeater_valueRequired": {"description": "Save error when a changed repeater setting was left empty", "placeholders": {"field": {"type": "String"}}},
+  "losMapDetailTooltip": "Map detail",
+  "losUnitsTooltip": "Units",
+  "losDistance": "Distance",
+  "losClearance": "Clearance",
+  "losBlockedBy": "Blocked by",
+  "losObstruction": "Obstruction",
+  "losDistanceFromA": "{distance} from A",
+  "@losDistanceFromA": {"description": "Distance of the worst obstruction from point A, e.g. \"1.2 km from A\"", "placeholders": {"distance": {"type": "String"}}},
+  "losWorstBadge": "WORST",
+  "@losWorstBadge": {"description": "Badge on the worst obstruction in the list"},
+  "losBlockedAmount": "Blocked {amount}",
+  "@losBlockedAmount": {"description": "How much an obstruction blocks the beam, e.g. \"Blocked 12 m\"", "placeholders": {"amount": {"type": "String"}}},
+  "losFromA": "From A",
+  "losFromB": "From B",
+  "losElevation": "Elevation",
+  "losCenterOnMap": "Center on map",
+  "losStatusClear": "Clear",
+  "@losStatusClear": {"description": "Line-of-sight status"},
+  "losStatusMarginal": "Marginal",
+  "@losStatusMarginal": {"description": "Line-of-sight status"},
+  "losStatusBlocked": "Blocked",
+  "@losStatusBlocked": {"description": "Line-of-sight status and legend entry"},
+  "losStatusCheckingShort": "Checking",
+  "@losStatusCheckingShort": {"description": "Line-of-sight status while the check runs"},
+  "losStatusNoResult": "No result",
+  "@losStatusNoResult": {"description": "Line-of-sight status when there is no result"},
+  "losSelectedPill": "Selected",
+  "@losSelectedPill": {"description": "Label drawn on the elevation chart at the selected point"},
+  "gif_tapToLoad": "Tap to load GIF",
+  "gif_loadFailedRetry": "Can't load GIF\nTap to retry",
+  "qr_cameraPermissionDenied": "Camera permission denied.\nPlease enable camera access in settings.",
+  "qr_cameraUnsupported": "Camera not supported on this device.",
+  "qr_cameraStartFailed": "Failed to start camera.\n{details}",
+  "@qr_cameraStartFailed": {"placeholders": {"details": {"type": "String"}}},
+  "imageMessages_downloadFailedWithError": "The image model could not be downloaded: {error}",
+  "@imageMessages_downloadFailedWithError": {"placeholders": {"error": {"type": "String"}}},
+  "map_nodeId": "ID",
+  "map_markerHideHint": "Hide: hidden until you leave the map.",
+  "map_markerRemoveHint": "Remove: stays hidden until you restore it from the filter menu.",
+  "map_markerRemoved": "Marker removed",
+  "map_restoreRemovedMarkers": "Restore removed markers",
+  "map_restoreRemovedMarkersSubtitle": "{count} removed",
+  "@map_restoreRemovedMarkersSubtitle": {"placeholders": {"count": {"type": "int"}}},
+  "map_markersRestored": "Restored {count} markers",
+  "@map_markersRestored": {"placeholders": {"count": {"type": "int"}}},
+  "map_setLocationConfirmTitle": "Set as your location?",
+  "map_setLocationConfirmBody": "Your node will advertise this position:\n{lat}, {lon}",
+  "@map_setLocationConfirmBody": {"placeholders": {"lat": {"type": "String"}, "lon": {"type": "String"}}},
+  "map_setLocationAction": "Set location",
+  "map_locationSetSuccess": "Node location updated",
+  "map_locationSetFailed": "The device did not confirm the new location. Try again.",
+  "map_poiClusterTitle": "{count} markers here",
+  "@map_poiClusterTitle": {"placeholders": {"count": {"type": "int"}}},
+  "map_poiClusterSemantics": "{count} shared markers. Tap to list them.",
+  "@map_poiClusterSemantics": {"placeholders": {"count": {"type": "int"}}},
+  "map_youWithMarkers": "You and {count} markers",
+  "@map_youWithMarkers": {"placeholders": {"count": {"type": "int"}}},
+  "map_sharedMarkerSemantics": "Shared marker: {label}",
+  "@map_sharedMarkerSemantics": {"placeholders": {"label": {"type": "String"}}},
+  "map_nodeMarkerSemantics": "{name}, {type}, {status}",
+  "@map_nodeMarkerSemantics": {"placeholders": {"name": {"type": "String"}, "type": {"type": "String"}, "status": {"type": "String"}}},
+  "mapCache_zoomLevel": "Zoom {zoom}",
+  "@mapCache_zoomLevel": {"placeholders": {"zoom": {"type": "int"}}},
+  "mapCache_sizeBytes": "{size} B",
+  "@mapCache_sizeBytes": {"placeholders": {"size": {"type": "String"}}},
+  "mapCache_sizeKilobytes": "{size} KB",
+  "@mapCache_sizeKilobytes": {"placeholders": {"size": {"type": "String"}}},
+  "mapCache_sizeMegabytes": "{size} MB",
+  "@mapCache_sizeMegabytes": {"placeholders": {"size": {"type": "String"}}},
+  "mapCache_sizeGigabytes": "{size} GB",
+  "@mapCache_sizeGigabytes": {"placeholders": {"size": {"type": "String"}}},
+  "mapCache_downloadCancelled": "Download cancelled. Cached {count} tiles.",
+  "@mapCache_downloadCancelled": {"placeholders": {"count": {"type": "int"}}},
+  "mapCache_tooManyTilesTitle": "Area too large",
+  "mapCache_tooManyTiles": "This area needs {count} tiles, more than the limit of {max}. Pick a smaller area or lower the maximum zoom.",
+  "@mapCache_tooManyTiles": {"placeholders": {"count": {"type": "int"}, "max": {"type": "int"}}},
+  "chat_clearChatConfirm": "This erases every message in this conversation from this device. It cannot be undone.",
+  "channels_clearChatConfirm": "This erases every message in this channel from this device, including received images. It cannot be undone.",
+  "channels_timeNow": "now",
+  "channels_timeMinutes": "{minutes}m",
+  "@channels_timeMinutes": {"placeholders": {"minutes": {"type": "int"}}},
+  "channels_timeHours": "{hours}h",
+  "@channels_timeHours": {"placeholders": {"hours": {"type": "int"}}},
+  "channels_timeDays": "{days}d",
+  "@channels_timeDays": {"placeholders": {"days": {"type": "int"}}},
+  "channels_indexChip": "CH {index}",
+  "@channels_indexChip": {"placeholders": {"index": {"type": "int"}}},
+  "reaction_unknownSender": "Unknown",
+  "pathMap_noSelfGpsFix": "Local node has no GPS fix",
+  "pathTrace_sendFailed": "Could not send the path trace: {error}",
+  "@pathTrace_sendFailed": {"placeholders": {"error": {"type": "String"}}},
+  "losErrorNoInternet": "Elevation data needs an internet connection",
+  "losResultStale": "Out of date: antenna height changed",
+  "losSnrValue": "{snr} dB",
+  "@losSnrValue": {"placeholders": {"snr": {"type": "String"}}},
+  "losFrequencyValue": "{frequency} MHz",
+  "@losFrequencyValue": {"placeholders": {"frequency": {"type": "String"}}},
+  "losKFactorValue": "k={kFactor}",
+  "@losKFactorValue": {"placeholders": {"kFactor": {"type": "String"}}},
+  "losEndpointA": "A",
+  "losEndpointB": "B",
+  "units_km": "km",
+  "units_mi": "mi",
+  "units_m": "m",
+  "units_ft": "ft",
+  "telemetry_loading": "Loading telemetry…",
+  "telemetry_axisValue": "X: {x}, Y: {y}, Z: {z}",
+  "@telemetry_axisValue": {"placeholders": {"x": {"type": "String"}, "y": {"type": "String"}, "z": {"type": "String"}}},
+  "telemetry_colourValue": "R: {red}, G: {green}, B: {blue}",
+  "@telemetry_colourValue": {"placeholders": {"red": {"type": "String"}, "green": {"type": "String"}, "blue": {"type": "String"}}},
+  "telemetry_altitudeValueFeet": "{feet} ft",
+  "@telemetry_altitudeValueFeet": {"placeholders": {"feet": {"type": "String"}}},
+  "telemetry_distanceValueFeet": "{feet} ft",
+  "@telemetry_distanceValueFeet": {"placeholders": {"feet": {"type": "String"}}},
+  "settings_notConnectedError": "Not connected to a radio. Connect and try again.",
+  "settings_requiresConnection": "Connect to a radio to use this",
+  "settings_txPowerInvalidRange": "Invalid TX power ({min} to {max} dBm)",
+  "@settings_txPowerInvalidRange": {"placeholders": {"min": {"type": "int"}, "max": {"type": "int"}}},
+  "settings_contactSettingsSaved": "Contact settings saved",
+  "settings_batteryToggleHint": "Tap to switch between percent and voltage",
+  "settings_publicKeyCopyHint": "Copy public key",
+  "settings_locationClearHelper": "Leave both fields empty to remove your location.",
+  "settings_locationCleared": "Location removed",
+  "settings_regionFetchDiscovering": "Looking for nearby repeaters…",
+  "settings_regionFetchProgress": "Asking repeater {current} of {total}…",
+  "@settings_regionFetchProgress": {"placeholders": {"current": {"type": "int"}, "total": {"type": "int"}}},
+  "settings_regionFetchNoRepeaters": "No repeaters are known yet. Add a repeater as a contact or wait for one to advertise, then try again.",
+  "settings_regionFetchNoneResponded": "No nearby repeaters answered. Move closer to a repeater and try again.",
+  "appSettings_sourceSummary": "{label} - {description}",
+  "@appSettings_sourceSummary": {"placeholders": {"label": {"type": "String"}, "description": {"type": "String"}}},
+  "appSettings_routingSection": "Routing",
+  "appSettings_imageMessagesSection": "Image messages",
+  "appSettings_showApiKey": "Show API key",
+  "appSettings_hideApiKey": "Hide API key",
+  "translation_defaultModelName": "Model",
+  "translation_downloadProgressBytes": "{fileName}: {current} MB",
+  "@translation_downloadProgressBytes": {"placeholders": {"fileName": {"type": "String"}, "current": {"type": "String"}}},
+  "translation_downloadProgressTotal": "{fileName}: {current} / {total} MB ({percent}%)",
+  "@translation_downloadProgressTotal": {"placeholders": {"fileName": {"type": "String"}, "current": {"type": "String"}, "total": {"type": "String"}, "percent": {"type": "String"}}},
+  "translation_downloadedModelDetails": "{size} MB • {source}",
+  "@translation_downloadedModelDetails": {"placeholders": {"size": {"type": "String"}, "source": {"type": "String"}}},
+  "repeater_radioDisconnected": "Radio disconnected",
+  "repeater_radioDisconnectedHint": "Reconnect to your radio to send commands, refresh or save changes.",
+  "repeater_cliSend": "Send command",
+  "repeater_cliCopyTranscript": "Copy transcript",
+  "repeater_cliShareTranscript": "Share transcript",
+  "repeater_cliTranscriptCopied": "Transcript copied",
+  "repeater_cliClearHistoryConfirm": "Clear the command history? This cannot be undone.",
+  "repeater_cliSearchCommands": "Search commands",
+  "repeater_cliNoMatchingCommands": "No matching commands",
+  "debugLog_clearConfirm": "Clear all log entries? This cannot be undone.",
+  "repeater_unsavedChangesTitle": "Unsaved changes",
+  "repeater_unsavedChangesMessage": "You have changes that haven't been saved to the repeater.",
+  "repeater_discardChanges": "Discard",
+  "repeater_actionSentNoReply": "{action}: command sent. The repeater does not reply to this command.",
+  "@repeater_actionSentNoReply": {"placeholders": {"action": {"type": "String"}}},
+  "repeater_invalidSettingValue": "{setting}: {value} is not valid",
+  "@repeater_invalidSettingValue": {"placeholders": {"setting": {"type": "String"}, "value": {"type": "String"}}},
+  "repeater_txPowerOutOfRange": "TX power {value} is out of range ({min} to {max} dBm)",
+  "@repeater_txPowerOutOfRange": {"placeholders": {"value": {"type": "String"}, "min": {"type": "int"}, "max": {"type": "int"}}},
+  "repeater_prvKeyLengthError": "Private key must be exactly {length} hex characters",
+  "@repeater_prvKeyLengthError": {"placeholders": {"length": {"type": "int"}}},
+  "contacts_advertFailed": "Couldn't send advertisement",
+  "contacts_manageGroups": "Manage groups",
+  "community_shortId": "ID: {id}…",
+  "@community_shortId": {"placeholders": {"id": {"type": "String"}}},
+  "tcpSectionTitle": "TCP / IP",
+  "tcpConnectedToHeader": "Connected to",
+  "usbChooseSerialPort": "Choose serial port",
+  "neighbors_durationSeconds": "{seconds}s",
+  "@neighbors_durationSeconds": {"placeholders": {"seconds": {"type": "String"}}},
+  "neighbors_durationMinutes": "{minutes}m {seconds}s",
+  "@neighbors_durationMinutes": {"placeholders": {"minutes": {"type": "int"}, "seconds": {"type": "String"}}},
+  "neighbors_durationHours": "{hours}h {minutes}m",
+  "@neighbors_durationHours": {"placeholders": {"hours": {"type": "int"}, "minutes": {"type": "int"}}},
+  "networkMap_settingsSection": "Network map",
+  "networkMap_uploadTitle": "Share what my radio hears",
+  "networkMap_uploadExplanation": "When this is on and your radio is connected, the app sends a short summary of the packets your radio hears to the MeshCore Open network map, so everyone can see which repeaters exist and how they link up. It sends each packet's type, route, hops, signal strength and size, plus repeater names and rough locations from their own adverts. It never sends message text, who is talking to whom, channel names, your contacts or your exact position: locations are rounded to about 2 km, and your app gets a new random ID every day.",
+  "networkMap_whatWeCollect": "What we collect",
+  "networkMap_promptTitle": "Help build the network map?",
+  "networkMap_promptBody": "MeshCore Open can share what your radio hears with the public network map at map.meshcoreopen.org, so everyone can see which repeaters exist and how they link up.\n\nIt never sends message text, who is talking to whom, channel names, your contacts or your exact position. Locations are rounded to about 2 km.",
+  "networkMap_promptSettingsHint": "You can change this any time in Settings → App settings → Network map.",
+  "networkMap_promptAccept": "Share",
+  "networkMap_promptDecline": "No thanks",
+  "networkMap_statusOff": "Off. Nothing is sent.",
+  "networkMap_statusWaiting": "On. Waiting for a radio connection.",
+  "networkMap_statusNothingSent": "On. Nothing sent yet.",
+  "networkMap_statusLastSent": "Last sent {time}. {count} packets today.",
+  "@networkMap_statusLastSent": {"placeholders": {"time": {"type": "String"}, "count": {"type": "int"}}},
+  "networkMap_sourceLocal": "Local",
+  "networkMap_sourceOnline": "Online",
+  "networkMap_sourceBoth": "Both",
+  "networkMap_zoomInHint": "Zoom in to see the online network map",
+  "networkMap_loadFailed": "Couldn't load the online network map",
+  "networkMap_inYourContacts": "In your contacts",
+  "networkMap_status": "Status",
+  "networkMap_statusActive": "Active in the last hour",
+  "networkMap_statusRecent": "Heard in the last day",
+  "networkMap_statusStale": "Not heard lately",
+  "networkMap_confirmed": "Confirmed",
+  "networkMap_singleSource": "Single source, not yet confirmed",
+  "networkMap_reports": "Reports",
+  "networkMap_locationEstimated": "Rough location, estimated from who heard it",
+  "networkMap_locationAdvertised": "Rough location, from its own advert",
+  "networkMap_heardByRadio": "Heard by your radio",
+  "networkMap_inYourArea": "In your area",
+  "networkMap_farAway": "Far away. Management won't reach it.",
+  "networkMap_addToContacts": "Add to contacts",
+  "networkMap_manage": "Manage",
+  "networkMap_addedToContacts": "Added to contacts",
+  "networkMap_addFailed": "Couldn't add to contacts",
+  "networkMap_unnamed": "Unnamed repeater"
 }

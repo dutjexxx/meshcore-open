@@ -113,6 +113,10 @@ class AppSettingsService extends ChangeNotifier {
     await updateSettings(_settings.copyWith(enableMessageTracing: value));
   }
 
+  Future<void> setRegionOnHopsLine(bool value) async {
+    await updateSettings(_settings.copyWith(regionOnHopsLine: value));
+  }
+
   Future<void> setMapCacheBounds(Map<String, double>? value) async {
     await updateSettings(_settings.copyWith(mapCacheBounds: value));
   }
@@ -222,6 +226,12 @@ class AppSettingsService extends ChangeNotifier {
     await updateSettings(_settings.copyWith(channelMinHopsRetries: value));
   }
 
+  Future<void> setChannelMinHopsCountRepeaters(bool value) async {
+    await updateSettings(
+      _settings.copyWith(channelMinHopsCountRepeaters: value),
+    );
+  }
+
   Future<void> setThemeMode(String value) async {
     await updateSettings(_settings.copyWith(themeMode: value));
   }
@@ -238,6 +248,12 @@ class AppSettingsService extends ChangeNotifier {
 
   Future<void> setMapShowDiscoveryContacts(bool value) async {
     await updateSettings(_settings.copyWith(mapShowDiscoveryContacts: value));
+  }
+
+  Future<void> setEvictDiscoveredContactsEnabled(bool value) async {
+    await updateSettings(
+      _settings.copyWith(evictDiscoveredContactsEnabled: value),
+    );
   }
 
   Future<void> setBatteryChemistryForDevice(
@@ -299,6 +315,14 @@ class AppSettingsService extends ChangeNotifier {
 
   Future<void> setImageMessagesEnabled(bool value) async {
     await updateSettings(_settings.copyWith(imageMessagesEnabled: value));
+  }
+
+  Future<void> setNetworkMapUploadEnabled(bool value) async {
+    await updateSettings(_settings.copyWith(networkMapUploadEnabled: value));
+  }
+
+  Future<void> setNetworkMapPromptShown(bool value) async {
+    await updateSettings(_settings.copyWith(networkMapPromptShown: value));
   }
 
   /// See [AppSettings.imageProcessAutomatically]. `main.dart` mirrors this into

@@ -345,6 +345,20 @@ class AppLocalizationsJa extends AppLocalizations {
   String get scanner_enableBluetooth => 'Bluetooth を有効にする';
 
   @override
+  String get scanner_getNodeTitle => '新しいノードが必要ですか?';
+
+  @override
+  String get scanner_getNodeBody =>
+      '財布サイズで MeshCore が動作。デュアルバンドGPS、防水、バッテリー5日間。';
+
+  @override
+  String get scanner_getNodeAction => 'こちらで入手';
+
+  @override
+  String get scanner_getNodeDisclosure =>
+      'アフィリエイトリンク: 購入のたびに MeshCore Open を応援できます。';
+
+  @override
   String get scanner_bluetoothWebUnsupported =>
       'ブラウザでは Bluetooth は利用できません。代わりに USB で接続してください。';
 
@@ -414,6 +428,27 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get settings_regionDefaultNone => 'なし';
+
+  @override
+  String settings_regionUseRadioDefault(String region) {
+    return '無線機の既定（$region）';
+  }
+
+  @override
+  String get settings_regionNoRegion => '地域なし（スコープなし）';
+
+  @override
+  String get settings_regionRadioDefault => '無線機の既定の地域';
+
+  @override
+  String get settings_regionRadioDefaultSubtitle =>
+      '無線機に保存されます。地域を指定せずに送るフラッドは、このアプリや無線機に接続した他のアプリからでも、この地域を使います。';
+
+  @override
+  String get settings_regionRadioDefaultUpdated => '無線機の既定の地域を更新しました';
+
+  @override
+  String get settings_regionRadioDefaultFailed => '無線機の既定の地域を更新できませんでした';
 
   @override
   String get settings_regionManagement_screenTitle => '地域管理';
@@ -673,7 +708,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get settings_radioMatchWarning =>
-      '通信するすべてのノードで、周波数・帯域幅・伝播係数・コーディング速度を揃える必要があります。';
+      '通信するすべてのノードで、周波数・帯域幅・伝播係数を揃える必要があります。コーディング速度（CR）は異なっていても構いません。';
 
   @override
   String get settings_frequency => '周波数 (MHz)';
@@ -839,11 +874,32 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String get appSettings_channelMinHopsCountRepeaters => '近くの別のリピータも数える';
+
+  @override
+  String appSettings_channelMinHopsCountRepeatersSubtitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '近くの異なるリピータ $count 台',
+      one: '近くのリピータ 1 台',
+    );
+    return '$_temp0が再送したら、それ以上先に届くのが聞こえなくても送信済みとみなします。';
+  }
+
+  @override
   String get appSettings_enableMessageTracing => 'メッセージ追跡を有効にする';
 
   @override
   String get appSettings_enableMessageTracingSubtitle =>
       'メッセージの詳細な経路とタイミングのメタデータを表示します';
+
+  @override
+  String get appSettings_regionOnHopsLine => 'ホップ数の横に地域を表示';
+
+  @override
+  String get appSettings_regionOnHopsLineSubtitle =>
+      'チャンネルメッセージの地域を、ホップ数の下ではなく同じ行に表示します。';
 
   @override
   String get appSettings_notifications => '通知';
@@ -1525,6 +1581,14 @@ class AppLocalizationsJa extends AppLocalizations {
   String get channels_regionDefaultSuffix => '（デフォルト）';
 
   @override
+  String get channels_regionRadioDefaultSuffix => '（無線機の既定）';
+
+  @override
+  String channels_regionRadioDefaultApplies(String region) {
+    return 'この無線機は、地域なしのフラッドを既定の地域で送信します：$region。';
+  }
+
+  @override
   String get channels_regionSelectExplanation =>
       'このチャンネルのフラッドメッセージは、選択した地域内のリピータだけが転送します。';
 
@@ -1568,6 +1632,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get chat_typeMessage => 'メッセージを入力してください…';
 
   @override
+  String get chat_futureTimestampWarning =>
+      'このメッセージの時刻は未来です。送信者の時計がずれている可能性があります。届いた順に表示しています。';
+
+  @override
   String chat_messageTooLong(int maxBytes) {
     return 'メッセージが長すぎます（$maxBytes バイトを超えています）';
   }
@@ -1591,6 +1659,12 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get chat_sendGif => 'GIF を送信';
+
+  @override
+  String get chat_shareMyLocation => '自分の位置情報を共有';
+
+  @override
+  String get chat_noRadioLocation => '無線機に位置情報が設定されていません';
 
   @override
   String get chat_removeGif => 'GIFを削除';
@@ -2090,6 +2164,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get map_label => 'ラベル';
+
+  @override
+  String get map_labelUpdateHint =>
+      '以前と同じラベルを使うと、MeshCore Open の受信者側でマーカーが更新されます。';
 
   @override
   String get map_pointOfInterest => '興味地点';
@@ -4325,6 +4403,53 @@ class AppLocalizationsJa extends AppLocalizations {
   String get contacts_contactImportFailed => '連絡先のインポートに失敗しました。';
 
   @override
+  String get discoveredContacts_export => '発見済みの連絡先をエクスポート';
+
+  @override
+  String get discoveredContacts_import => '発見済みの連絡先をインポート';
+
+  @override
+  String discoveredContacts_exported(String path) {
+    return '発見済みの連絡先を $path にエクスポートしました。';
+  }
+
+  @override
+  String discoveredContacts_exportFailed(String error) {
+    return '発見済みの連絡先のエクスポートに失敗しました: $error';
+  }
+
+  @override
+  String discoveredContacts_imported(int count) {
+    return '$count 件の発見済み連絡先をインポートしました。';
+  }
+
+  @override
+  String get discoveredContacts_importNoContacts => 'インポートファイルに連絡先が見つかりませんでした。';
+
+  @override
+  String discoveredContacts_importSummary(
+    int imported,
+    int skipped,
+    int invalid,
+  ) {
+    return 'インポート: $imported 件、スキップ（既知）: $skipped 件、読み取れないエントリ: $invalid 件。';
+  }
+
+  @override
+  String get discoveredContacts_importInvalidFile =>
+      'このファイルは発見済み連絡先のエクスポートではありません。';
+
+  @override
+  String discoveredContacts_importTooLarge(int maxMb) {
+    return 'インポートファイルが大きすぎます（最大 $maxMb MB）。';
+  }
+
+  @override
+  String discoveredContacts_importFailed(String error) {
+    return '発見済みの連絡先のインポートに失敗しました: $error';
+  }
+
+  @override
   String get contacts_zeroHopAdvert => 'ゼロホップアドバート';
 
   @override
@@ -4563,6 +4688,14 @@ class AppLocalizationsJa extends AppLocalizations {
       '連絡先リストが満杯になった場合、最も古いかつ「お気に入り」ではない連絡先が削除されます。';
 
   @override
+  String get contactsSettings_evictDiscoveredContactsTitle => '検出された連絡先を削除';
+
+  @override
+  String contactsSettings_evictDiscoveredContactsSubtitle(int limit) {
+    return '有効にすると、検出された連絡先のリストが上限の$limit件に達した際に、最も古い検出済み連絡先が削除されます。';
+  }
+
+  @override
   String get discoveredContacts_Title => '連絡先が見つかった';
 
   @override
@@ -4589,6 +4722,51 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get discoveredContacts_deleteContactAllContent =>
       '本当に、見つけたすべての連絡先を削除してもよろしいですか？';
+
+  @override
+  String get discoveredContacts_scan => '近くのノードをスキャン';
+
+  @override
+  String get discoveredContacts_scanTitle => '近くのノード';
+
+  @override
+  String get discoveredContacts_scanExplanation =>
+      '直接電波が届く範囲のノードに応答を求めます。リピータとセンサーが応答します。ルームサーバーやコンパニオンは通常応答しません。';
+
+  @override
+  String get discoveredContacts_scanning => 'スキャン中…';
+
+  @override
+  String discoveredContacts_scanFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 件のノードが見つかりました',
+      one: '1 件のノードが見つかりました',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get discoveredContacts_scanNoResults =>
+      '応答したノードはありません。リピータは応答頻度を制限しているため、1 分ほど待ってからもう一度お試しください。';
+
+  @override
+  String get discoveredContacts_scanAgain => 'もう一度スキャン';
+
+  @override
+  String get discoveredContacts_scanFailed => 'スキャン要求を送信できませんでした。';
+
+  @override
+  String discoveredContacts_scanSignal(String snr, String remoteSnr) {
+    return '信号 $snr dB ・ 相手の受信 $remoteSnr dB';
+  }
+
+  @override
+  String get discoveredContacts_scanInContacts => 'すでに連絡先にあります';
+
+  @override
+  String get discoveredContacts_scanNameLater => '次のアドバートの後に名前が表示されます';
 
   @override
   String get chat_sendCooldown => '再度送信する前に、しばらくお待ちください。';
@@ -5223,4 +5401,630 @@ class AppLocalizationsJa extends AppLocalizations {
   String chat_longMessageRetryNote(int count) {
     return '158バイトを超える場合：最大 $count 回まで送信されます';
   }
+
+  @override
+  String get reviewMode_dialogTitle => 'レビューモードに入りますか？';
+
+  @override
+  String get reviewMode_dialogBody =>
+      'レビューモードでは、サンプルの連絡先、チャンネル、メッセージを備えたシミュレートされたデバイスに接続します。実際のデバイスは不要です。';
+
+  @override
+  String get reviewMode_confirm => '開始';
+
+  @override
+  String get reviewMode_cancel => 'キャンセル';
+
+  @override
+  String get reviewMode_banner => 'レビューモード — シミュレーションデータ';
+
+  @override
+  String get reviewMode_sendTest => 'テストメッセージを送信';
+
+  @override
+  String get reviewMode_testSent => 'まもなくテストメッセージが届きます。';
+
+  @override
+  String get reviewMode_exit => '終了';
+
+  @override
+  String reviewMode_connectFailed(String error) {
+    return 'レビューモードを開始できませんでした: $error';
+  }
+
+  @override
+  String get channels_waitForSync =>
+      'チャンネルは無線機からまだ読み込み中です。同期が完了してからもう一度お試しください。';
+
+  @override
+  String channels_nameTooLong(int maxBytes) {
+    return '名前が長すぎます（最大 $maxBytes バイト）。';
+  }
+
+  @override
+  String repeater_valueRequired(String field) {
+    return '$field：値を入力してください';
+  }
+
+  @override
+  String get losMapDetailTooltip => '地図の詳細';
+
+  @override
+  String get losUnitsTooltip => '単位';
+
+  @override
+  String get losDistance => '距離';
+
+  @override
+  String get losClearance => 'クリアランス';
+
+  @override
+  String get losBlockedBy => '遮蔽物';
+
+  @override
+  String get losObstruction => '障害物';
+
+  @override
+  String losDistanceFromA(String distance) {
+    return 'A から $distance';
+  }
+
+  @override
+  String get losWorstBadge => '最悪';
+
+  @override
+  String losBlockedAmount(String amount) {
+    return '遮断量 $amount';
+  }
+
+  @override
+  String get losFromA => 'A から';
+
+  @override
+  String get losFromB => 'B から';
+
+  @override
+  String get losElevation => '標高';
+
+  @override
+  String get losCenterOnMap => '地図の中心に表示';
+
+  @override
+  String get losStatusClear => 'クリア';
+
+  @override
+  String get losStatusMarginal => '境界';
+
+  @override
+  String get losStatusBlocked => '遮断';
+
+  @override
+  String get losStatusCheckingShort => '確認中';
+
+  @override
+  String get losStatusNoResult => '結果なし';
+
+  @override
+  String get losSelectedPill => '選択中';
+
+  @override
+  String get gif_tapToLoad => 'タップして GIF を読み込む';
+
+  @override
+  String get gif_loadFailedRetry => 'GIF を読み込めません\nタップして再試行';
+
+  @override
+  String get qr_cameraPermissionDenied =>
+      'カメラの権限が拒否されました。\n設定でカメラへのアクセスを有効にしてください。';
+
+  @override
+  String get qr_cameraUnsupported => 'この端末ではカメラがサポートされていません。';
+
+  @override
+  String qr_cameraStartFailed(String details) {
+    return 'カメラを起動できませんでした。\n$details';
+  }
+
+  @override
+  String imageMessages_downloadFailedWithError(String error) {
+    return '画像モデルをダウンロードできませんでした：$error';
+  }
+
+  @override
+  String get map_nodeId => 'ID';
+
+  @override
+  String get map_markerHideHint => '非表示:マップを離れるまで非表示になります。';
+
+  @override
+  String get map_markerRemoveHint => '削除:フィルターメニューから復元するまで非表示のままです。';
+
+  @override
+  String get map_markerRemoved => 'マーカーを削除しました';
+
+  @override
+  String get map_restoreRemovedMarkers => '削除したマーカーを復元';
+
+  @override
+  String map_restoreRemovedMarkersSubtitle(int count) {
+    return '$count件削除済み';
+  }
+
+  @override
+  String map_markersRestored(int count) {
+    return '$count件のマーカーを復元しました';
+  }
+
+  @override
+  String get map_setLocationConfirmTitle => 'この位置を自分の位置に設定しますか?';
+
+  @override
+  String map_setLocationConfirmBody(String lat, String lon) {
+    return 'ノードは次の位置をアドバートします:\n$lat, $lon';
+  }
+
+  @override
+  String get map_setLocationAction => '位置を設定';
+
+  @override
+  String get map_locationSetSuccess => 'ノードの位置を更新しました';
+
+  @override
+  String get map_locationSetFailed => 'デバイスが新しい位置を確認しませんでした。もう一度お試しください。';
+
+  @override
+  String map_poiClusterTitle(int count) {
+    return 'ここに$count件のマーカー';
+  }
+
+  @override
+  String map_poiClusterSemantics(int count) {
+    return '共有マーカー$count件。タップして一覧を表示します。';
+  }
+
+  @override
+  String map_youWithMarkers(int count) {
+    return '自分と$count件のマーカー';
+  }
+
+  @override
+  String map_sharedMarkerSemantics(String label) {
+    return '共有マーカー: $label';
+  }
+
+  @override
+  String map_nodeMarkerSemantics(String name, String type, String status) {
+    return '$name、$type、$status';
+  }
+
+  @override
+  String mapCache_zoomLevel(int zoom) {
+    return 'ズーム $zoom';
+  }
+
+  @override
+  String mapCache_sizeBytes(String size) {
+    return '$size B';
+  }
+
+  @override
+  String mapCache_sizeKilobytes(String size) {
+    return '$size KB';
+  }
+
+  @override
+  String mapCache_sizeMegabytes(String size) {
+    return '$size MB';
+  }
+
+  @override
+  String mapCache_sizeGigabytes(String size) {
+    return '$size GB';
+  }
+
+  @override
+  String mapCache_downloadCancelled(int count) {
+    return 'ダウンロードをキャンセルしました。$count枚のタイルをキャッシュしました。';
+  }
+
+  @override
+  String get mapCache_tooManyTilesTitle => 'エリアが大きすぎます';
+
+  @override
+  String mapCache_tooManyTiles(int count, int max) {
+    return 'このエリアには$count枚のタイルが必要で、上限の$max枚を超えています。より小さいエリアを選ぶか、最大ズームを下げてください。';
+  }
+
+  @override
+  String get chat_clearChatConfirm => 'この会話のすべてのメッセージをこのデバイスから消去します。元に戻せません。';
+
+  @override
+  String get channels_clearChatConfirm =>
+      'このチャンネルのすべてのメッセージを、受信した画像も含めてこのデバイスから消去します。元に戻せません。';
+
+  @override
+  String get channels_timeNow => '今';
+
+  @override
+  String channels_timeMinutes(int minutes) {
+    return '$minutes分';
+  }
+
+  @override
+  String channels_timeHours(int hours) {
+    return '$hours時間';
+  }
+
+  @override
+  String channels_timeDays(int days) {
+    return '$days日';
+  }
+
+  @override
+  String channels_indexChip(int index) {
+    return 'CH $index';
+  }
+
+  @override
+  String get reaction_unknownSender => '不明';
+
+  @override
+  String get pathMap_noSelfGpsFix => 'ローカルノードにGPS測位がありません';
+
+  @override
+  String pathTrace_sendFailed(String error) {
+    return 'パストレースを送信できませんでした: $error';
+  }
+
+  @override
+  String get losErrorNoInternet => '標高データにはインターネット接続が必要です';
+
+  @override
+  String get losResultStale => '古い結果: アンテナ高が変更されました';
+
+  @override
+  String losSnrValue(String snr) {
+    return '$snr dB';
+  }
+
+  @override
+  String losFrequencyValue(String frequency) {
+    return '$frequency MHz';
+  }
+
+  @override
+  String losKFactorValue(String kFactor) {
+    return 'k=$kFactor';
+  }
+
+  @override
+  String get losEndpointA => 'A';
+
+  @override
+  String get losEndpointB => 'B';
+
+  @override
+  String get units_km => 'km';
+
+  @override
+  String get units_mi => 'mi';
+
+  @override
+  String get units_m => 'm';
+
+  @override
+  String get units_ft => 'ft';
+
+  @override
+  String get telemetry_loading => 'テレメトリを読み込み中…';
+
+  @override
+  String telemetry_axisValue(String x, String y, String z) {
+    return 'X: $x, Y: $y, Z: $z';
+  }
+
+  @override
+  String telemetry_colourValue(String red, String green, String blue) {
+    return 'R: $red, G: $green, B: $blue';
+  }
+
+  @override
+  String telemetry_altitudeValueFeet(String feet) {
+    return '$feet ft';
+  }
+
+  @override
+  String telemetry_distanceValueFeet(String feet) {
+    return '$feet ft';
+  }
+
+  @override
+  String get settings_notConnectedError => '無線機に接続されていません。接続してからもう一度お試しください。';
+
+  @override
+  String get settings_requiresConnection => '使用するには無線機に接続してください';
+
+  @override
+  String settings_txPowerInvalidRange(int min, int max) {
+    return 'TX出力が無効です($min~$max dBm)';
+  }
+
+  @override
+  String get settings_contactSettingsSaved => '連絡先設定を保存しました';
+
+  @override
+  String get settings_batteryToggleHint => 'タップでパーセントと電圧を切り替え';
+
+  @override
+  String get settings_publicKeyCopyHint => '公開鍵をコピー';
+
+  @override
+  String get settings_locationClearHelper => '位置情報を削除するには、両方の欄を空にしてください。';
+
+  @override
+  String get settings_locationCleared => '位置情報を削除しました';
+
+  @override
+  String get settings_regionFetchDiscovering => '近くのリピータを検索中…';
+
+  @override
+  String settings_regionFetchProgress(int current, int total) {
+    return 'リピータ $current/$total に問い合わせ中…';
+  }
+
+  @override
+  String get settings_regionFetchNoRepeaters =>
+      '既知のリピータがまだありません。リピータを連絡先に追加するか、アドバートを待ってからもう一度お試しください。';
+
+  @override
+  String get settings_regionFetchNoneResponded =>
+      '近くのリピータから応答がありませんでした。リピータに近づいてもう一度お試しください。';
+
+  @override
+  String appSettings_sourceSummary(String label, String description) {
+    return '$label - $description';
+  }
+
+  @override
+  String get appSettings_routingSection => 'ルーティング';
+
+  @override
+  String get appSettings_imageMessagesSection => '画像メッセージ';
+
+  @override
+  String get appSettings_showApiKey => 'APIキーを表示';
+
+  @override
+  String get appSettings_hideApiKey => 'APIキーを非表示';
+
+  @override
+  String get translation_defaultModelName => 'モデル';
+
+  @override
+  String translation_downloadProgressBytes(String fileName, String current) {
+    return '$fileName: $current MB';
+  }
+
+  @override
+  String translation_downloadProgressTotal(
+    String fileName,
+    String current,
+    String total,
+    String percent,
+  ) {
+    return '$fileName: $current / $total MB($percent%)';
+  }
+
+  @override
+  String translation_downloadedModelDetails(String size, String source) {
+    return '$size MB • $source';
+  }
+
+  @override
+  String get repeater_radioDisconnected => '無線機が切断されました';
+
+  @override
+  String get repeater_radioDisconnectedHint =>
+      'コマンドの送信、更新、変更の保存を行うには、無線機に再接続してください。';
+
+  @override
+  String get repeater_cliSend => 'コマンドを送信';
+
+  @override
+  String get repeater_cliCopyTranscript => '履歴をコピー';
+
+  @override
+  String get repeater_cliShareTranscript => '履歴を共有';
+
+  @override
+  String get repeater_cliTranscriptCopied => '履歴をコピーしました';
+
+  @override
+  String get repeater_cliClearHistoryConfirm => 'コマンド履歴を消去しますか?元に戻せません。';
+
+  @override
+  String get repeater_cliSearchCommands => 'コマンドを検索';
+
+  @override
+  String get repeater_cliNoMatchingCommands => '一致するコマンドがありません';
+
+  @override
+  String get debugLog_clearConfirm => 'すべてのログを消去しますか?元に戻せません。';
+
+  @override
+  String get repeater_unsavedChangesTitle => '未保存の変更';
+
+  @override
+  String get repeater_unsavedChangesMessage => 'リピータに保存されていない変更があります。';
+
+  @override
+  String get repeater_discardChanges => '破棄';
+
+  @override
+  String repeater_actionSentNoReply(String action) {
+    return '$action: コマンドを送信しました。リピータはこのコマンドに応答しません。';
+  }
+
+  @override
+  String repeater_invalidSettingValue(String setting, String value) {
+    return '$setting: $valueは無効です';
+  }
+
+  @override
+  String repeater_txPowerOutOfRange(String value, int min, int max) {
+    return 'TX出力 $value は範囲外です($min~$max dBm)';
+  }
+
+  @override
+  String repeater_prvKeyLengthError(int length) {
+    return '秘密鍵は16進数でちょうど$length文字である必要があります';
+  }
+
+  @override
+  String get contacts_advertFailed => 'アドバートを送信できませんでした';
+
+  @override
+  String get contacts_manageGroups => 'グループを管理';
+
+  @override
+  String community_shortId(String id) {
+    return 'ID: $id…';
+  }
+
+  @override
+  String get tcpSectionTitle => 'TCP / IP';
+
+  @override
+  String get tcpConnectedToHeader => '接続先';
+
+  @override
+  String get usbChooseSerialPort => 'シリアルポートを選択';
+
+  @override
+  String neighbors_durationSeconds(String seconds) {
+    return '$seconds秒';
+  }
+
+  @override
+  String neighbors_durationMinutes(int minutes, String seconds) {
+    return '$minutes分$seconds秒';
+  }
+
+  @override
+  String neighbors_durationHours(int hours, int minutes) {
+    return '$hours時間$minutes分';
+  }
+
+  @override
+  String get networkMap_settingsSection => 'ネットワークマップ';
+
+  @override
+  String get networkMap_uploadTitle => 'ラジオが受信した情報を共有';
+
+  @override
+  String get networkMap_uploadExplanation =>
+      'オンにしてラジオが接続されている間、ラジオが受信したパケットの概要をアプリが MeshCore Open のネットワークマップに送信します。これにより、どんなリピータがあり、どうつながっているかを誰でも見られます。送信するのは、各パケットの種類、経路、ホップ数、信号強度、サイズと、リピータ自身のアドバートに含まれる名前とおおよその位置です。メッセージの本文、誰が誰と話しているか、チャンネル名、連絡先、正確な位置は送信しません。位置は約2km単位に丸められ、アプリのIDは毎日ランダムに新しくなります。';
+
+  @override
+  String get networkMap_whatWeCollect => '収集する情報';
+
+  @override
+  String get networkMap_promptTitle => 'ネットワークマップの作成にご協力いただけますか?';
+
+  @override
+  String get networkMap_promptBody =>
+      'MeshCore Open は、ラジオが受信した情報を map.meshcoreopen.org の公開ネットワークマップと共有できます。これにより、どんなリピータがあり、どうつながっているかを誰でも見られます。\n\nメッセージの本文、誰が誰と話しているか、チャンネル名、連絡先、正確な位置は送信しません。位置は約2km単位に丸められます。';
+
+  @override
+  String get networkMap_promptSettingsHint =>
+      'この設定はいつでも「設定」→「アプリ設定」→「ネットワークマップ」で変更できます。';
+
+  @override
+  String get networkMap_promptAccept => '共有する';
+
+  @override
+  String get networkMap_promptDecline => 'いいえ、結構です';
+
+  @override
+  String get networkMap_statusOff => 'オフ。何も送信されません。';
+
+  @override
+  String get networkMap_statusWaiting => 'オン。ラジオの接続を待っています。';
+
+  @override
+  String get networkMap_statusNothingSent => 'オン。まだ何も送信されていません。';
+
+  @override
+  String networkMap_statusLastSent(String time, int count) {
+    return '最終送信: $time。今日は$countパケット。';
+  }
+
+  @override
+  String get networkMap_sourceLocal => 'ローカル';
+
+  @override
+  String get networkMap_sourceOnline => 'オンライン';
+
+  @override
+  String get networkMap_sourceBoth => '両方';
+
+  @override
+  String get networkMap_zoomInHint => 'ズームインするとオンラインのネットワークマップが表示されます';
+
+  @override
+  String get networkMap_loadFailed => 'オンラインのネットワークマップを読み込めませんでした';
+
+  @override
+  String get networkMap_inYourContacts => '連絡先にあります';
+
+  @override
+  String get networkMap_status => 'ステータス';
+
+  @override
+  String get networkMap_statusActive => '直近1時間にアクティブ';
+
+  @override
+  String get networkMap_statusRecent => '直近1日以内に受信';
+
+  @override
+  String get networkMap_statusStale => '最近受信されていません';
+
+  @override
+  String get networkMap_confirmed => '確認済み';
+
+  @override
+  String get networkMap_singleSource => '情報源が1つのみで、未確認';
+
+  @override
+  String get networkMap_reports => 'レポート';
+
+  @override
+  String get networkMap_locationEstimated => 'おおよその位置(受信したノードから推定)';
+
+  @override
+  String get networkMap_locationAdvertised => 'おおよその位置(自身のアドバートより)';
+
+  @override
+  String get networkMap_heardByRadio => 'ラジオが受信';
+
+  @override
+  String get networkMap_inYourArea => 'お近く';
+
+  @override
+  String get networkMap_farAway => '遠すぎます。管理はできません。';
+
+  @override
+  String get networkMap_addToContacts => '連絡先に追加';
+
+  @override
+  String get networkMap_manage => '管理';
+
+  @override
+  String get networkMap_addedToContacts => '連絡先に追加しました';
+
+  @override
+  String get networkMap_addFailed => '連絡先に追加できませんでした';
+
+  @override
+  String get networkMap_unnamed => '名前のないリピータ';
 }
