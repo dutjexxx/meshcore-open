@@ -507,9 +507,6 @@ class _ChatScreenState extends State<ChatScreen> {
     final useEncoder =
         connector.isContactSmazEnabled(keyHex) ||
         connector.isContactCyr2LatEnabled(keyHex);
-    final showIpfsAction = context.select<AppSettingsService, bool>(
-      (s) => s.settings.uploadIpfsEndpoint.trim().isNotEmpty,
-    );
     return ChatComposer(
       controller: _textController,
       focusNode: _textFieldFocusNode,
@@ -525,24 +522,32 @@ class _ChatScreenState extends State<ChatScreen> {
       sendTooltip: context.l10n.chat_sendMessageTo(
         _resolveContact(connector).name,
       ),
-      actionsBuilder: () => [
-        ChatComposerAction(
-          id: 'gif',
-          icon: Icons.gif_box,
-          label: context.l10n.chat_sendGif,
-        ),
-        if (showIpfsAction)
+      actionsBuilder: () {
+        final showIpfsAction = context
+            .read<AppSettingsService>()
+            .settings
+            .uploadIpfsEndpoint
+            .trim()
+            .isNotEmpty;
+        return [
           ChatComposerAction(
-            id: 'ipfs-image',
-            icon: Icons.cloud_upload_outlined,
-            label: context.l10n.chat_sendImageIpfs,
+            id: 'gif',
+            icon: Icons.gif_box,
+            label: context.l10n.chat_sendGif,
           ),
-        ChatComposerAction(
-          id: 'send-my-location',
-          icon: Icons.my_location,
-          label: context.l10n.chat_shareMyLocation,
-        ),
-      ],
+          if (showIpfsAction)
+            ChatComposerAction(
+              id: 'ipfs-image',
+              icon: Icons.cloud_upload_outlined,
+              label: context.l10n.chat_sendImageIpfs,
+            ),
+          ChatComposerAction(
+            id: 'send-my-location',
+            icon: Icons.my_location,
+            label: context.l10n.chat_shareMyLocation,
+          ),
+        ];
+      },
       onAction: (action) {
         if (!mounted) return;
         switch (action) {

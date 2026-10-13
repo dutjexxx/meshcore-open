@@ -675,7 +675,16 @@ class AppSettingsScreen extends StatelessWidget {
             onChanged: settingsService.setChannelMinHopsCountRepeaters,
           ),
         ],
-        const Divider(height: 1, indent: 16),
+      ],
+    );
+  }
+
+  Widget _buildImageMessagesContent(
+    BuildContext context,
+    AppSettingsService settingsService,
+  ) {
+    return Column(
+      children: [
         ListTile(
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 16,
@@ -688,16 +697,6 @@ class AppSettingsScreen extends StatelessWidget {
           onTap: () => _showIpfsImageLinksDialog(context, settingsService),
         ),
         const Divider(height: 1, indent: 16),
-      ],
-    );
-  }
-
-  Widget _buildImageMessagesContent(
-    BuildContext context,
-    AppSettingsService settingsService,
-  ) {
-    return Column(
-      children: [
         _ScrollIntoViewOnce(
           enabled: focusImageMessages,
           child: SwitchListTile(
