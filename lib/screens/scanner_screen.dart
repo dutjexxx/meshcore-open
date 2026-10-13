@@ -13,6 +13,7 @@ import '../utils/app_logger.dart';
 import '../widgets/adaptive_app_bar_title.dart';
 import '../widgets/device_tile.dart';
 import '../widgets/empty_state.dart';
+import '../widgets/get_node_banner.dart';
 import '../widgets/mesh_ui.dart';
 import '../helpers/snack_bar_builder.dart';
 import '../review_mode/review_mode_entry.dart';
@@ -42,6 +43,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
     _connector = Provider.of<MeshCoreConnector>(context, listen: false);
 
     _connectionListener = () {
+      // ModalRoute.of needs a live element, so bail out before touching it.
+      if (!mounted) return;
       final isCurrentRoute = ModalRoute.of(context)?.isCurrent ?? true;
       if (_connector.state == MeshCoreConnectionState.disconnected) {
         _changedNavigation = false;
@@ -53,11 +56,9 @@ class _ScannerScreenState extends State<ScannerScreen> {
           isCurrentRoute &&
           !_changedNavigation) {
         _changedNavigation = true;
-        if (mounted) {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const ChannelsScreen()),
-          );
-        }
+        Navigator.of(
+          context,
+        ).push(MaterialPageRoute(builder: (context) => const ChannelsScreen()));
       }
     };
 
@@ -168,6 +169,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
           },
         ),
       ),
+      bottomNavigationBar: const GetNodeBanner(),
       floatingActionButton: Consumer<MeshCoreConnector>(
         builder: (context, connector, child) {
           final isScanning =
@@ -448,16 +450,13 @@ class _BluetoothOffBanner extends StatelessWidget {
                   style: TextStyle(
                     color: scheme.error,
                     fontWeight: FontWeight.w600,
-                    fontSize: 13.5,
+                    fontSize: 15,
                   ),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   context.l10n.scanner_bluetoothOffMessage,
-                  style: TextStyle(
-                    color: scheme.error.withValues(alpha: 0.8),
-                    fontSize: 12,
-                  ),
+                  style: TextStyle(color: scheme.error, fontSize: 14),
                 ),
               ],
             ),

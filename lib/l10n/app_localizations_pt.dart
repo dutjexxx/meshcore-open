@@ -361,6 +361,20 @@ class AppLocalizationsPt extends AppLocalizations {
   String get scanner_enableBluetooth => 'Ative o Bluetooth';
 
   @override
+  String get scanner_getNodeTitle => 'Precisa de um novo nó?';
+
+  @override
+  String get scanner_getNodeBody =>
+      'Do tamanho de uma carteira, roda MeshCore, GPS dual-band, à prova d\'água, bateria para 5 dias.';
+
+  @override
+  String get scanner_getNodeAction => 'Compre aqui';
+
+  @override
+  String get scanner_getNodeDisclosure =>
+      'Link de afiliado: cada compra apoia o MeshCore Open.';
+
+  @override
   String get scanner_bluetoothWebUnsupported =>
       'A funcionalidade Bluetooth não está disponível no navegador. Conecte-se via USB em vez disso.';
 
@@ -5839,4 +5853,520 @@ class AppLocalizationsPt extends AppLocalizations {
   String imageMessages_downloadFailedWithError(String error) {
     return 'Não foi possível baixar o modelo de imagem: $error';
   }
+
+  @override
+  String get map_nodeId => 'ID';
+
+  @override
+  String get map_markerHideHint =>
+      'Ocultar: fica oculto até você sair do mapa.';
+
+  @override
+  String get map_markerRemoveHint =>
+      'Remover: continua oculto até você restaurá-lo no menu de filtros.';
+
+  @override
+  String get map_markerRemoved => 'Marcador removido';
+
+  @override
+  String get map_restoreRemovedMarkers => 'Restaurar marcadores removidos';
+
+  @override
+  String map_restoreRemovedMarkersSubtitle(int count) {
+    return '$count removidos';
+  }
+
+  @override
+  String map_markersRestored(int count) {
+    return '$count marcadores restaurados';
+  }
+
+  @override
+  String get map_setLocationConfirmTitle => 'Definir como sua localização?';
+
+  @override
+  String map_setLocationConfirmBody(String lat, String lon) {
+    return 'Seu nó vai anunciar esta posição:\n$lat, $lon';
+  }
+
+  @override
+  String get map_setLocationAction => 'Definir localização';
+
+  @override
+  String get map_locationSetSuccess => 'Localização do nó atualizada';
+
+  @override
+  String get map_locationSetFailed =>
+      'O dispositivo não confirmou a nova localização. Tente novamente.';
+
+  @override
+  String map_poiClusterTitle(int count) {
+    return '$count marcadores aqui';
+  }
+
+  @override
+  String map_poiClusterSemantics(int count) {
+    return '$count marcadores compartilhados. Toque para listá-los.';
+  }
+
+  @override
+  String map_youWithMarkers(int count) {
+    return 'Você e $count marcadores';
+  }
+
+  @override
+  String map_sharedMarkerSemantics(String label) {
+    return 'Marcador compartilhado: $label';
+  }
+
+  @override
+  String map_nodeMarkerSemantics(String name, String type, String status) {
+    return '$name, $type, $status';
+  }
+
+  @override
+  String mapCache_zoomLevel(int zoom) {
+    return 'Zoom $zoom';
+  }
+
+  @override
+  String mapCache_sizeBytes(String size) {
+    return '$size B';
+  }
+
+  @override
+  String mapCache_sizeKilobytes(String size) {
+    return '$size KB';
+  }
+
+  @override
+  String mapCache_sizeMegabytes(String size) {
+    return '$size MB';
+  }
+
+  @override
+  String mapCache_sizeGigabytes(String size) {
+    return '$size GB';
+  }
+
+  @override
+  String mapCache_downloadCancelled(int count) {
+    return 'Download cancelado. $count blocos em cache.';
+  }
+
+  @override
+  String get mapCache_tooManyTilesTitle => 'Área muito grande';
+
+  @override
+  String mapCache_tooManyTiles(int count, int max) {
+    return 'Esta área precisa de $count blocos, mais do que o limite de $max. Escolha uma área menor ou reduza o zoom máximo.';
+  }
+
+  @override
+  String get chat_clearChatConfirm =>
+      'Isto apaga todas as mensagens desta conversa deste dispositivo. Não é possível desfazer.';
+
+  @override
+  String get channels_clearChatConfirm =>
+      'Isto apaga todas as mensagens deste canal deste dispositivo, incluindo as imagens recebidas. Não é possível desfazer.';
+
+  @override
+  String get channels_timeNow => 'agora';
+
+  @override
+  String channels_timeMinutes(int minutes) {
+    return '${minutes}min';
+  }
+
+  @override
+  String channels_timeHours(int hours) {
+    return '${hours}h';
+  }
+
+  @override
+  String channels_timeDays(int days) {
+    return '${days}d';
+  }
+
+  @override
+  String channels_indexChip(int index) {
+    return 'CH $index';
+  }
+
+  @override
+  String get reaction_unknownSender => 'Desconhecido';
+
+  @override
+  String get pathMap_noSelfGpsFix => 'O nó local não tem sinal de GPS';
+
+  @override
+  String pathTrace_sendFailed(String error) {
+    return 'Não foi possível enviar o rastreamento de caminho: $error';
+  }
+
+  @override
+  String get losErrorNoInternet =>
+      'Os dados de elevação precisam de conexão com a internet';
+
+  @override
+  String get losResultStale => 'Desatualizado: a altura da antena mudou';
+
+  @override
+  String losSnrValue(String snr) {
+    return '$snr dB';
+  }
+
+  @override
+  String losFrequencyValue(String frequency) {
+    return '$frequency MHz';
+  }
+
+  @override
+  String losKFactorValue(String kFactor) {
+    return 'k=$kFactor';
+  }
+
+  @override
+  String get losEndpointA => 'A';
+
+  @override
+  String get losEndpointB => 'B';
+
+  @override
+  String get units_km => 'km';
+
+  @override
+  String get units_mi => 'mi';
+
+  @override
+  String get units_m => 'm';
+
+  @override
+  String get units_ft => 'ft';
+
+  @override
+  String get telemetry_loading => 'Carregando telemetria…';
+
+  @override
+  String telemetry_axisValue(String x, String y, String z) {
+    return 'X: $x, Y: $y, Z: $z';
+  }
+
+  @override
+  String telemetry_colourValue(String red, String green, String blue) {
+    return 'R: $red, G: $green, B: $blue';
+  }
+
+  @override
+  String telemetry_altitudeValueFeet(String feet) {
+    return '$feet ft';
+  }
+
+  @override
+  String telemetry_distanceValueFeet(String feet) {
+    return '$feet ft';
+  }
+
+  @override
+  String get settings_notConnectedError =>
+      'Sem conexão com um rádio. Conecte e tente novamente.';
+
+  @override
+  String get settings_requiresConnection =>
+      'Conecte-se a um rádio para usar isto';
+
+  @override
+  String settings_txPowerInvalidRange(int min, int max) {
+    return 'Potência de TX inválida ($min a $max dBm)';
+  }
+
+  @override
+  String get settings_contactSettingsSaved => 'Configurações do contato salvas';
+
+  @override
+  String get settings_batteryToggleHint =>
+      'Toque para alternar entre porcentagem e tensão';
+
+  @override
+  String get settings_publicKeyCopyHint => 'Copiar chave pública';
+
+  @override
+  String get settings_locationClearHelper =>
+      'Deixe ambos os campos vazios para remover sua localização.';
+
+  @override
+  String get settings_locationCleared => 'Localização removida';
+
+  @override
+  String get settings_regionFetchDiscovering =>
+      'Procurando repetidores próximos…';
+
+  @override
+  String settings_regionFetchProgress(int current, int total) {
+    return 'Consultando o repetidor $current de $total…';
+  }
+
+  @override
+  String get settings_regionFetchNoRepeaters =>
+      'Ainda não há repetidores conhecidos. Adicione um repetidor como contato ou aguarde um anunciar, e tente novamente.';
+
+  @override
+  String get settings_regionFetchNoneResponded =>
+      'Nenhum repetidor próximo respondeu. Aproxime-se de um repetidor e tente novamente.';
+
+  @override
+  String appSettings_sourceSummary(String label, String description) {
+    return '$label - $description';
+  }
+
+  @override
+  String get appSettings_routingSection => 'Roteamento';
+
+  @override
+  String get appSettings_imageMessagesSection => 'Mensagens de imagem';
+
+  @override
+  String get appSettings_showApiKey => 'Mostrar chave de API';
+
+  @override
+  String get appSettings_hideApiKey => 'Ocultar chave de API';
+
+  @override
+  String get translation_defaultModelName => 'Modelo';
+
+  @override
+  String translation_downloadProgressBytes(String fileName, String current) {
+    return '$fileName: $current MB';
+  }
+
+  @override
+  String translation_downloadProgressTotal(
+    String fileName,
+    String current,
+    String total,
+    String percent,
+  ) {
+    return '$fileName: $current / $total MB ($percent%)';
+  }
+
+  @override
+  String translation_downloadedModelDetails(String size, String source) {
+    return '$size MB • $source';
+  }
+
+  @override
+  String get repeater_radioDisconnected => 'Rádio desconectado';
+
+  @override
+  String get repeater_radioDisconnectedHint =>
+      'Reconecte-se ao seu rádio para enviar comandos, atualizar ou salvar alterações.';
+
+  @override
+  String get repeater_cliSend => 'Enviar comando';
+
+  @override
+  String get repeater_cliCopyTranscript => 'Copiar transcrição';
+
+  @override
+  String get repeater_cliShareTranscript => 'Compartilhar transcrição';
+
+  @override
+  String get repeater_cliTranscriptCopied => 'Transcrição copiada';
+
+  @override
+  String get repeater_cliClearHistoryConfirm =>
+      'Limpar o histórico de comandos? Não é possível desfazer.';
+
+  @override
+  String get repeater_cliSearchCommands => 'Pesquisar comandos';
+
+  @override
+  String get repeater_cliNoMatchingCommands => 'Nenhum comando correspondente';
+
+  @override
+  String get debugLog_clearConfirm =>
+      'Limpar todas as entradas do registro? Não é possível desfazer.';
+
+  @override
+  String get repeater_unsavedChangesTitle => 'Alterações não salvas';
+
+  @override
+  String get repeater_unsavedChangesMessage =>
+      'Você tem alterações que não foram salvas no repetidor.';
+
+  @override
+  String get repeater_discardChanges => 'Descartar';
+
+  @override
+  String repeater_actionSentNoReply(String action) {
+    return '$action: comando enviado. O repetidor não responde a este comando.';
+  }
+
+  @override
+  String repeater_invalidSettingValue(String setting, String value) {
+    return '$setting: $value não é válido';
+  }
+
+  @override
+  String repeater_txPowerOutOfRange(String value, int min, int max) {
+    return 'Potência de TX $value fora do intervalo ($min a $max dBm)';
+  }
+
+  @override
+  String repeater_prvKeyLengthError(int length) {
+    return 'A chave privada deve ter exatamente $length caracteres hexadecimais';
+  }
+
+  @override
+  String get contacts_advertFailed => 'Não foi possível enviar o anúncio';
+
+  @override
+  String get contacts_manageGroups => 'Gerenciar grupos';
+
+  @override
+  String community_shortId(String id) {
+    return 'ID: $id…';
+  }
+
+  @override
+  String get tcpSectionTitle => 'TCP / IP';
+
+  @override
+  String get tcpConnectedToHeader => 'Conectado a';
+
+  @override
+  String get usbChooseSerialPort => 'Escolher porta serial';
+
+  @override
+  String neighbors_durationSeconds(String seconds) {
+    return '${seconds}s';
+  }
+
+  @override
+  String neighbors_durationMinutes(int minutes, String seconds) {
+    return '${minutes}m ${seconds}s';
+  }
+
+  @override
+  String neighbors_durationHours(int hours, int minutes) {
+    return '${hours}h ${minutes}m';
+  }
+
+  @override
+  String get networkMap_settingsSection => 'Mapa da rede';
+
+  @override
+  String get networkMap_uploadTitle => 'Compartilhar o que meu rádio ouve';
+
+  @override
+  String get networkMap_uploadExplanation =>
+      'Quando isto está ativado e o seu rádio está conectado, o app envia um breve resumo dos pacotes que o seu rádio ouve para o mapa da rede do MeshCore Open, para que todos possam ver quais repetidores existem e como se conectam. Ele envia o tipo, a rota, os saltos, a intensidade do sinal e o tamanho de cada pacote, além dos nomes e localizações aproximadas dos repetidores, obtidos dos próprios anúncios. Nunca envia o texto das mensagens, quem fala com quem, nomes de canais, seus contactos nem a sua posição exata: as localizações são arredondadas para cerca de 2 km, e o seu app recebe um novo ID aleatório todos os dias.';
+
+  @override
+  String get networkMap_whatWeCollect => 'O que coletamos';
+
+  @override
+  String get networkMap_promptTitle => 'Ajudar a construir o mapa da rede?';
+
+  @override
+  String get networkMap_promptBody =>
+      'O MeshCore Open pode compartilhar o que o seu rádio ouve com o mapa público da rede em map.meshcoreopen.org, para que todos possam ver quais repetidores existem e como se conectam.\n\nNunca envia o texto das mensagens, quem fala com quem, nomes de canais, seus contactos nem a sua posição exata. As localizações são arredondadas para cerca de 2 km.';
+
+  @override
+  String get networkMap_promptSettingsHint =>
+      'Você pode mudar isso a qualquer momento em Configurações → Configurações do App → Mapa da rede.';
+
+  @override
+  String get networkMap_promptAccept => 'Compartilhar';
+
+  @override
+  String get networkMap_promptDecline => 'Não, obrigado';
+
+  @override
+  String get networkMap_statusOff => 'Desativado. Nada é enviado.';
+
+  @override
+  String get networkMap_statusWaiting =>
+      'Ativado. Aguardando conexão com o rádio.';
+
+  @override
+  String get networkMap_statusNothingSent => 'Ativado. Nada enviado ainda.';
+
+  @override
+  String networkMap_statusLastSent(String time, int count) {
+    return 'Último envio $time. $count pacotes hoje.';
+  }
+
+  @override
+  String get networkMap_sourceLocal => 'Local';
+
+  @override
+  String get networkMap_sourceOnline => 'Online';
+
+  @override
+  String get networkMap_sourceBoth => 'Ambos';
+
+  @override
+  String get networkMap_zoomInHint =>
+      'Aproxime o zoom para ver o mapa da rede online';
+
+  @override
+  String get networkMap_loadFailed =>
+      'Não foi possível carregar o mapa da rede online';
+
+  @override
+  String get networkMap_inYourContacts => 'Nos seus contactos';
+
+  @override
+  String get networkMap_status => 'Estado';
+
+  @override
+  String get networkMap_statusActive => 'Ativo na última hora';
+
+  @override
+  String get networkMap_statusRecent => 'Ouvido no último dia';
+
+  @override
+  String get networkMap_statusStale => 'Não ouvido recentemente';
+
+  @override
+  String get networkMap_confirmed => 'Confirmado';
+
+  @override
+  String get networkMap_singleSource => 'Fonte única, ainda não confirmado';
+
+  @override
+  String get networkMap_reports => 'Relatórios';
+
+  @override
+  String get networkMap_locationEstimated =>
+      'Localização aproximada, estimada a partir de quem o ouviu';
+
+  @override
+  String get networkMap_locationAdvertised =>
+      'Localização aproximada, do próprio anúncio';
+
+  @override
+  String get networkMap_heardByRadio => 'Ouvido pelo seu rádio';
+
+  @override
+  String get networkMap_inYourArea => 'Na sua área';
+
+  @override
+  String get networkMap_farAway => 'Muito longe. A gestão não chegará até ele.';
+
+  @override
+  String get networkMap_addToContacts => 'Adicionar aos contactos';
+
+  @override
+  String get networkMap_manage => 'Gerenciar';
+
+  @override
+  String get networkMap_addedToContacts => 'Adicionado aos contactos';
+
+  @override
+  String get networkMap_addFailed => 'Não foi possível adicionar aos contactos';
+
+  @override
+  String get networkMap_unnamed => 'Repetidor sem nome';
 }

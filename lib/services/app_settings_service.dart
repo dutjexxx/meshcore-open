@@ -313,8 +313,12 @@ class AppSettingsService extends ChangeNotifier {
     await updateSettings(_settings.copyWith(jumpToOldestUnread: value));
   }
 
-  Future<void> setImageMessagesEnabled(bool value) async {
-    await updateSettings(_settings.copyWith(imageMessagesEnabled: value));
+  Future<void> setNetworkMapUploadEnabled(bool value) async {
+    await updateSettings(_settings.copyWith(networkMapUploadEnabled: value));
+  }
+
+  Future<void> setNetworkMapPromptShown(bool value) async {
+    await updateSettings(_settings.copyWith(networkMapPromptShown: value));
   }
 
   Future<void> setIpfsImageSettings({
@@ -333,6 +337,10 @@ class AppSettingsService extends ChangeNotifier {
         uploadIpfsApiKey: uploadApiKey.trim(),
       ),
     );
+  }
+
+  Future<void> setImageMessagesEnabled(bool value) async {
+    await updateSettings(_settings.copyWith(imageMessagesEnabled: value));
   }
 
   /// See [AppSettings.imageProcessAutomatically]. `main.dart` mirrors this into

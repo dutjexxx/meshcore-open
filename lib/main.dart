@@ -23,6 +23,7 @@ import 'services/storage_service.dart';
 import 'services/message_retry_service.dart';
 import 'services/path_history_service.dart';
 import 'services/app_settings_service.dart';
+import 'services/network_map/network_map_upload_service.dart';
 import 'services/notification_service.dart';
 import 'services/ble_debug_log_service.dart';
 import 'services/app_debug_log_service.dart';
@@ -109,7 +110,10 @@ void main() async {
   // Availability/isBusy changes are the only thing that un-parks a decode
   // queue that stopped because the codec was unusable or busy.
   imageCodecService.addListener(receivedImageStore.notifyDecoderChanged);
-  final imageReassembler = ImageStreamReassembler(store: receivedImageStore);
+  final imageReassembler = ImageStreamReassembler(
+    store: receivedImageStore,
+    channelIdForSlot: connector.channelIdForSlot,
+  );
   final imageTransport = ImageChunkTransport(
     reassembler: imageReassembler,
     // The UI sends whole chunk sets through connector.sendImageChunks so it
@@ -166,18 +170,20 @@ void main() async {
     timeoutPredictionService: timeoutPredictionService,
     imageCodecService: imageCodecService,
     imageTransport: imageTransport,
+    receivedImageStore: receivedImageStore,
     // ImageStreamReassembler.addChunk already forwards every outcome to the
     // store together with the channel index (which ImageChunkOutcome itself
     // does not carry), so onImageChunk would be a second, channel-blind path.
     onImageSenderPrefix: (prefix) => imageReassembler.selfPrefix = prefix,
   );
 
-  await connector.loadContactCache();
-  await connector.loadChannelSettings();
-  await connector.loadCachedChannels();
+  final networkMapUploadService = NetworkMapUploadService(
+    connector: connector,
+    settings: appSettingsService,
+  );
 
-  // Load persisted channel messages
-  await connector.loadAllChannelMessages();
+  await connector.loadContactCache();
+  await connector.loadCachedChannels();
   await connector.loadUnreadState();
 
   runApp(
@@ -197,6 +203,7 @@ void main() async {
       imageCodecService: imageCodecService,
       receivedImageStore: receivedImageStore,
       imageReassembler: imageReassembler,
+      networkMapUploadService: networkMapUploadService,
     ),
   );
 }
@@ -259,7 +266,7 @@ class AppSettingsImageCodecStore implements ImageCodecSettingsStore {
 
 /// An [ImageReassembler] that (a) learns the local sender prefix after
 /// SELF_INFO and (b) forwards every outcome to [ReceivedImageStore] together
-/// with the channel index.
+/// with the channel index and the channel ID that slot holds.
 ///
 /// Both exist because of upstream shapes this file cannot change:
 ///  * `ImageReassembler.selfPrefix` is `final`, but the local public key does
@@ -273,9 +280,12 @@ class AppSettingsImageCodecStore implements ImageCodecSettingsStore {
 class ImageStreamReassembler extends ImageReassembler {
   final ReceivedImageStore store;
 
+  /// Resolves the radio slot a chunk arrived on to its [Channel.storageId].
+  final String? Function(int channelIndex)? channelIdForSlot;
+
   int? _selfPrefix;
 
-  ImageStreamReassembler({required this.store})
+  ImageStreamReassembler({required this.store, this.channelIdForSlot})
     : super(onFailed: ((failure) => unawaited(store.handleFailure(failure))));
 
   @override
@@ -290,7 +300,13 @@ class ImageStreamReassembler extends ImageReassembler {
     DateTime? now,
   }) {
     final outcome = super.addChunk(blob, channelIndex: channelIndex, now: now);
-    unawaited(store.handleOutcome(outcome, channelIndex: channelIndex));
+    unawaited(
+      store.handleOutcome(
+        outcome,
+        channelIndex: channelIndex,
+        channelId: channelIdForSlot?.call(channelIndex),
+      ),
+    );
     return outcome;
   }
 }
@@ -332,6 +348,7 @@ class MeshCoreApp extends StatefulWidget {
   final ImageCodecService imageCodecService;
   final ReceivedImageStore receivedImageStore;
   final ImageStreamReassembler imageReassembler;
+  final NetworkMapUploadService networkMapUploadService;
 
   const MeshCoreApp({
     super.key,
@@ -350,6 +367,7 @@ class MeshCoreApp extends StatefulWidget {
     required this.imageCodecService,
     required this.receivedImageStore,
     required this.imageReassembler,
+    required this.networkMapUploadService,
   });
 
   @override
@@ -432,6 +450,7 @@ class _MeshCoreAppState extends State<MeshCoreApp> with WidgetsBindingObserver {
         ChangeNotifierProvider.value(value: widget.timeoutPredictionService),
         ChangeNotifierProvider.value(value: widget.imageCodecService),
         ChangeNotifierProvider.value(value: widget.receivedImageStore),
+        ChangeNotifierProvider.value(value: widget.networkMapUploadService),
       ],
       child: Consumer<AppSettingsService>(
         builder: (context, settingsService, child) {
