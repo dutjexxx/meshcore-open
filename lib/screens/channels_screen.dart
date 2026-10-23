@@ -585,7 +585,7 @@ class _ChannelsScreenState extends State<ChannelsScreen>
                       Icon(
                         notificationMode == ChannelNotificationMode.muted
                             ? Icons.notifications_off
-                            : Icons.alternate_email,
+                            : Icons.notification_important,
                         size: 18,
                         color: scheme.onSurfaceVariant,
                       ),
@@ -719,7 +719,7 @@ class _ChannelsScreenState extends State<ChannelsScreen>
             ),
             // Mentions only
             ListTile(
-              leading: const Icon(Icons.alternate_email),
+              leading: const Icon(Icons.notification_important),
               title: Text(sheetContext.l10n.channels_notifyMentionsOnly),
               trailing: currentMode == ChannelNotificationMode.mentionsOnly
                   ? const Icon(Icons.check)

@@ -2635,7 +2635,7 @@ abstract class AppLocalizations {
   /// No description provided for @channels_notifyMentionsOnly.
   ///
   /// In en, this message translates to:
-  /// **'Mentions only (@)'**
+  /// **'Mentions only'**
   String get channels_notifyMentionsOnly;
 
   /// No description provided for @channels_notifyNone.

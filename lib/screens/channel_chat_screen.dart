@@ -413,7 +413,7 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                   notificationMode == ChannelNotificationMode.muted
                       ? Icons.notifications_off_outlined
                       : notificationMode == ChannelNotificationMode.mentionsOnly
-                      ? Icons.alternate_email
+                      ? Icons.notification_important
                       : Icons.notifications_outlined,
                 ),
                 onSelected: (mode) {
@@ -439,7 +439,7 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                     value: ChannelNotificationMode.mentionsOnly,
                     child: Row(
                       children: [
-                        const Icon(Icons.alternate_email),
+                        const Icon(Icons.notification_important),
                         const SizedBox(width: 8),
                         Text(context.l10n.channels_notifyMentionsOnly),
                       ],

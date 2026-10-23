@@ -371,7 +371,7 @@
   "channels_editChannel": "Modifier le canal",
   "channels_notificationSettings": "Paramètres des notifications",
   "channels_notifyAll": "Tous les messages",
-  "channels_notifyMentionsOnly": "Mentions uniquement (@)",
+  "channels_notifyMentionsOnly": "Mentions uniquement",
   "channels_notifyNone": "Désactivé",
   "channels_muteChannel": "Désactiver les notifications du canal",
   "channels_unmuteChannel": "Réactiver les notifications du canal",

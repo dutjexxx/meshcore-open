@@ -7369,9 +7369,9 @@ class MeshCoreConnector extends ChangeNotifier {
         ? translationResult.translatedText.trim()
         : message.text.trim();
 
-    // If mode is mentionsOnly, check if message mentions us
+    // If mode is mentionsOnly, check if message mentions us or is a reply to us
     if (notificationMode == ChannelNotificationMode.mentionsOnly) {
-      if (!_doesMessageMentionUs(resolvedText)) return;
+      if (!_doesMessageMentionUs(resolvedText, message)) return;
     }
 
     unawaited(() async {
@@ -7386,20 +7386,43 @@ class MeshCoreConnector extends ChangeNotifier {
     }());
   }
 
-  /// Checks if a message text mentions the current user.
-  /// Looks for "@username" pattern where username matches our self name.
-  bool _doesMessageMentionUs(String messageText) {
+  /// Checks if a message mentions the current user.
+  /// Detects: @username, @1234 (last 4 hex chars of node ID), or replies to our messages.
+  bool _doesMessageMentionUs(String messageText, ChannelMessage message) {
     final selfName = _selfName;
-    if (selfName == null || selfName.isEmpty) return false;
-
+    final selfPubKeyHex = selfPublicKeyHex;
+    
+    // Check if this is a reply to our message
+    if (message.replyToSenderName != null) {
+      final lowerSelfName = selfName?.toLowerCase();
+      final lowerReplyToSender = message.replyToSenderName!.toLowerCase();
+      if (lowerSelfName != null && lowerSelfName.isNotEmpty && 
+          lowerReplyToSender == lowerSelfName) {
+        return true;
+      }
+    }
+    
     // Check for @username at word boundaries (start of message or after whitespace)
-    // Case-insensitive comparison
-    final lowerSelfName = selfName.toLowerCase();
-    final lowerMessage = messageText.toLowerCase();
-    final mentionPattern = RegExp(
-      r'\b@(' + RegExp.escape(lowerSelfName) + r')\b',
-    );
-    return mentionPattern.hasMatch(lowerMessage);
+    if (selfName != null && selfName.isNotEmpty) {
+      final lowerSelfName = selfName.toLowerCase();
+      final lowerMessage = messageText.toLowerCase();
+      final mentionPattern = RegExp(
+        r'\b@(' + RegExp.escape(lowerSelfName) + r')\b',
+      );
+      if (mentionPattern.hasMatch(lowerMessage)) return true;
+    }
+    
+    // Check for @1234 pattern (last 4 hex chars of public key)
+    if (selfPubKeyHex.length >= 4) {
+      final last4Hex = selfPubKeyHex.substring(selfPubKeyHex.length - 4);
+      final lowerMessage = messageText.toLowerCase();
+      final hexMentionPattern = RegExp(
+        r'\b@(' + RegExp.escape(last4Hex.toLowerCase()) + r')\b',
+      );
+      if (hexMentionPattern.hasMatch(lowerMessage)) return true;
+    }
+    
+    return false;
   }
 
   /// Handles RESP_CODE_CHANNEL_DATA_RECV (GRP_DATA). Frames whose dataType is

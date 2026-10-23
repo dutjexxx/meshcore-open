@@ -1469,7 +1469,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get channels_notifyAll => 'Tous les messages';
 
   @override
-  String get channels_notifyMentionsOnly => 'Mentions uniquement (@)';
+  String get channels_notifyMentionsOnly => 'Mentions uniquement';
 
   @override
   String get channels_notifyNone => 'Désactivé';

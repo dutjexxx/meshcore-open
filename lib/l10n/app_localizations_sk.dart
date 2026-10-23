@@ -1453,16 +1453,16 @@ class AppLocalizationsSk extends AppLocalizations {
   String get channels_editChannel => 'Upraviť kanál';
 
   @override
-  String get channels_notificationSettings => 'Notification settings';
+  String get channels_notificationSettings => 'Nastavenia notifikácií';
 
   @override
-  String get channels_notifyAll => 'All messages';
+  String get channels_notifyAll => 'Všetky správy';
 
   @override
-  String get channels_notifyMentionsOnly => 'Mentions only (@)';
+  String get channels_notifyMentionsOnly => 'Iba zmienky';
 
   @override
-  String get channels_notifyNone => 'Muted';
+  String get channels_notifyNone => 'Stíšené';
 
   @override
   String get channels_muteChannel => 'Stlmiť kanál';

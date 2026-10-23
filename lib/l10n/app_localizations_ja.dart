@@ -1386,16 +1386,16 @@ class AppLocalizationsJa extends AppLocalizations {
   String get channels_editChannel => 'チャンネルを編集';
 
   @override
-  String get channels_notificationSettings => 'Notification settings';
+  String get channels_notificationSettings => '通知設定';
 
   @override
-  String get channels_notifyAll => 'All messages';
+  String get channels_notifyAll => 'すべてのメッセージ';
 
   @override
-  String get channels_notifyMentionsOnly => 'Mentions only (@)';
+  String get channels_notifyMentionsOnly => 'メンションのみ';
 
   @override
-  String get channels_notifyNone => 'Muted';
+  String get channels_notifyNone => 'ミュート';
 
   @override
   String get channels_muteChannel => 'チャンネルをミュート';
