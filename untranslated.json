@@ -1,1 +1,113 @@
-{}
+{
+  "bg": [
+    "channels_notificationSettings",
+    "channels_notifyAll",
+    "channels_notifyMentionsOnly",
+    "channels_notifyNone"
+  ],
+
+  "de": [
+    "channels_notificationSettings",
+    "channels_notifyAll",
+    "channels_notifyMentionsOnly",
+    "channels_notifyNone"
+  ],
+
+  "es": [
+    "channels_notificationSettings",
+    "channels_notifyAll",
+    "channels_notifyMentionsOnly",
+    "channels_notifyNone"
+  ],
+
+  "hu": [
+    "channels_notificationSettings",
+    "channels_notifyAll",
+    "channels_notifyMentionsOnly",
+    "channels_notifyNone"
+  ],
+
+  "it": [
+    "channels_notificationSettings",
+    "channels_notifyAll",
+    "channels_notifyMentionsOnly",
+    "channels_notifyNone"
+  ],
+
+  "ja": [
+    "channels_notificationSettings",
+    "channels_notifyAll",
+    "channels_notifyMentionsOnly",
+    "channels_notifyNone"
+  ],
+
+  "ko": [
+    "channels_notificationSettings",
+    "channels_notifyAll",
+    "channels_notifyMentionsOnly",
+    "channels_notifyNone"
+  ],
+
+  "nl": [
+    "channels_notificationSettings",
+    "channels_notifyAll",
+    "channels_notifyMentionsOnly",
+    "channels_notifyNone"
+  ],
+
+  "pl": [
+    "channels_notificationSettings",
+    "channels_notifyAll",
+    "channels_notifyMentionsOnly",
+    "channels_notifyNone"
+  ],
+
+  "pt": [
+    "channels_notificationSettings",
+    "channels_notifyAll",
+    "channels_notifyMentionsOnly",
+    "channels_notifyNone"
+  ],
+
+  "ru": [
+    "channels_notificationSettings",
+    "channels_notifyAll",
+    "channels_notifyMentionsOnly",
+    "channels_notifyNone"
+  ],
+
+  "sk": [
+    "channels_notificationSettings",
+    "channels_notifyAll",
+    "channels_notifyMentionsOnly",
+    "channels_notifyNone"
+  ],
+
+  "sl": [
+    "channels_notificationSettings",
+    "channels_notifyAll",
+    "channels_notifyMentionsOnly",
+    "channels_notifyNone"
+  ],
+
+  "sv": [
+    "channels_notificationSettings",
+    "channels_notifyAll",
+    "channels_notifyMentionsOnly",
+    "channels_notifyNone"
+  ],
+
+  "uk": [
+    "channels_notificationSettings",
+    "channels_notifyAll",
+    "channels_notifyMentionsOnly",
+    "channels_notifyNone"
+  ],
+
+  "zh": [
+    "channels_notificationSettings",
+    "channels_notifyAll",
+    "channels_notifyMentionsOnly",
+    "channels_notifyNone"
+  ]
+}

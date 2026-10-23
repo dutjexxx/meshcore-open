@@ -26,7 +26,8 @@ import '../l10n/l10n.dart';
 import '../models/channel.dart';
 import '../models/channel_message.dart';
 import '../models/image_codec_support.dart' show aeicRatePointForUi;
-import '../services/app_settings_service.dart';
+import '../services/app_settings_service.dart'
+    show AppSettingsService, ChannelNotificationMode;
 import '../services/chat_text_scale_service.dart';
 import '../services/image_chunk_transport.dart';
 import '../services/image_codec_service.dart';
@@ -403,19 +404,64 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
           Consumer<AppSettingsService>(
             builder: (context, settings, _) {
               final muteKey = widget.channel.muteKey;
-              final muted = settings.isChannelMuted(muteKey);
-              return IconButton(
-                tooltip: muted
-                    ? context.l10n.channels_unmuteChannel
-                    : context.l10n.channels_muteChannel,
+              final notificationMode = settings.getChannelNotificationMode(
+                muteKey,
+              );
+              return PopupMenuButton<ChannelNotificationMode>(
+                tooltip: context.l10n.channels_notificationSettings,
                 icon: Icon(
-                  muted
+                  notificationMode == ChannelNotificationMode.muted
                       ? Icons.notifications_off_outlined
+                      : notificationMode == ChannelNotificationMode.mentionsOnly
+                      ? Icons.alternate_email
                       : Icons.notifications_outlined,
                 ),
-                onPressed: () => muted
-                    ? settings.unmuteChannel(muteKey)
-                    : settings.muteChannel(muteKey),
+                onSelected: (mode) {
+                  settings.setChannelNotificationMode(muteKey, mode);
+                },
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    value: ChannelNotificationMode.all,
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.notifications_active,
+                          color: notificationMode == ChannelNotificationMode.all
+                              ? Theme.of(context).colorScheme.primary
+                              : Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(context.l10n.channels_notifyAll),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem(
+                    value: ChannelNotificationMode.mentionsOnly,
+                    child: Row(
+                      children: [
+                        const Icon(Icons.alternate_email),
+                        const SizedBox(width: 8),
+                        Text(context.l10n.channels_notifyMentionsOnly),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem(
+                    value: ChannelNotificationMode.muted,
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.notifications_off,
+                          color:
+                              notificationMode == ChannelNotificationMode.muted
+                              ? Theme.of(context).colorScheme.primary
+                              : Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(context.l10n.channels_notifyNone),
+                      ],
+                    ),
+                  ),
+                ],
               );
             },
           ),

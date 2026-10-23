@@ -1465,6 +1465,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get channels_editChannel => 'Изменить канал';
 
   @override
+  String get channels_notificationSettings => 'Notification settings';
+
+  @override
+  String get channels_notifyAll => 'All messages';
+
+  @override
+  String get channels_notifyMentionsOnly => 'Mentions only (@)';
+
+  @override
+  String get channels_notifyNone => 'Muted';
+
+  @override
   String get channels_muteChannel => 'Отключить уведомления канала';
 
   @override
