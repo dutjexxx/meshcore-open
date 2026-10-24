@@ -417,11 +417,14 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                       : Icons.notifications,
                 ),
                 onPressed: () {
-                  final currentMode = settings.getChannelNotificationMode(muteKey);
+                  final currentMode = settings.getChannelNotificationMode(
+                    muteKey,
+                  );
                   ChannelNotificationMode newMode;
                   if (currentMode == ChannelNotificationMode.all) {
                     newMode = ChannelNotificationMode.mentionsOnly;
-                  } else if (currentMode == ChannelNotificationMode.mentionsOnly) {
+                  } else if (currentMode ==
+                      ChannelNotificationMode.mentionsOnly) {
                     newMode = ChannelNotificationMode.muted;
                   } else {
                     newMode = ChannelNotificationMode.all;

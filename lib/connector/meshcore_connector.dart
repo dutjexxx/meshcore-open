@@ -7391,7 +7391,7 @@ class MeshCoreConnector extends ChangeNotifier {
   bool _doesMessageMentionUs(String messageText, ChannelMessage message) {
     final selfName = _selfName;
     final lowerMessage = messageText.toLowerCase();
-    
+
     // Check for @[username] pattern (bracketed mention format)
     if (selfName != null && selfName.isNotEmpty) {
       final lowerSelfName = selfName.toLowerCase();
@@ -7400,7 +7400,7 @@ class MeshCoreConnector extends ChangeNotifier {
       );
       if (bracketedMentionPattern.hasMatch(lowerMessage)) return true;
     }
-    
+
     return false;
   }
 
