@@ -12,11 +12,15 @@ import 'package:meshcore_open/services/usb_serial_frame_codec.dart';
 import 'package:meshcore_open/storage/prefs_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> _waitFor(bool Function() condition, {int seconds = 10}) async {
+Future<void> _waitFor(
+  bool Function() condition, {
+  int seconds = 10,
+  Duration pollInterval = const Duration(milliseconds: 25),
+}) async {
   final end = DateTime.now().add(Duration(seconds: seconds));
   while (!condition()) {
     if (DateTime.now().isAfter(end)) fail('Timed out waiting for condition');
-    await Future<void>.delayed(const Duration(milliseconds: 25));
+    await Future<void>.delayed(pollInterval);
   }
 }
 
@@ -198,27 +202,23 @@ void main() {
       expect(_connector.isTcpTransportConnected, isTrue);
 
       // The companion goes away entirely: attempts fail and are rescheduled.
-      var sawRetryAttempt = false;
-      void observeRetryAttempt() {
-        if (_connector.state == MeshCoreConnectionState.connecting) {
-          sawRetryAttempt = true;
-        }
-      }
-
-      _connector.addListener(observeRetryAttempt);
-      try {
-        await companion.close();
-        // Wait for a retry to start and fail, then verify another backoff is
-        // scheduled. A fixed delay can observe the connector mid-attempt.
-        await _waitFor(
-          () =>
-              sawRetryAttempt &&
-              _connector.state == MeshCoreConnectionState.disconnected &&
-              _connector.isAutoReconnectScheduled,
-        );
-      } finally {
-        _connector.removeListener(observeRetryAttempt);
-      }
+      await companion.close();
+      await _waitFor(
+        () =>
+            _connector.state == MeshCoreConnectionState.disconnected &&
+            _connector.isAutoReconnectScheduled,
+      );
+      await _waitFor(
+        () => !_connector.isAutoReconnectScheduled,
+        pollInterval: const Duration(milliseconds: 1),
+      );
+      // The timer firing proves an attempt started; wait for its failure to
+      // finish and the next backoff to become active.
+      await _waitFor(
+        () =>
+            _connector.state == MeshCoreConnectionState.disconnected &&
+            _connector.isAutoReconnectScheduled,
+      );
       expect(_connector.isTcpTransportConnected, isFalse);
     },
   );
