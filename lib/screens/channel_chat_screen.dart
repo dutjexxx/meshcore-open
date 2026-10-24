@@ -407,7 +407,7 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
               final notificationMode = settings.getChannelNotificationMode(
                 muteKey,
               );
-              return PopupMenuButton<ChannelNotificationMode>(
+              return IconButton(
                 tooltip: context.l10n.channels_notificationSettings,
                 icon: Icon(
                   notificationMode == ChannelNotificationMode.muted
@@ -416,52 +416,18 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                       ? Icons.notification_important
                       : Icons.notifications,
                 ),
-                onSelected: (mode) {
-                  settings.setChannelNotificationMode(muteKey, mode);
+                onPressed: () {
+                  final currentMode = settings.getChannelNotificationMode(muteKey);
+                  ChannelNotificationMode newMode;
+                  if (currentMode == ChannelNotificationMode.all) {
+                    newMode = ChannelNotificationMode.mentionsOnly;
+                  } else if (currentMode == ChannelNotificationMode.mentionsOnly) {
+                    newMode = ChannelNotificationMode.muted;
+                  } else {
+                    newMode = ChannelNotificationMode.all;
+                  }
+                  settings.setChannelNotificationMode(muteKey, newMode);
                 },
-                itemBuilder: (context) => [
-                  PopupMenuItem(
-                    value: ChannelNotificationMode.all,
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.notifications,
-                          color: notificationMode == ChannelNotificationMode.all
-                              ? Theme.of(context).colorScheme.primary
-                              : Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(context.l10n.channels_notifyAll),
-                      ],
-                    ),
-                  ),
-                  PopupMenuItem(
-                    value: ChannelNotificationMode.mentionsOnly,
-                    child: Row(
-                      children: [
-                        const Icon(Icons.notification_important),
-                        const SizedBox(width: 8),
-                        Text(context.l10n.channels_notifyMentionsOnly),
-                      ],
-                    ),
-                  ),
-                  PopupMenuItem(
-                    value: ChannelNotificationMode.muted,
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.notifications_off,
-                          color:
-                              notificationMode == ChannelNotificationMode.muted
-                              ? Theme.of(context).colorScheme.primary
-                              : Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(context.l10n.channels_notifyNone),
-                      ],
-                    ),
-                  ),
-                ],
               );
             },
           ),
