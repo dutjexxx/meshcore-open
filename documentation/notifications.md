@@ -106,7 +106,7 @@ Each channel supports three notification modes:
 | Mode | Icon | Behavior |
 |---|---|---|
 | **All messages** | 🔔 | Receive notifications for every message |
-| **Mentions only** | 🔔! | Only notify when someone mentions you with "@yourname" or replies to your messages |
+| **Mentions only** | 🔔! | Only notify when someone mentions you with "@[yourname]" or replies to your messages |
 | **Muted** | 🔕 | No notifications |
 
 Set the mode from:
@@ -115,7 +115,7 @@ Set the mode from:
 - Long-press a channel in the channels list → **Notification settings** → select mode
 - Channel notification actions (Android)
 
-Mentions are detected by looking for "@" followed by your username at word boundaries (case-insensitive), or when someone replies to one of your messages. Reply detection checks if the message is a direct reply to a message you sent.
+Mentions are detected by looking for "@[yourname]" (username in brackets, case-insensitive), or when someone replies to one of your messages. Reply detection checks if the message is a direct reply to a message you sent.
 
 ## Rate Limiting
 
