@@ -411,10 +411,10 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                 tooltip: context.l10n.channels_notificationSettings,
                 icon: Icon(
                   notificationMode == ChannelNotificationMode.muted
-                      ? Icons.notifications_off_outlined
+                      ? Icons.notifications_off
                       : notificationMode == ChannelNotificationMode.mentionsOnly
-                      ? Icons.notification_important_outlined
-                      : Icons.notifications_outlined,
+                      ? Icons.notification_important
+                      : Icons.notifications,
                 ),
                 onSelected: (mode) {
                   settings.setChannelNotificationMode(muteKey, mode);
