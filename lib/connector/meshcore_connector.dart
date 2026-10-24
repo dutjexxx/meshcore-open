@@ -7369,7 +7369,7 @@ class MeshCoreConnector extends ChangeNotifier {
         ? translationResult.translatedText.trim()
         : message.text.trim();
 
-    // If mode is mentionsOnly, check if message mentions us or is a reply to us
+    // If mode is mentionsOnly, check if message mentions us
     if (notificationMode == ChannelNotificationMode.mentionsOnly) {
       if (!_doesMessageMentionUs(resolvedText, message)) return;
     }
@@ -7390,17 +7390,6 @@ class MeshCoreConnector extends ChangeNotifier {
   /// Detects: @[username] format only.
   bool _doesMessageMentionUs(String messageText, ChannelMessage message) {
     final selfName = _selfName;
-    
-    // Check if this is a reply to our message
-    if (message.replyToSenderName != null) {
-      final lowerSelfName = selfName?.toLowerCase();
-      final lowerReplyToSender = message.replyToSenderName!.toLowerCase();
-      if (lowerSelfName != null && lowerSelfName.isNotEmpty && 
-          lowerReplyToSender == lowerSelfName) {
-        return true;
-      }
-    }
-    
     final lowerMessage = messageText.toLowerCase();
     
     // Check for @[username] pattern (bracketed mention format)
