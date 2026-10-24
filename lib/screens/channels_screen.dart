@@ -700,7 +700,7 @@ class _ChannelsScreenState extends State<ChannelsScreen>
             // All notifications
             ListTile(
               leading: Icon(
-                Icons.notifications_active,
+                Icons.notifications,
                 color: currentMode == ChannelNotificationMode.all
                     ? Theme.of(sheetContext).colorScheme.primary
                     : Theme.of(sheetContext).colorScheme.onSurfaceVariant,

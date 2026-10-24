@@ -413,7 +413,7 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                   notificationMode == ChannelNotificationMode.muted
                       ? Icons.notifications_off_outlined
                       : notificationMode == ChannelNotificationMode.mentionsOnly
-                      ? Icons.notification_important
+                      ? Icons.notification_important_outlined
                       : Icons.notifications_outlined,
                 ),
                 onSelected: (mode) {
@@ -425,7 +425,7 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                     child: Row(
                       children: [
                         Icon(
-                          Icons.notifications_active,
+                          Icons.notifications,
                           color: notificationMode == ChannelNotificationMode.all
                               ? Theme.of(context).colorScheme.primary
                               : Theme.of(context).colorScheme.onSurfaceVariant,
