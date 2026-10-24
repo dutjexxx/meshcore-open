@@ -7387,10 +7387,9 @@ class MeshCoreConnector extends ChangeNotifier {
   }
 
   /// Checks if a message mentions the current user.
-  /// Detects: @username, @1234 (last 4 hex chars of node ID), or replies to our messages.
+  /// Detects: @[username] format only.
   bool _doesMessageMentionUs(String messageText, ChannelMessage message) {
     final selfName = _selfName;
-    final selfPubKeyHex = selfPublicKeyHex;
     
     // Check if this is a reply to our message
     if (message.replyToSenderName != null) {
@@ -7402,24 +7401,15 @@ class MeshCoreConnector extends ChangeNotifier {
       }
     }
     
-    // Check for @username at word boundaries (start of message or after whitespace)
+    final lowerMessage = messageText.toLowerCase();
+    
+    // Check for @[username] pattern (bracketed mention format)
     if (selfName != null && selfName.isNotEmpty) {
       final lowerSelfName = selfName.toLowerCase();
-      final lowerMessage = messageText.toLowerCase();
-      final mentionPattern = RegExp(
-        r'\b@(' + RegExp.escape(lowerSelfName) + r')\b',
+      final bracketedMentionPattern = RegExp(
+        r'@\[(' + RegExp.escape(lowerSelfName) + r')\]',
       );
-      if (mentionPattern.hasMatch(lowerMessage)) return true;
-    }
-    
-    // Check for @1234 pattern (last 4 hex chars of public key)
-    if (selfPubKeyHex.length >= 4) {
-      final last4Hex = selfPubKeyHex.substring(selfPubKeyHex.length - 4);
-      final lowerMessage = messageText.toLowerCase();
-      final hexMentionPattern = RegExp(
-        r'\b@(' + RegExp.escape(last4Hex.toLowerCase()) + r')\b',
-      );
-      if (hexMentionPattern.hasMatch(lowerMessage)) return true;
+      if (bracketedMentionPattern.hasMatch(lowerMessage)) return true;
     }
     
     return false;
