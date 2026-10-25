@@ -1397,7 +1397,9 @@ class _ChannelsScreenState extends State<ChannelsScreen>
                                 }
                               },
                               icon: const Icon(Icons.qr_code_scanner),
-                              label: Text(sheetContext.l10n.community_scanQr),
+                              label: Text(
+                                sheetContext.l10n.channels_scanQrCode,
+                              ),
                             ),
                           ),
                         ],
@@ -1601,8 +1603,8 @@ class _ChannelsScreenState extends State<ChannelsScreen>
                           buildOptionCard(
                             optionIndex: 4,
                             icon: Icons.qr_code_scanner,
-                            title: sheetContext.l10n.community_scanQr,
-                            subtitle: sheetContext.l10n.community_join,
+                            title: sheetContext.l10n.channels_scanQrCode,
+                            subtitle: sheetContext.l10n.channels_scanQrCodeDesc,
                           ),
                           if (selectedOption == 4) buildExpandedContent()!,
                           SectionHeader(

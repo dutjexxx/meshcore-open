@@ -3100,6 +3100,42 @@ abstract class AppLocalizations {
   /// **'Coming soon'**
   String get channels_scanQrCodeComingSoon;
 
+  /// No description provided for @channels_scanQrCodeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Join a channel or community from its QR code.'**
+  String get channels_scanQrCodeDesc;
+
+  /// No description provided for @channels_scanQrInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Point the camera at a channel or community QR code'**
+  String get channels_scanQrInstructions;
+
+  /// No description provided for @channels_invalidQrCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Not a MeshCore channel or community QR code'**
+  String get channels_invalidQrCode;
+
+  /// No description provided for @channels_joinChannelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Join Channel'**
+  String get channels_joinChannelTitle;
+
+  /// No description provided for @channels_joinChannelConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Add \"{name}\" to your radio?'**
+  String channels_joinChannelConfirm(String name);
+
+  /// No description provided for @channels_alreadyOnRadio.
+  ///
+  /// In en, this message translates to:
+  /// **'\"{name}\" is already on your radio'**
+  String channels_alreadyOnRadio(String name);
+
   /// No description provided for @channels_enterHashtag.
   ///
   /// In en, this message translates to:

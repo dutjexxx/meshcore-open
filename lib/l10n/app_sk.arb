@@ -363,6 +363,14 @@
   "channels_notifyAll": "Všetky správy",
   "channels_notifyMentionsOnly": "Iba zmienky",
   "channels_notifyNone": "Stíšené",
+  "channels_notificationModeTooltip": "Upozornenia: {mode}",
+  "@channels_notificationModeTooltip": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    }
+  },
   "channels_muteChannel": "Stlmiť kanál",
   "channels_unmuteChannel": "Zrušiť stlmenie kanála",
   "channels_deleteChannel": "Odstrániť kanál",
@@ -1579,6 +1587,26 @@
   "channels_joinHashtagChannelDesc": "Ktoekolikoľvek sa môže pridať do hashtag kanálov.",
   "channels_scanQrCode": "Skenujte QR kód",
   "channels_scanQrCodeComingSoon": "Čoskoro",
+  "channels_scanQrCodeDesc": "Pripojte sa ku kanálu alebo komunite pomocou QR kódu.",
+  "channels_scanQrInstructions": "Namierte kameru na QR kód kanála alebo komunity",
+  "channels_invalidQrCode": "Toto nie je QR kód kanála ani komunity MeshCore",
+  "channels_joinChannelTitle": "Pripojiť sa ku kanálu",
+  "channels_joinChannelConfirm": "Pridať „{name}“ do vášho rádia?",
+  "@channels_joinChannelConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "channels_alreadyOnRadio": "„{name}“ je už vo vašom rádiu",
+  "@channels_alreadyOnRadio": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "channels_enterHashtag": "Zadajte hashtag",
   "channels_hashtagHint": "napr. #tím",
   "@neighbors_unknownContact": {
@@ -1778,11 +1806,46 @@
   "contacts_ShareContactZeroHop": "Zdieľať kontakt cez inzerát",
   "contacts_ShareContact": "Kopírovať kontakt do schránky",
   "notification_activityTitle": "Aktivita MeshCore",
+  "notification_lowBatteryTitle": "Slabá batéria",
+  "@notification_lowBatteryTitle": {
+    "description": "Title of the low battery notification"
+  },
+  "notification_lowBatteryBody": "Batéria zariadenia {deviceName} je na {percent} %",
+  "@notification_lowBatteryBody": {
+    "description": "Body of the low battery notification; deviceName is the connected radio's node name",
+    "placeholders": {
+      "deviceName": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
   "notification_messagesCount": "{count} {count, plural, =1{správa} few{správy} other{správ}}",
   "notification_channelMessagesCount": "{count} {count, plural, =1{správa kanálu} few{správy kanálu} other{správ kanálu}}",
   "notification_newNodesCount": "{count} {count, plural, =1{nový uzol} few{nové uzly} other{nových uzlov}}",
   "notification_newTypeDiscovered": "Nový {contactType} objavený",
   "notification_receivedNewMessage": "Prijatá nová správa",
+  "notification_sharedLocation": "Zdieľal(a) polohu",
+  "notification_sharedLocationNamed": "Zdieľal(a) polohu: {label}",
+  "@notification_sharedLocationNamed": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_reacted": "Reakcia {emoji}",
+  "@notification_reacted": {
+    "placeholders": {
+      "emoji": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_sentGif": "Odoslal(a) GIF",
+  "notification_sentImage": "Odoslal(a) obrázok",
   "settings_gpxExportRepeatersSubtitle": "Exportuje repeater / roomserver s lokalitou do súboru GPX.",
   "settings_gpxExportContacts": "Export sprievodcov do GPX",
   "settings_gpxExportSuccess": "Úspešne exportovaný súbor GPX.",
@@ -1804,6 +1867,12 @@
   "map_removeLast": "Odstrániť posledný",
   "map_runTrace": "Spustiť trasovaním cesty",
   "map_pathTraceCancelled": "Zrušenie stopáže cesty bolo zrušené.",
+  "map_pathTraceAddMoreHint": "Ťuknutím na ďalšie uzly pridajte skoky, vyberte, ako sa sledovanie vráti, a potom ťuknite na Spustiť sledovanie cesty.",
+  "map_pathTraceModeRoundTrip": "Tam a späť",
+  "map_pathTraceModeRoundTripHint": "Sledovanie prejde cez tieto skoky a vráti sa rovnakou cestou.",
+  "map_pathTraceModeAsEntered": "Podľa zadania",
+  "map_pathTraceModeAsEnteredHint": "Sledovanie presne prejde cez tieto skoky. Skoky späť k sebe pridajte sami.",
+  "map_pathTraceViewLast": "Zobraziť posledný výsledok",
   "scanner_bluetoothOffMessage": "Prosím, zapnite Bluetooth, aby ste mohli skenovať pre zariadenia.",
   "scanner_chromeRequired": "Vyžaduje sa prehliadač Chrome",
   "scanner_chromeRequiredMessage": "Táto webová aplikácia vyžaduje Google Chrome alebo prehliadač založený na Chromium pre podporu Bluetooth.",
@@ -2179,6 +2248,25 @@
   "appSettings_routeWeightFailureDecrementSubtitle": "Hmotnosť odstránená z cesty po neúspešnej doručenie",
   "appSettings_maxMessageRetries": "Maximalný počet pokusov o doručenie správ",
   "appSettings_maxMessageRetriesSubtitle": "Počet pokusov o odošleť pred označením správy ako neúspešnej",
+  "appSettings_ipfsImageLinks": "Konfigurácia poskytovateľa IPFS",
+  "appSettings_ipfsImageLinksSubtitle": "Nahrávanie obrázkov (alebo súborov) cez URL pomocou poskytovateľa IPFS a predvolenej brány na príjem",
+  "appSettings_loadLinkImages": "Načítať obrázky z odkazov",
+  "appSettings_loadLinkImagesSubtitle": "Zobrazovať obrázky z odkazov v správach. Načítaním obrázka sa vaša IP adresa zdieľa so stránkou, ktorá ho hostuje.",
+  "appSettings_showLinkImagesByDefault": "Predvolene zobrazovať obrázky z odkazov vo všetkých chatoch",
+  "appSettings_showLinkImagesByDefaultSubtitle": "Načítať obrázky z odkazov v každom chate, ak ste ich tam nevypli. Vaša IP adresa sa tak zdieľa s hostiteľmi obrázkov vo všetkých chatoch.",
+  "appSettings_publicIpfsGateway": "Verejná brána",
+  "appSettings_ipfsGatewayDeactivated": "Deaktivované",
+  "appSettings_ipfsGatewayIpfsIo": "ipfs.io",
+  "appSettings_ipfsGatewayPinata": "Pinata",
+  "appSettings_ipfsGatewayFilebase": "Filebase",
+  "appSettings_ipfsGatewayCustom": "Vlastná (Kubo)",
+  "appSettings_uploadIpfsProvider": "Poskytovateľ nahrávania",
+  "appSettings_uploadIpfsGateway": "Brána nahrávania",
+  "appSettings_uploadIpfsGatewaySubtitle": "Brána na zdieľanie obrázka alebo súboru ako URL odkazu. Nechajte prázdne, ak chcete použiť formát ipfs:, ktorý iní klienti nemusia vedieť otvoriť.",
+  "appSettings_uploadIpfsEndpoint": "Koncový bod nahrávania",
+  "appSettings_uploadIpfsEndpointSubtitle": "API koncový bod používaný na nahrávanie súborov",
+  "appSettings_uploadIpfsApiKey": "API kľúč nahrávania",
+  "appSettings_ipfsImageLinksDescription": "Verejná brána sťahuje obrázky vo formáte ipfs:. Brána nahrávania sa používa na vytváranie odkazov na zdieľanie nahraných obrázkov alebo súborov.",
   "path_routeWeight": "{weight}/{max}",
   "settings_telemetryModeUpdated": "Režim telemetrie bol aktualizovaný",
   "settings_multiAck": "Viaceré ACK",
@@ -2812,6 +2900,29 @@
   "channels_regionSelect_Title": "Vyberte region",
   "channels_clearRegion": "Jasný údajný oblasť",
   "chat_sendImageLora": "Odoslať obrázok cez MeshCore",
+  "chat_sendImageIpfs": "Odoslať obrázok alebo súbor cez IPFS",
+  "chat_ipfsUploadFailed": "Nahrávanie do IPFS zlyhalo: {error}",
+  "@chat_ipfsUploadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "chat_ipfsUploadNotConfigured": "Najprv nastavte poskytovateľa nahrávania IPFS v nastaveniach aplikácie.",
+  "chat_ipfsSelectedFileEmpty": "Vybraný súbor je prázdny.",
+  "chat_ipfsEndpointInvalid": "Koncový bod nahrávania IPFS musí byť úplná adresa http:// alebo https://. Skontrolujte ho v nastaveniach aplikácie.",
+  "chat_ipfsPinataTokenMissing": "Pinata vyžaduje API kľúč alebo JWT. Pridajte ho v nastaveniach aplikácie.",
+  "chat_ipfsFilebaseTokenMissing": "Filebase vyžaduje API token. Pridajte ho v nastaveniach aplikácie.",
+  "chat_ipfsKuboPathInvalid": "Koncový bod nahrávania Kubo musí končiť na /api/v0/add. Skontrolujte ho v nastaveniach aplikácie.",
+  "chat_ipfsLinkNoRoom": "Nie je dosť miesta na odkaz na obrázok. Skráťte správu a skúste to znova.",
+  "@chat_ipfsLinkNoRoom": {
+    "description": "Shown before an IPFS upload when the link would push the draft over the message size limit"
+  },
+  "chat_ipfsLinkOverLimit": "Odkaz na obrázok bol pridaný, ale správa je teraz príliš dlhá. Pred odoslaním ju skráťte.",
+  "@chat_ipfsLinkOverLimit": {
+    "description": "Shown after an IPFS upload when the link plus the draft no longer fits the message size limit"
+  },
   "chat_imagePickFailed": "Nesmiela jsem otvoriť tento obrázok",
   "chat_receivedGif": "Odeslaný GIF",
   "repeater_keySettings": "Zmena identititačných klíčov",
@@ -2907,8 +3018,10 @@
   "room_postsStored": "Príspevky",
   "settings_publicKeyCopied": "Verejný kľúč skopírovaný",
   "settings_radioSettingsNotApplied": "Rádio tieto nastavenia neuplatnilo",
+  "settings_pathHashModeNotApplied": "Nastavenia rádia boli použité, ale rádio nepotvrdilo novú veľkosť hashu cesty",
   "urlImage_enable": "Povoliť obrázky z URL",
   "urlImage_possible": "Možný obrázok z URL; povoľte ho v Nastaveniach.",
+  "urlImage_disabledInAppSettings": "Vypnuté v nastaveniach aplikácie",
   "@chat_longMessageRetryNote": {
     "description": "Shown under the DM composer when the message is too long for the firmware's later retry attempts",
     "placeholders": {
@@ -3019,6 +3132,8 @@
   },
   "contacts_keepChatHistory": "Zachovať históriu chatu",
   "contacts_remove": "Odstrániť",
+  "contacts_removeAutoAddNote": "Vaše rádio tento typ kontaktu pridáva automaticky, preto sa vráti pri jeho ďalšom inzeráte. Ak ho chcete ponechať odstránený, vypnite automatické pridávanie v nastaveniach kontaktov.",
+  "contacts_removeFailed": "Rádio odstránenie nepotvrdilo. Kontakt nebol odstránený.",
   "contacts_discoveredNearby": "Objavené v blízkosti ({count})",
   "@contacts_discoveredNearby": {
     "placeholders": {
@@ -3073,6 +3188,8 @@
   "notification_replySendFailed": "Vaša odpoveď možno nebola odoslaná. Skontrolujte to v MeshCore Open a skúste to znova.",
   "notification_replyAppNotRunning": "MeshCore Open nebeží. Otvorte ho a odošlite odpoveď ešte raz.",
   "snrIndicator_nearByRepeatersDescription": "Opakovače, ktoré vaše rádio počulo priamo, najskôr tie naposledy počuté.",
+  "snrIndicator_unknownRepeater": "Neznámy opakovač",
+  "snrIndicator_unknownRepeaterHint": "Tento opakovač zatiaľ nie je vo vašich kontaktoch. Jeho názov, poloha a možnosti sa zobrazia, keď rádio prijme jeho inzerát.",
   "radioStats_sectionSignal": "Signál",
   "radioStats_sectionAirtime": "Čas vysielania",
   "imageSend_lossyNote": "Komprimované približne na {bytes} bajtov. Model príjemcu obraz zrekonštruuje, takže detaily sa budú líšiť.",
@@ -3259,6 +3376,14 @@
   "repeater_prvKeyLengthError": "Súkromný kľúč musí mať presne {length} hexadecimálnych znakov",
   "contacts_advertFailed": "Oznam sa nepodarilo odoslať",
   "contacts_manageGroups": "Spravovať skupiny",
+  "contacts_keyPrefixSemantics": "Prefix kľúča {prefix}",
+  "@contacts_keyPrefixSemantics": {
+    "placeholders": {
+      "prefix": {
+        "type": "String"
+      }
+    }
+  },
   "community_shortId": "ID: {id}…",
   "tcpSectionTitle": "TCP / IP",
   "tcpConnectedToHeader": "Pripojené k",
@@ -3296,6 +3421,9 @@
   "networkMap_sourceLocal": "Lokálna",
   "networkMap_sourceOnline": "Online",
   "networkMap_sourceBoth": "Obe",
+  "networkMap_sourceLocalHint": "Uzly, ktoré vaše rádio zachytilo",
+  "networkMap_sourceOnlineHint": "Opakovače z online mapy siete",
+  "networkMap_sourceBothHint": "Uzly vášho rádia a online mapa siete",
   "networkMap_zoomInHint": "Priblížte, aby ste videli online sieťovú mapu",
   "networkMap_loadFailed": "Online sieťovú mapu sa nepodarilo načítať",
   "networkMap_inYourContacts": "Vo vašich kontaktoch",

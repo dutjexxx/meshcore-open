@@ -366,6 +366,14 @@
   "channels_notifyAll": "Усі повідомлення",
   "channels_notifyMentionsOnly": "Лише згадки",
   "channels_notifyNone": "Вимкнено",
+  "channels_notificationModeTooltip": "Сповіщення: {mode}",
+  "@channels_notificationModeTooltip": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    }
+  },
   "channels_muteChannel": "Вимкнути сповіщення каналу",
   "channels_unmuteChannel": "Увімкнути сповіщення каналу",
   "channels_deleteChannel": "Видалити канал",
@@ -1590,6 +1598,26 @@
   "channels_joinHashtagChannelDesc": "Будь-хто може приєднатись до хештег-каналів.",
   "channels_scanQrCode": "Сканувати QR-код",
   "channels_scanQrCodeComingSoon": "Скоро буде",
+  "channels_scanQrCodeDesc": "Приєднайтеся до каналу або спільноти за QR-кодом.",
+  "channels_scanQrInstructions": "Наведіть камеру на QR-код каналу або спільноти",
+  "channels_invalidQrCode": "Це не QR-код каналу чи спільноти MeshCore",
+  "channels_joinChannelTitle": "Приєднатися до каналу",
+  "channels_joinChannelConfirm": "Додати \"{name}\" до вашого радіо?",
+  "@channels_joinChannelConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "channels_alreadyOnRadio": "\"{name}\" уже на вашому радіо",
+  "@channels_alreadyOnRadio": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "channels_enterHashtag": "Введіть хештег",
   "channels_hashtagHint": "напр. #команда",
   "@neighbors_unknownContact": {
@@ -1788,11 +1816,46 @@
   "contacts_addContactFromClipboard": "Додати контакт з буфера",
   "contacts_ShareContactZeroHop": "Поділитись контактом за оголошенням",
   "notification_activityTitle": "Активність MeshCore",
+  "notification_lowBatteryTitle": "Низький заряд батареї",
+  "@notification_lowBatteryTitle": {
+    "description": "Title of the low battery notification"
+  },
+  "notification_lowBatteryBody": "Заряд батареї {deviceName}: {percent}%",
+  "@notification_lowBatteryBody": {
+    "description": "Body of the low battery notification; deviceName is the connected radio's node name",
+    "placeholders": {
+      "deviceName": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
   "notification_messagesCount": "{count} {count, plural, =1{повідомлення} few{повідомлення} many{повідомлень} other{повідомлень}}",
   "notification_channelMessagesCount": "{count} {count, plural, =1{повідомлення каналу} few{повідомлення каналу} many{повідомлень каналу} other{повідомлень каналу}}",
   "notification_newNodesCount": "{count} {count, plural, =1{новий вузол} few{нові вузли} many{нових вузлів} other{нових вузлів}}",
   "notification_newTypeDiscovered": "Виявлено новий {contactType}",
   "notification_receivedNewMessage": "Отримано нове повідомлення",
+  "notification_sharedLocation": "Поділився(-лась) розташуванням",
+  "notification_sharedLocationNamed": "Поділився(-лась) розташуванням: {label}",
+  "@notification_sharedLocationNamed": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_reacted": "Відреагував(-ла) {emoji}",
+  "@notification_reacted": {
+    "placeholders": {
+      "emoji": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_sentGif": "Надіслав(-ла) GIF",
+  "notification_sentImage": "Надіслав(-ла) зображення",
   "settings_gpxExportRepeaters": "Експорт ретрансляторів і серверів кімнат у GPX",
   "settings_gpxExportRepeatersSubtitle": "Експортує ретранслятори та сервери кімнат з геопозицією у файл GPX.",
   "settings_gpxExportSuccess": "Успішно експортовано файл GPX.",
@@ -1814,6 +1877,12 @@
   "pathTrace_clearTooltip": "Очистити шлях",
   "map_removeLast": "Видалити останній",
   "map_pathTraceCancelled": "Трасування шляху скасовано.",
+  "map_pathTraceAddMoreHint": "Торкніться інших вузлів, щоб додати хопи, виберіть, як повертається трасування, потім торкніться Запустити трасування шляху.",
+  "map_pathTraceModeRoundTrip": "Туди й назад",
+  "map_pathTraceModeRoundTripHint": "Трасування проходить через ці хопи й повертається тим самим шляхом.",
+  "map_pathTraceModeAsEntered": "Як введено",
+  "map_pathTraceModeAsEnteredHint": "Трасування точно йде цими хопами. Додайте хопи назад до себе самостійно.",
+  "map_pathTraceViewLast": "Переглянути останній результат",
   "scanner_enableBluetooth": "Увімкніть Bluetooth",
   "scanner_bluetoothOffMessage": "Будь ласка, увімкніть Bluetooth, щоб сканувати пристрої.",
   "scanner_chromeRequired": "Потрібен браузер Chrome",
@@ -2182,6 +2251,25 @@
   "appSettings_routeWeightFailureDecrementSubtitle": "Вага, яка була знята з маршруту після невдалої доставки",
   "appSettings_maxMessageRetries": "Максимальна кількість повторних спроб надсилання повідомлення",
   "appSettings_maxMessageRetriesSubtitle": "Кількість спроб повторного відправлення повідомлення перед тим, як позначити його як невдале",
+  "appSettings_ipfsImageLinks": "Налаштування IPFS-провайдера",
+  "appSettings_ipfsImageLinksSubtitle": "Завантаження зображень (або файлів) за URL через IPFS-провайдера та шлюз за замовчуванням для отримання",
+  "appSettings_loadLinkImages": "Завантажувати зображення з посилань",
+  "appSettings_loadLinkImagesSubtitle": "Показувати зображення з посилань у повідомленнях. Завантаження зображення передає вашу IP-адресу сайту, який його розміщує.",
+  "appSettings_showLinkImagesByDefault": "Показувати зображення з посилань в усіх чатах за замовчуванням",
+  "appSettings_showLinkImagesByDefaultSubtitle": "Завантажувати зображення з посилань у кожному чаті, якщо ви не вимкнули це там. Це передає вашу IP-адресу хостам зображень у кожному чаті.",
+  "appSettings_publicIpfsGateway": "Публічний шлюз",
+  "appSettings_ipfsGatewayDeactivated": "Деактивовано",
+  "appSettings_ipfsGatewayIpfsIo": "ipfs.io",
+  "appSettings_ipfsGatewayPinata": "Pinata",
+  "appSettings_ipfsGatewayFilebase": "Filebase",
+  "appSettings_ipfsGatewayCustom": "Власний (Kubo)",
+  "appSettings_uploadIpfsProvider": "Провайдер завантаження",
+  "appSettings_uploadIpfsGateway": "Шлюз завантаження",
+  "appSettings_uploadIpfsGatewaySubtitle": "Шлюз для поширення зображення або файлу як URL-посилання. Залиште порожнім, щоб використовувати формат ipfs:, який інші клієнти можуть не відкрити.",
+  "appSettings_uploadIpfsEndpoint": "Адреса завантаження",
+  "appSettings_uploadIpfsEndpointSubtitle": "API-адреса, що використовується для завантаження файлів",
+  "appSettings_uploadIpfsApiKey": "API-ключ завантаження",
+  "appSettings_ipfsImageLinksDescription": "Публічний шлюз завантажує зображення у форматі ipfs:. Шлюз завантаження використовується для створення посилань на завантажені зображення або файли за URL.",
   "path_routeWeight": "{weight}/{max}",
   "settings_telemetryModeUpdated": "Режим телеметрії оновлено",
   "map_showOverlaps": "Перекриття ключів ретрансляторів",
@@ -2785,6 +2873,29 @@
   "channels_regionSelect_Title": "Вybірте регіон",
   "channels_clearRegion": "Чистя зона",
   "chat_sendImageLora": "Надіслати зображення через MeshCore",
+  "chat_sendImageIpfs": "Надіслати зображення або файл через IPFS",
+  "chat_ipfsUploadFailed": "Не вдалося завантажити в IPFS: {error}",
+  "@chat_ipfsUploadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "chat_ipfsUploadNotConfigured": "Спершу налаштуйте провайдера завантаження IPFS у налаштуваннях застосунку.",
+  "chat_ipfsSelectedFileEmpty": "Вибраний файл порожній.",
+  "chat_ipfsEndpointInvalid": "Адреса завантаження IPFS має бути повною адресою з http:// або https://. Перевірте її в налаштуваннях застосунку.",
+  "chat_ipfsPinataTokenMissing": "Pinata потребує API-ключ або JWT. Додайте його в налаштуваннях застосунку.",
+  "chat_ipfsFilebaseTokenMissing": "Filebase потребує API-токен. Додайте його в налаштуваннях застосунку.",
+  "chat_ipfsKuboPathInvalid": "Адреса завантаження Kubo має закінчуватися на /api/v0/add. Перевірте її в налаштуваннях застосунку.",
+  "chat_ipfsLinkNoRoom": "Недостатньо місця для посилання на зображення. Скоротіть повідомлення й спробуйте ще раз.",
+  "@chat_ipfsLinkNoRoom": {
+    "description": "Shown before an IPFS upload when the link would push the draft over the message size limit"
+  },
+  "chat_ipfsLinkOverLimit": "Посилання на зображення додано, але повідомлення тепер задовге. Скоротіть його перед надсиланням.",
+  "@chat_ipfsLinkOverLimit": {
+    "description": "Shown after an IPFS upload when the link plus the draft no longer fits the message size limit"
+  },
   "chat_imagePickFailed": "Неможливо відкрити це изображення",
   "chat_receivedGif": "Підймовано GIF",
   "repeater_keySettings": "Зміна ключів ідентифікації",
@@ -2880,8 +2991,10 @@
   "room_postsStored": "Публікації",
   "settings_publicKeyCopied": "Публічний ключ скопійовано",
   "settings_radioSettingsNotApplied": "Радіомодуль не застосував ці налаштування",
+  "settings_pathHashModeNotApplied": "Налаштування радіо застосовано, але радіо не підтвердило новий розмір хешу шляху",
   "urlImage_enable": "Показувати зображення за URL",
   "urlImage_possible": "Можливе зображення за URL; увімкніть це в Налаштуваннях.",
+  "urlImage_disabledInAppSettings": "Вимкнено в налаштуваннях застосунку",
   "@chat_longMessageRetryNote": {
     "placeholders": {
       "count": {
@@ -2998,6 +3111,8 @@
   },
   "contacts_keepChatHistory": "Зберегти історію чату",
   "contacts_remove": "Прибрати",
+  "contacts_removeAutoAddNote": "Ваше радіо автоматично додає цей тип контакту, тож він повернеться, коли наступного разу надішле advert. Вимкніть автододавання в налаштуваннях контактів, щоб він залишився видаленим.",
+  "contacts_removeFailed": "Радіо не підтвердило видалення. Контакт не видалено.",
   "contacts_discoveredNearby": "Виявлені поблизу ({count})",
   "@contacts_discoveredNearby": {
     "placeholders": {
@@ -3052,6 +3167,8 @@
   "notification_replySendFailed": "Можливо, вашу відповідь не було надіслано. Перевірте у MeshCore Open і спробуйте ще раз.",
   "notification_replyAppNotRunning": "MeshCore Open не запущено. Відкрийте його та надішліть відповідь ще раз.",
   "snrIndicator_nearByRepeatersDescription": "Ретранслятори, почуті вашим радіо безпосередньо, спочатку найновіші.",
+  "snrIndicator_unknownRepeater": "Невідомий ретранслятор",
+  "snrIndicator_unknownRepeaterHint": "Цього ретранслятора ще немає у ваших контактах. Його назва, розташування й параметри з'являться, коли ваше радіо отримає його advert.",
   "radioStats_sectionSignal": "Сигнал",
   "radioStats_sectionAirtime": "Час в ефірі",
   "imageSend_lossyNote": "Стиснуто приблизно до {bytes} байтів. Модель на одержувачі відтворить зображення, тому деталі відрізнятимуться.",
@@ -3238,6 +3355,14 @@
   "repeater_prvKeyLengthError": "Приватний ключ має містити рівно {length} шістнадцяткових символів",
   "contacts_advertFailed": "Не вдалося надіслати оголошення",
   "contacts_manageGroups": "Керування групами",
+  "contacts_keyPrefixSemantics": "Префікс ключа {prefix}",
+  "@contacts_keyPrefixSemantics": {
+    "placeholders": {
+      "prefix": {
+        "type": "String"
+      }
+    }
+  },
   "community_shortId": "ID: {id}…",
   "tcpSectionTitle": "TCP / IP",
   "tcpConnectedToHeader": "Підключено до",
@@ -3275,6 +3400,9 @@
   "networkMap_sourceLocal": "Локальна",
   "networkMap_sourceOnline": "Онлайн",
   "networkMap_sourceBoth": "Обидві",
+  "networkMap_sourceLocalHint": "Вузли, які почуло ваше радіо",
+  "networkMap_sourceOnlineHint": "Ретранслятори з онлайн-карти мережі",
+  "networkMap_sourceBothHint": "Вузли вашого радіо плюс онлайн-карта мережі",
   "networkMap_zoomInHint": "Наблизьте, щоб побачити онлайн-карту мережі",
   "networkMap_loadFailed": "Не вдалося завантажити онлайн-карту мережі",
   "networkMap_inYourContacts": "У ваших контактах",

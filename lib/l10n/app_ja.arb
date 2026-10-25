@@ -3448,5 +3448,133 @@
   "networkMap_manage": "管理",
   "networkMap_addedToContacts": "連絡先に追加しました",
   "networkMap_addFailed": "連絡先に追加できませんでした",
-  "networkMap_unnamed": "名前のないリピータ"
+  "networkMap_unnamed": "名前のないリピータ",
+  "urlImage_disabledInAppSettings": "アプリ設定でオフになっています",
+  "settings_pathHashModeNotApplied": "ラジオ設定は適用されましたが、ラジオが新しい経路ハッシュサイズを確認しませんでした",
+  "appSettings_ipfsImageLinks": "IPFSプロバイダー設定",
+  "appSettings_ipfsImageLinksSubtitle": "URL画像（またはファイル）のアップロードにIPFSプロバイダーを、受信にデフォルトゲートウェイを使用します",
+  "appSettings_loadLinkImages": "リンクの画像を読み込む",
+  "appSettings_loadLinkImagesSubtitle": "メッセージ内のリンクの画像を表示します。画像を読み込むと、ホスト先のサイトにIPアドレスが共有されます。",
+  "appSettings_showLinkImagesByDefault": "すべてのチャットでリンク画像を既定で表示",
+  "appSettings_showLinkImagesByDefaultSubtitle": "チャットごとにオフにしていない限り、すべてのチャットでリンク画像を読み込みます。すべてのチャットで画像ホストにIPアドレスが共有されます。",
+  "appSettings_publicIpfsGateway": "公開ゲートウェイ",
+  "appSettings_ipfsGatewayDeactivated": "無効",
+  "appSettings_ipfsGatewayIpfsIo": "ipfs.io",
+  "appSettings_ipfsGatewayPinata": "Pinata",
+  "appSettings_ipfsGatewayFilebase": "Filebase",
+  "appSettings_ipfsGatewayCustom": "カスタム（Kubo）",
+  "appSettings_uploadIpfsProvider": "アップロードプロバイダー",
+  "appSettings_uploadIpfsGateway": "アップロードゲートウェイ",
+  "appSettings_uploadIpfsGatewaySubtitle": "画像やファイルをURLリンクとして共有するためのゲートウェイです。空欄の場合は ipfs: 形式を使用しますが、他のクライアントでは開けない場合があります。",
+  "appSettings_uploadIpfsEndpoint": "アップロードエンドポイント",
+  "appSettings_uploadIpfsEndpointSubtitle": "ファイルのアップロードに使用するAPIエンドポイント",
+  "appSettings_uploadIpfsApiKey": "アップロードAPIキー",
+  "appSettings_ipfsImageLinksDescription": "公開ゲートウェイは ipfs: 形式の画像をダウンロードします。アップロードゲートウェイは、アップロードしたURL画像やファイルの共有リンクの生成に使用されます。",
+  "contacts_removeAutoAddNote": "このタイプの連絡先はラジオが自動追加するため、次回アドバートを送信すると再び追加されます。削除したままにするには、連絡先設定で自動追加をオフにしてください。",
+  "contacts_removeFailed": "ラジオが削除を確認しませんでした。連絡先は削除されていません。",
+  "channels_notificationModeTooltip": "通知：{mode}",
+  "@channels_notificationModeTooltip": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    }
+  },
+  "channels_scanQrCodeDesc": "QRコードからチャンネルまたはコミュニティに参加します。",
+  "channels_scanQrInstructions": "チャンネルまたはコミュニティのQRコードにカメラを向けてください",
+  "channels_invalidQrCode": "MeshCoreのチャンネルまたはコミュニティのQRコードではありません",
+  "channels_joinChannelTitle": "チャンネルに参加",
+  "channels_joinChannelConfirm": "「{name}」をラジオに追加しますか？",
+  "@channels_joinChannelConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "channels_alreadyOnRadio": "「{name}」はすでにラジオにあります",
+  "@channels_alreadyOnRadio": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chat_sendImageIpfs": "IPFSで画像またはファイルを送信",
+  "chat_ipfsUploadFailed": "IPFSアップロードに失敗しました：{error}",
+  "@chat_ipfsUploadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "chat_ipfsUploadNotConfigured": "先にアプリ設定でIPFSアップロードプロバイダーを設定してください。",
+  "chat_ipfsSelectedFileEmpty": "選択したファイルは空です。",
+  "chat_ipfsEndpointInvalid": "IPFSアップロードエンドポイントは http:// または https:// で始まる完全なアドレスにしてください。アプリ設定で確認してください。",
+  "chat_ipfsPinataTokenMissing": "PinataにはAPIキーまたはJWTが必要です。アプリ設定で追加してください。",
+  "chat_ipfsFilebaseTokenMissing": "FilebaseにはAPIトークンが必要です。アプリ設定で追加してください。",
+  "chat_ipfsKuboPathInvalid": "Kuboのアップロードエンドポイントは /api/v0/add で終わる必要があります。アプリ設定で確認してください。",
+  "chat_ipfsLinkNoRoom": "画像リンクを入れる余裕がありません。メッセージを短くしてからもう一度お試しください。",
+  "@chat_ipfsLinkNoRoom": {
+    "description": "Shown before an IPFS upload when the link would push the draft over the message size limit"
+  },
+  "chat_ipfsLinkOverLimit": "画像リンクを追加しましたが、メッセージが長すぎます。送信前に短くしてください。",
+  "@chat_ipfsLinkOverLimit": {
+    "description": "Shown after an IPFS upload when the link plus the draft no longer fits the message size limit"
+  },
+  "map_pathTraceAddMoreHint": "ノードをタップしてホップを追加し、トレースの戻り方を選んでから「経路トレースを実行」をタップします。",
+  "map_pathTraceModeRoundTrip": "往復",
+  "map_pathTraceModeRoundTripHint": "トレースはこれらのホップを経由して送信され、同じ経路で戻ってきます。",
+  "map_pathTraceModeAsEntered": "入力どおり",
+  "map_pathTraceModeAsEnteredHint": "トレースはこれらのホップをそのとおりにたどります。自分へ戻るホップは自分で追加してください。",
+  "map_pathTraceViewLast": "前回の結果を表示",
+  "notification_lowBatteryTitle": "バッテリー残量低下",
+  "@notification_lowBatteryTitle": {
+    "description": "Title of the low battery notification"
+  },
+  "notification_lowBatteryBody": "{deviceName}のバッテリー残量は{percent}%です",
+  "@notification_lowBatteryBody": {
+    "description": "Body of the low battery notification; deviceName is the connected radio's node name",
+    "placeholders": {
+      "deviceName": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "notification_sharedLocation": "位置情報を共有しました",
+  "notification_sharedLocationNamed": "位置情報を共有しました：{label}",
+  "@notification_sharedLocationNamed": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_reacted": "{emoji}でリアクションしました",
+  "@notification_reacted": {
+    "placeholders": {
+      "emoji": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_sentGif": "GIFを送信しました",
+  "notification_sentImage": "画像を送信しました",
+  "snrIndicator_unknownRepeater": "不明なリピータ",
+  "snrIndicator_unknownRepeaterHint": "このリピータはまだ連絡先にありません。ラジオがアドバートを受信すると、名前、場所、オプションが表示されます。",
+  "contacts_keyPrefixSemantics": "キープレフィックス {prefix}",
+  "@contacts_keyPrefixSemantics": {
+    "placeholders": {
+      "prefix": {
+        "type": "String"
+      }
+    }
+  },
+  "networkMap_sourceLocalHint": "ラジオが受信したノード",
+  "networkMap_sourceOnlineHint": "オンラインネットワークマップのリピータ",
+  "networkMap_sourceBothHint": "ラジオのノードとオンラインネットワークマップ"
 }

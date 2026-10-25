@@ -148,7 +148,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get urlImage_possible => 'URL 이미지일 수 있습니다. 설정에서 활성화하세요.';
 
   @override
-  String get urlImage_disabledInAppSettings => 'Turned off in app settings';
+  String get urlImage_disabledInAppSettings => '앱 설정에서 꺼져 있습니다';
 
   @override
   String get common_reboot => '재부팅';
@@ -412,7 +412,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get settings_pathHashModeNotApplied =>
-      'Radio settings were applied, but the radio did not confirm the new path hash size';
+      '라디오 설정은 적용되었지만 라디오가 새 경로 해시 크기를 확인하지 않았습니다';
 
   @override
   String get settings_regionSettings => '지역';
@@ -1019,32 +1019,31 @@ class AppLocalizationsKo extends AppLocalizations {
   String get appSettings_maxMessageRetriesSubtitle => '메시지를 실패로 처리하기 전 시도 횟수';
 
   @override
-  String get appSettings_ipfsImageLinks => 'IPFS provider configuration';
+  String get appSettings_ipfsImageLinks => 'IPFS 제공자 설정';
 
   @override
   String get appSettings_ipfsImageLinksSubtitle =>
-      'Upload for url Images (or Files) via IPFS provider and default gateway to receive';
+      'URL 이미지(또는 파일) 업로드에는 IPFS 제공자를, 수신에는 기본 게이트웨이를 사용합니다';
 
   @override
-  String get appSettings_loadLinkImages => 'Load images from links';
+  String get appSettings_loadLinkImages => '링크의 이미지 불러오기';
 
   @override
   String get appSettings_loadLinkImagesSubtitle =>
-      'Show pictures from links in messages. Loading an image shares your IP address with the site that hosts it.';
+      '메시지 속 링크의 사진을 표시합니다. 이미지를 불러오면 호스팅하는 사이트에 내 IP 주소가 공유됩니다.';
 
   @override
-  String get appSettings_showLinkImagesByDefault =>
-      'Show link images in all chats by default';
+  String get appSettings_showLinkImagesByDefault => '모든 채팅에서 링크 이미지를 기본으로 표시';
 
   @override
   String get appSettings_showLinkImagesByDefaultSubtitle =>
-      'Load link images in every chat unless you turned them off there. This shares your IP address with image hosts in every chat.';
+      '채팅별로 끄지 않은 한 모든 채팅에서 링크 이미지를 불러옵니다. 모든 채팅에서 이미지 호스트에 내 IP 주소가 공유됩니다.';
 
   @override
-  String get appSettings_publicIpfsGateway => 'Public gateway';
+  String get appSettings_publicIpfsGateway => '공개 게이트웨이';
 
   @override
-  String get appSettings_ipfsGatewayDeactivated => 'Deactivated';
+  String get appSettings_ipfsGatewayDeactivated => '사용 안 함';
 
   @override
   String get appSettings_ipfsGatewayIpfsIo => 'ipfs.io';
@@ -1056,31 +1055,30 @@ class AppLocalizationsKo extends AppLocalizations {
   String get appSettings_ipfsGatewayFilebase => 'Filebase';
 
   @override
-  String get appSettings_ipfsGatewayCustom => 'Custom (Kubo)';
+  String get appSettings_ipfsGatewayCustom => '사용자 지정(Kubo)';
 
   @override
-  String get appSettings_uploadIpfsProvider => 'Upload provider';
+  String get appSettings_uploadIpfsProvider => '업로드 제공자';
 
   @override
-  String get appSettings_uploadIpfsGateway => 'Upload gateway';
+  String get appSettings_uploadIpfsGateway => '업로드 게이트웨이';
 
   @override
   String get appSettings_uploadIpfsGatewaySubtitle =>
-      'Gateway to share Image or File as url-link. Leave empty to use ipfs: format, which may not be opened by other clients.';
+      '이미지나 파일을 URL 링크로 공유하기 위한 게이트웨이입니다. 비워 두면 ipfs: 형식을 사용하며, 다른 클라이언트에서는 열리지 않을 수 있습니다.';
 
   @override
-  String get appSettings_uploadIpfsEndpoint => 'Upload endpoint';
+  String get appSettings_uploadIpfsEndpoint => '업로드 엔드포인트';
 
   @override
-  String get appSettings_uploadIpfsEndpointSubtitle =>
-      'The API endpoint used to upload files';
+  String get appSettings_uploadIpfsEndpointSubtitle => '파일 업로드에 사용하는 API 엔드포인트';
 
   @override
-  String get appSettings_uploadIpfsApiKey => 'Upload API key';
+  String get appSettings_uploadIpfsApiKey => '업로드 API 키';
 
   @override
   String get appSettings_ipfsImageLinksDescription =>
-      'Public gateway downloads ipfs: format images. Upload gateway is used to generate share links for uploaded url images or files.';
+      '공개 게이트웨이는 ipfs: 형식의 이미지를 다운로드합니다. 업로드 게이트웨이는 업로드한 URL 이미지나 파일의 공유 링크를 만드는 데 사용됩니다.';
 
   @override
   String get appSettings_battery => '배터리';
@@ -1293,11 +1291,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get contacts_removeAutoAddNote =>
-      'Your radio auto-adds this contact type, so it will come back the next time it advertises. Turn off auto-add in Contacts settings to keep it removed.';
+      '라디오가 이 연락처 유형을 자동으로 추가하므로 다음에 어드버트를 보내면 다시 추가됩니다. 삭제된 상태로 두려면 연락처 설정에서 자동 추가를 끄세요.';
 
   @override
-  String get contacts_removeFailed =>
-      'The radio did not confirm the removal. The contact was not removed.';
+  String get contacts_removeFailed => '라디오가 삭제를 확인하지 않았습니다. 연락처가 삭제되지 않았습니다.';
 
   @override
   String contacts_discoveredNearby(int count) {
@@ -1483,7 +1480,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String channels_notificationModeTooltip(String mode) {
-    return 'Notifications: $mode';
+    return '알림: $mode';
   }
 
   @override
@@ -1659,6 +1656,28 @@ class AppLocalizationsKo extends AppLocalizations {
   String get channels_scanQrCodeComingSoon => '곧 출시';
 
   @override
+  String get channels_scanQrCodeDesc => 'QR 코드로 채널이나 커뮤니티에 참여합니다.';
+
+  @override
+  String get channels_scanQrInstructions => '채널 또는 커뮤니티 QR 코드에 카메라를 향하세요';
+
+  @override
+  String get channels_invalidQrCode => 'MeshCore 채널 또는 커뮤니티 QR 코드가 아닙니다';
+
+  @override
+  String get channels_joinChannelTitle => '채널 참여';
+
+  @override
+  String channels_joinChannelConfirm(String name) {
+    return '\"$name\" 채널을 라디오에 추가할까요?';
+  }
+
+  @override
+  String channels_alreadyOnRadio(String name) {
+    return '\"$name\"은(는) 이미 라디오에 있습니다';
+  }
+
+  @override
   String get channels_enterHashtag => '해시태그 입력';
 
   @override
@@ -1777,43 +1796,41 @@ class AppLocalizationsKo extends AppLocalizations {
   String get chat_sendImageLora => 'MeshCore를 통해 이미지 보내기';
 
   @override
-  String get chat_sendImageIpfs => 'Send image or file via IPFS';
+  String get chat_sendImageIpfs => 'IPFS로 이미지 또는 파일 보내기';
 
   @override
   String chat_ipfsUploadFailed(String error) {
-    return 'IPFS upload failed: $error';
+    return 'IPFS 업로드 실패: $error';
   }
 
   @override
-  String get chat_ipfsUploadNotConfigured =>
-      'Configure an IPFS upload provider in App Settings first.';
+  String get chat_ipfsUploadNotConfigured => '먼저 앱 설정에서 IPFS 업로드 제공자를 설정하세요.';
 
   @override
-  String get chat_ipfsSelectedFileEmpty => 'The selected file is empty.';
+  String get chat_ipfsSelectedFileEmpty => '선택한 파일이 비어 있습니다.';
 
   @override
   String get chat_ipfsEndpointInvalid =>
-      'The IPFS upload endpoint must be a full http:// or https:// address. Check it in App Settings.';
+      'IPFS 업로드 엔드포인트는 http:// 또는 https://로 시작하는 전체 주소여야 합니다. 앱 설정에서 확인하세요.';
 
   @override
   String get chat_ipfsPinataTokenMissing =>
-      'Pinata needs an API key or JWT. Add it in App Settings.';
+      'Pinata에는 API 키 또는 JWT가 필요합니다. 앱 설정에서 추가하세요.';
 
   @override
   String get chat_ipfsFilebaseTokenMissing =>
-      'Filebase needs an API token. Add it in App Settings.';
+      'Filebase에는 API 토큰이 필요합니다. 앱 설정에서 추가하세요.';
 
   @override
   String get chat_ipfsKuboPathInvalid =>
-      'The Kubo upload endpoint must end with /api/v0/add. Check it in App Settings.';
+      'Kubo 업로드 엔드포인트는 /api/v0/add로 끝나야 합니다. 앱 설정에서 확인하세요.';
 
   @override
-  String get chat_ipfsLinkNoRoom =>
-      'Not enough room for the image link. Shorten your message, then try again.';
+  String get chat_ipfsLinkNoRoom => '이미지 링크를 넣을 공간이 부족합니다. 메시지를 줄인 뒤 다시 시도하세요.';
 
   @override
   String get chat_ipfsLinkOverLimit =>
-      'Image link added, but the message is now too long. Shorten it before sending.';
+      '이미지 링크를 추가했지만 메시지가 너무 깁니다. 보내기 전에 줄이세요.';
 
   @override
   String get chat_imagePickFailed => '그 이미지를 열 수 없었어요.';
@@ -2419,24 +2436,24 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get map_pathTraceAddMoreHint =>
-      'Tap more nodes to add hops, choose how the trace returns, then tap Run path trace.';
+      '노드를 더 탭해 홉을 추가하고, 추적이 돌아오는 방식을 선택한 뒤 경로 추적 실행을 탭하세요.';
 
   @override
-  String get map_pathTraceModeRoundTrip => 'Round trip';
+  String get map_pathTraceModeRoundTrip => '왕복';
 
   @override
   String get map_pathTraceModeRoundTripHint =>
-      'The trace goes out through these hops and comes back the same way.';
+      '추적이 이 홉들을 거쳐 나갔다가 같은 경로로 돌아옵니다.';
 
   @override
-  String get map_pathTraceModeAsEntered => 'As entered';
+  String get map_pathTraceModeAsEntered => '입력한 대로';
 
   @override
   String get map_pathTraceModeAsEnteredHint =>
-      'The trace follows these hops exactly. Add the hops back to you yourself.';
+      '추적이 이 홉들을 그대로 따라갑니다. 나에게 돌아오는 홉은 직접 추가하세요.';
 
   @override
-  String get map_pathTraceViewLast => 'View last result';
+  String get map_pathTraceViewLast => '마지막 결과 보기';
 
   @override
   String get mapCache_title => '오프라인 지도 캐시';
@@ -4666,11 +4683,11 @@ class AppLocalizationsKo extends AppLocalizations {
   String get notification_activityTitle => '메쉬코어 활동';
 
   @override
-  String get notification_lowBatteryTitle => 'Low battery';
+  String get notification_lowBatteryTitle => '배터리 부족';
 
   @override
   String notification_lowBatteryBody(String deviceName, int percent) {
-    return '$deviceName battery is at $percent%';
+    return '$deviceName 배터리가 $percent%입니다';
   }
 
   @override
@@ -4715,23 +4732,23 @@ class AppLocalizationsKo extends AppLocalizations {
   String get notification_receivedNewMessage => '새로운 메시지를 받았습니다';
 
   @override
-  String get notification_sharedLocation => 'Shared a location';
+  String get notification_sharedLocation => '위치를 공유했습니다';
 
   @override
   String notification_sharedLocationNamed(String label) {
-    return 'Shared a location: $label';
+    return '위치를 공유했습니다: $label';
   }
 
   @override
   String notification_reacted(String emoji) {
-    return 'Reacted $emoji';
+    return '$emoji 반응을 남겼습니다';
   }
 
   @override
-  String get notification_sentGif => 'Sent a GIF';
+  String get notification_sentGif => 'GIF를 보냈습니다';
 
   @override
-  String get notification_sentImage => 'Sent an image';
+  String get notification_sentImage => '이미지를 보냈습니다';
 
   @override
   String get notification_actionReply => '답장';
@@ -4829,11 +4846,11 @@ class AppLocalizationsKo extends AppLocalizations {
       '이 라디오가 직접 들은 리피터입니다. 가장 최근에 들은 순으로 표시됩니다.';
 
   @override
-  String get snrIndicator_unknownRepeater => 'Unknown repeater';
+  String get snrIndicator_unknownRepeater => '알 수 없는 리피터';
 
   @override
   String get snrIndicator_unknownRepeaterHint =>
-      'This repeater isn\'t in your contacts yet. Its name, location and options appear once your radio receives its advert.';
+      '이 리피터는 아직 연락처에 없습니다. 라디오가 어드버트를 수신하면 이름, 위치, 옵션이 표시됩니다.';
 
   @override
   String get contactsSettings_title => '연락처 설정';
@@ -6080,7 +6097,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String contacts_keyPrefixSemantics(String prefix) {
-    return 'Key prefix $prefix';
+    return '키 접두사 $prefix';
   }
 
   @override
@@ -6166,15 +6183,13 @@ class AppLocalizationsKo extends AppLocalizations {
   String get networkMap_sourceBoth => '모두';
 
   @override
-  String get networkMap_sourceLocalHint => 'Nodes your radio has heard';
+  String get networkMap_sourceLocalHint => '내 라디오가 수신한 노드';
 
   @override
-  String get networkMap_sourceOnlineHint =>
-      'Repeaters from the online network map';
+  String get networkMap_sourceOnlineHint => '온라인 네트워크 지도의 리피터';
 
   @override
-  String get networkMap_sourceBothHint =>
-      'Your radio\'s nodes plus the online network map';
+  String get networkMap_sourceBothHint => '내 라디오의 노드와 온라인 네트워크 지도';
 
   @override
   String get networkMap_zoomInHint => '온라인 네트워크 지도를 보려면 확대하세요';

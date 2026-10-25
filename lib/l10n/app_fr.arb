@@ -3448,5 +3448,133 @@
   "networkMap_manage": "Gérer",
   "networkMap_addedToContacts": "Ajouté aux contacts",
   "networkMap_addFailed": "Impossible d'ajouter aux contacts",
-  "networkMap_unnamed": "Répéteur sans nom"
+  "networkMap_unnamed": "Répéteur sans nom",
+  "urlImage_disabledInAppSettings": "Désactivé dans les paramètres de l'app",
+  "settings_pathHashModeNotApplied": "Les paramètres de la radio ont été appliqués, mais la radio n'a pas confirmé la nouvelle taille de hachage du chemin",
+  "appSettings_ipfsImageLinks": "Configuration du fournisseur IPFS",
+  "appSettings_ipfsImageLinksSubtitle": "Envoi des images (ou fichiers) par URL via un fournisseur IPFS et passerelle par défaut pour la réception",
+  "appSettings_loadLinkImages": "Charger les images des liens",
+  "appSettings_loadLinkImagesSubtitle": "Afficher les images des liens dans les messages. Charger une image partage votre adresse IP avec le site qui l'héberge.",
+  "appSettings_showLinkImagesByDefault": "Afficher les images des liens dans tous les chats par défaut",
+  "appSettings_showLinkImagesByDefaultSubtitle": "Charger les images des liens dans chaque chat, sauf si vous les avez désactivées dans ce chat. Cela partage votre adresse IP avec les hébergeurs d'images dans tous les chats.",
+  "appSettings_publicIpfsGateway": "Passerelle publique",
+  "appSettings_ipfsGatewayDeactivated": "Désactivée",
+  "appSettings_ipfsGatewayIpfsIo": "ipfs.io",
+  "appSettings_ipfsGatewayPinata": "Pinata",
+  "appSettings_ipfsGatewayFilebase": "Filebase",
+  "appSettings_ipfsGatewayCustom": "Personnalisée (Kubo)",
+  "appSettings_uploadIpfsProvider": "Fournisseur d'envoi",
+  "appSettings_uploadIpfsGateway": "Passerelle d'envoi",
+  "appSettings_uploadIpfsGatewaySubtitle": "Passerelle pour partager une image ou un fichier sous forme de lien URL. Laissez vide pour utiliser le format ipfs:, que d'autres clients pourraient ne pas ouvrir.",
+  "appSettings_uploadIpfsEndpoint": "Point de terminaison d'envoi",
+  "appSettings_uploadIpfsEndpointSubtitle": "Le point de terminaison API utilisé pour envoyer les fichiers",
+  "appSettings_uploadIpfsApiKey": "Clé API d'envoi",
+  "appSettings_ipfsImageLinksDescription": "La passerelle publique télécharge les images au format ipfs:. La passerelle d'envoi sert à générer les liens de partage des images ou fichiers envoyés par URL.",
+  "contacts_removeAutoAddNote": "Votre radio ajoute automatiquement ce type de contact, il reviendra donc à sa prochaine annonce. Désactivez l'ajout automatique dans les paramètres des contacts pour le garder supprimé.",
+  "contacts_removeFailed": "La radio n'a pas confirmé la suppression. Le contact n'a pas été supprimé.",
+  "channels_notificationModeTooltip": "Notifications : {mode}",
+  "@channels_notificationModeTooltip": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    }
+  },
+  "channels_scanQrCodeDesc": "Rejoignez un canal ou une communauté avec son QR code.",
+  "channels_scanQrInstructions": "Pointez la caméra vers un QR code de canal ou de communauté",
+  "channels_invalidQrCode": "Ce n'est pas un QR code de canal ou de communauté MeshCore",
+  "channels_joinChannelTitle": "Rejoindre le canal",
+  "channels_joinChannelConfirm": "Ajouter \"{name}\" à votre radio ?",
+  "@channels_joinChannelConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "channels_alreadyOnRadio": "\"{name}\" est déjà sur votre radio",
+  "@channels_alreadyOnRadio": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chat_sendImageIpfs": "Envoyer une image ou un fichier via IPFS",
+  "chat_ipfsUploadFailed": "Échec de l'envoi IPFS : {error}",
+  "@chat_ipfsUploadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "chat_ipfsUploadNotConfigured": "Configurez d'abord un fournisseur d'envoi IPFS dans les paramètres de l'app.",
+  "chat_ipfsSelectedFileEmpty": "Le fichier sélectionné est vide.",
+  "chat_ipfsEndpointInvalid": "Le point de terminaison d'envoi IPFS doit être une adresse complète http:// ou https://. Vérifiez-le dans les paramètres de l'app.",
+  "chat_ipfsPinataTokenMissing": "Pinata nécessite une clé API ou un JWT. Ajoutez-le dans les paramètres de l'app.",
+  "chat_ipfsFilebaseTokenMissing": "Filebase nécessite un jeton API. Ajoutez-le dans les paramètres de l'app.",
+  "chat_ipfsKuboPathInvalid": "Le point de terminaison d'envoi Kubo doit se terminer par /api/v0/add. Vérifiez-le dans les paramètres de l'app.",
+  "chat_ipfsLinkNoRoom": "Pas assez de place pour le lien de l'image. Raccourcissez votre message, puis réessayez.",
+  "@chat_ipfsLinkNoRoom": {
+    "description": "Shown before an IPFS upload when the link would push the draft over the message size limit"
+  },
+  "chat_ipfsLinkOverLimit": "Lien de l'image ajouté, mais le message est maintenant trop long. Raccourcissez-le avant l'envoi.",
+  "@chat_ipfsLinkOverLimit": {
+    "description": "Shown after an IPFS upload when the link plus the draft no longer fits the message size limit"
+  },
+  "map_pathTraceAddMoreHint": "Touchez d'autres nœuds pour ajouter des sauts, choisissez le retour de la trace, puis touchez Lancer le traçage de chemin.",
+  "map_pathTraceModeRoundTrip": "Aller-retour",
+  "map_pathTraceModeRoundTripHint": "La trace passe par ces sauts et revient par le même chemin.",
+  "map_pathTraceModeAsEntered": "Tel que saisi",
+  "map_pathTraceModeAsEnteredHint": "La trace suit exactement ces sauts. Ajoutez vous-même les sauts du retour.",
+  "map_pathTraceViewLast": "Voir le dernier résultat",
+  "notification_lowBatteryTitle": "Batterie faible",
+  "@notification_lowBatteryTitle": {
+    "description": "Title of the low battery notification"
+  },
+  "notification_lowBatteryBody": "La batterie de {deviceName} est à {percent} %",
+  "@notification_lowBatteryBody": {
+    "description": "Body of the low battery notification; deviceName is the connected radio's node name",
+    "placeholders": {
+      "deviceName": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "notification_sharedLocation": "A partagé une position",
+  "notification_sharedLocationNamed": "A partagé une position : {label}",
+  "@notification_sharedLocationNamed": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_reacted": "A réagi {emoji}",
+  "@notification_reacted": {
+    "placeholders": {
+      "emoji": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_sentGif": "A envoyé un GIF",
+  "notification_sentImage": "A envoyé une image",
+  "snrIndicator_unknownRepeater": "Répéteur inconnu",
+  "snrIndicator_unknownRepeaterHint": "Ce répéteur n'est pas encore dans vos contacts. Son nom, sa position et ses options apparaîtront quand votre radio recevra son annonce.",
+  "contacts_keyPrefixSemantics": "Préfixe de clé {prefix}",
+  "@contacts_keyPrefixSemantics": {
+    "placeholders": {
+      "prefix": {
+        "type": "String"
+      }
+    }
+  },
+  "networkMap_sourceLocalHint": "Nœuds entendus par votre radio",
+  "networkMap_sourceOnlineHint": "Répéteurs de la carte du réseau en ligne",
+  "networkMap_sourceBothHint": "Les nœuds de votre radio plus la carte du réseau en ligne"
 }
