@@ -153,7 +153,9 @@ class IpfsUploadHelper {
     final response = await (client == null
         ? http.post(copyUri, headers: headers)
         : client.post(copyUri, headers: headers));
-    if (response.statusCode < 200 || response.statusCode >= 300) {
+    final alreadyCopied = response.body.contains('already has entry');
+    if ((response.statusCode < 200 || response.statusCode >= 300) &&
+        !alreadyCopied) {
       throw Exception(
         'Kubo MFS import failed (${response.statusCode}): ${response.body}',
       );

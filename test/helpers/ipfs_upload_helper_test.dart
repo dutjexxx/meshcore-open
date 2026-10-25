@@ -62,6 +62,54 @@ void main() {
       },
     );
 
+    test(
+      're-sharing a file already in Kubo MFS still returns the link',
+      () async {
+        final paths = <String>[];
+        IpfsUploadHelper.httpClient = MockClient((request) async {
+          paths.add(request.url.path);
+          if (request.url.path.endsWith('/files/cp')) {
+            return http.Response(
+              '{"Message":"cp: cannot put node in path /meshcore_uploads/bafytest-image.png: directory already has entry by that name","Code":0,"Type":"error"}',
+              500,
+            );
+          }
+          return http.Response('{"Hash":"bafytest"}', 200);
+        });
+
+        final message = await IpfsUploadHelper.uploadImage(
+          bytes: Uint8List.fromList(<int>[1, 2, 3]),
+          fileName: 'image.png',
+          mimeType: 'image/png',
+          uploadEndpoint: 'http://127.0.0.1:5001/api/v0/add',
+          uploadApiKey: '',
+        );
+
+        expect(message, 'ipfs://bafytest');
+        expect(paths, ['/api/v0/add', '/api/v0/files/cp']);
+      },
+    );
+
+    test('other Kubo MFS errors still fail the upload', () async {
+      IpfsUploadHelper.httpClient = MockClient((request) async {
+        if (request.url.path.endsWith('/files/cp')) {
+          return http.Response('{"Message":"permission denied"}', 500);
+        }
+        return http.Response('{"Hash":"bafytest"}', 200);
+      });
+
+      await expectLater(
+        IpfsUploadHelper.uploadImage(
+          bytes: Uint8List.fromList(<int>[1, 2, 3]),
+          fileName: 'image.png',
+          mimeType: 'image/png',
+          uploadEndpoint: 'http://127.0.0.1:5001/api/v0/add',
+          uploadApiKey: '',
+        ),
+        throwsException,
+      );
+    });
+
     test('sends the Pinata request to the endpoint unchanged', () async {
       late http.BaseRequest upload;
       IpfsUploadHelper.httpClient = MockClient((request) async {
