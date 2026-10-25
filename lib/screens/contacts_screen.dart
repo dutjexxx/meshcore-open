@@ -1884,9 +1884,13 @@ class _ContactTile extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 3),
-                  // Path / subtitle row
+                  // Key prefix + path / subtitle row
                   Row(
                     children: [
+                      _KeyPrefixBadge(
+                        prefix: contact.publicKeyPrefixHex(pathHashByteWidth),
+                      ),
+                      const SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           contact.pathLabel(
@@ -1947,6 +1951,43 @@ class _ContactTile extends StatelessWidget {
                 onPressed: onManage,
               ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Mono pill showing the contact's routing hash (public-key prefix), so it can
+/// be matched against hops in paths.
+class _KeyPrefixBadge extends StatelessWidget {
+  final String prefix;
+
+  const _KeyPrefixBadge({required this.prefix});
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Semantics(
+      label: context.l10n.contacts_keyPrefixSemantics(
+        prefix.split('').join(' '),
+      ),
+      excludeSemantics: true,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+        decoration: BoxDecoration(
+          color: scheme.surfaceContainerHighest,
+          borderRadius: BorderRadius.circular(MeshRadii.xs),
+          border: Border.all(color: scheme.outline),
+        ),
+        child: Text(
+          prefix,
+          maxLines: 1,
+          style: MeshTheme.mono(
+            fontSize: 13,
+            fontWeight: FontWeight.w700,
+            color: scheme.onSurface,
+            letterSpacing: 0.6,
+          ),
         ),
       ),
     );

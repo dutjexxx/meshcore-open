@@ -5879,6 +5879,11 @@ class AppLocalizationsJa extends AppLocalizations {
   String get contacts_manageGroups => 'グループを管理';
 
   @override
+  String contacts_keyPrefixSemantics(String prefix) {
+    return 'Key prefix $prefix';
+  }
+
+  @override
   String community_shortId(String id) {
     return 'ID: $id…';
   }

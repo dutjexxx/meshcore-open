@@ -6201,6 +6201,11 @@ class AppLocalizationsPl extends AppLocalizations {
   String get contacts_manageGroups => 'Zarządzaj grupami';
 
   @override
+  String contacts_keyPrefixSemantics(String prefix) {
+    return 'Key prefix $prefix';
+  }
+
+  @override
   String community_shortId(String id) {
     return 'ID: $id…';
   }

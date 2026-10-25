@@ -3437,6 +3437,8 @@
   "@repeater_prvKeyLengthError": {"placeholders": {"length": {"type": "int"}}},
   "contacts_advertFailed": "Couldn't send advertisement",
   "contacts_manageGroups": "Manage groups",
+  "contacts_keyPrefixSemantics": "Key prefix {prefix}",
+  "@contacts_keyPrefixSemantics": {"placeholders": {"prefix": {"type": "String"}}},
   "community_shortId": "ID: {id}…",
   "@community_shortId": {"placeholders": {"id": {"type": "String"}}},
   "tcpSectionTitle": "TCP / IP",
