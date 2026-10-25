@@ -1526,12 +1526,13 @@ class _IpfsImageLinksDialogState extends State<_IpfsImageLinksDialog> {
   late final TextEditingController _uploadGatewayController;
   late final TextEditingController _endpointController;
   late final TextEditingController _apiKeyController;
+  final FocusNode _apiKeyFocus = FocusNode();
   late final String _currentApiKey;
   late final String _maskedApiKey;
   late String _selectedGateway;
   late String _selectedUploadProvider;
-  bool _apiKeyEditing = false;
   bool _apiKeyChanged = false;
+  bool _apiKeyObscured = true;
 
   @override
   void initState() {
@@ -1549,6 +1550,7 @@ class _IpfsImageLinksDialogState extends State<_IpfsImageLinksDialog> {
     _currentApiKey = settings.uploadIpfsApiKey.trim();
     _maskedApiKey = _currentApiKey.isEmpty ? '' : _maskApiKey(_currentApiKey);
     _apiKeyController = TextEditingController(text: _maskedApiKey);
+    _apiKeyFocus.addListener(_onApiKeyFocusChanged);
     _selectedGateway = _gatewayPreset(_publicController.text);
     _selectedUploadProvider = _uploadProvider(
       _uploadGatewayController.text,
@@ -1563,7 +1565,16 @@ class _IpfsImageLinksDialogState extends State<_IpfsImageLinksDialog> {
     _uploadGatewayController.dispose();
     _endpointController.dispose();
     _apiKeyController.dispose();
+    _apiKeyFocus.dispose();
     super.dispose();
+  }
+
+  /// Swaps the masked key out while the field has focus (by tap, Tab or
+  /// keyboard) so typing never appends to the mask, and puts it back if the
+  /// user leaves without editing.
+  void _onApiKeyFocusChanged() {
+    if (_apiKeyChanged) return;
+    _apiKeyController.text = _apiKeyFocus.hasFocus ? '' : _maskedApiKey;
   }
 
   @override
@@ -1587,6 +1598,10 @@ class _IpfsImageLinksDialogState extends State<_IpfsImageLinksDialog> {
                 DropdownMenuItem(
                   value: 'deactivated',
                   child: Text(l10n.appSettings_ipfsGatewayDeactivated),
+                ),
+                DropdownMenuItem(
+                  value: 'ipfsio',
+                  child: Text(l10n.appSettings_ipfsGatewayIpfsIo),
                 ),
                 DropdownMenuItem(
                   value: 'pinata',
@@ -1671,18 +1686,25 @@ class _IpfsImageLinksDialogState extends State<_IpfsImageLinksDialog> {
             const SizedBox(height: 10),
             TextField(
               controller: _apiKeyController,
+              focusNode: _apiKeyFocus,
               decoration: InputDecoration(
                 labelText: l10n.appSettings_uploadIpfsApiKey,
+                suffixIcon: IconButton(
+                  tooltip: _apiKeyObscured
+                      ? l10n.appSettings_showApiKey
+                      : l10n.appSettings_hideApiKey,
+                  icon: Icon(
+                    _apiKeyObscured
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
+                  ),
+                  onPressed: () =>
+                      setState(() => _apiKeyObscured = !_apiKeyObscured),
+                ),
               ),
               autocorrect: false,
               enableSuggestions: false,
-              onTap: () {
-                if (_apiKeyEditing) return;
-                setState(() {
-                  _apiKeyEditing = true;
-                  _apiKeyController.clear();
-                });
-              },
+              obscureText: _apiKeyObscured,
               onChanged: (_) {
                 _apiKeyChanged = true;
                 _markCustomUploadProvider();
@@ -1731,14 +1753,15 @@ class _IpfsImageLinksDialogState extends State<_IpfsImageLinksDialog> {
 
   Future<void> _save() async {
     final deactivated = _selectedUploadProvider == 'deactivated';
+    final apiKey = _apiKeyController.text.trim();
     await widget.settingsService.setIpfsImageSettings(
       publicGateway: _publicController.text,
       uploadGateway: deactivated ? '' : _uploadGatewayController.text,
       uploadEndpoint: deactivated ? '' : _endpointController.text,
       uploadApiKey: deactivated
           ? ''
-          : _apiKeyChanged
-          ? _apiKeyController.text
+          : _apiKeyChanged && apiKey != _maskedApiKey
+          ? apiKey
           : _currentApiKey,
     );
     if (mounted) Navigator.pop(context);
@@ -1746,6 +1769,10 @@ class _IpfsImageLinksDialogState extends State<_IpfsImageLinksDialog> {
 
   String _gatewayPreset(String value) {
     if (value.isEmpty) return 'deactivated';
+    if (value == AppSettings.defaultPublicIpfsGateway ||
+        value == 'https://ipfs.io/ipfs') {
+      return 'ipfsio';
+    }
     if (value == 'https://gateway.pinata.cloud/ipfs/' ||
         value == 'https://gateway.pinata.cloud/ipfs') {
       return 'pinata';
@@ -1761,6 +1788,8 @@ class _IpfsImageLinksDialogState extends State<_IpfsImageLinksDialog> {
     switch (preset) {
       case 'deactivated':
         return '';
+      case 'ipfsio':
+        return AppSettings.defaultPublicIpfsGateway;
       case 'pinata':
         return 'https://gateway.pinata.cloud/ipfs/';
       case 'filebase':

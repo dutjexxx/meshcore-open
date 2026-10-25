@@ -1978,6 +1978,12 @@ abstract class AppLocalizations {
   /// **'Deactivated'**
   String get appSettings_ipfsGatewayDeactivated;
 
+  /// No description provided for @appSettings_ipfsGatewayIpfsIo.
+  ///
+  /// In en, this message translates to:
+  /// **'ipfs.io'**
+  String get appSettings_ipfsGatewayIpfsIo;
+
   /// No description provided for @appSettings_ipfsGatewayPinata.
   ///
   /// In en, this message translates to:
