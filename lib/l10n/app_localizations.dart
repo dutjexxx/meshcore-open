@@ -8114,11 +8114,11 @@ abstract class AppLocalizations {
   /// **'Low battery'**
   String get notification_lowBatteryTitle;
 
-  /// Body of the low battery notification
+  /// Body of the low battery notification; deviceName is the connected radio's node name
   ///
   /// In en, this message translates to:
-  /// **'Device battery is at {percent}%'**
-  String notification_lowBatteryBody(int percent);
+  /// **'{deviceName} battery is at {percent}%'**
+  String notification_lowBatteryBody(String deviceName, int percent);
 
   /// No description provided for @notification_messagesCount.
   ///

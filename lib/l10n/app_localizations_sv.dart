@@ -4690,8 +4690,8 @@ class AppLocalizationsSv extends AppLocalizations {
   String get notification_lowBatteryTitle => 'Low battery';
 
   @override
-  String notification_lowBatteryBody(int percent) {
-    return 'Device battery is at $percent%';
+  String notification_lowBatteryBody(String deviceName, int percent) {
+    return '$deviceName battery is at $percent%';
   }
 
   @override

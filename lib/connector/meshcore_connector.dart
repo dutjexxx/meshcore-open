@@ -302,6 +302,18 @@ class MeshCoreConnector extends ChangeNotifier {
   // crossing, re-arming 5 points above the threshold after recharge.
   static const List<int> _lowBatteryThresholds = [25, 10];
   final Set<int> _batteryAlertedThresholds = {};
+  // Consecutive readings that newly crossed a threshold. Alerts need
+  // [_lowBatteryConfirmReadings] in a row so a single TX-load voltage sag
+  // doesn't notify.
+  int _lowBatteryReadingStreak = 0;
+  // Device key the posted low-battery notifications were scoped to, kept so
+  // they can still be cancelled after the session's identity is cleared.
+  String? _lowBatteryAlertDeviceKey;
+  static const int _lowBatteryConfirmReadings = 2;
+  // Readings below this are treated as "no battery sensor" (boards without
+  // one report 0 mV). Any single Li cell, including LiFePO4 (2600 mV empty),
+  // is protection-cut well above 2 V, so lower values are not real readings.
+  static const int _minPlausibleBatteryMillivolts = 2000;
   double? _selfLatitude;
   double? _selfLongitude;
   final List<DirectRepeater> _directRepeaters = List.empty(growable: true);
@@ -3722,7 +3734,6 @@ class MeshCoreConnector extends ChangeNotifier {
     _allowedRepeatFreqRanges = null;
     _autoAddMaxHops = null;
     _contactsStorageFull = false;
-    _batteryAlertedThresholds.clear();
     _repeaterBatterySnapshots.clear();
 
     _activeTransport = MeshCoreTransportType.bluetooth;
@@ -6492,24 +6503,61 @@ class MeshCoreConnector extends ChangeNotifier {
   }
 
   void _checkLowBatteryThresholds() {
+    final millivolts = _batteryMillivolts;
+    if (millivolts == null || millivolts < _minPlausibleBatteryMillivolts) {
+      return;
+    }
+    // Until the device identity (and so its saved chemistry) is known, the
+    // percentage falls back to NMC and can read low for e.g. LiFePO4 packs.
+    // Skip evaluation; the next battery poll re-checks once identity is set.
+    if (batteryDeviceKey == null || _appSettingsService == null) return;
     final percent = batteryPercent;
     if (percent == null) return;
 
+    // Only the lowest newly crossed threshold notifies; higher ones crossed
+    // in the same reading are marked as alerted silently.
+    final newlyCrossed = <int>[];
     for (final threshold in _lowBatteryThresholds) {
       if (percent <= threshold &&
           !_batteryAlertedThresholds.contains(threshold)) {
-        _batteryAlertedThresholds.add(threshold);
-        NotificationService().showLowBatteryNotification(
-          batteryPercent: percent,
-          threshold: threshold,
-        );
+        newlyCrossed.add(threshold);
       } else if (percent > threshold + 5 &&
           _batteryAlertedThresholds.contains(threshold)) {
         // Re-arm once the battery recovers 5 points above the threshold,
         // so a recharge + discharge cycle alerts again without flapping.
         _batteryAlertedThresholds.remove(threshold);
+        final alertDeviceKey = _lowBatteryAlertDeviceKey;
+        if (alertDeviceKey != null) {
+          unawaited(
+            _notificationService.clearLowBatteryNotifications(alertDeviceKey, [
+              threshold,
+            ]),
+          );
+        }
       }
     }
+    if (newlyCrossed.isEmpty) {
+      _lowBatteryReadingStreak = 0;
+      return;
+    }
+    // Debounce: wait for consecutive low readings before alerting.
+    if (++_lowBatteryReadingStreak < _lowBatteryConfirmReadings) return;
+    _lowBatteryReadingStreak = 0;
+    _batteryAlertedThresholds.addAll(newlyCrossed);
+    final deviceKey = batteryDeviceKey!;
+    _lowBatteryAlertDeviceKey = deviceKey;
+    final lowestNewlyCrossed = newlyCrossed.reduce((a, b) => a < b ? a : b);
+    if (!(_appSettingsService?.settings.notificationsEnabled ?? false)) {
+      return;
+    }
+    unawaited(
+      _notificationService.showLowBatteryNotification(
+        deviceKey: deviceKey,
+        deviceName: deviceDisplayName,
+        batteryPercent: percent,
+        threshold: lowestNewlyCrossed,
+      ),
+    );
   }
 
   void _checkManualAddContacts() async {
@@ -8595,6 +8643,18 @@ class MeshCoreConnector extends ChangeNotifier {
     _hasReceivedDeviceInfo = false;
     _batteryMillivolts = null;
     _batteryRequested = false;
+    final alertDeviceKey = _lowBatteryAlertDeviceKey;
+    if (alertDeviceKey != null && _batteryAlertedThresholds.isNotEmpty) {
+      unawaited(
+        _notificationService.clearLowBatteryNotifications(
+          alertDeviceKey,
+          _batteryAlertedThresholds.toList(),
+        ),
+      );
+    }
+    _batteryAlertedThresholds.clear();
+    _lowBatteryAlertDeviceKey = null;
+    _lowBatteryReadingStreak = 0;
     _pathHashByteWidth = 1;
     _maxContacts = _defaultMaxContacts;
     _maxChannels = _defaultMaxChannels;

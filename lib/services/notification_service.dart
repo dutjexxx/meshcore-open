@@ -600,10 +600,13 @@ class NotificationService {
 
   /// Posts a low-battery alert for the connected device.
   ///
-  /// Uses a per-threshold notification id so each alert level updates its own
-  /// notification instead of stacking. Bypasses the rate-limit queue, which
-  /// only handles message and advert notifications.
+  /// Uses a per-device, per-threshold notification id so each alert level
+  /// updates its own notification instead of stacking, and alerts for
+  /// different radios don't overwrite each other. Bypasses the rate-limit
+  /// queue, which only handles message and advert notifications.
   Future<void> showLowBatteryNotification({
+    required String deviceKey,
+    required String deviceName,
     required int batteryPercent,
     required int threshold,
   }) async {
@@ -632,9 +635,9 @@ class NotificationService {
 
     try {
       await _notifications.show(
-        id: 'low_battery:$threshold'.hashCode,
+        id: _lowBatteryNotificationId(deviceKey, threshold),
         title: _l10n.notification_lowBatteryTitle,
-        body: _l10n.notification_lowBatteryBody(batteryPercent),
+        body: _l10n.notification_lowBatteryBody(deviceName, batteryPercent),
         notificationDetails: notificationDetails,
         payload: 'low_battery',
       );
@@ -697,6 +700,26 @@ class NotificationService {
     _conversations.remove(channelIndex.hashCode);
     await _notifications.cancel(id: channelIndex.hashCode);
     await _updateBadge(totalUnreadCount);
+  }
+
+  static int _lowBatteryNotificationId(String deviceKey, int threshold) =>
+      'low_battery:$deviceKey:$threshold'.hashCode;
+
+  /// Cancel a device's low-battery notifications for the given thresholds.
+  Future<void> clearLowBatteryNotifications(
+    String deviceKey,
+    Iterable<int> thresholds,
+  ) async {
+    if (!await _ensureInitialized()) return;
+    for (final threshold in thresholds) {
+      try {
+        await _notifications.cancel(
+          id: _lowBatteryNotificationId(deviceKey, threshold),
+        );
+      } catch (e) {
+        debugPrint('Failed to clear low battery notification: $e');
+      }
+    }
   }
 
   /// Cancel advert notifications for the given contact public key hexes.
