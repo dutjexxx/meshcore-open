@@ -12,6 +12,7 @@ import 'screens/chrome_required_screen.dart';
 import 'utils/platform_info.dart';
 
 import 'connector/meshcore_connector.dart';
+import 'helpers/message_url_image_helper.dart';
 import 'models/image_codec_support.dart';
 import 'screens/scanner_screen.dart';
 import 'services/image_chunk_transport.dart';
@@ -136,6 +137,18 @@ void main() async {
 
   // Initialize notification service
   final notificationService = NotificationService();
+  notificationService.setPublicIpfsGateway(
+    appSettingsService.settings.publicIpfsGateway,
+  );
+  MessageUrlImageHelper.loadLinkImages.value =
+      appSettingsService.settings.loadLinkImages;
+  appSettingsService.addListener(() {
+    notificationService.setPublicIpfsGateway(
+      appSettingsService.settings.publicIpfsGateway,
+    );
+    MessageUrlImageHelper.loadLinkImages.value =
+        appSettingsService.settings.loadLinkImages;
+  });
   await notificationService.initialize();
   await backgroundService.initialize();
   backgroundService.setLanguageOverrideProvider(

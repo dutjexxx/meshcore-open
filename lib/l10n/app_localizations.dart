@@ -382,6 +382,12 @@ abstract class AppLocalizations {
   /// **'Possible URL image; enable it in Settings.'**
   String get urlImage_possible;
 
+  /// No description provided for @urlImage_disabledInAppSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Turned off in app settings'**
+  String get urlImage_disabledInAppSettings;
+
   /// No description provided for @common_reboot.
   ///
   /// In en, this message translates to:
@@ -1954,6 +1960,120 @@ abstract class AppLocalizations {
   /// **'Number of retry attempts before marking a message as failed'**
   String get appSettings_maxMessageRetriesSubtitle;
 
+  /// No description provided for @appSettings_ipfsImageLinks.
+  ///
+  /// In en, this message translates to:
+  /// **'IPFS provider configuration'**
+  String get appSettings_ipfsImageLinks;
+
+  /// No description provided for @appSettings_ipfsImageLinksSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload for url Images (or Files) via IPFS provider and default gateway to receive'**
+  String get appSettings_ipfsImageLinksSubtitle;
+
+  /// No description provided for @appSettings_loadLinkImages.
+  ///
+  /// In en, this message translates to:
+  /// **'Load images from links'**
+  String get appSettings_loadLinkImages;
+
+  /// No description provided for @appSettings_loadLinkImagesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Show pictures from links in messages. Loading an image shares your IP address with the site that hosts it.'**
+  String get appSettings_loadLinkImagesSubtitle;
+
+  /// No description provided for @appSettings_showLinkImagesByDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Show link images in all chats by default'**
+  String get appSettings_showLinkImagesByDefault;
+
+  /// No description provided for @appSettings_showLinkImagesByDefaultSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Load link images in every chat unless you turned them off there. This shares your IP address with image hosts in every chat.'**
+  String get appSettings_showLinkImagesByDefaultSubtitle;
+
+  /// No description provided for @appSettings_publicIpfsGateway.
+  ///
+  /// In en, this message translates to:
+  /// **'Public gateway'**
+  String get appSettings_publicIpfsGateway;
+
+  /// No description provided for @appSettings_ipfsGatewayDeactivated.
+  ///
+  /// In en, this message translates to:
+  /// **'Deactivated'**
+  String get appSettings_ipfsGatewayDeactivated;
+
+  /// No description provided for @appSettings_ipfsGatewayIpfsIo.
+  ///
+  /// In en, this message translates to:
+  /// **'ipfs.io'**
+  String get appSettings_ipfsGatewayIpfsIo;
+
+  /// No description provided for @appSettings_ipfsGatewayPinata.
+  ///
+  /// In en, this message translates to:
+  /// **'Pinata'**
+  String get appSettings_ipfsGatewayPinata;
+
+  /// No description provided for @appSettings_ipfsGatewayFilebase.
+  ///
+  /// In en, this message translates to:
+  /// **'Filebase'**
+  String get appSettings_ipfsGatewayFilebase;
+
+  /// No description provided for @appSettings_ipfsGatewayCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom (Kubo)'**
+  String get appSettings_ipfsGatewayCustom;
+
+  /// No description provided for @appSettings_uploadIpfsProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload provider'**
+  String get appSettings_uploadIpfsProvider;
+
+  /// No description provided for @appSettings_uploadIpfsGateway.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload gateway'**
+  String get appSettings_uploadIpfsGateway;
+
+  /// No description provided for @appSettings_uploadIpfsGatewaySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Gateway to share Image or File as url-link. Leave empty to use ipfs: format, which may not be opened by other clients.'**
+  String get appSettings_uploadIpfsGatewaySubtitle;
+
+  /// No description provided for @appSettings_uploadIpfsEndpoint.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload endpoint'**
+  String get appSettings_uploadIpfsEndpoint;
+
+  /// No description provided for @appSettings_uploadIpfsEndpointSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The API endpoint used to upload files'**
+  String get appSettings_uploadIpfsEndpointSubtitle;
+
+  /// No description provided for @appSettings_uploadIpfsApiKey.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload API key'**
+  String get appSettings_uploadIpfsApiKey;
+
+  /// No description provided for @appSettings_ipfsImageLinksDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Public gateway downloads ipfs: format images. Upload gateway is used to generate share links for uploaded url images or files.'**
+  String get appSettings_ipfsImageLinksDescription;
+
   /// No description provided for @appSettings_battery.
   ///
   /// In en, this message translates to:
@@ -3183,6 +3303,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Send low-res image over radio'**
   String get chat_sendImageLora;
+
+  /// No description provided for @chat_sendImageIpfs.
+  ///
+  /// In en, this message translates to:
+  /// **'Send image or file via IPFS'**
+  String get chat_sendImageIpfs;
+
+  /// No description provided for @chat_ipfsUploadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'IPFS upload failed: {error}'**
+  String chat_ipfsUploadFailed(String error);
+
+  /// No description provided for @chat_ipfsUploadNotConfigured.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure an IPFS upload provider in App Settings first.'**
+  String get chat_ipfsUploadNotConfigured;
+
+  /// No description provided for @chat_ipfsSelectedFileEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected file is empty.'**
+  String get chat_ipfsSelectedFileEmpty;
+
+  /// No description provided for @chat_ipfsEndpointInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The IPFS upload endpoint must be a full http:// or https:// address. Check it in App Settings.'**
+  String get chat_ipfsEndpointInvalid;
+
+  /// No description provided for @chat_ipfsPinataTokenMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Pinata needs an API key or JWT. Add it in App Settings.'**
+  String get chat_ipfsPinataTokenMissing;
+
+  /// No description provided for @chat_ipfsFilebaseTokenMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Filebase needs an API token. Add it in App Settings.'**
+  String get chat_ipfsFilebaseTokenMissing;
+
+  /// No description provided for @chat_ipfsKuboPathInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The Kubo upload endpoint must end with /api/v0/add. Check it in App Settings.'**
+  String get chat_ipfsKuboPathInvalid;
+
+  /// Shown before an IPFS upload when the link would push the draft over the message size limit
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough room for the image link. Shorten your message, then try again.'**
+  String get chat_ipfsLinkNoRoom;
+
+  /// Shown after an IPFS upload when the link plus the draft no longer fits the message size limit
+  ///
+  /// In en, this message translates to:
+  /// **'Image link added, but the message is now too long. Shorten it before sending.'**
+  String get chat_ipfsLinkOverLimit;
 
   /// Shown when picking or reading a photo to send fails
   ///

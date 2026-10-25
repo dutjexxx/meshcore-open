@@ -148,6 +148,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get urlImage_possible => 'URL 이미지일 수 있습니다. 설정에서 활성화하세요.';
 
   @override
+  String get urlImage_disabledInAppSettings => 'Turned off in app settings';
+
+  @override
   String get common_reboot => '재부팅';
 
   @override
@@ -1016,6 +1019,70 @@ class AppLocalizationsKo extends AppLocalizations {
   String get appSettings_maxMessageRetriesSubtitle => '메시지를 실패로 처리하기 전 시도 횟수';
 
   @override
+  String get appSettings_ipfsImageLinks => 'IPFS provider configuration';
+
+  @override
+  String get appSettings_ipfsImageLinksSubtitle =>
+      'Upload for url Images (or Files) via IPFS provider and default gateway to receive';
+
+  @override
+  String get appSettings_loadLinkImages => 'Load images from links';
+
+  @override
+  String get appSettings_loadLinkImagesSubtitle =>
+      'Show pictures from links in messages. Loading an image shares your IP address with the site that hosts it.';
+
+  @override
+  String get appSettings_showLinkImagesByDefault =>
+      'Show link images in all chats by default';
+
+  @override
+  String get appSettings_showLinkImagesByDefaultSubtitle =>
+      'Load link images in every chat unless you turned them off there. This shares your IP address with image hosts in every chat.';
+
+  @override
+  String get appSettings_publicIpfsGateway => 'Public gateway';
+
+  @override
+  String get appSettings_ipfsGatewayDeactivated => 'Deactivated';
+
+  @override
+  String get appSettings_ipfsGatewayIpfsIo => 'ipfs.io';
+
+  @override
+  String get appSettings_ipfsGatewayPinata => 'Pinata';
+
+  @override
+  String get appSettings_ipfsGatewayFilebase => 'Filebase';
+
+  @override
+  String get appSettings_ipfsGatewayCustom => 'Custom (Kubo)';
+
+  @override
+  String get appSettings_uploadIpfsProvider => 'Upload provider';
+
+  @override
+  String get appSettings_uploadIpfsGateway => 'Upload gateway';
+
+  @override
+  String get appSettings_uploadIpfsGatewaySubtitle =>
+      'Gateway to share Image or File as url-link. Leave empty to use ipfs: format, which may not be opened by other clients.';
+
+  @override
+  String get appSettings_uploadIpfsEndpoint => 'Upload endpoint';
+
+  @override
+  String get appSettings_uploadIpfsEndpointSubtitle =>
+      'The API endpoint used to upload files';
+
+  @override
+  String get appSettings_uploadIpfsApiKey => 'Upload API key';
+
+  @override
+  String get appSettings_ipfsImageLinksDescription =>
+      'Public gateway downloads ipfs: format images. Upload gateway is used to generate share links for uploaded url images or files.';
+
+  @override
   String get appSettings_battery => '배터리';
 
   @override
@@ -1708,6 +1775,45 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get chat_sendImageLora => 'MeshCore를 통해 이미지 보내기';
+
+  @override
+  String get chat_sendImageIpfs => 'Send image or file via IPFS';
+
+  @override
+  String chat_ipfsUploadFailed(String error) {
+    return 'IPFS upload failed: $error';
+  }
+
+  @override
+  String get chat_ipfsUploadNotConfigured =>
+      'Configure an IPFS upload provider in App Settings first.';
+
+  @override
+  String get chat_ipfsSelectedFileEmpty => 'The selected file is empty.';
+
+  @override
+  String get chat_ipfsEndpointInvalid =>
+      'The IPFS upload endpoint must be a full http:// or https:// address. Check it in App Settings.';
+
+  @override
+  String get chat_ipfsPinataTokenMissing =>
+      'Pinata needs an API key or JWT. Add it in App Settings.';
+
+  @override
+  String get chat_ipfsFilebaseTokenMissing =>
+      'Filebase needs an API token. Add it in App Settings.';
+
+  @override
+  String get chat_ipfsKuboPathInvalid =>
+      'The Kubo upload endpoint must end with /api/v0/add. Check it in App Settings.';
+
+  @override
+  String get chat_ipfsLinkNoRoom =>
+      'Not enough room for the image link. Shorten your message, then try again.';
+
+  @override
+  String get chat_ipfsLinkOverLimit =>
+      'Image link added, but the message is now too long. Shorten it before sending.';
 
   @override
   String get chat_imagePickFailed => '그 이미지를 열 수 없었어요.';

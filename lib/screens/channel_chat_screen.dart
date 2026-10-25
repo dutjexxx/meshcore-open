@@ -18,6 +18,7 @@ import '../helpers/chat_scroll_controller.dart';
 import '../connector/meshcore_protocol.dart';
 import '../helpers/cyr2lat.dart';
 import '../helpers/gif_helper.dart';
+import '../helpers/ipfs_link_attach_flow.dart';
 import '../helpers/marker_message.dart';
 import '../helpers/message_url_image_helper.dart';
 import '../helpers/path_helper.dart';
@@ -41,7 +42,6 @@ import '../widgets/received_image_message.dart';
 import '../widgets/channel_notification_mode_sheet.dart';
 import '../widgets/chat_day_separator.dart';
 import '../widgets/empty_state.dart';
-
 import '../widgets/chat_composer.dart';
 import '../widgets/chat_send_pipeline.dart';
 import '../widgets/chat_zoom_wrapper.dart';
@@ -618,6 +618,7 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
     bool urlImagesEnabled,
   ) {
     final settingsService = context.watch<AppSettingsService>();
+    final publicIpfsGateway = settingsService.settings.publicIpfsGateway;
     final enableTracing = settingsService.settings.enableMessageTracing;
     final regionOnHopsLine = settingsService.settings.regionOnHopsLine;
     final isOutgoing = message.isOutgoing;
@@ -761,6 +762,7 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                           MessageUrlImageFutureBuilder(
                             messageId: message.messageId,
                             text: message.text,
+                            publicGateway: publicIpfsGateway,
                             builder: (context, snapshot) {
                               final imageAttachment = snapshot.data;
 
@@ -813,9 +815,10 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              if (MessageUrlImageHelper.hasPotentialImageUrl(
-                                message.text,
-                              ))
+                              if (settingsService.settings.loadLinkImages &&
+                                  MessageUrlImageHelper.hasPotentialImageUrl(
+                                    message.text,
+                                  ))
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 4),
                                   child: Text(
@@ -1307,6 +1310,23 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
               ),
             )
           : null,
+    );
+  }
+
+  Future<void> _sendImageViaIpfs() {
+    final connector = context.read<MeshCoreConnector>();
+    return attachIpfsLinkToDraft(
+      context: context,
+      controller: _textController,
+      focusNode: _textFieldFocusNode,
+      maxBytes: maxChannelMessageBytes(connector.selfName),
+      encodeOutbound: (text) {
+        final replyTo = _replyingToMessage;
+        return connector.prepareChannelOutboundText(
+          widget.channel.index,
+          replyTo == null ? text : '${_replyPrefix(replyTo)}$text',
+        );
+      },
     );
   }
 
@@ -2029,8 +2049,10 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
     final showImageAction = context.select<AppSettingsService, bool>(
       (s) => s.settings.imageMessagesEnabled,
     );
+    final showIpfsAction = context.select<AppSettingsService, bool>(
+      (s) => s.settings.uploadIpfsEndpoint.trim().isNotEmpty,
+    );
     final replyTo = _replyingToMessage;
-    // A reply's prefix is sent too, so it counts against the limit.
     final replyPrefixBytes = replyTo == null
         ? 0
         : utf8.encode(_replyPrefix(replyTo)).length;
@@ -2070,6 +2092,12 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
             icon: Icons.gif_box,
             label: context.l10n.chat_sendGif,
           ),
+          if (showIpfsAction)
+            ChatComposerAction(
+              id: 'ipfs-image',
+              icon: Icons.cloud_upload_outlined,
+              label: context.l10n.chat_sendImageIpfs,
+            ),
           if (showImageAction)
             ChatComposerAction(
               id: 'meshcore-image',
@@ -2092,6 +2120,8 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
         switch (action) {
           case 'gif':
             showChatGifPicker(context, _textController);
+          case 'ipfs-image':
+            _sendImageViaIpfs();
           case 'meshcore-image':
             _showImageSendPreview();
           case 'send-my-location':

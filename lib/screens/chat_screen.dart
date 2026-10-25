@@ -20,6 +20,7 @@ import '../widgets/message_status_icon.dart';
 import '../widgets/empty_state.dart';
 import '../helpers/chat_scroll_controller.dart';
 import '../helpers/gif_helper.dart';
+import '../helpers/ipfs_link_attach_flow.dart';
 import '../helpers/marker_message.dart';
 import '../models/channel_message.dart';
 import '../models/contact.dart';
@@ -521,30 +522,56 @@ class _ChatScreenState extends State<ChatScreen> {
       sendTooltip: context.l10n.chat_sendMessageTo(
         _resolveContact(connector).name,
       ),
-      // No image action here: the image wire format is GRP_DATA, a channel
-      // primitive with no DM equivalent (see the note at the top of this
-      // file).
-      actionsBuilder: () => [
-        ChatComposerAction(
-          id: 'gif',
-          icon: Icons.gif_box,
-          label: context.l10n.chat_sendGif,
-        ),
-        ChatComposerAction(
-          id: 'send-my-location',
-          icon: Icons.my_location,
-          label: context.l10n.chat_shareMyLocation,
-        ),
-      ],
+      actionsBuilder: () {
+        final showIpfsAction = context
+            .read<AppSettingsService>()
+            .settings
+            .uploadIpfsEndpoint
+            .trim()
+            .isNotEmpty;
+        return [
+          ChatComposerAction(
+            id: 'gif',
+            icon: Icons.gif_box,
+            label: context.l10n.chat_sendGif,
+          ),
+          if (showIpfsAction)
+            ChatComposerAction(
+              id: 'ipfs-image',
+              icon: Icons.cloud_upload_outlined,
+              label: context.l10n.chat_sendImageIpfs,
+            ),
+          ChatComposerAction(
+            id: 'send-my-location',
+            icon: Icons.my_location,
+            label: context.l10n.chat_shareMyLocation,
+          ),
+        ];
+      },
       onAction: (action) {
         if (!mounted) return;
         switch (action) {
           case 'gif':
             showChatGifPicker(context, _textController);
+          case 'ipfs-image':
+            _sendImageViaIpfs();
           case 'send-my-location':
             _shareMyLocation(context.read<MeshCoreConnector>());
         }
       },
+    );
+  }
+
+  Future<void> _sendImageViaIpfs() {
+    final connector = context.read<MeshCoreConnector>();
+    final contact = _resolveContact(connector);
+    return attachIpfsLinkToDraft(
+      context: context,
+      controller: _textController,
+      focusNode: _textFieldFocusNode,
+      maxBytes: maxContactMessageBytes(),
+      encodeOutbound: (text) =>
+          connector.prepareContactOutboundText(contact, text),
     );
   }
 
@@ -755,6 +782,10 @@ class _ChatScreenState extends State<ChatScreen> {
     bool urlImagesEnabled = connector.isContactUrlImagesEnabled(
       contact.publicKeyHex,
     );
+    final loadLinkImages = context
+        .read<AppSettingsService>()
+        .settings
+        .loadLinkImages;
     String? selectedCyr2LatProfileId = connector.getContactCyr2LatProfileId(
       contact.publicKeyHex,
     );
@@ -869,14 +900,19 @@ class _ChatScreenState extends State<ChatScreen> {
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
                   title: Text(context.l10n.urlImage_enable),
+                  subtitle: loadLinkImages
+                      ? null
+                      : Text(context.l10n.urlImage_disabledInAppSettings),
                   value: urlImagesEnabled,
-                  onChanged: (value) {
-                    connector.setContactUrlImagesEnabled(
-                      contact.publicKeyHex,
-                      value,
-                    );
-                    setDialogState(() => urlImagesEnabled = value);
-                  },
+                  onChanged: loadLinkImages
+                      ? (value) {
+                          connector.setContactUrlImagesEnabled(
+                            contact.publicKeyHex,
+                            value,
+                          );
+                          setDialogState(() => urlImagesEnabled = value);
+                        }
+                      : null,
                 ),
                 const Divider(height: 8),
                 SwitchListTile(
@@ -1224,6 +1260,7 @@ class _MessageBubble extends StatelessWidget {
     final urlImagesEnabled = context.select<MeshCoreConnector, bool>(
       (connector) => connector.isContactUrlImagesEnabled(sourceId),
     );
+    final publicIpfsGateway = settingsService.settings.publicIpfsGateway;
 
     final colors = MessageBubbleColors.of(
       scheme,
@@ -1351,6 +1388,7 @@ class _MessageBubble extends StatelessWidget {
                             MessageUrlImageFutureBuilder(
                               messageId: message.messageId,
                               text: message.text,
+                              publicGateway: publicIpfsGateway,
                               builder: (context, snapshot) {
                                 final imageAttachment = snapshot.data;
 
@@ -1403,9 +1441,10 @@ class _MessageBubble extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                if (MessageUrlImageHelper.hasPotentialImageUrl(
-                                  message.text,
-                                ))
+                                if (settingsService.settings.loadLinkImages &&
+                                    MessageUrlImageHelper.hasPotentialImageUrl(
+                                      message.text,
+                                    ))
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 4),
                                     child: Text(

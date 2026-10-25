@@ -243,6 +243,40 @@ void main() {
     expect(_storedTexts(hikingId), isEmpty);
   });
 
+  test('deleting a channel clears its history when the refresh cannot read '
+      'the slot', () async {
+    _connector.channelSyncTimeoutMs = 30;
+    var deleted = false;
+    final radio = _TestRadio(
+      swallow: (frame) {
+        if (frame[0] == cmdSetChannel && frame[1] == 1) deleted = true;
+        return deleted && frame[0] == cmdGetChannel && frame[1] == 1;
+      },
+    );
+    await _connect(radio);
+    await _waitFor(() => _texts(1).contains(_queuedHikingText));
+
+    await _connector.deleteChannel(1);
+    expect(_connector.channelIdForSlot(1), hikingId);
+    expect(_storedTexts(hikingId), isEmpty);
+  });
+
+  test(
+    'deleting one of two slots with the same PSK keeps the history',
+    () async {
+      final radio = _TestRadio();
+      await _connect(
+        radio,
+        seed: () =>
+            radio.handle(buildSetChannelFrame(5, 'Hiking Twin', _psk(1))),
+      );
+      await _waitFor(() => _texts(1).contains(_queuedHikingText));
+
+      await _connector.deleteChannel(1);
+      expect(_storedTexts(hikingId), contains(_queuedHikingText));
+    },
+  );
+
   test('a channel frame that arrives before the slot map is held, then filed '
       'by the confirmed map', () async {
     final radio = _TestRadio(

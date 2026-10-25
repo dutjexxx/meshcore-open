@@ -1649,7 +1649,11 @@ class _ChannelsScreenState extends State<ChannelsScreen>
     );
     bool smazEnabled = connector.isChannelSmazEnabled(channel.index);
     bool cyr2latEnabled = connector.isChannelCyr2LatEnabled(channel.index);
-    bool urlImagesEnabled = connector.isChannelUrlImagesEnabled(channel.index);
+    final initialUrlImagesEnabled = connector.isChannelUrlImagesEnabled(
+      channel.index,
+    );
+    bool urlImagesEnabled = initialUrlImagesEnabled;
+    final loadLinkImages = appSettingsService.settings.loadLinkImages;
     String? selectedCyr2LatProfileId = connector.getChannelCyr2LatProfileId(
       channel.index,
     );
@@ -1769,9 +1773,19 @@ class _ChannelsScreenState extends State<ChannelsScreen>
                         SwitchListTile(
                           contentPadding: EdgeInsets.zero,
                           title: Text(sheetContext.l10n.urlImage_enable),
+                          subtitle: loadLinkImages
+                              ? null
+                              : Text(
+                                  sheetContext
+                                      .l10n
+                                      .urlImage_disabledInAppSettings,
+                                ),
                           value: urlImagesEnabled,
-                          onChanged: (value) =>
-                              setSheetState(() => urlImagesEnabled = value),
+                          onChanged: loadLinkImages
+                              ? (value) => setSheetState(
+                                  () => urlImagesEnabled = value,
+                                )
+                              : null,
                         ),
                         const SizedBox(height: 24),
                       ],
@@ -1831,10 +1845,13 @@ class _ChannelsScreenState extends State<ChannelsScreen>
                                   channel.index,
                                   cyr2latEnabled,
                                 );
-                                await connector.setChannelUrlImagesEnabled(
-                                  channel.index,
-                                  urlImagesEnabled,
-                                );
+                                if (urlImagesEnabled !=
+                                    initialUrlImagesEnabled) {
+                                  await connector.setChannelUrlImagesEnabled(
+                                    channel.index,
+                                    urlImagesEnabled,
+                                  );
+                                }
                                 await connector.setChannelCyr2LatProfileId(
                                   channel.index,
                                   selectedCyr2LatProfileId,
