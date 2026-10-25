@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:meshcore_open/connector/meshcore_connector.dart';
 import 'package:meshcore_open/connector/meshcore_protocol.dart';
@@ -14,6 +16,20 @@ Future<void> _waitFor(bool Function() condition, {int seconds = 8}) async {
   while (!condition()) {
     if (DateTime.now().isAfter(end)) fail('Timed out waiting for condition');
     await Future<void>.delayed(const Duration(milliseconds: 25));
+  }
+}
+
+/// Review radio that records every frame the app sends.
+class _RecordingReviewRadio extends ReviewRadio {
+  final List<Uint8List> sent = [];
+
+  _RecordingReviewRadio()
+    : super(scheduledMessageInterval: const Duration(hours: 1));
+
+  @override
+  void handle(Uint8List frame) {
+    sent.add(frame);
+    super.handle(frame);
   }
 }
 
@@ -35,8 +51,8 @@ void main() {
       retryService: retryService,
       pathHistoryService: PathHistoryService(StorageService()),
     );
-    connector.reviewRadioFactoryForTest = () =>
-        ReviewRadio(scheduledMessageInterval: const Duration(hours: 1));
+    final radio = _RecordingReviewRadio();
+    connector.reviewRadioFactoryForTest = () => radio;
 
     await connector.connectReview();
     await _waitFor(
@@ -65,6 +81,15 @@ void main() {
     final store = ContactStore()..setPublicKeyHex = connector.selfPublicKeyHex;
     final saved = await store.loadContacts();
     expect(saved.any((c) => c.publicKeyHex == contact.publicKeyHex), isFalse);
+
+    // An open chat/repeater screen still syncs the path before each send, and
+    // the favourite toggle writes flags. On firmware CMD_ADD_UPDATE_CONTACT
+    // adds unknown keys, so neither may be sent for the removed contact.
+    radio.sent.clear();
+    await connector.setContactPath(contact, Uint8List.fromList([0x42]), 1);
+    await connector.preparePathForContactSend(contact);
+    await connector.setContactFlags(contact, isFavorite: true);
+    expect(radio.sent.where((f) => f.first == cmdAddUpdateContact), isEmpty);
 
     await connector.disconnect(manual: true);
   });
