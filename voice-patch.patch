@@ -1,0 +1,554 @@
+diff --git a/.github/workflows/android-voice-apk.yml b/.github/workflows/android-voice-apk.yml
+new file mode 100644
+index 0000000..cb81519
+--- /dev/null
++++ b/.github/workflows/android-voice-apk.yml
+@@ -0,0 +1,26 @@
++name: Android APK (voice)
++
++on:
++  workflow_dispatch:
++
++jobs:
++  apk:
++    runs-on: ubuntu-latest
++    steps:
++      - uses: actions/checkout@v4
++        with:
++          submodules: recursive
++      - uses: actions/setup-java@v4
++        with:
++          distribution: "temurin"
++          java-version: "17"
++      - uses: subosito/flutter-action@v2
++        with:
++          channel: "stable"
++          cache: true
++      - run: flutter pub get
++      - run: flutter build apk --release --no-pub
++      - uses: actions/upload-artifact@v4
++        with:
++          name: meshcore-voice-apk
++          path: build/app/outputs/flutter-apk/app-release.apk
+diff --git a/android/app/src/main/AndroidManifest.xml b/android/app/src/main/AndroidManifest.xml
+index 27d9692..fa7f772 100644
+--- a/android/app/src/main/AndroidManifest.xml
++++ b/android/app/src/main/AndroidManifest.xml
+@@ -18,6 +18,8 @@
+     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+     <!-- Camera permission for QR code scanning -->
+     <uses-permission android:name="android.permission.CAMERA"/>
++    <!-- Microphone for push-to-talk speech recognition -->
++    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+     <uses-feature android:name="android.hardware.camera" android:required="false"/>
+     <uses-feature android:name="android.hardware.usb.host" android:required="false"/>
+ 
+@@ -68,6 +70,13 @@
+ 
+          In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
+     <queries>
++        <!-- Speech recognition and text-to-speech engines -->
++        <intent>
++            <action android:name="android.speech.RecognitionService"/>
++        </intent>
++        <intent>
++            <action android:name="android.intent.action.TTS_SERVICE"/>
++        </intent>
+         <intent>
+             <action android:name="android.intent.action.PROCESS_TEXT"/>
+             <data android:mimeType="text/plain"/>
+diff --git a/lib/services/notification_service.dart b/lib/services/notification_service.dart
+index 2277f99..5aebe40 100644
+--- a/lib/services/notification_service.dart
++++ b/lib/services/notification_service.dart
+@@ -17,6 +17,7 @@ import '../models/app_settings.dart';
+ import '../storage/prefs_manager.dart';
+ import '../utils/platform_info.dart';
+ import 'notification_reply.dart';
++import 'voice_service.dart';
+ import 'received_image_store.dart' show ReceivedImageRef;
+ 
+ class NotificationService {
+@@ -785,6 +786,7 @@ class NotificationService {
+     String? contactId,
+     int? badgeCount,
+   }) async {
++    unawaited(VoiceService().speakIncoming(sender: contactName, text: message));
+     if (_suppressNotifications) return;
+ 
+     _queueNotification(
+@@ -824,6 +826,12 @@ class NotificationService {
+     int? channelIndex,
+     int? badgeCount,
+   }) async {
++    unawaited(
++      VoiceService().speakIncoming(
++        sender: senderName.trim().isEmpty ? channelName : senderName,
++        text: message,
++      ),
++    );
+     if (_suppressNotifications) return;
+ 
+     _queueNotification(
+diff --git a/lib/services/voice_service.dart b/lib/services/voice_service.dart
+new file mode 100644
+index 0000000..8faba88
+--- /dev/null
++++ b/lib/services/voice_service.dart
+@@ -0,0 +1,220 @@
++import 'dart:async';
++
++import 'package:flutter/foundation.dart';
++import 'package:flutter_tts/flutter_tts.dart';
++import 'package:speech_to_text/speech_recognition_error.dart';
++import 'package:speech_to_text/speech_recognition_result.dart';
++import 'package:speech_to_text/speech_to_text.dart';
++
++import '../helpers/gif_helper.dart';
++import '../storage/prefs_manager.dart';
++
++/// Voice layer: reads incoming messages aloud (text-to-speech) and turns
++/// speech into text for sending (speech-to-text). Everything uses the
++/// phone's own engines, so it works offline when the language packs are
++/// downloaded in Android settings.
++class VoiceService extends ChangeNotifier {
++  static final VoiceService _instance = VoiceService._internal();
++  factory VoiceService() => _instance;
++  VoiceService._internal();
++
++  static const _kTtsEnabled = 'voice_tts_enabled';
++  static const _kLocale = 'voice_locale';
++  static const _kOnDevice = 'voice_on_device';
++  static const _kAutoSend = 'voice_auto_send';
++  static const _maxSpokenChars = 300;
++
++  final FlutterTts _tts = FlutterTts();
++  final SpeechToText _stt = SpeechToText();
++
++  bool _ttsReady = false;
++  bool _sttReady = false;
++  bool _listening = false;
++  String _lastError = '';
++
++  /// Called with the final recognized text when listening ends.
++  void Function(String text)? _onFinal;
++  String _latestWords = '';
++  bool _finalDelivered = false;
++
++  bool get ttsEnabled =>
++      PrefsManager.instance.getBool(_kTtsEnabled) ?? true;
++
++  /// Locale id such as `nl_NL` or `en_US`. Empty = device default.
++  String get locale => PrefsManager.instance.getString(_kLocale) ?? '';
++
++  /// Force on-device recognition (needs offline language pack).
++  bool get onDevice => PrefsManager.instance.getBool(_kOnDevice) ?? true;
++
++  /// Send the dictated text right away when the talk button is released.
++  bool get autoSend => PrefsManager.instance.getBool(_kAutoSend) ?? true;
++
++  bool get isListening => _listening;
++  String get lastError => _lastError;
++
++  Future<void> setTtsEnabled(bool value) async {
++    await PrefsManager.instance.setBool(_kTtsEnabled, value);
++    if (!value) await _tts.stop();
++    notifyListeners();
++  }
++
++  Future<void> setLocale(String value) async {
++    await PrefsManager.instance.setString(_kLocale, value);
++    _ttsReady = false; // re-apply language on next speak
++    notifyListeners();
++  }
++
++  Future<void> setOnDevice(bool value) async {
++    await PrefsManager.instance.setBool(_kOnDevice, value);
++    notifyListeners();
++  }
++
++  Future<void> setAutoSend(bool value) async {
++    await PrefsManager.instance.setBool(_kAutoSend, value);
++    notifyListeners();
++  }
++
++  // ───────────────────────── Text to speech ─────────────────────────
++
++  Future<void> _initTts() async {
++    if (_ttsReady) return;
++    try {
++      final tag = locale.replaceAll('_', '-');
++      if (tag.isNotEmpty) await _tts.setLanguage(tag);
++      await _tts.setSpeechRate(0.5);
++      await _tts.setQueueMode(1); // queue messages instead of cutting off
++      await _tts.awaitSpeakCompletion(false);
++      _ttsReady = true;
++    } catch (e) {
++      debugPrint('[Voice] TTS init failed: $e');
++    }
++  }
++
++  /// Reads an incoming message aloud. [sender] is spoken first when given.
++  Future<void> speakIncoming({String? sender, required String text}) async {
++    if (!ttsEnabled) return;
++    var body = text.trim();
++    if (body.isEmpty) return;
++    // Skip things that make no sense spoken (GIFs, bare links).
++    if (GifHelper.parseGif(body) != null) return;
++    body = body.replaceAll(RegExp(r'https?://\S+'), 'link');
++    if (body.length > _maxSpokenChars) {
++      body = '${body.substring(0, _maxSpokenChars)}…';
++    }
++    final who = (sender ?? '').trim();
++    final line = who.isEmpty ? body : '$who: $body';
++    try {
++      await _initTts();
++      await _tts.speak(line);
++    } catch (e) {
++      debugPrint('[Voice] speak failed: $e');
++    }
++  }
++
++  Future<void> stopSpeaking() async {
++    try {
++      await _tts.stop();
++    } catch (_) {}
++  }
++
++  // ───────────────────────── Speech to text ─────────────────────────
++
++  Future<bool> _initStt() async {
++    if (_sttReady) return true;
++    try {
++      _sttReady = await _stt.initialize(
++        onError: _onSttError,
++        onStatus: _onSttStatus,
++      );
++    } catch (e) {
++      _lastError = '$e';
++      _sttReady = false;
++    }
++    return _sttReady;
++  }
++
++  void _onSttError(SpeechRecognitionError error) {
++    _lastError = error.errorMsg;
++    debugPrint('[Voice] STT error: ${error.errorMsg}');
++    // "no match"/"speech timeout" just mean nothing was heard.
++    _finishListening();
++  }
++
++  void _onSttStatus(String status) {
++    if (status == 'done' || status == 'notListening') {
++      _finishListening();
++    }
++  }
++
++  void _finishListening() {
++    final wasListening = _listening;
++    _listening = false;
++    if (wasListening) notifyListeners();
++    if (!_finalDelivered) {
++      _finalDelivered = true;
++      final text = _latestWords.trim();
++      if (text.isNotEmpty) _onFinal?.call(text);
++    }
++  }
++
++  /// Starts listening. Returns false (and sets [lastError]) if the
++  /// microphone permission or speech engine is not available.
++  Future<bool> startListening({
++    required void Function(String text) onFinal,
++  }) async {
++    if (_listening) return true;
++    await stopSpeaking(); // never listen while talking
++    _lastError = '';
++    if (!await _initStt()) {
++      if (_lastError.isEmpty) _lastError = 'speech_unavailable';
++      return false;
++    }
++    _onFinal = onFinal;
++    _latestWords = '';
++    _finalDelivered = false;
++    _listening = true;
++    notifyListeners();
++    try {
++      await _stt.listen(
++        onResult: _onSttResult,
++        localeId: locale.isEmpty ? null : locale,
++        listenFor: const Duration(seconds: 30),
++        pauseFor: const Duration(seconds: 4),
++        listenOptions: SpeechListenOptions(
++          onDevice: onDevice,
++          partialResults: true,
++          cancelOnError: true,
++          listenMode: ListenMode.dictation,
++        ),
++      );
++    } catch (e) {
++      _lastError = '$e';
++      _listening = false;
++      notifyListeners();
++      return false;
++    }
++    return true;
++  }
++
++  void _onSttResult(SpeechRecognitionResult result) {
++    _latestWords = result.recognizedWords;
++    if (result.finalResult) _finishListening();
++  }
++
++  /// Stops listening; the recognized text is delivered to the callback.
++  Future<void> stopListening() async {
++    if (!_listening) return;
++    try {
++      await _stt.stop();
++    } catch (_) {}
++    // Give the engine a moment to flush the final result.
++    await Future<void>.delayed(const Duration(milliseconds: 600));
++    _finishListening();
++  }
++
++  /// Languages the speech engine offers, for the settings dialog.
++  Future<List<LocaleName>> availableLocales() async {
++    if (!await _initStt()) return const [];
++    return _stt.locales();
++  }
++}
+diff --git a/lib/widgets/chat_composer.dart b/lib/widgets/chat_composer.dart
+index 428381a..a02c046 100644
+--- a/lib/widgets/chat_composer.dart
++++ b/lib/widgets/chat_composer.dart
+@@ -11,6 +11,7 @@ import 'gif_message.dart';
+ import 'gif_picker.dart';
+ import 'mesh_ui.dart';
+ import 'message_translation_button.dart';
++import 'voice_controls.dart';
+ 
+ /// One entry of the composer's "+" menu.
+ @immutable
+@@ -88,12 +89,11 @@ class ChatComposer extends StatelessWidget {
+ 
+   Future<void> _openActionMenu(BuildContext buttonContext) async {
+     final actions = actionsBuilder();
+-    if (actions.isEmpty) return;
+     final button = buttonContext.findRenderObject() as RenderBox;
+     final overlay =
+         Overlay.of(buttonContext).context.findRenderObject() as RenderBox;
+     final buttonOffset = button.localToGlobal(Offset.zero, ancestor: overlay);
+-    final menuHeight = actions.length * kMinInteractiveDimension + 16;
++    final menuHeight = (actions.length + 1) * kMinInteractiveDimension + 16;
+     final menuTop = (buttonOffset.dy - menuHeight).clamp(
+       8.0,
+       overlay.size.height,
+@@ -123,9 +123,23 @@ class ChatComposer extends StatelessWidget {
+               ],
+             ),
+           ),
++        const PopupMenuItem(
++          value: '__voice_settings__',
++          child: Row(
++            children: [
++              Icon(Icons.record_voice_over_outlined),
++              SizedBox(width: 12),
++              Flexible(child: Text('Spraakinstellingen')),
++            ],
++          ),
++        ),
+       ],
+     );
+     if (selected == null || !buttonContext.mounted) return;
++    if (selected == '__voice_settings__') {
++      showVoiceSettingsDialog(buttonContext);
++      return;
++    }
+     onAction(selected);
+   }
+ 
+@@ -181,6 +195,8 @@ class ChatComposer extends StatelessWidget {
+                     ),
+                   ),
+                   const SizedBox(width: 6),
++                  VoiceMicButton(controller: controller, onSend: onSend),
++                  const SizedBox(width: 6),
+                   ValueListenableBuilder<TextEditingValue>(
+                     valueListenable: controller,
+                     builder: (context, value, _) {
+diff --git a/lib/widgets/voice_controls.dart b/lib/widgets/voice_controls.dart
+new file mode 100644
+index 0000000..773966a
+--- /dev/null
++++ b/lib/widgets/voice_controls.dart
+@@ -0,0 +1,158 @@
++import 'package:flutter/material.dart';
++import 'package:flutter/services.dart';
++import 'package:provider/provider.dart';
++import 'package:speech_to_text/speech_to_text.dart' show LocaleName;
++
++import '../services/voice_service.dart';
++
++/// Push-to-talk button: hold to speak, release to put the recognized text in
++/// [controller] (and send it when auto-send is on).
++class VoiceMicButton extends StatelessWidget {
++  final TextEditingController controller;
++  final VoidCallback onSend;
++
++  const VoiceMicButton({
++    super.key,
++    required this.controller,
++    required this.onSend,
++  });
++
++  Future<void> _start(BuildContext context) async {
++    final voice = VoiceService();
++    final messenger = ScaffoldMessenger.maybeOf(context);
++    HapticFeedback.mediumImpact();
++    final ok = await voice.startListening(
++      onFinal: (text) {
++        final existing = controller.text.trim();
++        controller.text = existing.isEmpty ? text : '$existing $text';
++        controller.selection = TextSelection.collapsed(
++          offset: controller.text.length,
++        );
++        if (voice.autoSend) {
++          HapticFeedback.lightImpact();
++          onSend();
++        }
++      },
++    );
++    if (!ok) {
++      messenger?.showSnackBar(
++        SnackBar(
++          content: Text(
++            'Spraakherkenning niet beschikbaar (${voice.lastError}). '
++            'Controleer de microfoonrechten en het offline taalpakket.',
++          ),
++        ),
++      );
++    }
++  }
++
++  @override
++  Widget build(BuildContext context) {
++    final scheme = Theme.of(context).colorScheme;
++    return ListenableBuilder(
++      listenable: VoiceService(),
++      builder: (context, _) {
++        final listening = VoiceService().isListening;
++        return GestureDetector(
++          onLongPressStart: (_) => _start(context),
++          onLongPressEnd: (_) => VoiceService().stopListening(),
++          onLongPressCancel: () => VoiceService().stopListening(),
++          child: Tooltip(
++            message: 'Houd ingedrukt om te praten',
++            child: Container(
++              width: 40,
++              height: 40,
++              decoration: BoxDecoration(
++                shape: BoxShape.circle,
++                color: listening ? Colors.red : scheme.secondaryContainer,
++              ),
++              child: Icon(
++                listening ? Icons.mic : Icons.mic_none,
++                size: 22,
++                color: listening ? Colors.white : scheme.onSecondaryContainer,
++              ),
++            ),
++          ),
++        );
++      },
++    );
++  }
++}
++
++/// Dialog with the voice options (reading aloud, language, offline mode).
++Future<void> showVoiceSettingsDialog(BuildContext context) async {
++  final voice = VoiceService();
++  final locales = await voice.availableLocales();
++  if (!context.mounted) return;
++  await showDialog<void>(
++    context: context,
++    builder: (context) => ListenableBuilder(
++      listenable: voice,
++      builder: (context, _) => AlertDialog(
++        title: const Text('Spraak'),
++        content: SingleChildScrollView(
++          child: Column(
++            mainAxisSize: MainAxisSize.min,
++            children: [
++              SwitchListTile(
++                contentPadding: EdgeInsets.zero,
++                title: const Text('Berichten voorlezen'),
++                value: voice.ttsEnabled,
++                onChanged: voice.setTtsEnabled,
++              ),
++              SwitchListTile(
++                contentPadding: EdgeInsets.zero,
++                title: const Text('Automatisch verzenden na inspreken'),
++                value: voice.autoSend,
++                onChanged: voice.setAutoSend,
++              ),
++              SwitchListTile(
++                contentPadding: EdgeInsets.zero,
++                title: const Text('Alleen offline herkenning'),
++                subtitle: const Text(
++                  'Vereist het offline taalpakket in Android-instellingen',
++                ),
++                value: voice.onDevice,
++                onChanged: voice.setOnDevice,
++              ),
++              const SizedBox(height: 8),
++              DropdownButtonFormField<String>(
++                initialValue: locales.any((l) => l.localeId == voice.locale)
++                    ? voice.locale
++                    : '',
++                decoration: const InputDecoration(labelText: 'Taal'),
++                isExpanded: true,
++                items: [
++                  const DropdownMenuItem(
++                    value: '',
++                    child: Text('Standaard van toestel'),
++                  ),
++                  for (final LocaleName l in locales)
++                    DropdownMenuItem(
++                      value: l.localeId,
++                      child: Text(l.name, overflow: TextOverflow.ellipsis),
++                    ),
++                ],
++                onChanged: (v) => voice.setLocale(v ?? ''),
++              ),
++              const SizedBox(height: 8),
++              OutlinedButton(
++                onPressed: () => voice.speakIncoming(
++                  sender: 'Test',
++                  text: 'Dit is een test van de voorleesstem.',
++                ),
++                child: const Text('Test voorlezen'),
++              ),
++            ],
++          ),
++        ),
++        actions: [
++          TextButton(
++            onPressed: () => Navigator.of(context).pop(),
++            child: const Text('Sluiten'),
++          ),
++        ],
++      ),
++    ),
++  );
++}
+diff --git a/pubspec.yaml b/pubspec.yaml
+index a4d83a7..a2c1f25 100644
+--- a/pubspec.yaml
++++ b/pubspec.yaml
+@@ -78,6 +78,8 @@ dependencies:
+   flutter_langdetect: ^0.0.1
+   cryptography: ^2.9.0
+   cryptography_flutter: ^2.3.4
++  flutter_tts: ^4.2.3        # read incoming messages aloud
++  speech_to_text: ^7.3.0     # push-to-talk dictation
+   convert: ^3.1.2
+   # ONNX Runtime 1.23.0 via platform channels. Powers the AEIC-SE image codec
+   # decoder (lib/services/image_codec_backend.dart). arm64-only on Android — see
