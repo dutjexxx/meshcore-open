@@ -382,6 +382,12 @@ abstract class AppLocalizations {
   /// **'Possible URL image; enable it in Settings.'**
   String get urlImage_possible;
 
+  /// No description provided for @urlImage_disabledInAppSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Turned off in app settings'**
+  String get urlImage_disabledInAppSettings;
+
   /// No description provided for @common_reboot.
   ///
   /// In en, this message translates to:
@@ -1965,6 +1971,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Upload for url Images (or Files) via IPFS provider and default gateway to receive'**
   String get appSettings_ipfsImageLinksSubtitle;
+
+  /// No description provided for @appSettings_loadLinkImages.
+  ///
+  /// In en, this message translates to:
+  /// **'Load images from links'**
+  String get appSettings_loadLinkImages;
+
+  /// No description provided for @appSettings_loadLinkImagesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Show pictures from links in messages. Loading an image shares your IP address with the site that hosts it.'**
+  String get appSettings_loadLinkImagesSubtitle;
 
   /// No description provided for @appSettings_publicIpfsGateway.
   ///

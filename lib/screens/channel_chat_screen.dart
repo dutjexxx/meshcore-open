@@ -815,9 +815,10 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              if (MessageUrlImageHelper.hasPotentialImageUrl(
-                                message.text,
-                              ))
+                              if (settingsService.settings.loadLinkImages &&
+                                  MessageUrlImageHelper.hasPotentialImageUrl(
+                                    message.text,
+                                  ))
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 4),
                                   child: Text(

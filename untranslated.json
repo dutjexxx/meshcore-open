@@ -1,8 +1,11 @@
 {
   "bg": [
+    "urlImage_disabledInAppSettings",
     "settings_pathHashModeNotApplied",
     "appSettings_ipfsImageLinks",
     "appSettings_ipfsImageLinksSubtitle",
+    "appSettings_loadLinkImages",
+    "appSettings_loadLinkImagesSubtitle",
     "appSettings_publicIpfsGateway",
     "appSettings_ipfsGatewayDeactivated",
     "appSettings_ipfsGatewayIpfsIo",
@@ -51,9 +54,12 @@
   ],
 
   "de": [
+    "urlImage_disabledInAppSettings",
     "settings_pathHashModeNotApplied",
     "appSettings_ipfsImageLinks",
     "appSettings_ipfsImageLinksSubtitle",
+    "appSettings_loadLinkImages",
+    "appSettings_loadLinkImagesSubtitle",
     "appSettings_publicIpfsGateway",
     "appSettings_ipfsGatewayDeactivated",
     "appSettings_ipfsGatewayIpfsIo",
@@ -102,9 +108,12 @@
   ],
 
   "es": [
+    "urlImage_disabledInAppSettings",
     "settings_pathHashModeNotApplied",
     "appSettings_ipfsImageLinks",
     "appSettings_ipfsImageLinksSubtitle",
+    "appSettings_loadLinkImages",
+    "appSettings_loadLinkImagesSubtitle",
     "appSettings_publicIpfsGateway",
     "appSettings_ipfsGatewayDeactivated",
     "appSettings_ipfsGatewayIpfsIo",
@@ -153,9 +162,12 @@
   ],
 
   "fr": [
+    "urlImage_disabledInAppSettings",
     "settings_pathHashModeNotApplied",
     "appSettings_ipfsImageLinks",
     "appSettings_ipfsImageLinksSubtitle",
+    "appSettings_loadLinkImages",
+    "appSettings_loadLinkImagesSubtitle",
     "appSettings_publicIpfsGateway",
     "appSettings_ipfsGatewayDeactivated",
     "appSettings_ipfsGatewayIpfsIo",
@@ -204,9 +216,12 @@
   ],
 
   "hu": [
+    "urlImage_disabledInAppSettings",
     "settings_pathHashModeNotApplied",
     "appSettings_ipfsImageLinks",
     "appSettings_ipfsImageLinksSubtitle",
+    "appSettings_loadLinkImages",
+    "appSettings_loadLinkImagesSubtitle",
     "appSettings_publicIpfsGateway",
     "appSettings_ipfsGatewayDeactivated",
     "appSettings_ipfsGatewayIpfsIo",
@@ -255,9 +270,12 @@
   ],
 
   "it": [
+    "urlImage_disabledInAppSettings",
     "settings_pathHashModeNotApplied",
     "appSettings_ipfsImageLinks",
     "appSettings_ipfsImageLinksSubtitle",
+    "appSettings_loadLinkImages",
+    "appSettings_loadLinkImagesSubtitle",
     "appSettings_publicIpfsGateway",
     "appSettings_ipfsGatewayDeactivated",
     "appSettings_ipfsGatewayIpfsIo",
@@ -306,9 +324,12 @@
   ],
 
   "ja": [
+    "urlImage_disabledInAppSettings",
     "settings_pathHashModeNotApplied",
     "appSettings_ipfsImageLinks",
     "appSettings_ipfsImageLinksSubtitle",
+    "appSettings_loadLinkImages",
+    "appSettings_loadLinkImagesSubtitle",
     "appSettings_publicIpfsGateway",
     "appSettings_ipfsGatewayDeactivated",
     "appSettings_ipfsGatewayIpfsIo",
@@ -357,9 +378,12 @@
   ],
 
   "ko": [
+    "urlImage_disabledInAppSettings",
     "settings_pathHashModeNotApplied",
     "appSettings_ipfsImageLinks",
     "appSettings_ipfsImageLinksSubtitle",
+    "appSettings_loadLinkImages",
+    "appSettings_loadLinkImagesSubtitle",
     "appSettings_publicIpfsGateway",
     "appSettings_ipfsGatewayDeactivated",
     "appSettings_ipfsGatewayIpfsIo",
@@ -408,9 +432,12 @@
   ],
 
   "nl": [
+    "urlImage_disabledInAppSettings",
     "settings_pathHashModeNotApplied",
     "appSettings_ipfsImageLinks",
     "appSettings_ipfsImageLinksSubtitle",
+    "appSettings_loadLinkImages",
+    "appSettings_loadLinkImagesSubtitle",
     "appSettings_publicIpfsGateway",
     "appSettings_ipfsGatewayDeactivated",
     "appSettings_ipfsGatewayIpfsIo",
@@ -459,9 +486,12 @@
   ],
 
   "pl": [
+    "urlImage_disabledInAppSettings",
     "settings_pathHashModeNotApplied",
     "appSettings_ipfsImageLinks",
     "appSettings_ipfsImageLinksSubtitle",
+    "appSettings_loadLinkImages",
+    "appSettings_loadLinkImagesSubtitle",
     "appSettings_publicIpfsGateway",
     "appSettings_ipfsGatewayDeactivated",
     "appSettings_ipfsGatewayIpfsIo",
@@ -510,9 +540,12 @@
   ],
 
   "pt": [
+    "urlImage_disabledInAppSettings",
     "settings_pathHashModeNotApplied",
     "appSettings_ipfsImageLinks",
     "appSettings_ipfsImageLinksSubtitle",
+    "appSettings_loadLinkImages",
+    "appSettings_loadLinkImagesSubtitle",
     "appSettings_publicIpfsGateway",
     "appSettings_ipfsGatewayDeactivated",
     "appSettings_ipfsGatewayIpfsIo",
@@ -561,9 +594,12 @@
   ],
 
   "ru": [
+    "urlImage_disabledInAppSettings",
     "settings_pathHashModeNotApplied",
     "appSettings_ipfsImageLinks",
     "appSettings_ipfsImageLinksSubtitle",
+    "appSettings_loadLinkImages",
+    "appSettings_loadLinkImagesSubtitle",
     "appSettings_publicIpfsGateway",
     "appSettings_ipfsGatewayDeactivated",
     "appSettings_ipfsGatewayIpfsIo",
@@ -612,9 +648,12 @@
   ],
 
   "sk": [
+    "urlImage_disabledInAppSettings",
     "settings_pathHashModeNotApplied",
     "appSettings_ipfsImageLinks",
     "appSettings_ipfsImageLinksSubtitle",
+    "appSettings_loadLinkImages",
+    "appSettings_loadLinkImagesSubtitle",
     "appSettings_publicIpfsGateway",
     "appSettings_ipfsGatewayDeactivated",
     "appSettings_ipfsGatewayIpfsIo",
@@ -663,9 +702,12 @@
   ],
 
   "sl": [
+    "urlImage_disabledInAppSettings",
     "settings_pathHashModeNotApplied",
     "appSettings_ipfsImageLinks",
     "appSettings_ipfsImageLinksSubtitle",
+    "appSettings_loadLinkImages",
+    "appSettings_loadLinkImagesSubtitle",
     "appSettings_publicIpfsGateway",
     "appSettings_ipfsGatewayDeactivated",
     "appSettings_ipfsGatewayIpfsIo",
@@ -714,9 +756,12 @@
   ],
 
   "sv": [
+    "urlImage_disabledInAppSettings",
     "settings_pathHashModeNotApplied",
     "appSettings_ipfsImageLinks",
     "appSettings_ipfsImageLinksSubtitle",
+    "appSettings_loadLinkImages",
+    "appSettings_loadLinkImagesSubtitle",
     "appSettings_publicIpfsGateway",
     "appSettings_ipfsGatewayDeactivated",
     "appSettings_ipfsGatewayIpfsIo",
@@ -765,9 +810,12 @@
   ],
 
   "uk": [
+    "urlImage_disabledInAppSettings",
     "settings_pathHashModeNotApplied",
     "appSettings_ipfsImageLinks",
     "appSettings_ipfsImageLinksSubtitle",
+    "appSettings_loadLinkImages",
+    "appSettings_loadLinkImagesSubtitle",
     "appSettings_publicIpfsGateway",
     "appSettings_ipfsGatewayDeactivated",
     "appSettings_ipfsGatewayIpfsIo",
@@ -816,9 +864,12 @@
   ],
 
   "zh": [
+    "urlImage_disabledInAppSettings",
     "settings_pathHashModeNotApplied",
     "appSettings_ipfsImageLinks",
     "appSettings_ipfsImageLinksSubtitle",
+    "appSettings_loadLinkImages",
+    "appSettings_loadLinkImagesSubtitle",
     "appSettings_publicIpfsGateway",
     "appSettings_ipfsGatewayDeactivated",
     "appSettings_ipfsGatewayIpfsIo",

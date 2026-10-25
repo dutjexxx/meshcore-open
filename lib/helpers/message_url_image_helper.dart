@@ -24,6 +24,10 @@ class MessageUrlImageHelper {
   @visibleForTesting
   static http.Client? httpClient;
 
+  /// Mirrors [AppSettings.loadLinkImages]. When false, nothing is fetched
+  /// for link images and every parse returns null.
+  static final ValueNotifier<bool> loadLinkImages = ValueNotifier<bool>(true);
+
   static final RegExp _pyxPattern = RegExp(
     r'''https?://pyx\.li/\?i=([A-Za-z0-9_-]+)''',
     caseSensitive: false,
@@ -63,6 +67,7 @@ class MessageUrlImageHelper {
     String text, {
     String publicGateway = AppSettings.defaultPublicIpfsGateway,
   }) async {
+    if (!loadLinkImages.value) return null;
     final trimmed = text.trim();
     if (trimmed.isEmpty) return null;
 
@@ -123,6 +128,7 @@ class MessageUrlImageHelper {
     String text, {
     String publicGateway = AppSettings.defaultPublicIpfsGateway,
   }) {
+    if (!loadLinkImages.value) return Future<String?>.value();
     final cacheKey = '$messageId|$publicGateway';
     final cached = _messageImageCache.remove(cacheKey);
     if (cached != null) {
@@ -240,29 +246,37 @@ class _MessageUrlImageFutureBuilderState
   @override
   void initState() {
     super.initState();
-    _imageFuture = MessageUrlImageHelper.parseVerifiedForMessage(
+    _imageFuture = _parse();
+    MessageUrlImageHelper.loadLinkImages.addListener(_onLoadLinkImagesChanged);
+  }
+
+  @override
+  void didUpdateWidget(covariant MessageUrlImageFutureBuilder oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.messageId != widget.messageId ||
+        oldWidget.publicGateway != widget.publicGateway) {
+      _imageFuture = _parse();
+    }
+  }
+
+  @override
+  void dispose() {
+    MessageUrlImageHelper.loadLinkImages.removeListener(
+      _onLoadLinkImagesChanged,
+    );
+    super.dispose();
+  }
+
+  Future<String?> _parse() {
+    return MessageUrlImageHelper.parseVerifiedForMessage(
       widget.messageId,
       widget.text,
       publicGateway: widget.publicGateway,
     );
   }
 
-  @override
-  void didUpdateWidget(covariant MessageUrlImageFutureBuilder oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.messageId != widget.messageId) {
-      _imageFuture = MessageUrlImageHelper.parseVerifiedForMessage(
-        widget.messageId,
-        widget.text,
-        publicGateway: widget.publicGateway,
-      );
-    } else if (oldWidget.publicGateway != widget.publicGateway) {
-      _imageFuture = MessageUrlImageHelper.parseVerifiedForMessage(
-        widget.messageId,
-        widget.text,
-        publicGateway: widget.publicGateway,
-      );
-    }
+  void _onLoadLinkImagesChanged() {
+    setState(() => _imageFuture = _parse());
   }
 
   @override

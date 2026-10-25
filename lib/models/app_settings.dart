@@ -147,6 +147,9 @@ class AppSettings {
   final int tcpServerPort;
   final bool jumpToOldestUnread;
   final bool imageMessagesEnabled;
+
+  /// Master switch for fetching images behind links in messages.
+  final bool loadLinkImages;
   final String publicIpfsGateway;
   final String uploadIpfsGateway;
   final String uploadIpfsEndpoint;
@@ -271,6 +274,7 @@ class AppSettings {
     this.jumpToOldestUnread = false,
     this.networkMapUploadEnabled = false,
     this.networkMapPromptShown = false,
+    this.loadLinkImages = true,
     this.publicIpfsGateway = defaultPublicIpfsGateway,
     this.uploadIpfsGateway = '',
     this.uploadIpfsEndpoint = '',
@@ -366,6 +370,7 @@ class AppSettings {
       'jump_to_oldest_unread': jumpToOldestUnread,
       'network_map_upload_enabled': networkMapUploadEnabled,
       'network_map_prompt_shown': networkMapPromptShown,
+      'load_link_images': loadLinkImages,
       'public_ipfs_gateway': publicIpfsGateway,
       'upload_ipfs_gateway': uploadIpfsGateway,
       'upload_ipfs_endpoint': uploadIpfsEndpoint,
@@ -505,6 +510,7 @@ class AppSettings {
       networkMapUploadEnabled:
           json['network_map_upload_enabled'] as bool? ?? false,
       networkMapPromptShown: json['network_map_prompt_shown'] as bool? ?? false,
+      loadLinkImages: json['load_link_images'] as bool? ?? true,
       publicIpfsGateway:
           json['public_ipfs_gateway'] as String? ?? defaultPublicIpfsGateway,
       uploadIpfsGateway: json['upload_ipfs_gateway'] as String? ?? '',
@@ -632,6 +638,7 @@ class AppSettings {
     bool? jumpToOldestUnread,
     bool? networkMapUploadEnabled,
     bool? networkMapPromptShown,
+    bool? loadLinkImages,
     String? publicIpfsGateway,
     String? uploadIpfsGateway,
     String? uploadIpfsEndpoint,
@@ -726,6 +733,7 @@ class AppSettings {
           networkMapUploadEnabled ?? this.networkMapUploadEnabled,
       networkMapPromptShown:
           networkMapPromptShown ?? this.networkMapPromptShown,
+      loadLinkImages: loadLinkImages ?? this.loadLinkImages,
       publicIpfsGateway: publicIpfsGateway ?? this.publicIpfsGateway,
       uploadIpfsGateway: uploadIpfsGateway ?? this.uploadIpfsGateway,
       uploadIpfsEndpoint: uploadIpfsEndpoint ?? this.uploadIpfsEndpoint,

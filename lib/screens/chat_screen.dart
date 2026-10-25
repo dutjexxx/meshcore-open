@@ -782,6 +782,10 @@ class _ChatScreenState extends State<ChatScreen> {
     bool urlImagesEnabled = connector.isContactUrlImagesEnabled(
       contact.publicKeyHex,
     );
+    final loadLinkImages = context
+        .read<AppSettingsService>()
+        .settings
+        .loadLinkImages;
     String? selectedCyr2LatProfileId = connector.getContactCyr2LatProfileId(
       contact.publicKeyHex,
     );
@@ -896,14 +900,19 @@ class _ChatScreenState extends State<ChatScreen> {
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
                   title: Text(context.l10n.urlImage_enable),
+                  subtitle: loadLinkImages
+                      ? null
+                      : Text(context.l10n.urlImage_disabledInAppSettings),
                   value: urlImagesEnabled,
-                  onChanged: (value) {
-                    connector.setContactUrlImagesEnabled(
-                      contact.publicKeyHex,
-                      value,
-                    );
-                    setDialogState(() => urlImagesEnabled = value);
-                  },
+                  onChanged: loadLinkImages
+                      ? (value) {
+                          connector.setContactUrlImagesEnabled(
+                            contact.publicKeyHex,
+                            value,
+                          );
+                          setDialogState(() => urlImagesEnabled = value);
+                        }
+                      : null,
                 ),
                 const Divider(height: 8),
                 SwitchListTile(
@@ -1432,9 +1441,10 @@ class _MessageBubble extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                if (MessageUrlImageHelper.hasPotentialImageUrl(
-                                  message.text,
-                                ))
+                                if (settingsService.settings.loadLinkImages &&
+                                    MessageUrlImageHelper.hasPotentialImageUrl(
+                                      message.text,
+                                    ))
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 4),
                                     child: Text(

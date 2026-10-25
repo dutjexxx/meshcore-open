@@ -151,6 +151,9 @@ class AppLocalizationsSv extends AppLocalizations {
       'Möjlig URL-bild; aktivera den i Inställningar.';
 
   @override
+  String get urlImage_disabledInAppSettings => 'Turned off in app settings';
+
+  @override
   String get common_reboot => 'Starta om';
 
   @override
@@ -1060,6 +1063,13 @@ class AppLocalizationsSv extends AppLocalizations {
   @override
   String get appSettings_ipfsImageLinksSubtitle =>
       'Upload for url Images (or Files) via IPFS provider and default gateway to receive';
+
+  @override
+  String get appSettings_loadLinkImages => 'Load images from links';
+
+  @override
+  String get appSettings_loadLinkImagesSubtitle =>
+      'Show pictures from links in messages. Loading an image shares your IP address with the site that hosts it.';
 
   @override
   String get appSettings_publicIpfsGateway => 'Public gateway';

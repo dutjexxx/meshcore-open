@@ -443,6 +443,13 @@ void main() {
       expect(settings.evictDiscoveredContactsEnabled, isFalse);
     });
 
+    test('load link images defaults on and round-trips through JSON', () {
+      expect(AppSettings().loadLinkImages, isTrue);
+      expect(AppSettings.fromJson({}).loadLinkImages, isTrue);
+      final saved = AppSettings(loadLinkImages: false).toJson();
+      expect(AppSettings.fromJson(saved).loadLinkImages, isFalse);
+    });
+
     test('public IPFS gateway defaults to ipfs.io when never set', () {
       expect(
         AppSettings.fromJson({}).publicIpfsGateway,
