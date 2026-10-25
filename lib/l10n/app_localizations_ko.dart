@@ -2283,6 +2283,27 @@ class AppLocalizationsKo extends AppLocalizations {
   String get map_pathTraceCancelled => '경로 추적 기능이 취소되었습니다.';
 
   @override
+  String get map_pathTraceAddMoreHint =>
+      'Tap more nodes to add hops, choose how the trace returns, then tap Run path trace.';
+
+  @override
+  String get map_pathTraceModeRoundTrip => 'Round trip';
+
+  @override
+  String get map_pathTraceModeRoundTripHint =>
+      'The trace goes out through these hops and comes back the same way.';
+
+  @override
+  String get map_pathTraceModeAsEntered => 'As entered';
+
+  @override
+  String get map_pathTraceModeAsEnteredHint =>
+      'The trace follows these hops exactly. Add the hops back to you yourself.';
+
+  @override
+  String get map_pathTraceViewLast => 'View last result';
+
+  @override
   String get mapCache_title => '오프라인 지도 캐시';
 
   @override

@@ -16,6 +16,7 @@ import '../connector/meshcore_protocol.dart';
 import '../l10n/l10n.dart';
 import '../models/app_settings.dart';
 import '../models/channel.dart';
+import '../models/map_path_trace_draft.dart';
 import '../models/contact.dart';
 import '../models/path_history.dart';
 import '../l10n/contact_localization.dart';
@@ -86,14 +87,18 @@ class _MapScreenState extends State<MapScreen> with DisconnectNavigationMixin {
   final NetworkMapOnlineController _online = NetworkMapOnlineController();
   final Set<String> _hiddenMarkerIds = {};
   Set<String> _removedMarkerIds = {};
-  bool _isBuildingPathTrace = false;
+  late final MapPathTraceDraft _traceDraft = context
+      .read<UiViewStateService>()
+      .mapPathTrace;
+  bool get _isBuildingPathTrace => _traceDraft.active;
+  set _isBuildingPathTrace(bool value) => _traceDraft.active = value;
   bool _isSelectingPoi = false;
   bool _hasInitializedMap = false;
   bool _removedMarkersLoaded = false;
-  final List<int> _pathTrace = [];
-  final List<int> _pathTraceHopWidths = [];
-  final List<Contact> _pathTraceContacts = [];
-  final List<LatLng> _points = [];
+  List<int> get _pathTrace => _traceDraft.pathBytes;
+  List<int> get _pathTraceHopWidths => _traceDraft.hopWidths;
+  List<Contact> get _pathTraceContacts => _traceDraft.contacts;
+  List<LatLng> get _points => _traceDraft.points;
   final List<Polyline> _polylines = [];
   bool _statsExpanded = false;
   bool _showNodeLabels = true;
@@ -719,7 +724,10 @@ class _MapScreenState extends State<MapScreen> with DisconnectNavigationMixin {
             .length;
 
         return PopScope(
-          canPop: allowBack,
+          canPop: allowBack && !_isBuildingPathTrace,
+          onPopInvokedWithResult: (didPop, _) {
+            if (!didPop && _isBuildingPathTrace) _closePathTrace();
+          },
           child: Scaffold(
             appBar: AppBar(
               backgroundColor: scheme.surface,
@@ -745,7 +753,8 @@ class _MapScreenState extends State<MapScreen> with DisconnectNavigationMixin {
                             Text(context.l10n.contacts_pathTrace),
                           ],
                         ),
-                        onTap: () => _startPath(
+                        onTap: () => _openPathTrace(
+                          connector,
                           LatLng(
                             connector.selfLatitude!,
                             connector.selfLongitude!,
@@ -3700,18 +3709,40 @@ class _MapScreenState extends State<MapScreen> with DisconnectNavigationMixin {
         ),
       ); // Add contact to path trace contacts
       _points.add(position ?? LatLng(contact.latitude!, contact.longitude!));
+      _traceDraft.lastResultFrame = null;
     });
   }
 
-  void _startPath(LatLng position) {
+  /// Opens the path-trace builder, resuming hops picked earlier this session
+  /// on the same radio.
+  void _openPathTrace(MeshCoreConnector connector, LatLng position) {
     setState(() {
+      final selfKey = connector.selfPublicKey;
+      if (!_traceDraft.belongsTo(selfKey) || !_traceDraft.hasHops) {
+        _traceDraft.clear();
+      }
+      _traceDraft.radioKey = selfKey;
+      if (_points.isEmpty) {
+        _points.add(position);
+      } else {
+        _points[0] = position;
+      }
       _isBuildingPathTrace = true;
-      _pathTrace.clear();
-      _pathTraceHopWidths.clear();
-      _pathTraceContacts.clear();
-      _points.clear();
-      _polylines.clear();
-      _points.add(position);
+    });
+  }
+
+  /// Hides the builder but keeps the picked hops and last result.
+  void _closePathTrace() {
+    setState(() {
+      _isBuildingPathTrace = false;
+    });
+  }
+
+  void _clearPath() {
+    setState(() {
+      final start = _points.isNotEmpty ? _points.first : null;
+      _traceDraft.clear();
+      if (start != null) _points.add(start);
     });
   }
 
@@ -3730,16 +3761,55 @@ class _MapScreenState extends State<MapScreen> with DisconnectNavigationMixin {
         _pathTrace.length - hopByteCount,
         _pathTrace.length,
       );
-      _points.removeLast(); // Remove last point from points list
-      _polylines.clear(); // Clear polylines
+      _points.removeLast();
+      _traceDraft.lastResultFrame = null;
     });
+  }
+
+  void _setTraceReturnPath(bool returnPath) {
+    if (_traceDraft.returnPath == returnPath) return;
+    setState(() {
+      _traceDraft.returnPath = returnPath;
+      _traceDraft.lastResultFrame = null;
+    });
+  }
+
+  void _openTraceResult({required bool reuseLastResult}) {
+    final draft = _traceDraft;
+    final path = Uint8List.fromList(_pathTrace);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PathTraceMapScreen(
+          title: context.l10n.contacts_pathTrace,
+          path: path,
+          flipPathAround: draft.returnPath,
+          pathHashByteWidth: context
+              .read<MeshCoreConnector>()
+              .pathHashByteWidth,
+          pathContacts: List.of(_pathTraceContacts),
+          initialTraceFrame: reuseLastResult ? draft.lastResultFrame : null,
+          onTraceFrame: (frame) {
+            // Ignore a reply for a selection the user has since changed.
+            if (!listEquals(draft.pathBytes, path)) return;
+            draft.lastResultFrame = frame;
+            if (mounted) setState(() {});
+          },
+        ),
+      ),
+    );
   }
 
   Widget _buildPathTraceOverlay() {
     final l10n = context.l10n;
+    final theme = Theme.of(context);
     final isImperial =
         context.read<AppSettingsService>().settings.unitSystem ==
         UnitSystem.imperial;
+    final hasHops = _pathTrace.isNotEmpty;
+    final returnPath = _traceDraft.returnPath;
+    const buttonSize = Size(48, 48);
+    final hopNames = _pathTraceContacts.map((c) => c.name).join(' → ');
     return Positioned(
       top: 16,
       left: 16,
@@ -3763,124 +3833,136 @@ class _MapScreenState extends State<MapScreen> with DisconnectNavigationMixin {
             padding: const EdgeInsets.all(12.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        l10n.contacts_pathTrace,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: _overlayPrimaryTextColor,
+                        ),
+                      ),
+                    ),
+                    TextButton.icon(
+                      onPressed: _closePathTrace,
+                      style: TextButton.styleFrom(minimumSize: buttonSize),
+                      icon: const Icon(Icons.close),
+                      label: Text(l10n.common_close),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4),
                 Text(
-                  l10n.contacts_pathTrace,
+                  hasHops ? l10n.map_pathTraceAddMoreHint : l10n.map_tapToAdd,
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: _overlayPrimaryTextColor,
+                    fontSize: 15,
+                    color: _overlaySecondaryTextColor,
                   ),
                 ),
-                if (_pathTrace.isEmpty) const SizedBox(height: 8),
-                if (_pathTrace.isEmpty)
+                if (hasHops) ...[
+                  const SizedBox(height: 8),
                   Text(
-                    l10n.map_tapToAdd,
+                    hopNames,
                     style: TextStyle(
-                      fontSize: 12,
-                      color: _overlaySecondaryTextColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: _overlayPrimaryTextColor,
                     ),
                   ),
-                const SizedBox(height: 6),
-                if (_pathTrace.isNotEmpty)
+                  SelectableText(
+                    PathHelper.splitPathBytes(
+                      _pathTrace,
+                      context.read<MeshCoreConnector>().pathHashByteWidth,
+                    ).map(PathHelper.formatHopHex).join(','),
+                    style: MeshTheme.mono(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      color: MapPalette.selected,
+                    ),
+                  ),
                   Text(
                     "${l10n.path_currentPathLabel} ${formatDistance(getPathDistanceMeters(_points), isImperial: isImperial)}",
                     style: MeshTheme.mono(
-                      fontSize: 12,
+                      fontSize: 14,
                       color: _overlaySecondaryTextColor,
                     ),
                   ),
-                SelectableText(
-                  PathHelper.splitPathBytes(
-                    _pathTrace,
-                    context.read<MeshCoreConnector>().pathHashByteWidth,
-                  ).map(PathHelper.formatHopHex).join(','),
-                  style: MeshTheme.mono(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                    color: MapPalette.selected,
-                  ),
-                ),
-                // const SizedBox(height: 6),
-                Wrap(
-                  alignment: WrapAlignment.center,
-                  spacing: 1,
-                  runSpacing: 1,
-                  children: [
-                    if (_pathTrace.isNotEmpty)
-                      IconButton(
-                        onPressed: () {
-                          final hashW = context
-                              .read<MeshCoreConnector>()
-                              .pathHashByteWidth;
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PathTraceMapScreen(
-                                title: l10n.contacts_pathTrace,
-                                path: Uint8List.fromList(_pathTrace),
-                                flipPathAround: false,
-                                pathHashByteWidth: hashW,
-                                pathContacts: _pathTraceContacts,
-                              ),
-                            ),
-                          );
-                          setState(() {
-                            _isBuildingPathTrace = false;
-                          });
-                        },
-                        tooltip: l10n.map_runTrace,
-                        icon: const Icon(Icons.arrow_forward_outlined),
-                      ),
-                    if (_pathTrace.isNotEmpty)
-                      IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PathTraceMapScreen(
-                                title: l10n.contacts_pathTrace,
-                                path: Uint8List.fromList(_pathTrace),
-                                flipPathAround: true,
-                                pathHashByteWidth: context
-                                    .read<MeshCoreConnector>()
-                                    .pathHashByteWidth,
-                                pathContacts: _pathTraceContacts,
-                              ),
-                            ),
-                          );
-                          setState(() {
-                            _isBuildingPathTrace = false;
-                          });
-                        },
-                        tooltip: l10n.map_runTraceWithReturnPath,
-                        icon: const Icon(Icons.replay),
-                      ),
-                    if (_pathTrace.isNotEmpty)
-                      IconButton(
+                  const SizedBox(height: 4),
+                  Wrap(
+                    spacing: 8,
+                    children: [
+                      TextButton.icon(
                         onPressed: _removePath,
-                        tooltip: l10n.map_removeLast,
+                        style: TextButton.styleFrom(minimumSize: buttonSize),
                         icon: const Icon(Icons.undo),
+                        label: Text(l10n.map_removeLast),
                       ),
-                    if (_pathTrace.isEmpty)
-                      IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _isBuildingPathTrace = false;
-                            _pathTrace.clear();
-                            _pathTraceHopWidths.clear();
-                            _points.clear();
-                            _polylines.clear();
-                          });
-                          showDismissibleSnackBar(
-                            context,
-                            content: Text(l10n.map_pathTraceCancelled),
-                          );
-                        },
-                        tooltip: l10n.common_cancel,
-                        icon: const Icon(Icons.close),
+                      TextButton.icon(
+                        onPressed: _clearPath,
+                        style: TextButton.styleFrom(minimumSize: buttonSize),
+                        icon: const Icon(Icons.delete_outline),
+                        label: Text(l10n.common_clear),
                       ),
-                  ],
-                ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  SegmentedButton<bool>(
+                    segments: [
+                      ButtonSegment(
+                        value: true,
+                        icon: const Icon(Icons.sync_alt),
+                        label: Text(l10n.map_pathTraceModeRoundTrip),
+                      ),
+                      ButtonSegment(
+                        value: false,
+                        icon: const Icon(Icons.arrow_forward),
+                        label: Text(l10n.map_pathTraceModeAsEntered),
+                      ),
+                    ],
+                    selected: {returnPath},
+                    onSelectionChanged: (selection) =>
+                        _setTraceReturnPath(selection.first),
+                    style: SegmentedButton.styleFrom(minimumSize: buttonSize),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    returnPath
+                        ? l10n.map_pathTraceModeRoundTripHint
+                        : l10n.map_pathTraceModeAsEnteredHint,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: _overlaySecondaryTextColor,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    alignment: WrapAlignment.end,
+                    children: [
+                      if (_traceDraft.lastResultFrame != null)
+                        OutlinedButton.icon(
+                          onPressed: () =>
+                              _openTraceResult(reuseLastResult: true),
+                          style: OutlinedButton.styleFrom(
+                            minimumSize: buttonSize,
+                          ),
+                          icon: const Icon(Icons.history),
+                          label: Text(l10n.map_pathTraceViewLast),
+                        ),
+                      FilledButton.icon(
+                        onPressed: () =>
+                            _openTraceResult(reuseLastResult: false),
+                        style: FilledButton.styleFrom(minimumSize: buttonSize),
+                        icon: const Icon(Icons.radar),
+                        label: Text(l10n.map_runTrace),
+                      ),
+                    ],
+                  ),
+                ],
               ],
             ),
           ),

@@ -1,5 +1,11 @@
 {
   "bg": [
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
     "notification_sharedLocation",
     "notification_sharedLocationNamed",
     "notification_reacted",
@@ -14,6 +20,12 @@
   ],
 
   "de": [
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
     "notification_sharedLocation",
     "notification_sharedLocationNamed",
     "notification_reacted",
@@ -28,6 +40,12 @@
   ],
 
   "es": [
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
     "notification_sharedLocation",
     "notification_sharedLocationNamed",
     "notification_reacted",
@@ -42,6 +60,12 @@
   ],
 
   "fr": [
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
     "notification_sharedLocation",
     "notification_sharedLocationNamed",
     "notification_reacted",
@@ -56,6 +80,12 @@
   ],
 
   "hu": [
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
     "notification_sharedLocation",
     "notification_sharedLocationNamed",
     "notification_reacted",
@@ -70,6 +100,12 @@
   ],
 
   "it": [
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
     "notification_sharedLocation",
     "notification_sharedLocationNamed",
     "notification_reacted",
@@ -84,6 +120,12 @@
   ],
 
   "ja": [
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
     "notification_sharedLocation",
     "notification_sharedLocationNamed",
     "notification_reacted",
@@ -98,6 +140,12 @@
   ],
 
   "ko": [
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
     "notification_sharedLocation",
     "notification_sharedLocationNamed",
     "notification_reacted",
@@ -112,6 +160,12 @@
   ],
 
   "nl": [
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
     "notification_sharedLocation",
     "notification_sharedLocationNamed",
     "notification_reacted",
@@ -126,6 +180,12 @@
   ],
 
   "pl": [
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
     "notification_sharedLocation",
     "notification_sharedLocationNamed",
     "notification_reacted",
@@ -140,6 +200,12 @@
   ],
 
   "pt": [
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
     "notification_sharedLocation",
     "notification_sharedLocationNamed",
     "notification_reacted",
@@ -154,6 +220,12 @@
   ],
 
   "ru": [
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
     "notification_sharedLocation",
     "notification_sharedLocationNamed",
     "notification_reacted",
@@ -168,6 +240,12 @@
   ],
 
   "sk": [
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
     "notification_sharedLocation",
     "notification_sharedLocationNamed",
     "notification_reacted",
@@ -182,6 +260,12 @@
   ],
 
   "sl": [
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
     "notification_sharedLocation",
     "notification_sharedLocationNamed",
     "notification_reacted",
@@ -196,6 +280,12 @@
   ],
 
   "sv": [
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
     "notification_sharedLocation",
     "notification_sharedLocationNamed",
     "notification_reacted",
@@ -210,6 +300,12 @@
   ],
 
   "uk": [
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
     "notification_sharedLocation",
     "notification_sharedLocationNamed",
     "notification_reacted",
@@ -224,6 +320,12 @@
   ],
 
   "zh": [
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
     "notification_sharedLocation",
     "notification_sharedLocationNamed",
     "notification_reacted",

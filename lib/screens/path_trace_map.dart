@@ -65,6 +65,13 @@ class PathTraceMapScreen extends StatefulWidget {
   final int pathHashByteWidth;
   final List<Contact>? pathContacts;
 
+  /// A previous PUSH_CODE_TRACE_DATA frame to show instead of sending a new
+  /// trace when the screen opens.
+  final Uint8List? initialTraceFrame;
+
+  /// Called with each trace response frame this screen receives.
+  final ValueChanged<Uint8List>? onTraceFrame;
+
   const PathTraceMapScreen({
     super.key,
     required this.title,
@@ -75,6 +82,8 @@ class PathTraceMapScreen extends StatefulWidget {
     this.targetContact,
     this.pathHashByteWidth = pathHashSize,
     this.pathContacts,
+    this.initialTraceFrame,
+    this.onTraceFrame,
   });
 
   @override
@@ -220,7 +229,20 @@ class _PathTraceMapScreenState extends State<PathTraceMapScreen>
     _pathHistory = context.read<PathHistoryService>();
     _pathHistory!.addListener(_onPathHistoryChanged);
     _setupFrameListener();
-    _doPathTrace();
+    final initialFrame = widget.initialTraceFrame;
+    if (initialFrame == null) {
+      _doPathTrace();
+      return;
+    }
+    final (livePath, hopWidth) = _resolveLivePath(
+      context.read<MeshCoreConnector>(),
+    );
+    _tracedPath = livePath;
+    _tracedPathHashWidth = hopWidth;
+    _isLoading = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _handleTraceResponse(initialFrame);
+    });
   }
 
   @override
@@ -501,6 +523,7 @@ class _PathTraceMapScreenState extends State<PathTraceMapScreen>
             (listEquals(frame.sublist(4, 8), _sentTagBytes) ||
                 listEquals(frame.sublist(4, 8), _sentAckTag))) {
           _timeoutTimer?.cancel();
+          widget.onTraceFrame?.call(frame);
           if (!mounted) return;
           _handleTraceResponse(frame);
         }
