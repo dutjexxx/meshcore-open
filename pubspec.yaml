@@ -78,6 +78,8 @@ dependencies:
   flutter_langdetect: ^0.0.1
   cryptography: ^2.9.0
   cryptography_flutter: ^2.3.4
+  flutter_tts: ^4.2.3        # read incoming messages aloud
+  speech_to_text: ^7.3.0     # push-to-talk dictation
   convert: ^3.1.2
   # ONNX Runtime 1.23.0 via platform channels. Powers the AEIC-SE image codec
   # decoder (lib/services/image_codec_backend.dart). arm64-only on Android — see

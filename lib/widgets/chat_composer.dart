@@ -11,6 +11,7 @@ import 'gif_message.dart';
 import 'gif_picker.dart';
 import 'mesh_ui.dart';
 import 'message_translation_button.dart';
+import 'voice_controls.dart';
 
 /// One entry of the composer's "+" menu.
 @immutable
@@ -88,12 +89,11 @@ class ChatComposer extends StatelessWidget {
 
   Future<void> _openActionMenu(BuildContext buttonContext) async {
     final actions = actionsBuilder();
-    if (actions.isEmpty) return;
     final button = buttonContext.findRenderObject() as RenderBox;
     final overlay =
         Overlay.of(buttonContext).context.findRenderObject() as RenderBox;
     final buttonOffset = button.localToGlobal(Offset.zero, ancestor: overlay);
-    final menuHeight = actions.length * kMinInteractiveDimension + 16;
+    final menuHeight = (actions.length + 1) * kMinInteractiveDimension + 16;
     final menuTop = (buttonOffset.dy - menuHeight).clamp(
       8.0,
       overlay.size.height,
@@ -123,9 +123,23 @@ class ChatComposer extends StatelessWidget {
               ],
             ),
           ),
+        const PopupMenuItem(
+          value: '__voice_settings__',
+          child: Row(
+            children: [
+              Icon(Icons.record_voice_over_outlined),
+              SizedBox(width: 12),
+              Flexible(child: Text('Spraakinstellingen')),
+            ],
+          ),
+        ),
       ],
     );
     if (selected == null || !buttonContext.mounted) return;
+    if (selected == '__voice_settings__') {
+      showVoiceSettingsDialog(buttonContext);
+      return;
+    }
     onAction(selected);
   }
 
@@ -180,6 +194,8 @@ class ChatComposer extends StatelessWidget {
                       },
                     ),
                   ),
+                  const SizedBox(width: 6),
+                  VoiceMicButton(controller: controller, onSend: onSend),
                   const SizedBox(width: 6),
                   ValueListenableBuilder<TextEditingValue>(
                     valueListenable: controller,

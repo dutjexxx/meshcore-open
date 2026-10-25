@@ -17,6 +17,7 @@ import '../models/app_settings.dart';
 import '../storage/prefs_manager.dart';
 import '../utils/platform_info.dart';
 import 'notification_reply.dart';
+import 'voice_service.dart';
 import 'received_image_store.dart' show ReceivedImageRef;
 
 class NotificationService {
@@ -785,6 +786,7 @@ class NotificationService {
     String? contactId,
     int? badgeCount,
   }) async {
+    unawaited(VoiceService().speakIncoming(sender: contactName, text: message));
     if (_suppressNotifications) return;
 
     _queueNotification(
@@ -824,6 +826,12 @@ class NotificationService {
     int? channelIndex,
     int? badgeCount,
   }) async {
+    unawaited(
+      VoiceService().speakIncoming(
+        sender: senderName.trim().isEmpty ? channelName : senderName,
+        text: message,
+      ),
+    );
     if (_suppressNotifications) return;
 
     _queueNotification(
