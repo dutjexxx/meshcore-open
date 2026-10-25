@@ -423,6 +423,15 @@ class _MeshCoreAppState extends State<MeshCoreApp> with WidgetsBindingObserver {
         state == AppLifecycleState.hidden) {
       unawaited(widget.imageCodecService.handleMemoryPressure());
     }
+    // Batched message/contact writes must land before the OS can suspend or
+    // kill a backgrounded app.
+    if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.paused ||
+        state == AppLifecycleState.hidden ||
+        state == AppLifecycleState.detached) {
+      unawaited(widget.connector.flushPendingWrites());
+      unawaited(widget.pathHistoryService.flushPendingWrites());
+    }
     if (state == AppLifecycleState.resumed) {
       widget.connector.syncAppBadge();
     }

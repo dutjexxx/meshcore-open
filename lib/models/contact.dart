@@ -41,7 +41,9 @@ class Contact {
     this.rawPacket,
   }) : lastMessageAt = lastMessageAt ?? lastSeen;
 
-  String get publicKeyHex => pubKeyToHex(publicKey);
+  /// Cached: it backs ==, hashCode and the per-frame contact lookups, and
+  /// rebuilding it allocated a 64-char string on every access.
+  late final String publicKeyHex = pubKeyToHex(publicKey);
 
   /// Uppercase hex of the first [byteWidth] public-key bytes: the hash this
   /// node appears as in routing paths.
