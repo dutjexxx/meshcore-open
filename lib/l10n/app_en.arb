@@ -953,6 +953,14 @@
     }
   },
   "chat_ipfsUploadNotConfigured": "Configure an IPFS upload provider in App Settings first.",
+  "chat_ipfsLinkNoRoom": "Not enough room for the image link. Shorten your message, then try again.",
+  "@chat_ipfsLinkNoRoom": {
+    "description": "Shown before an IPFS upload when the link would push the draft over the message size limit"
+  },
+  "chat_ipfsLinkOverLimit": "Image link added, but the message is now too long. Shorten it before sending.",
+  "@chat_ipfsLinkOverLimit": {
+    "description": "Shown after an IPFS upload when the link plus the draft no longer fits the message size limit"
+  },
   "chat_imagePickFailed": "Couldn't open that image",
   "@chat_imagePickFailed": {
     "description": "Shown when picking or reading a photo to send fails"

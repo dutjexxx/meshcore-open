@@ -3286,6 +3286,18 @@ abstract class AppLocalizations {
   /// **'Configure an IPFS upload provider in App Settings first.'**
   String get chat_ipfsUploadNotConfigured;
 
+  /// Shown before an IPFS upload when the link would push the draft over the message size limit
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough room for the image link. Shorten your message, then try again.'**
+  String get chat_ipfsLinkNoRoom;
+
+  /// Shown after an IPFS upload when the link plus the draft no longer fits the message size limit
+  ///
+  /// In en, this message translates to:
+  /// **'Image link added, but the message is now too long. Shorten it before sending.'**
+  String get chat_ipfsLinkOverLimit;
+
   /// Shown when picking or reading a photo to send fails
   ///
   /// In en, this message translates to:

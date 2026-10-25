@@ -22,6 +22,19 @@ class IpfsUploadHelper {
 
   static final _kuboAddPath = RegExp(r'/api/v0/add/?$');
 
+  /// A CIDv1 (base32, sha2-256) as long as the CID of every upload, used to
+  /// size the link before uploading.
+  static const sampleCid =
+      'bafkreihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku';
+
+  static String linkForCid({
+    required String uploadGateway,
+    required String cid,
+  }) {
+    final gateway = normalizeIpfsGateway(uploadGateway);
+    return gateway.isEmpty ? 'ipfs://$cid' : '$gateway$cid';
+  }
+
   static String mimeTypeForFileName(String fileName) {
     switch (fileName.toLowerCase().split('.').last) {
       case 'jpg':
@@ -149,8 +162,7 @@ class IpfsUploadHelper {
       );
     }
 
-    final gateway = normalizeIpfsGateway(uploadGateway);
-    return gateway.isEmpty ? 'ipfs://$cid' : '$gateway$cid';
+    return linkForCid(uploadGateway: uploadGateway, cid: cid);
   }
 
   static Future<void> _copyKuboFileToMfs({

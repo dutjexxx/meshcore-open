@@ -1319,8 +1319,13 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
       controller: _textController,
       focusNode: _textFieldFocusNode,
       maxBytes: maxChannelMessageBytes(connector.selfName),
-      encodeOutbound: (text) =>
-          connector.prepareChannelOutboundText(widget.channel.index, text),
+      encodeOutbound: (text) {
+        final replyTo = _replyingToMessage;
+        return connector.prepareChannelOutboundText(
+          widget.channel.index,
+          replyTo == null ? text : '${_replyPrefix(replyTo)}$text',
+        );
+      },
     );
   }
 

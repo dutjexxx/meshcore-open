@@ -1851,6 +1851,14 @@ class AppLocalizationsBg extends AppLocalizations {
       'Configure an IPFS upload provider in App Settings first.';
 
   @override
+  String get chat_ipfsLinkNoRoom =>
+      'Not enough room for the image link. Shorten your message, then try again.';
+
+  @override
+  String get chat_ipfsLinkOverLimit =>
+      'Image link added, but the message is now too long. Shorten it before sending.';
+
+  @override
   String get chat_imagePickFailed => 'Не мог да откривам та изображин';
 
   @override

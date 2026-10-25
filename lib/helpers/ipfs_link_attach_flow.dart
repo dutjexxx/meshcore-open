@@ -14,8 +14,10 @@ import 'snack_bar_builder.dart';
 /// puts the resulting link at the start of the composer draft.
 ///
 /// [maxBytes] is the screen's outbound byte limit and [encodeOutbound] turns
-/// draft text into what the radio would actually send, so the limit is
-/// checked against the encoded form.
+/// draft text into exactly what the send path measures (including any reply
+/// prefix), so the limit is checked against that form. The draft is never
+/// shortened: if the link won't fit, nothing is uploaded and the user is told
+/// to shorten the message.
 Future<void> attachIpfsLinkToDraft({
   required BuildContext context,
   required TextEditingController controller,
@@ -30,6 +32,25 @@ Future<void> attachIpfsLinkToDraft({
       context,
       content: Text(l10n.chat_ipfsUploadNotConfigured),
     );
+    return;
+  }
+
+  String draftWithLink(String messageUrl) => composeIpfsLinkDraft(
+    messageUrl: messageUrl,
+    existingText: controller.text.trim(),
+  );
+  bool fits(String draft) => ipfsLinkDraftFits(
+    draft,
+    maxBytes: maxBytes,
+    encodeOutbound: encodeOutbound,
+  );
+
+  final sampleLink = IpfsUploadHelper.linkForCid(
+    uploadGateway: settings.uploadIpfsGateway,
+    cid: IpfsUploadHelper.sampleCid,
+  );
+  if (!fits(draftWithLink(sampleLink))) {
+    showDismissibleSnackBar(context, content: Text(l10n.chat_ipfsLinkNoRoom));
     return;
   }
 
@@ -73,50 +94,31 @@ Future<void> attachIpfsLinkToDraft({
   }
   if (!context.mounted) return;
 
-  final messageText = composeIpfsLinkDraft(
-    messageUrl: messageUrl,
-    existingText: controller.text.trim(),
-    maxBytes: maxBytes,
-    encodeOutbound: encodeOutbound,
-  );
-  if (messageText == null) {
-    showDismissibleSnackBar(
-      context,
-      content: Text(l10n.chat_messageTooLong(maxBytes)),
-    );
-    return;
-  }
-
+  final messageText = draftWithLink(messageUrl);
   controller.value = TextEditingValue(
     text: messageText,
     selection: TextSelection.collapsed(offset: messageText.length),
   );
   focusNode.requestFocus();
+  if (!fits(messageText)) {
+    showDismissibleSnackBar(
+      context,
+      content: Text(l10n.chat_ipfsLinkOverLimit),
+    );
+  }
 }
 
-/// Builds the draft with [messageUrl] in front of [existingText], trimming
-/// [existingText] from the end until the encoded result fits [maxBytes].
-/// Returns null when even the link alone does not fit.
+/// Puts [messageUrl] in front of [existingText], leaving the text intact.
 @visibleForTesting
-String? composeIpfsLinkDraft({
+String composeIpfsLinkDraft({
   required String messageUrl,
   required String existingText,
+}) => existingText.isEmpty ? '$messageUrl ' : '$messageUrl\n$existingText';
+
+/// Whether [draft], encoded the way the send path encodes it, fits [maxBytes].
+@visibleForTesting
+bool ipfsLinkDraftFits(
+  String draft, {
   required int maxBytes,
   required String Function(String text) encodeOutbound,
-}) {
-  bool fits(String text) =>
-      utf8.encode(encodeOutbound(text)).length <= maxBytes;
-
-  final messageText = existingText.isEmpty
-      ? '$messageUrl '
-      : '$messageUrl\n$existingText';
-  if (fits(messageText)) return messageText;
-  if (existingText.isEmpty) return null;
-
-  final originalCharacters = existingText.characters.toList();
-  for (var count = originalCharacters.length - 1; count >= 0; count--) {
-    final candidate = '$messageUrl\n${originalCharacters.take(count).join()}';
-    if (fits(candidate)) return candidate;
-  }
-  return null;
-}
+}) => utf8.encode(encodeOutbound(draft.trim())).length <= maxBytes;
