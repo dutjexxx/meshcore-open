@@ -1,6 +1,8 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:meshcore_open/helpers/ipfs_link_attach_flow.dart';
 import 'package:meshcore_open/helpers/ipfs_upload_helper.dart';
+import 'package:meshcore_open/l10n/app_localizations.dart';
 
 void main() {
   const url = 'ipfs://cid';
@@ -66,6 +68,33 @@ void main() {
 
     test('sample CID is CIDv1 base32 length', () {
       expect(IpfsUploadHelper.sampleCid.length, 59);
+    });
+  });
+
+  group('ipfsUploadErrorText', () {
+    final l10n = lookupAppLocalizations(const Locale('en'));
+
+    test('gives every config reason its own localized message', () {
+      final texts = {
+        for (final reason in IpfsUploadConfigError.values)
+          reason: ipfsUploadErrorText(l10n, IpfsUploadConfigException(reason)),
+      };
+      expect(
+        texts[IpfsUploadConfigError.emptyEndpoint],
+        l10n.chat_ipfsUploadNotConfigured,
+      );
+      expect(
+        texts[IpfsUploadConfigError.kuboPathInvalid],
+        l10n.chat_ipfsKuboPathInvalid,
+      );
+      expect(texts.values.toSet(), hasLength(texts.length));
+    });
+
+    test('wraps other errors in the generic message without the prefix', () {
+      expect(
+        ipfsUploadErrorText(l10n, Exception('IPFS upload failed (500): x')),
+        l10n.chat_ipfsUploadFailed('IPFS upload failed (500): x'),
+      );
     });
   });
 }

@@ -3286,6 +3286,36 @@ abstract class AppLocalizations {
   /// **'Configure an IPFS upload provider in App Settings first.'**
   String get chat_ipfsUploadNotConfigured;
 
+  /// No description provided for @chat_ipfsSelectedFileEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected file is empty.'**
+  String get chat_ipfsSelectedFileEmpty;
+
+  /// No description provided for @chat_ipfsEndpointInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The IPFS upload endpoint must be a full http:// or https:// address. Check it in App Settings.'**
+  String get chat_ipfsEndpointInvalid;
+
+  /// No description provided for @chat_ipfsPinataTokenMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Pinata needs an API key or JWT. Add it in App Settings.'**
+  String get chat_ipfsPinataTokenMissing;
+
+  /// No description provided for @chat_ipfsFilebaseTokenMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Filebase needs an API token. Add it in App Settings.'**
+  String get chat_ipfsFilebaseTokenMissing;
+
+  /// No description provided for @chat_ipfsKuboPathInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The Kubo upload endpoint must end with /api/v0/add. Check it in App Settings.'**
+  String get chat_ipfsKuboPathInvalid;
+
   /// Shown before an IPFS upload when the link would push the draft over the message size limit
   ///
   /// In en, this message translates to:

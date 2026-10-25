@@ -5,15 +5,24 @@ import 'package:http/http.dart' as http;
 
 import '../models/app_settings.dart';
 
-/// Thrown when the IPFS upload settings can't be used, before or instead of
-/// a network failure.
-class IpfsUploadConfigException implements Exception {
-  const IpfsUploadConfigException(this.message);
+/// Why the IPFS upload settings can't be used.
+enum IpfsUploadConfigError {
+  emptyEndpoint,
+  invalidEndpoint,
+  pinataTokenMissing,
+  filebaseTokenMissing,
+  kuboPathInvalid,
+}
 
-  final String message;
+/// Thrown when the IPFS upload settings can't be used, before or instead of
+/// a network failure. The UI maps [reason] to a localized message.
+class IpfsUploadConfigException implements Exception {
+  const IpfsUploadConfigException(this.reason);
+
+  final IpfsUploadConfigError reason;
 
   @override
-  String toString() => message;
+  String toString() => 'IpfsUploadConfigException(${reason.name})';
 }
 
 class IpfsUploadHelper {
@@ -80,7 +89,7 @@ class IpfsUploadHelper {
     final endpoint = uploadEndpoint.trim();
     if (endpoint.isEmpty) {
       throw const IpfsUploadConfigException(
-        'Configure an IPFS upload endpoint first.',
+        IpfsUploadConfigError.emptyEndpoint,
       );
     }
 
@@ -89,7 +98,7 @@ class IpfsUploadHelper {
         !(endpointUri.isScheme('http') || endpointUri.isScheme('https')) ||
         endpointUri.host.isEmpty) {
       throw const IpfsUploadConfigException(
-        'The IPFS upload endpoint must be an http(s) URL.',
+        IpfsUploadConfigError.invalidEndpoint,
       );
     }
 
@@ -103,17 +112,17 @@ class IpfsUploadHelper {
     final safeFileName = _sanitizeUploadFileName(fileName);
     if (isPinata && token.isEmpty) {
       throw const IpfsUploadConfigException(
-        'Pinata requires an API key or JWT.',
+        IpfsUploadConfigError.pinataTokenMissing,
       );
     }
     if (isFilebase && token.isEmpty) {
       throw const IpfsUploadConfigException(
-        'Filebase RPC requires an API token.',
+        IpfsUploadConfigError.filebaseTokenMissing,
       );
     }
     if (isKubo && !_kuboAddPath.hasMatch(endpointUri.path)) {
       throw const IpfsUploadConfigException(
-        'Custom (Kubo) upload endpoint must end with /api/v0/add.',
+        IpfsUploadConfigError.kuboPathInvalid,
       );
     }
 

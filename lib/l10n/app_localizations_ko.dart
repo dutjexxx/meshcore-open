@@ -1768,6 +1768,25 @@ class AppLocalizationsKo extends AppLocalizations {
       'Configure an IPFS upload provider in App Settings first.';
 
   @override
+  String get chat_ipfsSelectedFileEmpty => 'The selected file is empty.';
+
+  @override
+  String get chat_ipfsEndpointInvalid =>
+      'The IPFS upload endpoint must be a full http:// or https:// address. Check it in App Settings.';
+
+  @override
+  String get chat_ipfsPinataTokenMissing =>
+      'Pinata needs an API key or JWT. Add it in App Settings.';
+
+  @override
+  String get chat_ipfsFilebaseTokenMissing =>
+      'Filebase needs an API token. Add it in App Settings.';
+
+  @override
+  String get chat_ipfsKuboPathInvalid =>
+      'The Kubo upload endpoint must end with /api/v0/add. Check it in App Settings.';
+
+  @override
   String get chat_ipfsLinkNoRoom =>
       'Not enough room for the image link. Shorten your message, then try again.';
 

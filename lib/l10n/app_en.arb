@@ -953,6 +953,11 @@
     }
   },
   "chat_ipfsUploadNotConfigured": "Configure an IPFS upload provider in App Settings first.",
+  "chat_ipfsSelectedFileEmpty": "The selected file is empty.",
+  "chat_ipfsEndpointInvalid": "The IPFS upload endpoint must be a full http:// or https:// address. Check it in App Settings.",
+  "chat_ipfsPinataTokenMissing": "Pinata needs an API key or JWT. Add it in App Settings.",
+  "chat_ipfsFilebaseTokenMissing": "Filebase needs an API token. Add it in App Settings.",
+  "chat_ipfsKuboPathInvalid": "The Kubo upload endpoint must end with /api/v0/add. Check it in App Settings.",
   "chat_ipfsLinkNoRoom": "Not enough room for the image link. Shorten your message, then try again.",
   "@chat_ipfsLinkNoRoom": {
     "description": "Shown before an IPFS upload when the link would push the draft over the message size limit"

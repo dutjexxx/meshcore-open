@@ -4,6 +4,7 @@ import 'package:file_selector/file_selector.dart' as file_selector;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../l10n/app_localizations.dart';
 import '../l10n/l10n.dart';
 import '../services/app_settings_service.dart';
 import 'ipfs_upload_helper.dart';
@@ -58,7 +59,7 @@ Future<void> attachIpfsLinkToDraft({
     if (!context.mounted) return;
     showDismissibleSnackBar(
       context,
-      content: Text(l10n.chat_ipfsUploadFailed('$error')),
+      content: Text(ipfsUploadErrorText(l10n, error)),
     );
   }
 
@@ -69,7 +70,10 @@ Future<void> attachIpfsLinkToDraft({
     final bytes = await file.readAsBytes();
     if (!context.mounted) return;
     if (bytes.isEmpty) {
-      showFailure('The selected file is empty.');
+      showDismissibleSnackBar(
+        context,
+        content: Text(l10n.chat_ipfsSelectedFileEmpty),
+      );
       return;
     }
     messageUrl = await IpfsUploadHelper.uploadImageWithSettings(
@@ -106,6 +110,25 @@ Future<void> attachIpfsLinkToDraft({
       content: Text(l10n.chat_ipfsLinkOverLimit),
     );
   }
+}
+
+/// The localized snackbar text for an upload [error]: config problems get a
+/// specific message, anything else a generic one with technical details.
+@visibleForTesting
+String ipfsUploadErrorText(AppLocalizations l10n, Object error) {
+  if (error is IpfsUploadConfigException) {
+    return switch (error.reason) {
+      IpfsUploadConfigError.emptyEndpoint => l10n.chat_ipfsUploadNotConfigured,
+      IpfsUploadConfigError.invalidEndpoint => l10n.chat_ipfsEndpointInvalid,
+      IpfsUploadConfigError.pinataTokenMissing =>
+        l10n.chat_ipfsPinataTokenMissing,
+      IpfsUploadConfigError.filebaseTokenMissing =>
+        l10n.chat_ipfsFilebaseTokenMissing,
+      IpfsUploadConfigError.kuboPathInvalid => l10n.chat_ipfsKuboPathInvalid,
+    };
+  }
+  final details = '$error'.replaceFirst(RegExp(r'^Exception: '), '');
+  return l10n.chat_ipfsUploadFailed(details);
 }
 
 /// Puts [messageUrl] in front of [existingText], leaving the text intact.
