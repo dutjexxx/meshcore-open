@@ -33,6 +33,11 @@ class VoiceMicButton extends StatelessWidget {
           onSend();
         }
       },
+      onNothing: (error) {
+        messenger?.showSnackBar(
+          SnackBar(content: Text(_explain(error))),
+        );
+      },
     );
     if (!ok) {
       messenger?.showSnackBar(
@@ -44,6 +49,31 @@ class VoiceMicButton extends StatelessWidget {
         ),
       );
     }
+  }
+
+  static String _explain(String error) {
+    if (error.contains('language')) {
+      return 'Taalpakket ontbreekt of wordt niet ondersteund ($error). '
+          'Download het offline pakket of zet "Alleen offline herkenning" '
+          'uit in Spraakinstellingen.';
+    }
+    if (error.contains('permission')) {
+      return 'Geen microfoonrechten. Geef ze in Instellingen → Apps → '
+          'MeshCore Open → Rechten.';
+    }
+    if (error.contains('network') || error.contains('server')) {
+      return 'Geen internet voor spraakherkenning ($error). Download het '
+          'offline pakket voor je taal.';
+    }
+    if (error.contains('busy')) {
+      return 'Spraakherkenning is bezig ($error). Probeer het zo opnieuw.';
+    }
+    if (error.isEmpty || error.contains('no_match') ||
+        error.contains('timeout')) {
+      return 'Niets verstaan. Houd de knop ingedrukt, wacht tot hij rood is '
+          'en praat dan.';
+    }
+    return 'Niets herkend (fout: $error).';
   }
 
   @override
