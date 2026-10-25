@@ -13,6 +13,7 @@ import 'package:meshcore_open/review_mode/review_script.dart';
 import 'package:meshcore_open/services/message_retry_service.dart';
 import 'package:meshcore_open/services/path_history_service.dart';
 import 'package:meshcore_open/services/storage_service.dart';
+import 'package:meshcore_open/storage/channel_message_store.dart';
 import 'package:meshcore_open/storage/prefs_manager.dart';
 import 'package:pointycastle/export.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -185,6 +186,7 @@ void main() {
 
     expect(_channelAt(1).name, 'Hiking Group');
     expect(_texts(1), isNot(contains('ghost message')));
+    await _connector.flushPendingWrites();
     // The old channel's history is kept under its own ID.
     expect(_storedTexts(ghostId), ['ghost message']);
     expect(_storedTexts(hikingId), contains(_queuedHikingText));
@@ -218,6 +220,7 @@ void main() {
         .firstWhere((m) => m.text == _queuedHikingText);
     expect(restored.channelIndex, 6);
     await _connector.deleteChannelMessage(restored);
+    await _connector.flushPendingWrites();
     expect(_texts(6), isNot(contains(_queuedHikingText)));
     expect(_storedTexts(hikingId), isNot(contains(_queuedHikingText)));
   });
@@ -237,6 +240,7 @@ void main() {
   test('deleting a channel clears its stored history', () async {
     await _connect(_TestRadio());
     await _waitFor(() => _texts(1).contains(_queuedHikingText));
+    await _connector.flushPendingWrites();
     expect(_storedTexts(hikingId), isNotEmpty);
 
     await _connector.deleteChannel(1);
@@ -273,6 +277,7 @@ void main() {
       await _waitFor(() => _texts(1).contains(_queuedHikingText));
 
       await _connector.deleteChannel(1);
+      await _connector.flushPendingWrites();
       expect(_storedTexts(hikingId), contains(_queuedHikingText));
     },
   );
@@ -299,6 +304,7 @@ void main() {
       seed: () => _seedSlotMap({0: _id(_psk(0)), 1: ghostId, 2: _id(_psk(2))}),
     );
     await _waitFor(() => _texts(1).contains('before the map'));
+    await _connector.flushPendingWrites();
     expect(_storedTexts(hikingId), contains('before the map'));
     expect(_storedTexts(ghostId), isNot(contains('before the map')));
   });
@@ -382,6 +388,7 @@ void main() {
     );
     await _waitFor(() => _texts(1).contains('from the twin slot'));
     expect(_texts(5), contains('from the twin slot'));
+    await _connector.flushPendingWrites();
     expect(
       _storedTexts(hikingId).where((t) => t == 'from the twin slot'),
       hasLength(1),
@@ -400,7 +407,36 @@ void main() {
       ),
     );
     await _waitFor(() => _texts(2).contains('heard over the air'));
+    await _connector.flushPendingWrites();
     expect(_storedTexts(localId), contains('heard over the air'));
     expect(_texts(1), isNot(contains('heard over the air')));
+  });
+
+  test('a busy channel is capped at the stored-message limit in memory and '
+      'in storage', () async {
+    await _connect(_TestRadio());
+    await _waitFor(() => _texts(1).contains(_queuedHikingText));
+    const cap = ChannelMessageStore.maxStoredMessages;
+    final start = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+    for (var i = 0; i < cap + 50; i++) {
+      _connector.handleFrameForTest(
+        ReviewFrames.channelMessage(
+          channelIndex: 1,
+          sender: 'Sam',
+          message: 'busy $i',
+          timestampSecs: start + i,
+        ),
+      );
+    }
+
+    final texts = _texts(1);
+    expect(texts, hasLength(cap));
+    expect(texts.last, 'busy ${cap + 49}');
+    // Nothing is written per frame; the batch lands on flush.
+    await _connector.flushPendingWrites();
+    final stored = _storedTexts(hikingId);
+    expect(stored, hasLength(cap));
+    expect(stored.first, 'busy 50');
+    expect(stored.last, 'busy ${cap + 49}');
   });
 }

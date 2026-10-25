@@ -858,6 +858,8 @@ void main() {
         svc.recordPathResult(pubKey, sel, success: true, successIncrement: 0.5);
       }
       await _flush();
+      // Saves are batched; a restart only follows a flush (app backgrounded).
+      await svc.flushPendingWrites();
 
       final fresh = PathHistoryService(storage);
       fresh.recordPathResult(pubKey, sel, success: true, successIncrement: 0.5);
@@ -871,6 +873,7 @@ void main() {
     test('getRecentPaths load does not drop a concurrent add', () async {
       final pubKey = _hex('k004');
       await _seed(svc, pubKey, pathBytes: [0x01], weight: 1.0);
+      await svc.flushPendingWrites();
 
       final fresh = PathHistoryService(storage);
       fresh.getRecentPaths(pubKey);

@@ -67,6 +67,7 @@ import 'meshcore_uuids.dart';
 import 'meshcore_protocol.dart';
 import 'pending_command_replies.dart';
 import 'raw_packet.dart';
+import '../utils/coalesced_writes.dart';
 
 class DirectRepeater {
   static const int maxAgeMinutes = 30; // Max age for direct repeater info
@@ -479,6 +480,9 @@ class MeshCoreConnector extends ChangeNotifier {
   BleDebugLogService? _bleDebugLogService;
   AppDebugLogService? _appDebugLogService;
   final ChannelMessageStore _channelMessageStore = ChannelMessageStore();
+  // Per-frame persistence (channel history, conversations, contact lists) is
+  // batched here; see [CoalescedWrites].
+  final CoalescedWrites _coalescedWrites = CoalescedWrites();
   final MessageStore _messageStore = MessageStore();
   final ChannelOrderStore _channelOrderStore = ChannelOrderStore();
   final ChannelSettingsStore _channelSettingsStore = ChannelSettingsStore();
@@ -988,8 +992,39 @@ class MeshCoreConnector extends ChangeNotifier {
   Future<void> _saveChannelMessages(int slot, List<ChannelMessage> messages) {
     final id = _channelIdForSlot(slot);
     if (id == null) return Future<void>.value();
+    _coalescedWrites.cancel('channel:$id');
     return _channelMessageStore.saveChannelMessages(id, messages);
   }
+
+  /// Queues a save of [slot]'s history. The write looks the channel up again
+  /// when it runs, so it persists whatever the history is by then and skips a
+  /// channel that was removed in the meantime.
+  void _scheduleChannelSave(int slot) {
+    final id = _channelIdForSlot(slot);
+    if (id == null) return;
+    _coalescedWrites.schedule('channel:$id', () {
+      final currentSlot = _slotForChannelId(id);
+      final messages = currentSlot == null
+          ? null
+          : _channelMessages[_canonicalSlot(currentSlot)];
+      if (messages == null) return Future<void>.value();
+      return _channelMessageStore.saveChannelMessages(id, messages);
+    });
+  }
+
+  /// Queues a save of the conversation with [contactKeyHex]; skipped when the
+  /// conversation is gone by the time it runs.
+  void _scheduleConversationSave(String contactKeyHex) {
+    _coalescedWrites.schedule('conversation:$contactKeyHex', () {
+      final messages = _conversations[contactKeyHex];
+      if (messages == null) return Future<void>.value();
+      return _messageStore.saveMessages(contactKeyHex, messages);
+    });
+  }
+
+  /// Runs queued persistence now. Called before the app is backgrounded and
+  /// whenever the stores are about to switch to another radio.
+  Future<void> flushPendingWrites() => _coalescedWrites.flush();
 
   int getUnreadCountForContact(Contact contact) {
     if (contact.type == advTypeRepeater) return 0;
@@ -1244,6 +1279,17 @@ class MeshCoreConnector extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Queues a save of the channel list, which carries the unread counts that
+  /// change on every received channel message.
+  void _scheduleChannelListSave() {
+    _coalescedWrites.schedule(
+      'channels',
+      () => _channelStore.saveChannels(
+        _channels.isNotEmpty ? _channels : _cachedChannels,
+      ),
+    );
+  }
+
   void setChannelUnreadCount(int channelIndex, int count) {
     final channel = _findChannelByIndex(channelIndex);
     if (channel != null) {
@@ -1251,11 +1297,7 @@ class MeshCoreConnector extends ChangeNotifier {
       channel.unreadCount = count;
       final total = _cachedChannelsUnreadTotal + (count - previousCount);
       _cachedChannelsUnreadTotal = total < 0 ? 0 : total;
-      unawaited(
-        _channelStore.saveChannels(
-          _channels.isNotEmpty ? _channels : _cachedChannels,
-        ),
-      );
+      _scheduleChannelListSave();
       notifyListeners();
     }
   }
@@ -1271,11 +1313,7 @@ class MeshCoreConnector extends ChangeNotifier {
         'Channel ${channel.name.isNotEmpty ? channel.name : channelIndex} marked as read (was $previousCount unread)',
         tag: 'Unread',
       );
-      unawaited(
-        _channelStore.saveChannels(
-          _channels.isNotEmpty ? _channels : _cachedChannels,
-        ),
-      );
+      _scheduleChannelListSave();
       _notificationService.clearChannelNotification(
         channelIndex,
         getTotalUnreadCount(),
@@ -1535,6 +1573,9 @@ class MeshCoreConnector extends ChangeNotifier {
 
   /// Load persisted channel messages for a specific channel
   Future<void> _loadChannelMessages(int channelIndex) async {
+    // The load replaces the in-memory history, so queued writes of it must
+    // reach storage (whose cache updates synchronously) first.
+    unawaited(_coalescedWrites.flush());
     final channelId = _slotChannelIds[channelIndex];
     final allMessages = channelId == null
         ? <ChannelMessage>[]
@@ -5137,7 +5178,7 @@ class MeshCoreConnector extends ChangeNotifier {
         ),
       );
     }
-    unawaited(_persistDiscoveredContacts());
+    _scheduleDiscoveredContactsPersist();
     notifyListeners();
   }
 
@@ -5146,7 +5187,7 @@ class MeshCoreConnector extends ChangeNotifier {
     _discoveredContacts.removeWhere(
       (c) => c.publicKeyHex == contact.publicKeyHex,
     );
-    unawaited(_persistDiscoveredContacts());
+    _scheduleDiscoveredContactsPersist();
     notifyListeners();
   }
 
@@ -5272,7 +5313,7 @@ class MeshCoreConnector extends ChangeNotifier {
       ),
     );
     notifyListeners();
-    unawaited(_persistDiscoveredContacts());
+    _scheduleDiscoveredContactsPersist();
     return true;
   }
 
@@ -5717,6 +5758,9 @@ class MeshCoreConnector extends ChangeNotifier {
         '$unconfirmed',
       );
     }
+    // Queued channel writes find their channel by slot; land them before
+    // the map moves, or a channel whose slot changed would never be saved.
+    unawaited(_coalescedWrites.flush());
     _slotChannelIds
       ..clear()
       ..addAll(next);
@@ -5842,6 +5886,7 @@ class MeshCoreConnector extends ChangeNotifier {
       );
       await _loadChannelOrder();
       final saved = await _channelStore.loadSlotChannelIds();
+      unawaited(_coalescedWrites.flush());
       _slotChannelIds
         ..clear()
         ..addAll(saved);
@@ -5914,6 +5959,9 @@ class MeshCoreConnector extends ChangeNotifier {
         _findChannelByIndex(index)?.storageId ?? _slotChannelIds[index];
     // Delete by setting empty name and zero PSK
     await sendFrame(buildSetChannelFrame(index, '', Uint8List(16)));
+    // A twin slot with the same PSK keeps this history, so queued writes of
+    // it land before the list is dropped; a full delete clears them below.
+    unawaited(_coalescedWrites.flush());
     _channelMessages.remove(index);
     _processedChannelReactions.remove(index);
     try {
@@ -5936,6 +5984,7 @@ class MeshCoreConnector extends ChangeNotifier {
   /// Removes everything persisted for [channelId]: messages, settings,
   /// region, images and its place in the channel order.
   Future<void> _clearChannelStorage(String channelId) async {
+    _coalescedWrites.cancel('channel:$channelId');
     await _channelMessageStore.clearChannelMessages(channelId);
     await _channelSettingsStore.clearChannel(channelId);
     await _channelRegionStore.clearRegion(channelId);
@@ -6327,6 +6376,7 @@ class MeshCoreConnector extends ChangeNotifier {
       return;
     }
 
+    unawaited(_coalescedWrites.flush());
     //set all the stores' public key so they can load the correct data
     _channelMessageStore.setPublicKeyHex = selfPublicKeyHex;
     _messageStore.setPublicKeyHex = selfPublicKeyHex;
@@ -6953,12 +7003,25 @@ class MeshCoreConnector extends ChangeNotifier {
     }
   }
 
+  /// Queues a save of the contact list; adverts and contact replies arrive
+  /// many times a second on a busy mesh.
   Future<void> _persistContacts() async {
-    await _contactStore.saveContacts(_contacts);
+    _coalescedWrites.schedule(
+      'contacts',
+      () => _contactStore.saveContacts(_contacts),
+    );
   }
 
   Future<void> _persistDiscoveredContacts() async {
+    _coalescedWrites.cancel('discovered');
     await _discoveryContactStore.saveContacts(_discoveredContacts);
+  }
+
+  void _scheduleDiscoveredContactsPersist() {
+    _coalescedWrites.schedule(
+      'discovered',
+      () => _discoveryContactStore.saveContacts(_discoveredContacts),
+    );
   }
 
   int _latestContactLastmod() {
@@ -8033,11 +8096,7 @@ class MeshCoreConnector extends ChangeNotifier {
         'Channel ${channel.name.isNotEmpty ? channel.name : channelIndex} unread count incremented to ${channel.unreadCount}',
         tag: 'Unread',
       );
-      unawaited(
-        _channelStore.saveChannels(
-          _channels.isNotEmpty ? _channels : _cachedChannels,
-        ),
-      );
+      _scheduleChannelListSave();
     } else {
       _appDebugLogService?.info(
         'Channel $channelIndex not found in _channels (${_channels.length}) or _cachedChannels (${_cachedChannels.length})',
@@ -8138,7 +8197,7 @@ class MeshCoreConnector extends ChangeNotifier {
       _messageStore.archive(pubKeyHex, messages.sublist(0, trimCount));
       messages.removeRange(0, trimCount);
     }
-    _messageStore.saveMessages(pubKeyHex, messages);
+    _scheduleConversationSave(pubKeyHex);
     notifyListeners();
   }
 
@@ -8409,7 +8468,7 @@ class MeshCoreConnector extends ChangeNotifier {
       if (reactionApplied) {
         appLogger.info('Adding channel reaction, id: $reactionIdentifier');
         // Save updated messages
-        _saveChannelMessages(channelIndex, messages);
+        _scheduleChannelSave(channelIndex);
 
         // Mark as processed
         _processedChannelReactions[channelIndex]!.add(reactionIdentifier);
@@ -8514,10 +8573,14 @@ class MeshCoreConnector extends ChangeNotifier {
       }
     } else {
       messages.add(processedMessage);
+      // Storage keeps only the newest maxStoredMessages per channel, so older
+      // entries are gone after the next save anyway. Without this cap a long
+      // session on a busy channel grows the list, and every save, unbounded.
+      final overflow = messages.length - ChannelMessageStore.maxStoredMessages;
+      if (overflow > 0) messages.removeRange(0, overflow);
     }
 
-    // Save to persistent storage
-    _saveChannelMessages(channelIndex, messages);
+    _scheduleChannelSave(channelIndex);
     return isNew;
   }
 
@@ -8684,6 +8747,7 @@ class MeshCoreConnector extends ChangeNotifier {
   }
 
   void _handleDisconnection() {
+    unawaited(_coalescedWrites.flush());
     _resetLinkSessionState();
 
     _notifySubscription?.cancel();
@@ -8755,6 +8819,9 @@ class MeshCoreConnector extends ChangeNotifier {
   /// Drops the conversation and channel history held in memory, so a
   /// different radio never shows or persists another radio's messages.
   void _clearSessionMessageState() {
+    // Writes start synchronously, so they still read this radio's history and
+    // store keys before both change below.
+    unawaited(_coalescedWrites.flush());
     _conversations.clear();
     _loadedConversationKeys.clear();
     _channelMessages.clear();
@@ -8897,6 +8964,7 @@ class MeshCoreConnector extends ChangeNotifier {
     _notificationReplySubscription?.cancel();
     _notificationService.releaseReplyPort();
     _notifyListenersTimer?.cancel();
+    unawaited(_coalescedWrites.flush());
     _reconnectTimer?.cancel();
     _batteryPollTimer?.cancel();
     _gpsLocationPollTimer?.cancel();
@@ -9378,7 +9446,7 @@ class MeshCoreConnector extends ChangeNotifier {
             isActive: addActive,
           );
       notifyListeners();
-      unawaited(_persistDiscoveredContacts());
+      _scheduleDiscoveredContactsPersist();
       return;
     }
 
@@ -9405,7 +9473,7 @@ class MeshCoreConnector extends ChangeNotifier {
     }
     _discoveredContacts.add(disContact);
 
-    unawaited(_persistDiscoveredContacts());
+    _scheduleDiscoveredContactsPersist();
 
     // Show notification for new contact (advertisement)
     if (_appSettingsService != null && !noNotify) {
@@ -9435,7 +9503,7 @@ class MeshCoreConnector extends ChangeNotifier {
 
   void removeAllDiscoveredContacts() {
     _discoveredContacts.clear();
-    unawaited(_persistDiscoveredContacts());
+    _scheduleDiscoveredContactsPersist();
     notifyListeners();
   }
 
