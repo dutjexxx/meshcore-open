@@ -52,6 +52,14 @@ iOS notifications do not have reply actions yet.
 
 MeshCore Open works in Android Auto as a notification-based messaging app. There is no MeshCore screen in the car; Android Auto provides the interface.
 
+Android Auto support is off by default and is compiled in only when the build passes the `androidAuto` Gradle property:
+
+```bash
+flutter build apk --release --android-project-arg=androidAuto=true
+```
+
+The flag merges `android/app/src/androidAuto/` (the `com.google.android.gms.car.application` manifest entry and `automotive_app_desc.xml`) into the app. Without it, Android Auto does not list the app. Notification replies from the shade and watches work either way.
+
 - New direct and channel messages appear on the car display and can be read aloud.
 - Reply by voice or with a suggested reply; replies follow the rules above (splitting, failure notifications, no translation).
 - Android Auto shows **Reply** and **Mark as read**. **Mute channel** is marked as a mute action, but Android Auto only documents reply and mark-as-read for messaging apps, so mute may not appear in the car; use the phone, a watch, or the bell icon.

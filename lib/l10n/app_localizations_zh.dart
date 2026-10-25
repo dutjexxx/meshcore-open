@@ -402,6 +402,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settings_radioSettingsNotApplied => '收音机未应用这些设置';
 
   @override
+  String get settings_pathHashModeNotApplied =>
+      'Radio settings were applied, but the radio did not confirm the new path hash size';
+
+  @override
   String get settings_regionSettings => '地区';
 
   @override
@@ -4422,6 +4426,14 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get notification_activityTitle => 'MeshCore 活动';
+
+  @override
+  String get notification_lowBatteryTitle => 'Low battery';
+
+  @override
+  String notification_lowBatteryBody(String deviceName, int percent) {
+    return '$deviceName battery is at $percent%';
+  }
 
   @override
   String notification_messagesCount(int count) {

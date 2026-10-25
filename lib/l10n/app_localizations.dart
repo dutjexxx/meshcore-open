@@ -862,6 +862,12 @@ abstract class AppLocalizations {
   /// **'The radio did not apply these settings'**
   String get settings_radioSettingsNotApplied;
 
+  /// No description provided for @settings_pathHashModeNotApplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Radio settings were applied, but the radio did not confirm the new path hash size'**
+  String get settings_pathHashModeNotApplied;
+
   /// No description provided for @settings_regionSettings.
   ///
   /// In en, this message translates to:
@@ -8137,6 +8143,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'MeshCore Activity'**
   String get notification_activityTitle;
+
+  /// Title of the low battery notification
+  ///
+  /// In en, this message translates to:
+  /// **'Low battery'**
+  String get notification_lowBatteryTitle;
+
+  /// Body of the low battery notification; deviceName is the connected radio's node name
+  ///
+  /// In en, this message translates to:
+  /// **'{deviceName} battery is at {percent}%'**
+  String notification_lowBatteryBody(String deviceName, int percent);
 
   /// No description provided for @notification_messagesCount.
   ///

@@ -65,5 +65,70 @@
 
   "zh": [
     "channels_notificationModeTooltip"
+    "settings_pathHashModeNotApplied"
+  ],
+
+  "de": [
+    "settings_pathHashModeNotApplied"
+  ],
+
+  "es": [
+    "settings_pathHashModeNotApplied"
+  ],
+
+  "fr": [
+    "settings_pathHashModeNotApplied"
+  ],
+
+  "hu": [
+    "settings_pathHashModeNotApplied"
+  ],
+
+  "it": [
+    "settings_pathHashModeNotApplied"
+  ],
+
+  "ja": [
+    "settings_pathHashModeNotApplied"
+  ],
+
+  "ko": [
+    "settings_pathHashModeNotApplied"
+  ],
+
+  "nl": [
+    "settings_pathHashModeNotApplied"
+  ],
+
+  "pl": [
+    "settings_pathHashModeNotApplied"
+  ],
+
+  "pt": [
+    "settings_pathHashModeNotApplied"
+  ],
+
+  "ru": [
+    "settings_pathHashModeNotApplied"
+  ],
+
+  "sk": [
+    "settings_pathHashModeNotApplied"
+  ],
+
+  "sl": [
+    "settings_pathHashModeNotApplied"
+  ],
+
+  "sv": [
+    "settings_pathHashModeNotApplied"
+  ],
+
+  "uk": [
+    "settings_pathHashModeNotApplied"
+  ],
+
+  "zh": [
+    "settings_pathHashModeNotApplied"
   ]
 }
