@@ -17,18 +17,6 @@ String normalizeIpfsGateway(String value) {
   return gateway;
 }
 
-String migratePublicIpfsGateway(String? value) {
-  final gateway = value?.trim();
-  if (gateway == null ||
-      gateway == 'https://ipfs.io/ipfs/' ||
-      gateway == 'https://ipfs.io/ipfs' ||
-      gateway == 'https://dweb.link/ipfs/' ||
-      gateway == 'https://dweb.link/ipfs') {
-    return AppSettings.defaultPublicIpfsGateway;
-  }
-  return gateway;
-}
-
 enum ChannelNotificationMode { all, mentionsOnly, muted }
 
 extension UnitSystemValue on UnitSystem {
@@ -106,7 +94,7 @@ class Cyr2LatProfile {
 class AppSettings {
   static const Object _unset = Object();
   static const String stadiaDemo = '51bd0381-4685-4666-bae8-48940f6d77c0';
-  static const String defaultPublicIpfsGateway = '';
+  static const String defaultPublicIpfsGateway = 'https://ipfs.io/ipfs/';
 
   final bool clearPathOnMaxRetry;
   final bool mapShowRepeaters;
@@ -517,9 +505,8 @@ class AppSettings {
       networkMapUploadEnabled:
           json['network_map_upload_enabled'] as bool? ?? false,
       networkMapPromptShown: json['network_map_prompt_shown'] as bool? ?? false,
-      publicIpfsGateway: migratePublicIpfsGateway(
-        json['public_ipfs_gateway'] as String?,
-      ),
+      publicIpfsGateway:
+          json['public_ipfs_gateway'] as String? ?? defaultPublicIpfsGateway,
       uploadIpfsGateway: json['upload_ipfs_gateway'] as String? ?? '',
       uploadIpfsEndpoint: json['upload_ipfs_endpoint'] as String? ?? '',
       uploadIpfsApiKey: json['upload_ipfs_api_key'] as String? ?? '',

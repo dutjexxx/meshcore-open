@@ -48,23 +48,20 @@ void main() {
       );
     });
 
-    test(
-      'does not resolve ipfs cid links with the default gateway deactivated',
-      () async {
-        expect(
-          await MessageUrlImageHelper.parse(
-            'my picture: ipfs://bafybeibq75ws6nwk6wi473dch42wwy6woyj4dwdfy7nfz3buqx2caieoly text',
-          ),
-          isNull,
-        );
-        expect(
-          await MessageUrlImageHelper.parse(
-            'my picture: ipfs:bafybeibq75ws6nwk6wi473dch42wwy6woyj4dwdfy7nfz3buqx2caieoly text',
-          ),
-          isNull,
-        );
-      },
-    );
+    test('resolves ipfs cid links with the default ipfs.io gateway', () async {
+      expect(
+        await MessageUrlImageHelper.parse(
+          'my picture: ipfs://bafybeibq75ws6nwk6wi473dch42wwy6woyj4dwdfy7nfz3buqx2caieoly text',
+        ),
+        'https://ipfs.io/ipfs/bafybeibq75ws6nwk6wi473dch42wwy6woyj4dwdfy7nfz3buqx2caieoly',
+      );
+      expect(
+        await MessageUrlImageHelper.parse(
+          'my picture: ipfs:bafybeibq75ws6nwk6wi473dch42wwy6woyj4dwdfy7nfz3buqx2caieoly text',
+        ),
+        'https://ipfs.io/ipfs/bafybeibq75ws6nwk6wi473dch42wwy6woyj4dwdfy7nfz3buqx2caieoly',
+      );
+    });
 
     test('uses the configured public gateway for direct ipfs cid urls', () async {
       final attachment = await MessageUrlImageHelper.parse(

@@ -443,12 +443,28 @@ void main() {
       expect(settings.evictDiscoveredContactsEnabled, isFalse);
     });
 
-    test('public IPFS gateway defaults to deactivated and preserves empty', () {
-      expect(AppSettings.fromJson({}).publicIpfsGateway, isEmpty);
+    test('public IPFS gateway defaults to ipfs.io when never set', () {
       expect(
-        AppSettings.fromJson({'public_ipfs_gateway': ''}).publicIpfsGateway,
-        isEmpty,
+        AppSettings.fromJson({}).publicIpfsGateway,
+        'https://ipfs.io/ipfs/',
       );
+      expect(AppSettings().publicIpfsGateway, 'https://ipfs.io/ipfs/');
+    });
+
+    test('public IPFS gateway keeps a saved empty value as deactivated', () {
+      final saved = AppSettings(publicIpfsGateway: '').toJson();
+      expect(AppSettings.fromJson(saved).publicIpfsGateway, isEmpty);
+    });
+
+    test('public IPFS gateway keeps saved ipfs.io and dweb.link values', () {
+      for (final gateway in [
+        'https://ipfs.io/ipfs/',
+        'https://dweb.link/ipfs/',
+        'https://gateway.example.com/ipfs/',
+      ]) {
+        final saved = AppSettings(publicIpfsGateway: gateway).toJson();
+        expect(AppSettings.fromJson(saved).publicIpfsGateway, gateway);
+      }
     });
 
     test('empty upload gateway does not fall back to the download gateway', () {
