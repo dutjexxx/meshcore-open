@@ -7,7 +7,6 @@ import 'package:flutter/foundation.dart' show mergeSort;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:file_selector/file_selector.dart' as file_selector;
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +18,7 @@ import '../helpers/chat_scroll_controller.dart';
 import '../connector/meshcore_protocol.dart';
 import '../helpers/cyr2lat.dart';
 import '../helpers/gif_helper.dart';
-import '../helpers/ipfs_upload_helper.dart';
+import '../helpers/ipfs_link_attach_flow.dart';
 import '../helpers/marker_message.dart';
 import '../helpers/message_url_image_helper.dart';
 import '../helpers/path_helper.dart';
@@ -1313,111 +1312,16 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
     );
   }
 
-  Future<void> _sendImageViaIpfs() async {
-    final l10n = context.l10n;
-    final settings = context.read<AppSettingsService>().settings;
-    if (settings.uploadIpfsEndpoint.trim().isEmpty) {
-      showDismissibleSnackBar(
-        context,
-        content: Text(l10n.chat_ipfsUploadNotConfigured),
-      );
-      return;
-    }
-
-    final file_selector.XFile? file;
-    try {
-      file = await file_selector.openFile();
-    } on Exception catch (error) {
-      if (!mounted) return;
-      showDismissibleSnackBar(
-        context,
-        content: Text(l10n.chat_ipfsUploadFailed('$error')),
-      );
-      return;
-    }
-    if (file == null) return;
-    if (!mounted) return;
-
-    final Uint8List bytes;
-    try {
-      bytes = await file.readAsBytes();
-    } on Exception catch (error) {
-      if (!mounted) return;
-      showDismissibleSnackBar(
-        context,
-        content: Text(l10n.chat_ipfsUploadFailed('$error')),
-      );
-      return;
-    }
-    if (!mounted) return;
-    if (bytes.isEmpty) {
-      showDismissibleSnackBar(
-        context,
-        content: Text(
-          l10n.chat_ipfsUploadFailed('The selected file is empty.'),
-        ),
-      );
-      return;
-    }
-
-    final String messageUrl;
-    try {
-      messageUrl = await IpfsUploadHelper.uploadImageWithSettings(
-        settings: settings,
-        bytes: bytes,
-        fileName: file.name,
-        mimeType: IpfsUploadHelper.mimeTypeForFileName(file.name),
-      );
-    } on Exception catch (error) {
-      if (!mounted) return;
-      showDismissibleSnackBar(
-        context,
-        content: Text(l10n.chat_ipfsUploadFailed('$error')),
-      );
-      return;
-    }
-    if (!mounted) return;
-
+  Future<void> _sendImageViaIpfs() {
     final connector = context.read<MeshCoreConnector>();
-    final existingText = _textController.text.trim();
-    final combinedText = existingText.isEmpty
-        ? '$messageUrl '
-        : '$messageUrl\n$existingText';
-    final maxBytes = maxChannelMessageBytes(connector.selfName);
-    var messageText = combinedText;
-    var outboundText = connector.prepareChannelOutboundText(
-      widget.channel.index,
-      messageText,
+    return attachIpfsLinkToDraft(
+      context: context,
+      controller: _textController,
+      focusNode: _textFieldFocusNode,
+      maxBytes: maxChannelMessageBytes(connector.selfName),
+      encodeOutbound: (text) =>
+          connector.prepareChannelOutboundText(widget.channel.index, text),
     );
-    if (utf8.encode(outboundText).length > maxBytes &&
-        existingText.isNotEmpty) {
-      final originalCharacters = existingText.characters.toList();
-      for (var count = originalCharacters.length - 1; count >= 0; count--) {
-        final shortened = originalCharacters.take(count).join();
-        final candidate = '$messageUrl\n$shortened';
-        final encoded = connector.prepareChannelOutboundText(
-          widget.channel.index,
-          candidate,
-        );
-        if (utf8.encode(encoded).length <= maxBytes) {
-          messageText = candidate;
-          outboundText = encoded;
-          break;
-        }
-      }
-    }
-    if (utf8.encode(outboundText).length > maxBytes) {
-      showDismissibleSnackBar(
-        context,
-        content: Text(context.l10n.chat_messageTooLong(maxBytes)),
-      );
-      return;
-    }
-    _textController.value = TextEditingValue(
-      text: messageText,
-      selection: TextSelection.collapsed(offset: messageText.length),
-    );
-    _textFieldFocusNode.requestFocus();
   }
 
   /// Takes no [BuildContext]: it uses the [State]'s own, so the `mounted`

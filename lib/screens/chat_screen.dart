@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:file_selector/file_selector.dart' as file_selector;
 import 'package:provider/provider.dart';
 
 import '../utils/app_logger.dart';
@@ -21,7 +20,7 @@ import '../widgets/message_status_icon.dart';
 import '../widgets/empty_state.dart';
 import '../helpers/chat_scroll_controller.dart';
 import '../helpers/gif_helper.dart';
-import '../helpers/ipfs_upload_helper.dart';
+import '../helpers/ipfs_link_attach_flow.dart';
 import '../helpers/marker_message.dart';
 import '../models/channel_message.dart';
 import '../models/contact.dart';
@@ -563,110 +562,17 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Future<void> _sendImageViaIpfs() async {
-    final l10n = context.l10n;
-    final settings = context.read<AppSettingsService>().settings;
-    if (settings.uploadIpfsEndpoint.trim().isEmpty) {
-      showDismissibleSnackBar(
-        context,
-        content: Text(l10n.chat_ipfsUploadNotConfigured),
-      );
-      return;
-    }
-
-    final file_selector.XFile? file;
-    try {
-      file = await file_selector.openFile();
-    } on Exception catch (error) {
-      if (!mounted) return;
-      showDismissibleSnackBar(
-        context,
-        content: Text(l10n.chat_ipfsUploadFailed('$error')),
-      );
-      return;
-    }
-    if (file == null || !mounted) return;
-
-    final Uint8List bytes;
-    try {
-      bytes = await file.readAsBytes();
-    } on Exception catch (error) {
-      if (!mounted) return;
-      showDismissibleSnackBar(
-        context,
-        content: Text(l10n.chat_ipfsUploadFailed('$error')),
-      );
-      return;
-    }
-    if (!mounted) return;
-    if (bytes.isEmpty) {
-      showDismissibleSnackBar(
-        context,
-        content: Text(
-          l10n.chat_ipfsUploadFailed('The selected file is empty.'),
-        ),
-      );
-      return;
-    }
-
-    final String messageUrl;
-    try {
-      messageUrl = await IpfsUploadHelper.uploadImageWithSettings(
-        settings: settings,
-        bytes: bytes,
-        fileName: file.name,
-        mimeType: IpfsUploadHelper.mimeTypeForFileName(file.name),
-      );
-    } on Exception catch (error) {
-      if (!mounted) return;
-      showDismissibleSnackBar(
-        context,
-        content: Text(l10n.chat_ipfsUploadFailed('$error')),
-      );
-      return;
-    }
-    if (!mounted) return;
-
+  Future<void> _sendImageViaIpfs() {
     final connector = context.read<MeshCoreConnector>();
     final contact = _resolveContact(connector);
-    final existingText = _textController.text.trim();
-    var messageText = existingText.isEmpty
-        ? '$messageUrl '
-        : '$messageUrl\n$existingText';
-    final maxBytes = maxContactMessageBytes();
-    var encodedText = connector.prepareContactOutboundText(
-      contact,
-      messageText,
+    return attachIpfsLinkToDraft(
+      context: context,
+      controller: _textController,
+      focusNode: _textFieldFocusNode,
+      maxBytes: maxContactMessageBytes(),
+      encodeOutbound: (text) =>
+          connector.prepareContactOutboundText(contact, text),
     );
-    if (utf8.encode(encodedText).length > maxBytes && existingText.isNotEmpty) {
-      final originalCharacters = existingText.characters.toList();
-      for (var count = originalCharacters.length - 1; count >= 0; count--) {
-        final shortened = originalCharacters.take(count).join();
-        final candidate = '$messageUrl\n$shortened';
-        final candidateEncoded = connector.prepareContactOutboundText(
-          contact,
-          candidate,
-        );
-        if (utf8.encode(candidateEncoded).length <= maxBytes) {
-          messageText = candidate;
-          encodedText = candidateEncoded;
-          break;
-        }
-      }
-    }
-    if (utf8.encode(encodedText).length > maxBytes) {
-      showDismissibleSnackBar(
-        context,
-        content: Text(l10n.chat_messageTooLong(maxBytes)),
-      );
-      return;
-    }
-
-    _textController.value = TextEditingValue(
-      text: messageText,
-      selection: TextSelection.collapsed(offset: messageText.length),
-    );
-    _textFieldFocusNode.requestFocus();
   }
 
   /// Shares the radio's own position as a map marker. Shares the text send
