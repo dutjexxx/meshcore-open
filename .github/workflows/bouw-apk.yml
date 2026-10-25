@@ -1,0 +1,26 @@
+name: Bouw APK met spraak
+on:
+  workflow_dispatch:
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Spraakwijzigingen toepassen
+        run: git apply --exclude='.github/*' voice-patch.patch
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter build apk --release --no-pub
+      - uses: actions/upload-artifact@v4
+        with:
+          name: meshcore-voice-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
