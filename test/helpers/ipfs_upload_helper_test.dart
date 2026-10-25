@@ -24,9 +24,62 @@ void main() {
           uploadEndpoint: '',
           uploadApiKey: '',
         ),
-        throwsArgumentError,
+        throwsException,
       );
       expect(requestCount, 0);
+    });
+
+    for (final endpoint in [
+      'not a url',
+      'ftp://host/api/v0/add',
+      'https://host/ipfs-upload',
+      'https://uploads.example.com/v1/files',
+    ]) {
+      test('rejects $endpoint before uploading', () async {
+        var requestCount = 0;
+        IpfsUploadHelper.httpClient = MockClient((request) async {
+          requestCount++;
+          return http.Response('{"Hash":"bafytest"}', 200);
+        });
+
+        await expectLater(
+          IpfsUploadHelper.uploadImage(
+            bytes: Uint8List.fromList(<int>[1, 2, 3]),
+            fileName: 'image.png',
+            mimeType: 'image/png',
+            uploadEndpoint: endpoint,
+            uploadApiKey: 'token',
+          ),
+          throwsA(isA<Exception>()),
+        );
+        expect(requestCount, 0);
+      });
+    }
+
+    test('copies to MFS through a proxied Kubo endpoint', () async {
+      final urls = <Uri>[];
+      IpfsUploadHelper.httpClient = MockClient((request) async {
+        urls.add(request.url);
+        return http.Response('{"Hash":"bafytest"}', 200);
+      });
+
+      final message = await IpfsUploadHelper.uploadImage(
+        bytes: Uint8List.fromList(<int>[1, 2, 3]),
+        fileName: 'image.png',
+        mimeType: 'image/png',
+        uploadEndpoint: 'https://host/ipfs-upload/api/v0/add',
+        uploadApiKey: '',
+      );
+
+      expect(message, 'ipfs://bafytest');
+      expect(urls.map((url) => url.path), [
+        '/ipfs-upload/api/v0/add',
+        '/ipfs-upload/api/v0/files/cp',
+      ]);
+      expect(urls.last.queryParametersAll['arg'], [
+        '/ipfs/bafytest',
+        '/meshcore_uploads/bafytest-image.png',
+      ]);
     });
 
     test(

@@ -9,6 +9,8 @@ class IpfsUploadHelper {
   @visibleForTesting
   static http.Client? httpClient;
 
+  static final _kuboAddPath = RegExp(r'/api/v0/add/?$');
+
   static String mimeTypeForFileName(String fileName) {
     switch (fileName.toLowerCase().split('.').last) {
       case 'jpg':
@@ -53,11 +55,17 @@ class IpfsUploadHelper {
   }) async {
     final endpoint = uploadEndpoint.trim();
     if (endpoint.isEmpty) {
-      throw ArgumentError('Configure an IPFS upload endpoint first.');
+      throw Exception('Configure an IPFS upload endpoint first.');
+    }
+
+    final endpointUri = Uri.tryParse(endpoint);
+    if (endpointUri == null ||
+        !(endpointUri.isScheme('http') || endpointUri.isScheme('https')) ||
+        endpointUri.host.isEmpty) {
+      throw Exception('The IPFS upload endpoint must be an http(s) URL.');
     }
 
     final token = uploadApiKey.trim();
-    final endpointUri = Uri.parse(endpoint);
     final endpointHost = endpointUri.host.toLowerCase();
     final isPinata =
         endpointHost.contains('pinata') ||
@@ -65,25 +73,27 @@ class IpfsUploadHelper {
     final isFilebase = endpointHost.contains('filebase');
     final isKubo = !isPinata && !isFilebase;
     final safeFileName = _sanitizeUploadFileName(fileName);
-    if (isFilebase && token.isEmpty) {
-      throw ArgumentError('Filebase RPC requires an API token.');
+    if (isPinata && token.isEmpty) {
+      throw Exception('Pinata requires an API key or JWT.');
     }
-
-    final Uri uploadUri;
-    if (isPinata) {
-      if (token.isEmpty) {
-        throw ArgumentError('Pinata requires an API key or JWT.');
-      }
-      uploadUri = endpointUri;
-    } else {
-      uploadUri = endpointUri.replace(
-        queryParameters: {
-          ...endpointUri.queryParameters,
-          'cid-version': '1',
-          if (isKubo) 'pin': 'true',
-        },
+    if (isFilebase && token.isEmpty) {
+      throw Exception('Filebase RPC requires an API token.');
+    }
+    if (isKubo && !_kuboAddPath.hasMatch(endpointUri.path)) {
+      throw Exception(
+        'Custom (Kubo) upload endpoint must end with /api/v0/add.',
       );
     }
+
+    final uploadUri = isPinata
+        ? endpointUri
+        : endpointUri.replace(
+            queryParameters: {
+              ...endpointUri.queryParameters,
+              'cid-version': '1',
+              if (isKubo) 'pin': 'true',
+            },
+          );
 
     final request = http.MultipartRequest('POST', uploadUri)
       ..files.add(
@@ -113,7 +123,7 @@ class IpfsUploadHelper {
 
     if (isKubo) {
       await _copyKuboFileToMfs(
-        endpoint: endpoint,
+        addUri: endpointUri,
         cid: cid,
         fileName: safeFileName,
         authorization: token.isEmpty ? null : 'Bearer $token',
@@ -125,23 +135,14 @@ class IpfsUploadHelper {
   }
 
   static Future<void> _copyKuboFileToMfs({
-    required String endpoint,
+    required Uri addUri,
     required String cid,
     required String fileName,
     required String? authorization,
   }) async {
-    final uploadUri = Uri.parse(endpoint);
-    final copyPath = uploadUri.path.replaceFirst(
-      RegExp(r'/add/?$'),
-      '/files/cp',
-    );
-    if (copyPath == uploadUri.path) {
-      throw ArgumentError('Kubo upload endpoint must end with /add.');
-    }
-
     final mfsPath = '/meshcore_uploads/$cid-$fileName';
-    final copyUri = uploadUri.replace(
-      path: copyPath,
+    final copyUri = addUri.replace(
+      path: addUri.path.replaceFirst(_kuboAddPath, '/api/v0/files/cp'),
       query:
           'arg=${Uri.encodeQueryComponent('/ipfs/$cid')}'
           '&arg=${Uri.encodeQueryComponent(mfsPath)}&parents=true',
