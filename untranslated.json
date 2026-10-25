@@ -1,134 +1,443 @@
 {
   "bg": [
-    "channels_notificationModeTooltip"
+    "settings_pathHashModeNotApplied",
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
+    "channels_notificationModeTooltip",
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody",
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
+    "snrIndicator_unknownRepeater",
+    "snrIndicator_unknownRepeaterHint",
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "de": [
-    "channels_notificationModeTooltip"
+    "settings_pathHashModeNotApplied",
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
+    "channels_notificationModeTooltip",
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody",
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
+    "snrIndicator_unknownRepeater",
+    "snrIndicator_unknownRepeaterHint",
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "es": [
-    "channels_notificationModeTooltip"
+    "settings_pathHashModeNotApplied",
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
+    "channels_notificationModeTooltip",
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody",
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
+    "snrIndicator_unknownRepeater",
+    "snrIndicator_unknownRepeaterHint",
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "fr": [
-    "channels_notificationModeTooltip"
+    "settings_pathHashModeNotApplied",
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
+    "channels_notificationModeTooltip",
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody",
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
+    "snrIndicator_unknownRepeater",
+    "snrIndicator_unknownRepeaterHint",
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "hu": [
-    "channels_notificationModeTooltip"
+    "settings_pathHashModeNotApplied",
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
+    "channels_notificationModeTooltip",
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody",
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
+    "snrIndicator_unknownRepeater",
+    "snrIndicator_unknownRepeaterHint",
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "it": [
-    "channels_notificationModeTooltip"
+    "settings_pathHashModeNotApplied",
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
+    "channels_notificationModeTooltip",
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody",
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
+    "snrIndicator_unknownRepeater",
+    "snrIndicator_unknownRepeaterHint",
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "ja": [
-    "channels_notificationModeTooltip"
+    "settings_pathHashModeNotApplied",
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
+    "channels_notificationModeTooltip",
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody",
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
+    "snrIndicator_unknownRepeater",
+    "snrIndicator_unknownRepeaterHint",
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "ko": [
-    "channels_notificationModeTooltip"
+    "settings_pathHashModeNotApplied",
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
+    "channels_notificationModeTooltip",
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody",
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
+    "snrIndicator_unknownRepeater",
+    "snrIndicator_unknownRepeaterHint",
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "nl": [
-    "channels_notificationModeTooltip"
+    "settings_pathHashModeNotApplied",
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
+    "channels_notificationModeTooltip",
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody",
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
+    "snrIndicator_unknownRepeater",
+    "snrIndicator_unknownRepeaterHint",
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "pl": [
-    "channels_notificationModeTooltip"
+    "settings_pathHashModeNotApplied",
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
+    "channels_notificationModeTooltip",
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody",
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
+    "snrIndicator_unknownRepeater",
+    "snrIndicator_unknownRepeaterHint",
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "pt": [
-    "channels_notificationModeTooltip"
+    "settings_pathHashModeNotApplied",
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
+    "channels_notificationModeTooltip",
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody",
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
+    "snrIndicator_unknownRepeater",
+    "snrIndicator_unknownRepeaterHint",
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "ru": [
-    "channels_notificationModeTooltip"
+    "settings_pathHashModeNotApplied",
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
+    "channels_notificationModeTooltip",
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody",
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
+    "snrIndicator_unknownRepeater",
+    "snrIndicator_unknownRepeaterHint",
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "sk": [
-    "channels_notificationModeTooltip"
+    "settings_pathHashModeNotApplied",
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
+    "channels_notificationModeTooltip",
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody",
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
+    "snrIndicator_unknownRepeater",
+    "snrIndicator_unknownRepeaterHint",
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "sl": [
-    "channels_notificationModeTooltip"
+    "settings_pathHashModeNotApplied",
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
+    "channels_notificationModeTooltip",
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody",
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
+    "snrIndicator_unknownRepeater",
+    "snrIndicator_unknownRepeaterHint",
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "sv": [
-    "channels_notificationModeTooltip"
+    "settings_pathHashModeNotApplied",
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
+    "channels_notificationModeTooltip",
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody",
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
+    "snrIndicator_unknownRepeater",
+    "snrIndicator_unknownRepeaterHint",
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "uk": [
-    "channels_notificationModeTooltip"
+    "settings_pathHashModeNotApplied",
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
+    "channels_notificationModeTooltip",
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody",
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
+    "snrIndicator_unknownRepeater",
+    "snrIndicator_unknownRepeaterHint",
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "zh": [
-    "channels_notificationModeTooltip"
-    "settings_pathHashModeNotApplied"
-  ],
-
-  "de": [
-    "settings_pathHashModeNotApplied"
-  ],
-
-  "es": [
-    "settings_pathHashModeNotApplied"
-  ],
-
-  "fr": [
-    "settings_pathHashModeNotApplied"
-  ],
-
-  "hu": [
-    "settings_pathHashModeNotApplied"
-  ],
-
-  "it": [
-    "settings_pathHashModeNotApplied"
-  ],
-
-  "ja": [
-    "settings_pathHashModeNotApplied"
-  ],
-
-  "ko": [
-    "settings_pathHashModeNotApplied"
-  ],
-
-  "nl": [
-    "settings_pathHashModeNotApplied"
-  ],
-
-  "pl": [
-    "settings_pathHashModeNotApplied"
-  ],
-
-  "pt": [
-    "settings_pathHashModeNotApplied"
-  ],
-
-  "ru": [
-    "settings_pathHashModeNotApplied"
-  ],
-
-  "sk": [
-    "settings_pathHashModeNotApplied"
-  ],
-
-  "sl": [
-    "settings_pathHashModeNotApplied"
-  ],
-
-  "sv": [
-    "settings_pathHashModeNotApplied"
-  ],
-
-  "uk": [
-    "settings_pathHashModeNotApplied"
-  ],
-
-  "zh": [
-    "settings_pathHashModeNotApplied"
+    "settings_pathHashModeNotApplied",
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
+    "channels_notificationModeTooltip",
+    "map_pathTraceAddMoreHint",
+    "map_pathTraceModeRoundTrip",
+    "map_pathTraceModeRoundTripHint",
+    "map_pathTraceModeAsEntered",
+    "map_pathTraceModeAsEnteredHint",
+    "map_pathTraceViewLast",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody",
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
+    "snrIndicator_unknownRepeater",
+    "snrIndicator_unknownRepeaterHint",
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ]
 }

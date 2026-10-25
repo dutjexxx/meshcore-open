@@ -684,6 +684,16 @@ class MeshCoreConnector extends ChangeNotifier {
   bool? get autoAddSensors => _autoAddSensors;
   bool? get autoAddOverwriteOldest => _overwriteOldest;
 
+  /// Whether the radio stores adverts of [type] by itself, so a removed
+  /// contact of that type returns the next time it advertises.
+  bool autoAddsContactType(int type) => switch (type) {
+    advTypeChat => _autoAddUsers,
+    advTypeRepeater => _autoAddRepeaters,
+    advTypeRoom => _autoAddRoomServers,
+    advTypeSensor => _autoAddSensors,
+    _ => false,
+  };
+
   /// autoadd_max_hops from GET_AUTOADD_CONFIG (0 = no limit), null when the
   /// firmware did not report it (pre-v1.13).
   int? get autoAddMaxHops => _autoAddMaxHops;
@@ -4377,7 +4387,7 @@ class MeshCoreConnector extends ChangeNotifier {
     _pathOpLock = completer.future;
     await prev;
     try {
-      if (!isConnected) return;
+      if (!isConnected || !_isKnownContact(contact)) return;
 
       final width =
           pathHashWidth ??
@@ -4420,6 +4430,13 @@ class MeshCoreConnector extends ChangeNotifier {
     }
   }
 
+  /// Whether [contact] is still in the radio's contact list. The firmware's
+  /// CMD_ADD_UPDATE_CONTACT adds unknown keys, so path/flag writes for a
+  /// removed contact (e.g. a repeater screen still open after its old key was
+  /// deleted) would re-create it on the radio.
+  bool _isKnownContact(Contact contact) =>
+      _contacts.any((c) => c.publicKeyHex == contact.publicKeyHex);
+
   /// The advert timestamp the firmware holds for [contact] (Contact.lastSeen
   /// is parsed from that field); the stored copy is freshest.
   DateTime _deviceLastAdvert(Contact contact) {
@@ -4436,7 +4453,7 @@ class MeshCoreConnector extends ChangeNotifier {
     bool? teleLoc,
     bool? teleEnv,
   }) async {
-    if (!isConnected) return;
+    if (!isConnected || !_isKnownContact(contact)) return;
     final latestContact =
         await _fetchContactSnapshotFromDevice(contact.publicKey) ?? contact;
     int updatedFlags = isFavorite != null
@@ -5055,13 +5072,26 @@ class MeshCoreConnector extends ChangeNotifier {
   }) async {
     if (!isConnected) return;
 
+    // Only drop the contact locally once the radio confirms; otherwise the
+    // next contact sync restores it. ERR means the radio does not have it.
+    try {
+      await sendFrame(
+        buildRemoveContactFrame(contact.publicKey),
+        waitForGenericAck: true,
+      );
+    } on FirmwareCommandException catch (e) {
+      _appDebugLogService?.warn(
+        'Radio has no contact ${contact.publicKeyHex.substring(0, 8)} '
+        '(error ${e.errCode}); removing it locally',
+        tag: 'Connector',
+      );
+    }
+
     _handleDiscovery(
       contact,
       contact.rawPacket ?? Uint8List(0),
       noNotify: true,
     );
-
-    await sendFrame(buildRemoveContactFrame(contact.publicKey));
     _contactsStorageFull = false;
     _contacts.removeWhere((c) => c.publicKeyHex == contact.publicKeyHex);
     _knownContactKeys.remove(contact.publicKeyHex);
