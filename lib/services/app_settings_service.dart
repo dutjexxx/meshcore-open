@@ -332,6 +332,10 @@ class AppSettingsService extends ChangeNotifier {
     await updateSettings(_settings.copyWith(loadLinkImages: value));
   }
 
+  Future<void> setShowLinkImagesByDefault(bool value) async {
+    await updateSettings(_settings.copyWith(showLinkImagesByDefault: value));
+  }
+
   Future<void> setIpfsImageSettings({
     required String publicGateway,
     required String uploadGateway,

@@ -450,6 +450,13 @@ void main() {
       expect(AppSettings.fromJson(saved).loadLinkImages, isFalse);
     });
 
+    test('show link images by default is off and round-trips', () {
+      expect(AppSettings().showLinkImagesByDefault, isFalse);
+      expect(AppSettings.fromJson({}).showLinkImagesByDefault, isFalse);
+      final saved = AppSettings(showLinkImagesByDefault: true).toJson();
+      expect(AppSettings.fromJson(saved).showLinkImagesByDefault, isTrue);
+    });
+
     test('public IPFS gateway defaults to ipfs.io when never set', () {
       expect(
         AppSettings.fromJson({}).publicIpfsGateway,

@@ -150,6 +150,9 @@ class AppSettings {
 
   /// Master switch for fetching images behind links in messages.
   final bool loadLinkImages;
+
+  /// Chats with no saved link-image choice load link images when true.
+  final bool showLinkImagesByDefault;
   final String publicIpfsGateway;
   final String uploadIpfsGateway;
   final String uploadIpfsEndpoint;
@@ -275,6 +278,7 @@ class AppSettings {
     this.networkMapUploadEnabled = false,
     this.networkMapPromptShown = false,
     this.loadLinkImages = true,
+    this.showLinkImagesByDefault = false,
     this.publicIpfsGateway = defaultPublicIpfsGateway,
     this.uploadIpfsGateway = '',
     this.uploadIpfsEndpoint = '',
@@ -371,6 +375,7 @@ class AppSettings {
       'network_map_upload_enabled': networkMapUploadEnabled,
       'network_map_prompt_shown': networkMapPromptShown,
       'load_link_images': loadLinkImages,
+      'show_link_images_by_default': showLinkImagesByDefault,
       'public_ipfs_gateway': publicIpfsGateway,
       'upload_ipfs_gateway': uploadIpfsGateway,
       'upload_ipfs_endpoint': uploadIpfsEndpoint,
@@ -511,6 +516,8 @@ class AppSettings {
           json['network_map_upload_enabled'] as bool? ?? false,
       networkMapPromptShown: json['network_map_prompt_shown'] as bool? ?? false,
       loadLinkImages: json['load_link_images'] as bool? ?? true,
+      showLinkImagesByDefault:
+          json['show_link_images_by_default'] as bool? ?? false,
       publicIpfsGateway:
           json['public_ipfs_gateway'] as String? ?? defaultPublicIpfsGateway,
       uploadIpfsGateway: json['upload_ipfs_gateway'] as String? ?? '',
@@ -639,6 +646,7 @@ class AppSettings {
     bool? networkMapUploadEnabled,
     bool? networkMapPromptShown,
     bool? loadLinkImages,
+    bool? showLinkImagesByDefault,
     String? publicIpfsGateway,
     String? uploadIpfsGateway,
     String? uploadIpfsEndpoint,
@@ -734,6 +742,8 @@ class AppSettings {
       networkMapPromptShown:
           networkMapPromptShown ?? this.networkMapPromptShown,
       loadLinkImages: loadLinkImages ?? this.loadLinkImages,
+      showLinkImagesByDefault:
+          showLinkImagesByDefault ?? this.showLinkImagesByDefault,
       publicIpfsGateway: publicIpfsGateway ?? this.publicIpfsGateway,
       uploadIpfsGateway: uploadIpfsGateway ?? this.uploadIpfsGateway,
       uploadIpfsEndpoint: uploadIpfsEndpoint ?? this.uploadIpfsEndpoint,

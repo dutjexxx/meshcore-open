@@ -491,7 +491,7 @@ class MeshCoreConnector extends ChangeNotifier {
   List<Channel> _cachedChannels = [];
   final Map<int, bool> _channelSmazEnabled = {};
   final Map<int, bool> _channelCyr2LatEnabled = {};
-  final Map<int, bool> _channelUrlImagesEnabled = {};
+  final Map<int, bool?> _channelUrlImagesEnabled = {};
   final Map<int, String?> _channelCyr2LatProfileId = {};
   final Map<int, Region> _channelRegions = {};
   Region _defaultRegion = '';
@@ -501,7 +501,7 @@ class MeshCoreConnector extends ChangeNotifier {
   Uint8List? _defaultFloodScopeKey;
   final Map<String, bool> _contactSmazEnabled = {};
   final Map<String, bool> _contactCyr2LatEnabled = {};
-  final Map<String, bool> _contactUrlImagesEnabled = {};
+  final Map<String, bool?> _contactUrlImagesEnabled = {};
   final Map<String, String?> _contactCyr2LatProfileId = {};
   final Set<String> _knownContactKeys = {};
   final Map<String, int> _contactUnreadCount = {};
@@ -1059,13 +1059,25 @@ class MeshCoreConnector extends ChangeNotifier {
     return _contactSmazEnabled[contactKeyHex] ?? false;
   }
 
+  bool _lastShowLinkImagesByDefault = false;
+
+  void _onAppSettingsChanged() {
+    final showByDefault = _showLinkImagesByDefault;
+    if (showByDefault == _lastShowLinkImagesByDefault) return;
+    _lastShowLinkImagesByDefault = showByDefault;
+    notifyListeners();
+  }
+
+  bool get _showLinkImagesByDefault =>
+      _appSettingsService?.settings.showLinkImagesByDefault ?? false;
+
   bool isChannelUrlImagesEnabled(int channelIndex) {
-    return _channelUrlImagesEnabled[channelIndex] ?? false;
+    return _channelUrlImagesEnabled[channelIndex] ?? _showLinkImagesByDefault;
   }
 
   bool isContactUrlImagesEnabled(String contactKeyHex) {
     _ensureContactUrlImagesSettingLoaded(contactKeyHex);
-    return _contactUrlImagesEnabled[contactKeyHex] ?? false;
+    return _contactUrlImagesEnabled[contactKeyHex] ?? _showLinkImagesByDefault;
   }
 
   /// True when the channel has its own (real) region assigned.
@@ -1621,6 +1633,8 @@ class MeshCoreConnector extends ChangeNotifier {
     _retryService = retryService;
     _pathHistoryService = pathHistoryService;
     _appSettingsService = appSettingsService;
+    _lastShowLinkImagesByDefault = _showLinkImagesByDefault;
+    appSettingsService?.addListener(_onAppSettingsChanged);
     _translationService = translationService;
     _imageCodecService = imageCodecService;
     _imageTransport = imageTransport;
@@ -7320,7 +7334,7 @@ class MeshCoreConnector extends ChangeNotifier {
   void _ensureContactUrlImagesSettingLoaded(String contactKeyHex) {
     if (_contactUrlImagesEnabled.containsKey(contactKeyHex)) return;
     _contactSettingsStore.loadUrlImagesEnabled(contactKeyHex).then((enabled) {
-      if (_contactUrlImagesEnabled[contactKeyHex] == enabled) return;
+      if (_contactUrlImagesEnabled.containsKey(contactKeyHex)) return;
       _contactUrlImagesEnabled[contactKeyHex] = enabled;
       notifyListeners();
     });
@@ -8874,6 +8888,7 @@ class MeshCoreConnector extends ChangeNotifier {
   @override
   void dispose() {
     _disposed = true;
+    _appSettingsService?.removeListener(_onAppSettingsChanged);
     _scanSubscription?.cancel();
     _isScanningSubscription?.cancel();
     _connectionSubscription?.cancel();

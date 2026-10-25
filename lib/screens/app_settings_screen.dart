@@ -697,6 +697,22 @@ class AppSettingsScreen extends StatelessWidget {
           onChanged: settingsService.setLoadLinkImages,
         ),
         const Divider(height: 1, indent: 16),
+        SwitchListTile(
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 4,
+          ),
+          secondary: const Icon(Icons.collections_outlined, size: 24),
+          title: Text(context.l10n.appSettings_showLinkImagesByDefault),
+          subtitle: Text(
+            context.l10n.appSettings_showLinkImagesByDefaultSubtitle,
+          ),
+          value: settingsService.settings.showLinkImagesByDefault,
+          onChanged: settingsService.settings.loadLinkImages
+              ? settingsService.setShowLinkImagesByDefault
+              : null,
+        ),
+        const Divider(height: 1, indent: 16),
         ListTile(
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 16,

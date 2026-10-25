@@ -1984,6 +1984,18 @@ abstract class AppLocalizations {
   /// **'Show pictures from links in messages. Loading an image shares your IP address with the site that hosts it.'**
   String get appSettings_loadLinkImagesSubtitle;
 
+  /// No description provided for @appSettings_showLinkImagesByDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Show link images in all chats by default'**
+  String get appSettings_showLinkImagesByDefault;
+
+  /// No description provided for @appSettings_showLinkImagesByDefaultSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Load link images in every chat unless you turned them off there. This shares your IP address with image hosts in every chat.'**
+  String get appSettings_showLinkImagesByDefaultSubtitle;
+
   /// No description provided for @appSettings_publicIpfsGateway.
   ///
   /// In en, this message translates to:

@@ -1094,6 +1094,14 @@ class AppLocalizationsBg extends AppLocalizations {
       'Show pictures from links in messages. Loading an image shares your IP address with the site that hosts it.';
 
   @override
+  String get appSettings_showLinkImagesByDefault =>
+      'Show link images in all chats by default';
+
+  @override
+  String get appSettings_showLinkImagesByDefaultSubtitle =>
+      'Load link images in every chat unless you turned them off there. This shares your IP address with image hosts in every chat.';
+
+  @override
   String get appSettings_publicIpfsGateway => 'Public gateway';
 
   @override
