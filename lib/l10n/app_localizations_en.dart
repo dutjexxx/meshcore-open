@@ -1443,6 +1443,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get channels_editChannel => 'Edit channel';
 
   @override
+  String get channels_notificationSettings => 'Notification settings';
+
+  @override
+  String get channels_notifyAll => 'All messages';
+
+  @override
+  String get channels_notifyMentionsOnly => 'Mentions only';
+
+  @override
+  String get channels_notifyNone => 'Muted';
+
+  @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
+
+  @override
   String get channels_muteChannel => 'Mute channel';
 
   @override

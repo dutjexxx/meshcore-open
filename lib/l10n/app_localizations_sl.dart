@@ -1455,6 +1455,23 @@ class AppLocalizationsSl extends AppLocalizations {
   String get channels_editChannel => 'Uredi kanal';
 
   @override
+  String get channels_notificationSettings => 'Nastavitve obvestil';
+
+  @override
+  String get channels_notifyAll => 'Vsa sporočila';
+
+  @override
+  String get channels_notifyMentionsOnly => 'Samo omembe';
+
+  @override
+  String get channels_notifyNone => 'Utišano';
+
+  @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
+
+  @override
   String get channels_muteChannel => 'Utišaj kanal';
 
   @override

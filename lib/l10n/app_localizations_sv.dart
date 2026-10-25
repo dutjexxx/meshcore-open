@@ -1444,6 +1444,23 @@ class AppLocalizationsSv extends AppLocalizations {
   String get channels_editChannel => 'Redigera kanal';
 
   @override
+  String get channels_notificationSettings => 'Aviseringsinställningar';
+
+  @override
+  String get channels_notifyAll => 'Alla meddelanden';
+
+  @override
+  String get channels_notifyMentionsOnly => 'Endast omnämnanden';
+
+  @override
+  String get channels_notifyNone => 'Tyst';
+
+  @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
+
+  @override
   String get channels_muteChannel => 'Tysta kanal';
 
   @override

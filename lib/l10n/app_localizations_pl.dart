@@ -1480,6 +1480,23 @@ class AppLocalizationsPl extends AppLocalizations {
   String get channels_editChannel => 'Edytuj kanał';
 
   @override
+  String get channels_notificationSettings => 'Ustawienia powiadomień';
+
+  @override
+  String get channels_notifyAll => 'Wszystkie wiadomości';
+
+  @override
+  String get channels_notifyMentionsOnly => 'Tylko wzmianki';
+
+  @override
+  String get channels_notifyNone => 'Wyciszone';
+
+  @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
+
+  @override
   String get channels_muteChannel => 'Wycisz kanał';
 
   @override

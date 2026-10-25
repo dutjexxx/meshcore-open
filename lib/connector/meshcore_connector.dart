@@ -38,7 +38,8 @@ import '../services/image_codec_service.dart';
 import '../services/received_image_store.dart';
 import '../services/message_retry_service.dart';
 import '../services/path_history_service.dart';
-import '../services/app_settings_service.dart';
+import '../services/app_settings_service.dart'
+    show AppSettingsService, ChannelNotificationMode;
 import '../services/background_service.dart';
 import '../services/timeout_prediction_service.dart';
 import '../services/translation_service.dart';
@@ -1265,8 +1266,9 @@ class MeshCoreConnector extends ChangeNotifier {
   /// (notification shade, watch, or Android Auto).
   Future<void> handleNotificationReply(NotificationReply reply) async {
     if (reply.action == NotificationReplyAction.mute) {
-      await _appSettingsService?.muteChannel(
+      await _appSettingsService?.setChannelNotificationMode(
         _channelDisplayName(reply.channelIndex!),
+        ChannelNotificationMode.muted,
       );
       await _notificationService.clearChannelNotification(
         reply.channelIndex!,
@@ -7431,7 +7433,12 @@ class MeshCoreConnector extends ChangeNotifier {
     }
 
     final label = channelName ?? _channelDisplayName(channelIndex);
-    if (_appSettingsService!.isChannelMuted(label)) return;
+    final notificationMode = _appSettingsService!.getChannelNotificationMode(
+      label,
+    );
+
+    // Check if channel is muted
+    if (notificationMode == ChannelNotificationMode.muted) return;
 
     // Reuse translation result only if completed and non-empty; else use original text
     final resolvedText =
@@ -7440,6 +7447,14 @@ class MeshCoreConnector extends ChangeNotifier {
             translationResult.translatedText.trim().isNotEmpty)
         ? translationResult.translatedText.trim()
         : message.text.trim();
+
+    // Mentions are matched on the untranslated text.
+    if (notificationMode == ChannelNotificationMode.mentionsOnly) {
+      if (!textMentionsName(message.originalText ?? message.text, _selfName)) {
+        return;
+      }
+    }
+
     unawaited(() async {
       await _notificationService.showChannelMessageNotification(
         channelName: label,
@@ -7450,6 +7465,22 @@ class MeshCoreConnector extends ChangeNotifier {
         badgeCount: getTotalUnreadCount(),
       );
     }());
+  }
+
+  /// Whether [text] mentions [name], case-insensitively, as either
+  /// `@[name]` (the reply/mention prefix the app sends) or a plain `@name`.
+  /// The plain form needs a word boundary on both sides, so `@bobby` does
+  /// not mention `bob` and `x@bob.com` is not a mention. Names containing
+  /// spaces must be written out in full.
+  @visibleForTesting
+  static bool textMentionsName(String text, String? name) {
+    if (name == null || name.isEmpty) return false;
+    final escaped = RegExp.escape(name);
+    return RegExp(
+      '@\\[$escaped\\]|(?<![\\p{L}\\p{N}_])@$escaped(?![\\p{L}\\p{N}_])',
+      caseSensitive: false,
+      unicode: true,
+    ).hasMatch(text);
   }
 
   /// Handles RESP_CODE_CHANNEL_DATA_RECV (GRP_DATA). Frames whose dataType is
