@@ -4407,6 +4407,14 @@ class AppLocalizationsZh extends AppLocalizations {
   String get notification_activityTitle => 'MeshCore 活动';
 
   @override
+  String get notification_lowBatteryTitle => 'Low battery';
+
+  @override
+  String notification_lowBatteryBody(String deviceName, int percent) {
+    return '$deviceName battery is at $percent%';
+  }
+
+  @override
   String notification_messagesCount(int count) {
     return '$count 条消息';
   }
