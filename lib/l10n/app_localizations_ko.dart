@@ -408,6 +408,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_radioSettingsNotApplied => '라디오가 이 설정을 적용하지 않았습니다';
 
   @override
+  String get settings_pathHashModeNotApplied =>
+      'Radio settings were applied, but the radio did not confirm the new path hash size';
+
+  @override
   String get settings_regionSettings => '지역';
 
   @override
@@ -1397,6 +1401,23 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get channels_editChannel => '채널 편집';
+
+  @override
+  String get channels_notificationSettings => '알림 설정';
+
+  @override
+  String get channels_notifyAll => '모든 메시지';
+
+  @override
+  String get channels_notifyMentionsOnly => '언급만';
+
+  @override
+  String get channels_notifyNone => '음소거';
+
+  @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
 
   @override
   String get channels_muteChannel => '음소거 채널';
@@ -4537,6 +4558,14 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get notification_activityTitle => '메쉬코어 활동';
+
+  @override
+  String get notification_lowBatteryTitle => 'Low battery';
+
+  @override
+  String notification_lowBatteryBody(String deviceName, int percent) {
+    return '$deviceName battery is at $percent%';
+  }
 
   @override
   String notification_messagesCount(int count) {

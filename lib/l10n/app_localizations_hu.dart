@@ -424,6 +424,10 @@ class AppLocalizationsHu extends AppLocalizations {
       'A rádió nem alkalmazta ezeket a beállításokat';
 
   @override
+  String get settings_pathHashModeNotApplied =>
+      'Radio settings were applied, but the radio did not confirm the new path hash size';
+
+  @override
   String get settings_regionSettings => 'Tájak';
 
   @override
@@ -1460,6 +1464,23 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get channels_editChannel => 'Csatorna szerkesztése';
+
+  @override
+  String get channels_notificationSettings => 'Értesítési beállítások';
+
+  @override
+  String get channels_notifyAll => 'Összes üzenet';
+
+  @override
+  String get channels_notifyMentionsOnly => 'Csak említések';
+
+  @override
+  String get channels_notifyNone => 'Némít';
+
+  @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
 
   @override
   String get channels_muteChannel => 'Csatorna némítása';
@@ -4754,6 +4775,14 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get notification_activityTitle => 'MeshCore tevékenység';
+
+  @override
+  String get notification_lowBatteryTitle => 'Low battery';
+
+  @override
+  String notification_lowBatteryBody(String deviceName, int percent) {
+    return '$deviceName battery is at $percent%';
+  }
 
   @override
   String notification_messagesCount(int count) {

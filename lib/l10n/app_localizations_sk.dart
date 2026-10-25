@@ -427,6 +427,10 @@ class AppLocalizationsSk extends AppLocalizations {
       'Rádio tieto nastavenia neuplatnilo';
 
   @override
+  String get settings_pathHashModeNotApplied =>
+      'Radio settings were applied, but the radio did not confirm the new path hash size';
+
+  @override
   String get settings_regionSettings => 'Regiony';
 
   @override
@@ -1459,6 +1463,23 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get channels_editChannel => 'Upraviť kanál';
+
+  @override
+  String get channels_notificationSettings => 'Nastavenia notifikácií';
+
+  @override
+  String get channels_notifyAll => 'Všetky správy';
+
+  @override
+  String get channels_notifyMentionsOnly => 'Iba zmienky';
+
+  @override
+  String get channels_notifyNone => 'Stíšené';
+
+  @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
 
   @override
   String get channels_muteChannel => 'Stlmiť kanál';
@@ -4740,6 +4761,14 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get notification_activityTitle => 'Aktivita MeshCore';
+
+  @override
+  String get notification_lowBatteryTitle => 'Low battery';
+
+  @override
+  String notification_lowBatteryBody(String deviceName, int percent) {
+    return '$deviceName battery is at $percent%';
+  }
 
   @override
   String notification_messagesCount(int count) {

@@ -10,7 +10,8 @@ import 'package:uuid/uuid.dart';
 
 import '../connector/meshcore_connector.dart';
 import '../l10n/l10n.dart';
-import '../services/app_settings_service.dart';
+import '../services/app_settings_service.dart'
+    show AppSettingsService, ChannelNotificationMode;
 import '../services/ui_view_state_service.dart';
 import '../models/channel.dart';
 import '../models/community.dart';
@@ -19,6 +20,7 @@ import '../theme/mesh_theme.dart';
 import '../utils/dialog_utils.dart';
 import '../utils/disconnect_navigation_mixin.dart';
 import '../utils/route_transitions.dart';
+import '../widgets/channel_notification_mode_sheet.dart';
 import '../widgets/list_filter_widget.dart';
 import '../widgets/empty_state.dart';
 import '../widgets/mesh_ui.dart';
@@ -372,9 +374,9 @@ class _ChannelsScreenState extends State<ChannelsScreen>
     int listIndex = 0,
   }) {
     final unreadCount = connector.getUnreadCountForChannel(channel);
-    final isMuted = context.watch<AppSettingsService>().isChannelMuted(
-      channel.muteKey,
-    );
+    final notificationMode = context
+        .watch<AppSettingsService>()
+        .getChannelNotificationMode(channel.muteKey);
     final scheme = Theme.of(context).colorScheme;
 
     // Determine icon and colors based on channel type
@@ -580,9 +582,9 @@ class _ChannelsScreenState extends State<ChannelsScreen>
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (isMuted) ...[
+                    if (notificationMode != ChannelNotificationMode.all) ...[
                       Icon(
-                        Icons.notifications_off,
+                        channelNotificationModeIcon(notificationMode),
                         size: 18,
                         color: scheme.onSurfaceVariant,
                       ),
@@ -625,8 +627,6 @@ class _ChannelsScreenState extends State<ChannelsScreen>
     Channel channel,
   ) {
     final parentContext = context;
-    final settingsService = context.read<AppSettingsService>();
-    final isMuted = settingsService.isChannelMuted(channel.muteKey);
 
     showMeshSheet(
       parentContext,
@@ -645,23 +645,19 @@ class _ChannelsScreenState extends State<ChannelsScreen>
                 }
               },
             ),
+            // Notification mode selection
             ListTile(
-              leading: Icon(
-                isMuted
-                    ? Icons.notifications_outlined
-                    : Icons.notifications_off_outlined,
-              ),
-              title: Text(
-                isMuted
-                    ? sheetContext.l10n.channels_unmuteChannel
-                    : sheetContext.l10n.channels_muteChannel,
-              ),
+              leading: const Icon(Icons.notifications_outlined),
+              title: Text(sheetContext.l10n.channels_notificationSettings),
+              trailing: const Icon(Icons.chevron_right),
               onTap: () async {
                 Navigator.pop(sheetContext);
-                if (isMuted) {
-                  await settingsService.unmuteChannel(channel.muteKey);
-                } else {
-                  await settingsService.muteChannel(channel.muteKey);
+                await Future.delayed(const Duration(milliseconds: 100));
+                if (parentContext.mounted) {
+                  showChannelNotificationModeSheet(
+                    parentContext,
+                    channel.muteKey,
+                  );
                 }
               },
             ),

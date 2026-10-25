@@ -402,6 +402,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settings_radioSettingsNotApplied => '收音机未应用这些设置';
 
   @override
+  String get settings_pathHashModeNotApplied =>
+      'Radio settings were applied, but the radio did not confirm the new path hash size';
+
+  @override
   String get settings_regionSettings => '地区';
 
   @override
@@ -1374,6 +1378,23 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get channels_editChannel => '编辑频道';
+
+  @override
+  String get channels_notificationSettings => '通知设置';
+
+  @override
+  String get channels_notifyAll => '所有消息';
+
+  @override
+  String get channels_notifyMentionsOnly => '仅提及';
+
+  @override
+  String get channels_notifyNone => '静音';
+
+  @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
 
   @override
   String get channels_muteChannel => '静音频道';
@@ -4434,6 +4455,14 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get notification_activityTitle => 'MeshCore 活动';
+
+  @override
+  String get notification_lowBatteryTitle => 'Low battery';
+
+  @override
+  String notification_lowBatteryBody(String deviceName, int percent) {
+    return '$deviceName battery is at $percent%';
+  }
 
   @override
   String notification_messagesCount(int count) {

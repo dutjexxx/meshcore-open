@@ -427,6 +427,10 @@ class AppLocalizationsRu extends AppLocalizations {
       'Радиомодуль не применил эти настройки';
 
   @override
+  String get settings_pathHashModeNotApplied =>
+      'Radio settings were applied, but the radio did not confirm the new path hash size';
+
+  @override
   String get settings_regionSettings => 'Регионы';
 
   @override
@@ -1471,6 +1475,23 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get channels_editChannel => 'Изменить канал';
+
+  @override
+  String get channels_notificationSettings => 'Настройки уведомлений';
+
+  @override
+  String get channels_notifyAll => 'Все сообщения';
+
+  @override
+  String get channels_notifyMentionsOnly => 'Только упоминания';
+
+  @override
+  String get channels_notifyNone => 'Без звука';
+
+  @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
 
   @override
   String get channels_muteChannel => 'Отключить уведомления канала';
@@ -4767,6 +4788,14 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get notification_activityTitle => 'Активность MeshCore';
+
+  @override
+  String get notification_lowBatteryTitle => 'Low battery';
+
+  @override
+  String notification_lowBatteryBody(String deviceName, int percent) {
+    return '$deviceName battery is at $percent%';
+  }
 
   @override
   String notification_messagesCount(int count) {

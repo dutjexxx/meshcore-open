@@ -424,6 +424,10 @@ class AppLocalizationsNl extends AppLocalizations {
       'De radio heeft deze instellingen niet toegepast';
 
   @override
+  String get settings_pathHashModeNotApplied =>
+      'Radio settings were applied, but the radio did not confirm the new path hash size';
+
+  @override
   String get settings_regionSettings => 'Regio\'s';
 
   @override
@@ -1456,6 +1460,23 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get channels_editChannel => 'Kanaal bewerken';
+
+  @override
+  String get channels_notificationSettings => 'Meldingsinstellingen';
+
+  @override
+  String get channels_notifyAll => 'Alle berichten';
+
+  @override
+  String get channels_notifyMentionsOnly => 'Alleen vermeldingen';
+
+  @override
+  String get channels_notifyNone => 'Gedempt';
+
+  @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
 
   @override
   String get channels_muteChannel => 'Kanaal dempen';
@@ -4732,6 +4753,14 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get notification_activityTitle => 'MeshCore Activiteit';
+
+  @override
+  String get notification_lowBatteryTitle => 'Low battery';
+
+  @override
+  String notification_lowBatteryBody(String deviceName, int percent) {
+    return '$deviceName battery is at $percent%';
+  }
 
   @override
   String notification_messagesCount(int count) {
