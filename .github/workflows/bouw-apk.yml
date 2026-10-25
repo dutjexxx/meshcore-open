@@ -8,8 +8,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
-      - name: Spraakwijzigingen toepassen
-        run: git apply --exclude='.github/*' voice-patch.patch
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
