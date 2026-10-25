@@ -28,7 +28,14 @@ ScannedChannel? parseChannelQr(String data) {
   );
   if (normalizedPath != 'channel/add') return null;
 
-  final params = uri.queryParameters;
+  // Decoding throws on malformed percent-encoding (e.g. `name=%FF`); the
+  // scanner calls this from its validator, so treat that as not a channel QR.
+  final Map<String, String> params;
+  try {
+    params = uri.queryParameters;
+  } on FormatException {
+    return null;
+  }
   final name = (params['name'] ?? '').trim();
   if (name.isEmpty) return null;
 

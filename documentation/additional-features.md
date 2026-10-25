@@ -76,19 +76,25 @@ An optional per-contact and per-channel text compression feature using the SMAZ 
 
 ---
 
-## Community QR Scanner
+## Channel and Community QR Scanner
 
 ### How to Access
-From Channels screen → "+" FAB → "Scan Community QR"
+From Channels screen → "+" FAB → "Scan a QR Code"
 
 ### What the User Sees
 A live QR scanner view with instruction text overlay.
 
 ### Key Interactions
-- Scan a community QR code shared by another member
-- On valid scan: confirmation dialog showing community name and ID
-- Option to "Add public channel to device" on join
-- If already a member: shows an "Already a member" dialog
+- **Community QR code** (shared by another member):
+  - On valid scan: confirmation dialog showing community name and ID
+  - Option to "Add public channel to device" on join
+  - If already a member: shows an "Already a member" dialog
+- **Channel QR code** (official MeshCore format, `meshcore://channel/add?name=…&secret=…`, as shared by the official app and sites like ipnt.uk):
+  - On valid scan: confirmation dialog asking to add the named channel to the radio
+  - The channel goes into the next free slot; if every slot is used, or the channel list is still syncing from the radio, a snackbar explains why and nothing is written
+  - If a channel with the same secret is already on the radio, a snackbar says so and scanning continues
+  - Names longer than the radio's 31-byte limit are shortened
+  - The optional `region_scope` parameter is not applied; set the channel's region manually afterwards
 - Invalid QR: shows an orange error snackbar
 
 ---

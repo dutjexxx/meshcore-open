@@ -52,6 +52,12 @@ void main() {
         isNull,
       );
       expect(parseChannelQr('https://ipnt.uk/channels'), isNull);
+      expect(
+        parseChannelQr(
+          'meshcore://channel/add?name=%FF&secret=8b3387e9c5cdea6ac9e5edbaa115cd72',
+        ),
+        isNull,
+      );
       expect(parseChannelQr('{"type":"meshcore_community"}'), isNull);
       expect(parseChannelQr(''), isNull);
     });
