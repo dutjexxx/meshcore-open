@@ -133,47 +133,71 @@ class VoiceService extends ChangeNotifier {
     return _sttReady;
   }
 
+  Timer? _deliverTimer;
+  void Function(String error)? _onNothing;
+
   void _onSttError(SpeechRecognitionError error) {
     _lastError = error.errorMsg;
     debugPrint('[Voice] STT error: ${error.errorMsg}');
-    // "no match"/"speech timeout" just mean nothing was heard.
-    _finishListening();
+    _setListening(false);
+    _scheduleDeliver(const Duration(milliseconds: 300));
   }
 
   void _onSttStatus(String status) {
+    // The engine reports "notListening"/"done" as soon as the button is
+    // released, usually BEFORE the final result arrives. So only mark the
+    // microphone as off here and wait a moment for the final text.
     if (status == 'done' || status == 'notListening') {
-      _finishListening();
+      _setListening(false);
+      _scheduleDeliver(const Duration(milliseconds: 1200));
     }
   }
 
-  void _finishListening() {
-    final wasListening = _listening;
-    _listening = false;
-    if (wasListening) notifyListeners();
-    if (!_finalDelivered) {
-      _finalDelivered = true;
-      final text = _latestWords.trim();
-      if (text.isNotEmpty) _onFinal?.call(text);
+  void _setListening(bool value) {
+    if (_listening == value) return;
+    _listening = value;
+    notifyListeners();
+  }
+
+  void _scheduleDeliver(Duration delay) {
+    if (_finalDelivered) return;
+    _deliverTimer?.cancel();
+    _deliverTimer = Timer(delay, _deliver);
+  }
+
+  void _deliver() {
+    if (_finalDelivered) return;
+    _finalDelivered = true;
+    _deliverTimer?.cancel();
+    final text = _latestWords.trim();
+    if (text.isNotEmpty) {
+      _onFinal?.call(text);
+    } else {
+      _onNothing?.call(_lastError);
     }
   }
 
   /// Starts listening. Returns false (and sets [lastError]) if the
   /// microphone permission or speech engine is not available.
+  /// [onNothing] is called with the engine's error code when nothing was
+  /// recognized.
   Future<bool> startListening({
     required void Function(String text) onFinal,
+    void Function(String error)? onNothing,
   }) async {
     if (_listening) return true;
     await stopSpeaking(); // never listen while talking
+    _deliverTimer?.cancel();
     _lastError = '';
     if (!await _initStt()) {
       if (_lastError.isEmpty) _lastError = 'speech_unavailable';
       return false;
     }
     _onFinal = onFinal;
+    _onNothing = onNothing;
     _latestWords = '';
     _finalDelivered = false;
-    _listening = true;
-    notifyListeners();
+    _setListening(true);
     try {
       await _stt.listen(
         onResult: _onSttResult,
@@ -189,8 +213,7 @@ class VoiceService extends ChangeNotifier {
       );
     } catch (e) {
       _lastError = '$e';
-      _listening = false;
-      notifyListeners();
+      _setListening(false);
       return false;
     }
     return true;
@@ -198,18 +221,19 @@ class VoiceService extends ChangeNotifier {
 
   void _onSttResult(SpeechRecognitionResult result) {
     _latestWords = result.recognizedWords;
-    if (result.finalResult) _finishListening();
+    if (result.finalResult) {
+      _setListening(false);
+      _deliver();
+    }
   }
 
-  /// Stops listening; the recognized text is delivered to the callback.
+  /// Stops listening; the recognized text is delivered to the callback
+  /// once the engine has produced its final result.
   Future<void> stopListening() async {
-    if (!_listening) return;
     try {
       await _stt.stop();
     } catch (_) {}
-    // Give the engine a moment to flush the final result.
-    await Future<void>.delayed(const Duration(milliseconds: 600));
-    _finishListening();
+    _scheduleDeliver(const Duration(milliseconds: 1500));
   }
 
   /// Languages the speech engine offers, for the settings dialog.
