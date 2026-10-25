@@ -22,6 +22,7 @@ import 'package:meshcore_open/helpers/snack_bar_builder.dart';
 import 'package:meshcore_open/widgets/path_map_scaffold.dart';
 import 'package:meshcore_open/widgets/path_map_ui.dart';
 import 'package:meshcore_open/widgets/snr_indicator.dart';
+import 'package:meshcore_open/widgets/set_my_location_dialog.dart';
 import 'package:provider/provider.dart';
 import '../theme/mesh_theme.dart';
 
@@ -236,6 +237,16 @@ class _PathTraceMapScreenState extends State<PathTraceMapScreen>
     if (!mounted || !_hasData) return;
     setState(() {
       _rebuildDisplayPaths(context.read<MeshCoreConnector>());
+    });
+  }
+
+  Future<void> _setMyLocation(LatLng point) async {
+    final connector = context.read<MeshCoreConnector>();
+    final ok = await confirmAndSetMyLocation(context, connector, point);
+    if (!ok || !mounted || !_hasData) return;
+    // Display paths start at the self position, so redraw them from it.
+    setState(() {
+      _rebuildDisplayPaths(connector);
     });
   }
 
@@ -1497,6 +1508,8 @@ class _PathTraceMapScreenState extends State<PathTraceMapScreen>
         initialCenter: _initialCenter!,
         initialZoom: _initialZoom,
         bounds: _bounds,
+        onLongPress: (_, point) => _setMyLocation(point),
+        onSecondaryTap: (_, point) => _setMyLocation(point),
         onPositionChanged: (camera, hasGesture) {
           if (!mounted) return;
           // A manual pan/zoom releases the follow lock.
