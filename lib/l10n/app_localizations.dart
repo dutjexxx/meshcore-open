@@ -2320,6 +2320,18 @@ abstract class AppLocalizations {
   /// **'Remove'**
   String get contacts_remove;
 
+  /// No description provided for @contacts_removeAutoAddNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Your radio auto-adds this contact type, so it will come back the next time it advertises. Turn off auto-add in Contacts settings to keep it removed.'**
+  String get contacts_removeAutoAddNote;
+
+  /// No description provided for @contacts_removeFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The radio did not confirm the removal. The contact was not removed.'**
+  String get contacts_removeFailed;
+
   /// No description provided for @contacts_discoveredNearby.
   ///
   /// In en, this message translates to:
@@ -4281,6 +4293,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Path trace cancelled.'**
   String get map_pathTraceCancelled;
+
+  /// No description provided for @map_pathTraceAddMoreHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap more nodes to add hops, choose how the trace returns, then tap Run path trace.'**
+  String get map_pathTraceAddMoreHint;
+
+  /// No description provided for @map_pathTraceModeRoundTrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Round trip'**
+  String get map_pathTraceModeRoundTrip;
+
+  /// No description provided for @map_pathTraceModeRoundTripHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The trace goes out through these hops and comes back the same way.'**
+  String get map_pathTraceModeRoundTripHint;
+
+  /// No description provided for @map_pathTraceModeAsEntered.
+  ///
+  /// In en, this message translates to:
+  /// **'As entered'**
+  String get map_pathTraceModeAsEntered;
+
+  /// No description provided for @map_pathTraceModeAsEnteredHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The trace follows these hops exactly. Add the hops back to you yourself.'**
+  String get map_pathTraceModeAsEnteredHint;
+
+  /// No description provided for @map_pathTraceViewLast.
+  ///
+  /// In en, this message translates to:
+  /// **'View last result'**
+  String get map_pathTraceViewLast;
 
   /// No description provided for @mapCache_title.
   ///
@@ -8186,6 +8234,36 @@ abstract class AppLocalizations {
   /// **'Received new message'**
   String get notification_receivedNewMessage;
 
+  /// No description provided for @notification_sharedLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared a location'**
+  String get notification_sharedLocation;
+
+  /// No description provided for @notification_sharedLocationNamed.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared a location: {label}'**
+  String notification_sharedLocationNamed(String label);
+
+  /// No description provided for @notification_reacted.
+  ///
+  /// In en, this message translates to:
+  /// **'Reacted {emoji}'**
+  String notification_reacted(String emoji);
+
+  /// No description provided for @notification_sentGif.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent a GIF'**
+  String get notification_sentGif;
+
+  /// No description provided for @notification_sentImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent an image'**
+  String get notification_sentImage;
+
   /// No description provided for @notification_actionReply.
   ///
   /// In en, this message translates to:
@@ -8359,6 +8437,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Repeaters your radio heard directly, most recently heard first.'**
   String get snrIndicator_nearByRepeatersDescription;
+
+  /// No description provided for @snrIndicator_unknownRepeater.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown repeater'**
+  String get snrIndicator_unknownRepeater;
+
+  /// No description provided for @snrIndicator_unknownRepeaterHint.
+  ///
+  /// In en, this message translates to:
+  /// **'This repeater isn\'t in your contacts yet. Its name, location and options appear once your radio receives its advert.'**
+  String get snrIndicator_unknownRepeaterHint;
 
   /// No description provided for @contactsSettings_title.
   ///
@@ -10381,6 +10471,12 @@ abstract class AppLocalizations {
   /// **'Manage groups'**
   String get contacts_manageGroups;
 
+  /// No description provided for @contacts_keyPrefixSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Key prefix {prefix}'**
+  String contacts_keyPrefixSemantics(String prefix);
+
   /// No description provided for @community_shortId.
   ///
   /// In en, this message translates to:
@@ -10518,6 +10614,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Both'**
   String get networkMap_sourceBoth;
+
+  /// No description provided for @networkMap_sourceLocalHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Nodes your radio has heard'**
+  String get networkMap_sourceLocalHint;
+
+  /// No description provided for @networkMap_sourceOnlineHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeaters from the online network map'**
+  String get networkMap_sourceOnlineHint;
+
+  /// No description provided for @networkMap_sourceBothHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your radio\'s nodes plus the online network map'**
+  String get networkMap_sourceBothHint;
 
   /// No description provided for @networkMap_zoomInHint.
   ///

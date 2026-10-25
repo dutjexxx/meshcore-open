@@ -103,9 +103,17 @@ Shows node count and pin count. Tappable to expand a legend of all marker types.
 ## Path Trace Map
 
 ### How to Access
-- From the main map's radar icon
+- From the main map's menu → **Path Trace** (build your own route, see below)
 - From a contact's long-press menu → "Path Trace / Ping"
 - From a message's path view → radar icon
+
+### Building a Custom Trace on the Map
+1. Open the map menu and choose **Path Trace**. A panel appears at the top of the map.
+2. Tap nodes on the map in the order the trace should travel. **Remove Last** and **Clear** edit the list.
+3. Choose **Round trip** (the trace comes back along the same hops) or **As entered** (the hops are used exactly as listed, so add the return hops yourself).
+4. Tap **Run path trace**. Nothing is sent until you press this button.
+
+Returning from the result keeps your hops, mode and the last result (**View last result** reopens it without sending again). **Close** or the back button hides the panel without discarding the hops; reopening **Path Trace** during the same session resumes where you left off. The hops are dropped when you connect to a different radio.
 
 ### What the User Sees
 A map with a polyline showing the route from your node through repeater hops to the target:
