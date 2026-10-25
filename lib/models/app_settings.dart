@@ -29,6 +29,8 @@ String migratePublicIpfsGateway(String? value) {
   return gateway;
 }
 
+enum ChannelNotificationMode { all, mentionsOnly, muted }
+
 extension UnitSystemValue on UnitSystem {
   String get value {
     switch (this) {
@@ -150,7 +152,7 @@ class AppSettings {
   final Map<String, String> batteryChemistryByDeviceId;
   final Map<String, String> batteryChemistryByRepeaterId;
   final UnitSystem unitSystem;
-  final Set<String> mutedChannels;
+  final Map<String, ChannelNotificationMode> channelNotificationModes;
   final bool mapShowDiscoveryContacts;
   final bool evictDiscoveredContactsEnabled;
   final String tcpServerAddress;
@@ -273,7 +275,7 @@ class AppSettings {
     Map<String, String>? batteryChemistryByDeviceId,
     Map<String, String>? batteryChemistryByRepeaterId,
     this.unitSystem = UnitSystem.metric,
-    Set<String>? mutedChannels,
+    Map<String, ChannelNotificationMode>? channelNotificationModes,
     this.mapShowDiscoveryContacts = true,
     this.evictDiscoveredContactsEnabled = true,
     this.tcpServerAddress = '',
@@ -303,7 +305,7 @@ class AppSettings {
     String? selectedCyr2latProfileId,
   }) : batteryChemistryByDeviceId = batteryChemistryByDeviceId ?? {},
        batteryChemistryByRepeaterId = batteryChemistryByRepeaterId ?? {},
-       mutedChannels = mutedChannels ?? {},
+       channelNotificationModes = channelNotificationModes ?? {},
        imageCodecDownloadedModels = imageCodecDownloadedModels ?? const [],
        translationDownloadedModels = translationDownloadedModels ?? const [],
        cyr2latProfiles =
@@ -361,7 +363,14 @@ class AppSettings {
       'battery_chemistry_by_device_id': batteryChemistryByDeviceId,
       'battery_chemistry_by_repeater_id': batteryChemistryByRepeaterId,
       'unit_system': unitSystem.value,
-      'muted_channels': mutedChannels.toList(),
+      // Written for older builds that only read the muted set.
+      'muted_channels': [
+        for (final entry in channelNotificationModes.entries)
+          if (entry.value == ChannelNotificationMode.muted) entry.key,
+      ],
+      'channel_notification_modes': channelNotificationModes.map(
+        (key, value) => MapEntry(key, value.name),
+      ),
       'map_show_discovery_contacts': mapShowDiscoveryContacts,
       'evict_discovered_contacts_enabled': evictDiscoveredContactsEnabled,
       'tcp_server_address': tcpServerAddress,
@@ -404,6 +413,35 @@ class AppSettings {
         return UnitSystem.imperial;
       }
       return UnitSystem.metric;
+    }
+
+    Map<String, ChannelNotificationMode> parseChannelNotificationModes(
+      Map<String, dynamic> json,
+    ) {
+      // Migration from old muted_channels (Set<String>) to new system
+      final mutedList = json['muted_channels'] as List?;
+      final newModes = json['channel_notification_modes'] as Map?;
+
+      final result = <String, ChannelNotificationMode>{};
+
+      // Migrate old muted channels
+      if (mutedList != null) {
+        for (final channelName in mutedList) {
+          result[channelName.toString()] = ChannelNotificationMode.muted;
+        }
+      }
+
+      // Load new modes (overrides old muted channels if present)
+      if (newModes != null) {
+        for (final entry in newModes.entries) {
+          final value = entry.value;
+          if (value is! String) continue;
+          final mode = ChannelNotificationMode.values.asNameMap()[value];
+          if (mode != null) result[entry.key.toString()] = mode;
+        }
+      }
+
+      return result;
     }
 
     return AppSettings(
@@ -468,11 +506,7 @@ class AppSettings {
           ) ??
           {},
       unitSystem: parseUnitSystem(json['unit_system']),
-      mutedChannels:
-          ((json['muted_channels'] as List?)
-              ?.map((e) => e.toString())
-              .toSet()) ??
-          {},
+      channelNotificationModes: parseChannelNotificationModes(json),
       mapShowDiscoveryContacts:
           json['map_show_discovery_contacts'] as bool? ?? true,
       evictDiscoveredContactsEnabled:
@@ -603,7 +637,7 @@ class AppSettings {
     Map<String, String>? batteryChemistryByDeviceId,
     Map<String, String>? batteryChemistryByRepeaterId,
     UnitSystem? unitSystem,
-    Set<String>? mutedChannels,
+    Map<String, ChannelNotificationMode>? channelNotificationModes,
     bool? mapShowDiscoveryContacts,
     bool? evictDiscoveredContactsEnabled,
     String? tcpServerAddress,
@@ -692,7 +726,8 @@ class AppSettings {
       batteryChemistryByRepeaterId:
           batteryChemistryByRepeaterId ?? this.batteryChemistryByRepeaterId,
       unitSystem: unitSystem ?? this.unitSystem,
-      mutedChannels: mutedChannels ?? this.mutedChannels,
+      channelNotificationModes:
+          channelNotificationModes ?? this.channelNotificationModes,
       mapShowDiscoveryContacts:
           mapShowDiscoveryContacts ?? this.mapShowDiscoveryContacts,
       evictDiscoveredContactsEnabled:

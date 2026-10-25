@@ -408,6 +408,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_radioSettingsNotApplied => '라디오가 이 설정을 적용하지 않았습니다';
 
   @override
+  String get settings_pathHashModeNotApplied =>
+      'Radio settings were applied, but the radio did not confirm the new path hash size';
+
+  @override
   String get settings_regionSettings => '지역';
 
   @override
@@ -1267,6 +1271,14 @@ class AppLocalizationsKo extends AppLocalizations {
   String get contacts_remove => '제거';
 
   @override
+  String get contacts_removeAutoAddNote =>
+      'Your radio auto-adds this contact type, so it will come back the next time it advertises. Turn off auto-add in Contacts settings to keep it removed.';
+
+  @override
+  String get contacts_removeFailed =>
+      'The radio did not confirm the removal. The contact was not removed.';
+
+  @override
   String contacts_discoveredNearby(int count) {
     return '주변에서 발견됨($count)';
   }
@@ -1435,6 +1447,23 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get channels_editChannel => '채널 편집';
+
+  @override
+  String get channels_notificationSettings => '알림 설정';
+
+  @override
+  String get channels_notifyAll => '모든 메시지';
+
+  @override
+  String get channels_notifyMentionsOnly => '언급만';
+
+  @override
+  String get channels_notifyNone => '음소거';
+
+  @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
 
   @override
   String get channels_muteChannel => '음소거 채널';
@@ -2339,6 +2368,27 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get map_pathTraceCancelled => '경로 추적 기능이 취소되었습니다.';
+
+  @override
+  String get map_pathTraceAddMoreHint =>
+      'Tap more nodes to add hops, choose how the trace returns, then tap Run path trace.';
+
+  @override
+  String get map_pathTraceModeRoundTrip => 'Round trip';
+
+  @override
+  String get map_pathTraceModeRoundTripHint =>
+      'The trace goes out through these hops and comes back the same way.';
+
+  @override
+  String get map_pathTraceModeAsEntered => 'As entered';
+
+  @override
+  String get map_pathTraceModeAsEnteredHint =>
+      'The trace follows these hops exactly. Add the hops back to you yourself.';
+
+  @override
+  String get map_pathTraceViewLast => 'View last result';
 
   @override
   String get mapCache_title => '오프라인 지도 캐시';
@@ -4568,6 +4618,14 @@ class AppLocalizationsKo extends AppLocalizations {
   String get notification_activityTitle => '메쉬코어 활동';
 
   @override
+  String get notification_lowBatteryTitle => 'Low battery';
+
+  @override
+  String notification_lowBatteryBody(String deviceName, int percent) {
+    return '$deviceName battery is at $percent%';
+  }
+
+  @override
   String notification_messagesCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
@@ -4607,6 +4665,25 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get notification_receivedNewMessage => '새로운 메시지를 받았습니다';
+
+  @override
+  String get notification_sharedLocation => 'Shared a location';
+
+  @override
+  String notification_sharedLocationNamed(String label) {
+    return 'Shared a location: $label';
+  }
+
+  @override
+  String notification_reacted(String emoji) {
+    return 'Reacted $emoji';
+  }
+
+  @override
+  String get notification_sentGif => 'Sent a GIF';
+
+  @override
+  String get notification_sentImage => 'Sent an image';
 
   @override
   String get notification_actionReply => '답장';
@@ -4702,6 +4779,13 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get snrIndicator_nearByRepeatersDescription =>
       '이 라디오가 직접 들은 리피터입니다. 가장 최근에 들은 순으로 표시됩니다.';
+
+  @override
+  String get snrIndicator_unknownRepeater => 'Unknown repeater';
+
+  @override
+  String get snrIndicator_unknownRepeaterHint =>
+      'This repeater isn\'t in your contacts yet. Its name, location and options appear once your radio receives its advert.';
 
   @override
   String get contactsSettings_title => '연락처 설정';
@@ -5947,6 +6031,11 @@ class AppLocalizationsKo extends AppLocalizations {
   String get contacts_manageGroups => '그룹 관리';
 
   @override
+  String contacts_keyPrefixSemantics(String prefix) {
+    return 'Key prefix $prefix';
+  }
+
+  @override
   String community_shortId(String id) {
     return 'ID: $id…';
   }
@@ -6027,6 +6116,17 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get networkMap_sourceBoth => '모두';
+
+  @override
+  String get networkMap_sourceLocalHint => 'Nodes your radio has heard';
+
+  @override
+  String get networkMap_sourceOnlineHint =>
+      'Repeaters from the online network map';
+
+  @override
+  String get networkMap_sourceBothHint =>
+      'Your radio\'s nodes plus the online network map';
 
   @override
   String get networkMap_zoomInHint => '온라인 네트워크 지도를 보려면 확대하세요';

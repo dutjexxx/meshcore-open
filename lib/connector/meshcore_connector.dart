@@ -38,7 +38,8 @@ import '../services/image_codec_service.dart';
 import '../services/received_image_store.dart';
 import '../services/message_retry_service.dart';
 import '../services/path_history_service.dart';
-import '../services/app_settings_service.dart';
+import '../services/app_settings_service.dart'
+    show AppSettingsService, ChannelNotificationMode;
 import '../services/background_service.dart';
 import '../services/timeout_prediction_service.dart';
 import '../services/translation_service.dart';
@@ -298,6 +299,22 @@ class MeshCoreConnector extends ChangeNotifier {
   Stopwatch? _airtimeBumpStopwatch;
   int _prevTotalAirSecs = 0;
   int? _batteryMillivolts;
+  // Thresholds (percent) that trigger a low-battery notification once per
+  // crossing, re-arming 5 points above the threshold after recharge.
+  static const List<int> _lowBatteryThresholds = [25, 10];
+  final Set<int> _batteryAlertedThresholds = {};
+  // Consecutive readings that newly crossed a threshold. Alerts need
+  // [_lowBatteryConfirmReadings] in a row so a single TX-load voltage sag
+  // doesn't notify.
+  int _lowBatteryReadingStreak = 0;
+  // Device key the posted low-battery notifications were scoped to, kept so
+  // they can still be cancelled after the session's identity is cleared.
+  String? _lowBatteryAlertDeviceKey;
+  static const int _lowBatteryConfirmReadings = 2;
+  // Readings below this are treated as "no battery sensor" (boards without
+  // one report 0 mV). Any single Li cell, including LiFePO4 (2600 mV empty),
+  // is protection-cut well above 2 V, so lower values are not real readings.
+  static const int _minPlausibleBatteryMillivolts = 2000;
   double? _selfLatitude;
   double? _selfLongitude;
   final List<DirectRepeater> _directRepeaters = List.empty(growable: true);
@@ -667,6 +684,16 @@ class MeshCoreConnector extends ChangeNotifier {
   bool? get autoAddSensors => _autoAddSensors;
   bool? get autoAddOverwriteOldest => _overwriteOldest;
 
+  /// Whether the radio stores adverts of [type] by itself, so a removed
+  /// contact of that type returns the next time it advertises.
+  bool autoAddsContactType(int type) => switch (type) {
+    advTypeChat => _autoAddUsers,
+    advTypeRepeater => _autoAddRepeaters,
+    advTypeRoom => _autoAddRoomServers,
+    advTypeSensor => _autoAddSensors,
+    _ => false,
+  };
+
   /// autoadd_max_hops from GET_AUTOADD_CONFIG (0 = no limit), null when the
   /// firmware did not report it (pre-v1.13).
   int? get autoAddMaxHops => _autoAddMaxHops;
@@ -680,6 +707,9 @@ class MeshCoreConnector extends ChangeNotifier {
   /// CMD_SEND_CONTROL_DATA / PUSH_CODE_CONTROL_DATA (node discover) exist
   /// from ver code 8.
   bool get supportsNodeDiscover => (_firmwareVerCode ?? 0) >= 8;
+
+  /// CMD_SET_PATH_HASH_MODE exists from ver code 10 (v1.14.0).
+  bool get supportsPathHashMode => (_firmwareVerCode ?? 0) >= 10;
 
   /// CMD_GET/SET_DEFAULT_FLOOD_SCOPE exist from ver code 11 (v1.15.0).
   bool get supportsDefaultFloodScope => (_firmwareVerCode ?? 0) >= 11;
@@ -1246,8 +1276,9 @@ class MeshCoreConnector extends ChangeNotifier {
   /// (notification shade, watch, or Android Auto).
   Future<void> handleNotificationReply(NotificationReply reply) async {
     if (reply.action == NotificationReplyAction.mute) {
-      await _appSettingsService?.muteChannel(
+      await _appSettingsService?.setChannelNotificationMode(
         _channelDisplayName(reply.channelIndex!),
+        ChannelNotificationMode.muted,
       );
       await _notificationService.clearChannelNotification(
         reply.channelIndex!,
@@ -4359,7 +4390,7 @@ class MeshCoreConnector extends ChangeNotifier {
     _pathOpLock = completer.future;
     await prev;
     try {
-      if (!isConnected) return;
+      if (!isConnected || !_isKnownContact(contact)) return;
 
       final width =
           pathHashWidth ??
@@ -4402,6 +4433,13 @@ class MeshCoreConnector extends ChangeNotifier {
     }
   }
 
+  /// Whether [contact] is still in the radio's contact list. The firmware's
+  /// CMD_ADD_UPDATE_CONTACT adds unknown keys, so path/flag writes for a
+  /// removed contact (e.g. a repeater screen still open after its old key was
+  /// deleted) would re-create it on the radio.
+  bool _isKnownContact(Contact contact) =>
+      _contacts.any((c) => c.publicKeyHex == contact.publicKeyHex);
+
   /// The advert timestamp the firmware holds for [contact] (Contact.lastSeen
   /// is parsed from that field); the stored copy is freshest.
   DateTime _deviceLastAdvert(Contact contact) {
@@ -4418,7 +4456,7 @@ class MeshCoreConnector extends ChangeNotifier {
     bool? teleLoc,
     bool? teleEnv,
   }) async {
-    if (!isConnected) return;
+    if (!isConnected || !_isKnownContact(contact)) return;
     final latestContact =
         await _fetchContactSnapshotFromDevice(contact.publicKey) ?? contact;
     int updatedFlags = isFavorite != null
@@ -5037,13 +5075,26 @@ class MeshCoreConnector extends ChangeNotifier {
   }) async {
     if (!isConnected) return;
 
+    // Only drop the contact locally once the radio confirms; otherwise the
+    // next contact sync restores it. ERR means the radio does not have it.
+    try {
+      await sendFrame(
+        buildRemoveContactFrame(contact.publicKey),
+        waitForGenericAck: true,
+      );
+    } on FirmwareCommandException catch (e) {
+      _appDebugLogService?.warn(
+        'Radio has no contact ${contact.publicKeyHex.substring(0, 8)} '
+        '(error ${e.errCode}); removing it locally',
+        tag: 'Connector',
+      );
+    }
+
     _handleDiscovery(
       contact,
       contact.rawPacket ?? Uint8List(0),
       noNotify: true,
     );
-
-    await sendFrame(buildRemoveContactFrame(contact.publicKey));
     _contactsStorageFull = false;
     _contacts.removeWhere((c) => c.publicKeyHex == contact.publicKeyHex);
     _knownContactKeys.remove(contact.publicKeyHex);
@@ -6473,6 +6524,7 @@ class MeshCoreConnector extends ChangeNotifier {
       _batteryMillivolts = reader.readUInt16LE();
       _storageUsedKb = reader.readUInt32LE();
       _storageTotalKb = reader.readUInt32LE();
+      _checkLowBatteryThresholds();
       final volts = (_batteryMillivolts! / 1000.0).toStringAsFixed(2);
       _appDebugLogService?.info(
         'Pulled battery: $volts V ($_batteryMillivolts mV)',
@@ -6485,6 +6537,64 @@ class MeshCoreConnector extends ChangeNotifier {
         tag: 'Connector',
       );
     }
+  }
+
+  void _checkLowBatteryThresholds() {
+    final millivolts = _batteryMillivolts;
+    if (millivolts == null || millivolts < _minPlausibleBatteryMillivolts) {
+      return;
+    }
+    // Until the device identity (and so its saved chemistry) is known, the
+    // percentage falls back to NMC and can read low for e.g. LiFePO4 packs.
+    // Skip evaluation; the next battery poll re-checks once identity is set.
+    if (batteryDeviceKey == null || _appSettingsService == null) return;
+    final percent = batteryPercent;
+    if (percent == null) return;
+
+    // Only the lowest newly crossed threshold notifies; higher ones crossed
+    // in the same reading are marked as alerted silently.
+    final newlyCrossed = <int>[];
+    for (final threshold in _lowBatteryThresholds) {
+      if (percent <= threshold &&
+          !_batteryAlertedThresholds.contains(threshold)) {
+        newlyCrossed.add(threshold);
+      } else if (percent > threshold + 5 &&
+          _batteryAlertedThresholds.contains(threshold)) {
+        // Re-arm once the battery recovers 5 points above the threshold,
+        // so a recharge + discharge cycle alerts again without flapping.
+        _batteryAlertedThresholds.remove(threshold);
+        final alertDeviceKey = _lowBatteryAlertDeviceKey;
+        if (alertDeviceKey != null) {
+          unawaited(
+            _notificationService.clearLowBatteryNotifications(alertDeviceKey, [
+              threshold,
+            ]),
+          );
+        }
+      }
+    }
+    if (newlyCrossed.isEmpty) {
+      _lowBatteryReadingStreak = 0;
+      return;
+    }
+    // Debounce: wait for consecutive low readings before alerting.
+    if (++_lowBatteryReadingStreak < _lowBatteryConfirmReadings) return;
+    _lowBatteryReadingStreak = 0;
+    _batteryAlertedThresholds.addAll(newlyCrossed);
+    final deviceKey = batteryDeviceKey!;
+    _lowBatteryAlertDeviceKey = deviceKey;
+    final lowestNewlyCrossed = newlyCrossed.reduce((a, b) => a < b ? a : b);
+    if (!(_appSettingsService?.settings.notificationsEnabled ?? false)) {
+      return;
+    }
+    unawaited(
+      _notificationService.showLowBatteryNotification(
+        deviceKey: deviceKey,
+        deviceName: deviceDisplayName,
+        batteryPercent: percent,
+        threshold: lowestNewlyCrossed,
+      ),
+    );
   }
 
   void _checkManualAddContacts() async {
@@ -7355,7 +7465,12 @@ class MeshCoreConnector extends ChangeNotifier {
     }
 
     final label = channelName ?? _channelDisplayName(channelIndex);
-    if (_appSettingsService!.isChannelMuted(label)) return;
+    final notificationMode = _appSettingsService!.getChannelNotificationMode(
+      label,
+    );
+
+    // Check if channel is muted
+    if (notificationMode == ChannelNotificationMode.muted) return;
 
     // Reuse translation result only if completed and non-empty; else use original text
     final resolvedText =
@@ -7364,6 +7479,14 @@ class MeshCoreConnector extends ChangeNotifier {
             translationResult.translatedText.trim().isNotEmpty)
         ? translationResult.translatedText.trim()
         : message.text.trim();
+
+    // Mentions are matched on the untranslated text.
+    if (notificationMode == ChannelNotificationMode.mentionsOnly) {
+      if (!textMentionsName(message.originalText ?? message.text, _selfName)) {
+        return;
+      }
+    }
+
     unawaited(() async {
       await _notificationService.showChannelMessageNotification(
         channelName: label,
@@ -7374,6 +7497,22 @@ class MeshCoreConnector extends ChangeNotifier {
         badgeCount: getTotalUnreadCount(),
       );
     }());
+  }
+
+  /// Whether [text] mentions [name], case-insensitively, as either
+  /// `@[name]` (the reply/mention prefix the app sends) or a plain `@name`.
+  /// The plain form needs a word boundary on both sides, so `@bobby` does
+  /// not mention `bob` and `x@bob.com` is not a mention. Names containing
+  /// spaces must be written out in full.
+  @visibleForTesting
+  static bool textMentionsName(String text, String? name) {
+    if (name == null || name.isEmpty) return false;
+    final escaped = RegExp.escape(name);
+    return RegExp(
+      '@\\[$escaped\\]|(?<![\\p{L}\\p{N}_])@$escaped(?![\\p{L}\\p{N}_])',
+      caseSensitive: false,
+      unicode: true,
+    ).hasMatch(text);
   }
 
   /// Handles RESP_CODE_CHANNEL_DATA_RECV (GRP_DATA). Frames whose dataType is
@@ -8570,6 +8709,18 @@ class MeshCoreConnector extends ChangeNotifier {
     _hasReceivedDeviceInfo = false;
     _batteryMillivolts = null;
     _batteryRequested = false;
+    final alertDeviceKey = _lowBatteryAlertDeviceKey;
+    if (alertDeviceKey != null && _batteryAlertedThresholds.isNotEmpty) {
+      unawaited(
+        _notificationService.clearLowBatteryNotifications(
+          alertDeviceKey,
+          _batteryAlertedThresholds.toList(),
+        ),
+      );
+    }
+    _batteryAlertedThresholds.clear();
+    _lowBatteryAlertDeviceKey = null;
+    _lowBatteryReadingStreak = 0;
     _pathHashByteWidth = 1;
     _maxContacts = _defaultMaxContacts;
     _maxChannels = _defaultMaxChannels;

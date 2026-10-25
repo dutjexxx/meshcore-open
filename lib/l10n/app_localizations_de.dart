@@ -428,6 +428,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Das Funkgerät hat diese Einstellungen nicht übernommen';
 
   @override
+  String get settings_pathHashModeNotApplied =>
+      'Radio settings were applied, but the radio did not confirm the new path hash size';
+
+  @override
   String get settings_regionSettings => 'Regionen';
 
   @override
@@ -1332,6 +1336,14 @@ class AppLocalizationsDe extends AppLocalizations {
   String get contacts_remove => 'Entfernen';
 
   @override
+  String get contacts_removeAutoAddNote =>
+      'Your radio auto-adds this contact type, so it will come back the next time it advertises. Turn off auto-add in Contacts settings to keep it removed.';
+
+  @override
+  String get contacts_removeFailed =>
+      'The radio did not confirm the removal. The contact was not removed.';
+
+  @override
   String contacts_discoveredNearby(int count) {
     return 'In der Nähe entdeckt ($count)';
   }
@@ -1503,6 +1515,23 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get channels_editChannel => 'Kanal bearbeiten';
+
+  @override
+  String get channels_notificationSettings => 'Benachrichtigungseinstellungen';
+
+  @override
+  String get channels_notifyAll => 'Alle Nachrichten';
+
+  @override
+  String get channels_notifyMentionsOnly => 'Nur Erwähnungen';
+
+  @override
+  String get channels_notifyNone => 'Stummgeschaltet';
+
+  @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
 
   @override
   String get channels_muteChannel => 'Kanal stummschalten';
@@ -2437,6 +2466,27 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get map_pathTraceCancelled => 'Pfadverfolgung abgebrochen.';
+
+  @override
+  String get map_pathTraceAddMoreHint =>
+      'Tap more nodes to add hops, choose how the trace returns, then tap Run path trace.';
+
+  @override
+  String get map_pathTraceModeRoundTrip => 'Round trip';
+
+  @override
+  String get map_pathTraceModeRoundTripHint =>
+      'The trace goes out through these hops and comes back the same way.';
+
+  @override
+  String get map_pathTraceModeAsEntered => 'As entered';
+
+  @override
+  String get map_pathTraceModeAsEnteredHint =>
+      'The trace follows these hops exactly. Add the hops back to you yourself.';
+
+  @override
+  String get map_pathTraceViewLast => 'View last result';
 
   @override
   String get mapCache_title => 'Offline-Karten-Cache';
@@ -4797,6 +4847,14 @@ class AppLocalizationsDe extends AppLocalizations {
   String get notification_activityTitle => 'MeshCore Aktivität';
 
   @override
+  String get notification_lowBatteryTitle => 'Low battery';
+
+  @override
+  String notification_lowBatteryBody(String deviceName, int percent) {
+    return '$deviceName battery is at $percent%';
+  }
+
+  @override
   String notification_messagesCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
@@ -4836,6 +4894,25 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get notification_receivedNewMessage => 'Neue Nachricht empfangen';
+
+  @override
+  String get notification_sharedLocation => 'Shared a location';
+
+  @override
+  String notification_sharedLocationNamed(String label) {
+    return 'Shared a location: $label';
+  }
+
+  @override
+  String notification_reacted(String emoji) {
+    return 'Reacted $emoji';
+  }
+
+  @override
+  String get notification_sentGif => 'Sent a GIF';
+
+  @override
+  String get notification_sentImage => 'Sent an image';
 
   @override
   String get notification_actionReply => 'Antworten';
@@ -4938,6 +5015,13 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get snrIndicator_nearByRepeatersDescription =>
       'Repeater, die Ihr Funkgerät direkt gehört hat, zuletzt gehört zuerst.';
+
+  @override
+  String get snrIndicator_unknownRepeater => 'Unknown repeater';
+
+  @override
+  String get snrIndicator_unknownRepeaterHint =>
+      'This repeater isn\'t in your contacts yet. Its name, location and options appear once your radio receives its advert.';
 
   @override
   String get contactsSettings_title => 'Kontakteinstellungen';
@@ -6240,6 +6324,11 @@ class AppLocalizationsDe extends AppLocalizations {
   String get contacts_manageGroups => 'Gruppen verwalten';
 
   @override
+  String contacts_keyPrefixSemantics(String prefix) {
+    return 'Key prefix $prefix';
+  }
+
+  @override
   String community_shortId(String id) {
     return 'ID: $id…';
   }
@@ -6321,6 +6410,17 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get networkMap_sourceBoth => 'Beides';
+
+  @override
+  String get networkMap_sourceLocalHint => 'Nodes your radio has heard';
+
+  @override
+  String get networkMap_sourceOnlineHint =>
+      'Repeaters from the online network map';
+
+  @override
+  String get networkMap_sourceBothHint =>
+      'Your radio\'s nodes plus the online network map';
 
   @override
   String get networkMap_zoomInHint =>

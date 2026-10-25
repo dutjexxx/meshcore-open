@@ -198,6 +198,7 @@
   "settings_radioSettingsSubtitle": "Frequency, power, spreading factor",
   "settings_radioSettingsUpdated": "Radio settings updated",
   "settings_radioSettingsNotApplied": "The radio did not apply these settings",
+  "settings_pathHashModeNotApplied": "Radio settings were applied, but the radio did not confirm the new path hash size",
   "settings_regionSettings": "Regions",
   "settings_regionSettingsSubtitle": "Limit channel floods to an area",
   "settings_regionEmptyExplanation": "Regions limit flood messages to repeaters in an area. Fetch them from nearby repeaters or add one by name.",
@@ -622,6 +623,8 @@
   },
   "contacts_keepChatHistory": "Keep chat history",
   "contacts_remove": "Remove",
+  "contacts_removeAutoAddNote": "Your radio auto-adds this contact type, so it will come back the next time it advertises. Turn off auto-add in Contacts settings to keep it removed.",
+  "contacts_removeFailed": "The radio did not confirm the removal. The contact was not removed.",
   "contacts_discoveredNearby": "Discovered nearby ({count})",
   "@contacts_discoveredNearby": {
     "placeholders": {
@@ -729,6 +732,18 @@
   "channels_addSectionCreate": "Create new",
   "channels_dragToReorder": "Drag to reorder",
   "channels_editChannel": "Edit channel",
+  "channels_notificationSettings": "Notification settings",
+  "channels_notifyAll": "All messages",
+  "channels_notifyMentionsOnly": "Mentions only",
+  "channels_notifyNone": "Muted",
+  "channels_notificationModeTooltip": "Notifications: {mode}",
+  "@channels_notificationModeTooltip": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    }
+  },
   "channels_muteChannel": "Mute channel",
   "channels_unmuteChannel": "Unmute channel",
   "channels_deleteChannel": "Delete channel",
@@ -1258,6 +1273,12 @@
   "map_runTraceWithReturnPath": "Return back on the same path.",
   "map_removeLast": "Remove Last",
   "map_pathTraceCancelled": "Path trace cancelled.",
+  "map_pathTraceAddMoreHint": "Tap more nodes to add hops, choose how the trace returns, then tap Run path trace.",
+  "map_pathTraceModeRoundTrip": "Round trip",
+  "map_pathTraceModeRoundTripHint": "The trace goes out through these hops and comes back the same way.",
+  "map_pathTraceModeAsEntered": "As entered",
+  "map_pathTraceModeAsEnteredHint": "The trace follows these hops exactly. Add the hops back to you yourself.",
+  "map_pathTraceViewLast": "View last result",
   "mapCache_title": "Offline Map Cache",
   "mapCache_selectAreaFirst": "Select an area to cache first",
   "mapCache_noTilesToDownload": "No tiles to download for this area",
@@ -2702,6 +2723,22 @@
   "contacts_contactAdvertCopied": "Advert copied to Clipboard.",
   "contacts_contactAdvertCopyFailed": "Copying advert to Clipboard failed.",
   "notification_activityTitle": "MeshCore Activity",
+  "notification_lowBatteryTitle": "Low battery",
+  "@notification_lowBatteryTitle": {
+    "description": "Title of the low battery notification"
+  },
+  "notification_lowBatteryBody": "{deviceName} battery is at {percent}%",
+  "@notification_lowBatteryBody": {
+    "description": "Body of the low battery notification; deviceName is the connected radio's node name",
+    "placeholders": {
+      "deviceName": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
   "notification_messagesCount": "{count} {count, plural, =1{message} other{messages}}",
   "@notification_messagesCount": {
     "placeholders": {
@@ -2735,6 +2772,25 @@
     }
   },
   "notification_receivedNewMessage": "Received new message",
+  "notification_sharedLocation": "Shared a location",
+  "notification_sharedLocationNamed": "Shared a location: {label}",
+  "@notification_sharedLocationNamed": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_reacted": "Reacted {emoji}",
+  "@notification_reacted": {
+    "placeholders": {
+      "emoji": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_sentGif": "Sent a GIF",
+  "notification_sentImage": "Sent an image",
   "notification_actionReply": "Reply",
   "notification_actionMarkRead": "Mark as read",
   "notification_actionMuteChannel": "Mute channel",
@@ -2764,6 +2820,8 @@
   "snrIndicator_nearByRepeaters": "Nearby Repeaters",
   "snrIndicator_lastSeen": "Last seen",
   "snrIndicator_nearByRepeatersDescription": "Repeaters your radio heard directly, most recently heard first.",
+  "snrIndicator_unknownRepeater": "Unknown repeater",
+  "snrIndicator_unknownRepeaterHint": "This repeater isn't in your contacts yet. Its name, location and options appear once your radio receives its advert.",
   "contactsSettings_title": "Contacts settings",
   "contactsSettings_autoAddTitle": "Automatic Discovery",
   "contactsSettings_otherTitle": "Other contact related settings",
@@ -3461,6 +3519,8 @@
   "@repeater_prvKeyLengthError": {"placeholders": {"length": {"type": "int"}}},
   "contacts_advertFailed": "Couldn't send advertisement",
   "contacts_manageGroups": "Manage groups",
+  "contacts_keyPrefixSemantics": "Key prefix {prefix}",
+  "@contacts_keyPrefixSemantics": {"placeholders": {"prefix": {"type": "String"}}},
   "community_shortId": "ID: {id}…",
   "@community_shortId": {"placeholders": {"id": {"type": "String"}}},
   "tcpSectionTitle": "TCP / IP",
@@ -3489,6 +3549,9 @@
   "networkMap_sourceLocal": "Local",
   "networkMap_sourceOnline": "Online",
   "networkMap_sourceBoth": "Both",
+  "networkMap_sourceLocalHint": "Nodes your radio has heard",
+  "networkMap_sourceOnlineHint": "Repeaters from the online network map",
+  "networkMap_sourceBothHint": "Your radio's nodes plus the online network map",
   "networkMap_zoomInHint": "Zoom in to see the online network map",
   "networkMap_loadFailed": "Couldn't load the online network map",
   "networkMap_inYourContacts": "In your contacts",

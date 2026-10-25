@@ -20,6 +20,7 @@ import '../connector/meshcore_protocol.dart';
 import '../helpers/cyr2lat.dart';
 import '../helpers/gif_helper.dart';
 import '../helpers/ipfs_upload_helper.dart';
+import '../helpers/marker_message.dart';
 import '../helpers/message_url_image_helper.dart';
 import '../helpers/path_helper.dart';
 import '../helpers/reaction_helper.dart';
@@ -28,7 +29,8 @@ import '../l10n/l10n.dart';
 import '../models/channel.dart';
 import '../models/channel_message.dart';
 import '../models/image_codec_support.dart' show aeicRatePointForUi;
-import '../services/app_settings_service.dart';
+import '../services/app_settings_service.dart'
+    show AppSettingsService, ChannelNotificationMode;
 import '../services/chat_text_scale_service.dart';
 import '../services/image_chunk_transport.dart';
 import '../services/image_codec_service.dart';
@@ -38,6 +40,7 @@ import '../utils/image_save.dart';
 import '../utils/lora_airtime.dart';
 import '../widgets/marker_label_dialog.dart';
 import '../widgets/received_image_message.dart';
+import '../widgets/channel_notification_mode_sheet.dart';
 import '../widgets/chat_day_separator.dart';
 import '../widgets/empty_state.dart';
 import '../widgets/chat_composer.dart';
@@ -404,19 +407,22 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
           Consumer<AppSettingsService>(
             builder: (context, settings, _) {
               final muteKey = widget.channel.muteKey;
-              final muted = settings.isChannelMuted(muteKey);
+              final notificationMode = settings.getChannelNotificationMode(
+                muteKey,
+              );
               return IconButton(
-                tooltip: muted
-                    ? context.l10n.channels_unmuteChannel
-                    : context.l10n.channels_muteChannel,
-                icon: Icon(
-                  muted
-                      ? Icons.notifications_off_outlined
-                      : Icons.notifications_outlined,
+                tooltip: context.l10n.channels_notificationModeTooltip(
+                  channelNotificationModeLabel(context, notificationMode),
                 ),
-                onPressed: () => muted
-                    ? settings.unmuteChannel(muteKey)
-                    : settings.muteChannel(muteKey),
+                icon: Icon(
+                  notificationMode == ChannelNotificationMode.muted
+                      ? Icons.notifications_off
+                      : notificationMode == ChannelNotificationMode.mentionsOnly
+                      ? Icons.notification_important
+                      : Icons.notifications,
+                ),
+                onPressed: () =>
+                    showChannelNotificationModeSheet(context, muteKey),
               );
             },
           ),
@@ -2427,9 +2433,8 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
   }
 
   void _showEmojiPicker(ChannelMessage message) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
+    showMeshSheet(
+      context,
       builder: (context) => EmojiPicker(
         onEmojiSelected: (emoji) {
           _sendReaction(message, emoji);

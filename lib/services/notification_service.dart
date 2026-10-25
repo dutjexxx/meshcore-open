@@ -8,6 +8,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
+import '../helpers/gif_helper.dart';
+import '../helpers/marker_message.dart';
 import '../helpers/message_url_image_helper.dart';
 import '../helpers/reaction_helper.dart';
 import '../l10n/app_localizations.dart';
@@ -15,6 +17,7 @@ import '../models/app_settings.dart';
 import '../storage/prefs_manager.dart';
 import '../utils/platform_info.dart';
 import 'notification_reply.dart';
+import 'received_image_store.dart' show ReceivedImageRef;
 
 class NotificationService {
   static final NotificationService _instance = NotificationService._internal();
@@ -284,15 +287,26 @@ class NotificationService {
     await requestPermissions();
   }
 
-  /// Format special message types for human-readable notifications.
-  static String formatNotificationText(String text) {
+  /// Summarizes structured payloads (reactions, images, GIFs, shared
+  /// locations) with the same parsers the chat bubbles use; other text is
+  /// returned unchanged.
+  static String formatNotificationText(String text, AppLocalizations l10n) {
     final trimmed = text.trim();
     final reaction = ReactionHelper.parseReaction(trimmed);
     if (reaction != null) {
-      return 'Reacted ${reaction.emoji}';
+      return l10n.notification_reacted(reaction.emoji);
     }
-    if (RegExp(r'^g:[A-Za-z0-9_-]+$').hasMatch(trimmed)) {
-      return 'Sent a GIF';
+    if (ReceivedImageRef.parse(trimmed) != null) {
+      return l10n.notification_sentImage;
+    }
+    if (GifHelper.parseGif(trimmed) != null) {
+      return l10n.notification_sentGif;
+    }
+    final marker = parseMarkerText(trimmed);
+    if (marker != null) {
+      return marker.label.isEmpty
+          ? l10n.notification_sharedLocation
+          : l10n.notification_sharedLocationNamed(marker.label);
     }
     return text;
   }
@@ -406,7 +420,7 @@ class NotificationService {
       message,
       urlImagesEnabled: urlImagesEnabled,
     );
-    final preview = formatNotificationText(message.trim());
+    final preview = formatNotificationText(message.trim(), _l10n);
     final body = preview.isEmpty
         ? _l10n.notification_receivedNewMessage
         : preview;
@@ -607,6 +621,54 @@ class NotificationService {
     }
   }
 
+  /// Posts a low-battery alert for the connected device.
+  ///
+  /// Uses a per-device, per-threshold notification id so each alert level
+  /// updates its own notification instead of stacking, and alerts for
+  /// different radios don't overwrite each other. Bypasses the rate-limit
+  /// queue, which only handles message and advert notifications.
+  Future<void> showLowBatteryNotification({
+    required String deviceKey,
+    required String deviceName,
+    required int batteryPercent,
+    required int threshold,
+  }) async {
+    if (!await _ensureCanNotify()) return;
+
+    const androidDetails = AndroidNotificationDetails(
+      'low_battery',
+      'Low Battery',
+      channelDescription: 'Low battery alerts for the connected device',
+      importance: Importance.high,
+      priority: Priority.high,
+      icon: '@mipmap/ic_launcher',
+    );
+
+    const darwinDetails = DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: false,
+      presentSound: true,
+    );
+
+    const notificationDetails = NotificationDetails(
+      android: androidDetails,
+      iOS: darwinDetails,
+      macOS: darwinDetails,
+    );
+
+    try {
+      await _notifications.show(
+        id: _lowBatteryNotificationId(deviceKey, threshold),
+        title: _l10n.notification_lowBatteryTitle,
+        body: _l10n.notification_lowBatteryBody(deviceName, batteryPercent),
+        notificationDetails: notificationDetails,
+        payload: 'low_battery',
+      );
+    } catch (e) {
+      debugPrint('Failed to show low battery notification: $e');
+    }
+  }
+
   /// Returns a privacy-safe identifier for debug logging.
   /// - advert: shows device name (body contains contactName)
   /// - message: shows "from: sender" (avoids logging message content)
@@ -661,6 +723,26 @@ class NotificationService {
     _conversations.remove(channelIndex.hashCode);
     await _notifications.cancel(id: channelIndex.hashCode);
     await _updateBadge(totalUnreadCount);
+  }
+
+  static int _lowBatteryNotificationId(String deviceKey, int threshold) =>
+      'low_battery:$deviceKey:$threshold'.hashCode;
+
+  /// Cancel a device's low-battery notifications for the given thresholds.
+  Future<void> clearLowBatteryNotifications(
+    String deviceKey,
+    Iterable<int> thresholds,
+  ) async {
+    if (!await _ensureInitialized()) return;
+    for (final threshold in thresholds) {
+      try {
+        await _notifications.cancel(
+          id: _lowBatteryNotificationId(deviceKey, threshold),
+        );
+      } catch (e) {
+        debugPrint('Failed to clear low battery notification: $e');
+      }
+    }
   }
 
   /// Cancel advert notifications for the given contact public key hexes.

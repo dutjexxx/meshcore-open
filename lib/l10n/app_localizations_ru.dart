@@ -427,6 +427,10 @@ class AppLocalizationsRu extends AppLocalizations {
       'Радиомодуль не применил эти настройки';
 
   @override
+  String get settings_pathHashModeNotApplied =>
+      'Radio settings were applied, but the radio did not confirm the new path hash size';
+
+  @override
   String get settings_regionSettings => 'Регионы';
 
   @override
@@ -1337,6 +1341,14 @@ class AppLocalizationsRu extends AppLocalizations {
   String get contacts_remove => 'Убрать';
 
   @override
+  String get contacts_removeAutoAddNote =>
+      'Your radio auto-adds this contact type, so it will come back the next time it advertises. Turn off auto-add in Contacts settings to keep it removed.';
+
+  @override
+  String get contacts_removeFailed =>
+      'The radio did not confirm the removal. The contact was not removed.';
+
+  @override
   String contacts_discoveredNearby(int count) {
     return 'Обнаружены поблизости ($count)';
   }
@@ -1509,6 +1521,23 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get channels_editChannel => 'Изменить канал';
+
+  @override
+  String get channels_notificationSettings => 'Настройки уведомлений';
+
+  @override
+  String get channels_notifyAll => 'Все сообщения';
+
+  @override
+  String get channels_notifyMentionsOnly => 'Только упоминания';
+
+  @override
+  String get channels_notifyNone => 'Без звука';
+
+  @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
 
   @override
   String get channels_muteChannel => 'Отключить уведомления канала';
@@ -2441,6 +2470,27 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get map_pathTraceCancelled => 'Отмена трассировки пути';
+
+  @override
+  String get map_pathTraceAddMoreHint =>
+      'Tap more nodes to add hops, choose how the trace returns, then tap Run path trace.';
+
+  @override
+  String get map_pathTraceModeRoundTrip => 'Round trip';
+
+  @override
+  String get map_pathTraceModeRoundTripHint =>
+      'The trace goes out through these hops and comes back the same way.';
+
+  @override
+  String get map_pathTraceModeAsEntered => 'As entered';
+
+  @override
+  String get map_pathTraceModeAsEnteredHint =>
+      'The trace follows these hops exactly. Add the hops back to you yourself.';
+
+  @override
+  String get map_pathTraceViewLast => 'View last result';
 
   @override
   String get mapCache_title => 'Кэш офлайн-карты';
@@ -4798,6 +4848,14 @@ class AppLocalizationsRu extends AppLocalizations {
   String get notification_activityTitle => 'Активность MeshCore';
 
   @override
+  String get notification_lowBatteryTitle => 'Low battery';
+
+  @override
+  String notification_lowBatteryBody(String deviceName, int percent) {
+    return '$deviceName battery is at $percent%';
+  }
+
+  @override
   String notification_messagesCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
@@ -4843,6 +4901,25 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get notification_receivedNewMessage => 'Получено новое сообщение';
+
+  @override
+  String get notification_sharedLocation => 'Shared a location';
+
+  @override
+  String notification_sharedLocationNamed(String label) {
+    return 'Shared a location: $label';
+  }
+
+  @override
+  String notification_reacted(String emoji) {
+    return 'Reacted $emoji';
+  }
+
+  @override
+  String get notification_sentGif => 'Sent a GIF';
+
+  @override
+  String get notification_sentImage => 'Sent an image';
 
   @override
   String get notification_actionReply => 'Ответить';
@@ -4944,6 +5021,13 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get snrIndicator_nearByRepeatersDescription =>
       'Ретрансляторы, услышанные вашим радио напрямую, сначала самые недавние.';
+
+  @override
+  String get snrIndicator_unknownRepeater => 'Unknown repeater';
+
+  @override
+  String get snrIndicator_unknownRepeaterHint =>
+      'This repeater isn\'t in your contacts yet. Its name, location and options appear once your radio receives its advert.';
 
   @override
   String get contactsSettings_title => 'Настройки контактов';
@@ -6245,6 +6329,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get contacts_manageGroups => 'Управление группами';
 
   @override
+  String contacts_keyPrefixSemantics(String prefix) {
+    return 'Key prefix $prefix';
+  }
+
+  @override
   String community_shortId(String id) {
     return 'ID: $id…';
   }
@@ -6328,6 +6417,17 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get networkMap_sourceBoth => 'Обе';
+
+  @override
+  String get networkMap_sourceLocalHint => 'Nodes your radio has heard';
+
+  @override
+  String get networkMap_sourceOnlineHint =>
+      'Repeaters from the online network map';
+
+  @override
+  String get networkMap_sourceBothHint =>
+      'Your radio\'s nodes plus the online network map';
 
   @override
   String get networkMap_zoomInHint =>
