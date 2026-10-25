@@ -1,6 +1,9 @@
 {
   "bg": [
     "settings_pathHashModeNotApplied",
+    "channels_notificationModeTooltip",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody"
     "contacts_removeAutoAddNote",
     "contacts_removeFailed",
     "channels_notificationModeTooltip",
@@ -27,6 +30,9 @@
 
   "de": [
     "settings_pathHashModeNotApplied",
+    "channels_notificationModeTooltip",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody"
     "contacts_removeAutoAddNote",
     "contacts_removeFailed",
     "channels_notificationModeTooltip",
@@ -53,6 +59,9 @@
 
   "es": [
     "settings_pathHashModeNotApplied",
+    "channels_notificationModeTooltip",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody"
     "contacts_removeAutoAddNote",
     "contacts_removeFailed",
     "channels_notificationModeTooltip",
@@ -79,6 +88,9 @@
 
   "fr": [
     "settings_pathHashModeNotApplied",
+    "channels_notificationModeTooltip",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody"
     "contacts_removeAutoAddNote",
     "contacts_removeFailed",
     "channels_notificationModeTooltip",
@@ -105,6 +117,9 @@
 
   "hu": [
     "settings_pathHashModeNotApplied",
+    "channels_notificationModeTooltip",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody"
     "contacts_removeAutoAddNote",
     "contacts_removeFailed",
     "channels_notificationModeTooltip",
@@ -131,6 +146,9 @@
 
   "it": [
     "settings_pathHashModeNotApplied",
+    "channels_notificationModeTooltip",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody"
     "contacts_removeAutoAddNote",
     "contacts_removeFailed",
     "channels_notificationModeTooltip",
@@ -157,6 +175,9 @@
 
   "ja": [
     "settings_pathHashModeNotApplied",
+    "channels_notificationModeTooltip",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody"
     "contacts_removeAutoAddNote",
     "contacts_removeFailed",
     "channels_notificationModeTooltip",
@@ -183,6 +204,9 @@
 
   "ko": [
     "settings_pathHashModeNotApplied",
+    "channels_notificationModeTooltip",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody"
     "contacts_removeAutoAddNote",
     "contacts_removeFailed",
     "channels_notificationModeTooltip",
@@ -209,6 +233,9 @@
 
   "nl": [
     "settings_pathHashModeNotApplied",
+    "channels_notificationModeTooltip",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody"
     "contacts_removeAutoAddNote",
     "contacts_removeFailed",
     "channels_notificationModeTooltip",
@@ -235,6 +262,9 @@
 
   "pl": [
     "settings_pathHashModeNotApplied",
+    "channels_notificationModeTooltip",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody"
     "contacts_removeAutoAddNote",
     "contacts_removeFailed",
     "channels_notificationModeTooltip",
@@ -261,6 +291,9 @@
 
   "pt": [
     "settings_pathHashModeNotApplied",
+    "channels_notificationModeTooltip",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody"
     "contacts_removeAutoAddNote",
     "contacts_removeFailed",
     "channels_notificationModeTooltip",
@@ -287,6 +320,9 @@
 
   "ru": [
     "settings_pathHashModeNotApplied",
+    "channels_notificationModeTooltip",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody"
     "contacts_removeAutoAddNote",
     "contacts_removeFailed",
     "channels_notificationModeTooltip",
@@ -313,6 +349,9 @@
 
   "sk": [
     "settings_pathHashModeNotApplied",
+    "channels_notificationModeTooltip",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody"
     "contacts_removeAutoAddNote",
     "contacts_removeFailed",
     "channels_notificationModeTooltip",
@@ -339,6 +378,9 @@
 
   "sl": [
     "settings_pathHashModeNotApplied",
+    "channels_notificationModeTooltip",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody"
     "contacts_removeAutoAddNote",
     "contacts_removeFailed",
     "channels_notificationModeTooltip",
@@ -365,6 +407,9 @@
 
   "sv": [
     "settings_pathHashModeNotApplied",
+    "channels_notificationModeTooltip",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody"
     "contacts_removeAutoAddNote",
     "contacts_removeFailed",
     "channels_notificationModeTooltip",
@@ -391,6 +436,9 @@
 
   "uk": [
     "settings_pathHashModeNotApplied",
+    "channels_notificationModeTooltip",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody"
     "contacts_removeAutoAddNote",
     "contacts_removeFailed",
     "channels_notificationModeTooltip",
@@ -417,6 +465,9 @@
 
   "zh": [
     "settings_pathHashModeNotApplied",
+    "channels_notificationModeTooltip",
+    "notification_lowBatteryTitle",
+    "notification_lowBatteryBody"
     "contacts_removeAutoAddNote",
     "contacts_removeFailed",
     "channels_notificationModeTooltip",
