@@ -49,7 +49,7 @@ See the [user documentation](documentation/README.md), [connection guide](docume
 - **Contact Groups**: Create custom groups to organize your mesh network contacts
 - **Message Reactions**: React to messages with emoji responses
 - **Message Replies**: Thread conversations with inline reply functionality
-- **Android Auto & Watches**: Hear messages and reply by voice in Android Auto, or reply from the notification shade and Wear OS/Galaxy watches ([guide](documentation/notifications.md#android-auto))
+- **Android Auto & Watches**: Reply from the notification shade and Wear OS/Galaxy watches, or hear messages and reply by voice in Android Auto (optional build flag) ([guide](documentation/notifications.md#android-auto))
 - **Channel Muting**: Mute a channel from its chat screen, the channel list, or its notification
 
 ### Mesh Network
@@ -103,7 +103,7 @@ See the [user documentation](documentation/README.md), [connection guide](docume
 | Map & Location     | ✅                | ✅        | ✅   | ✅      | ✅    | ✅                                |
 | Device Management  | ✅                | ✅        | ✅   | ✅      | ✅    | ✅                                |
 | Repeater Hub       | ✅                | ✅        | ✅   | ✅      | ✅    | ✅                                |
-| Notification replies | ✅<br>(incl. Android Auto, watches) | ❌ | ❌ | ❌ | ❌ | ❌                              |
+| Notification replies | ✅<br>(incl. watches; Android Auto optional) | ❌ | ❌ | ❌ | ❌ | ❌                              |
 
 The matrix describes implemented functionality, not a guarantee that every feature has been tested on every device. Web device connections use Web Serial and require Chrome and a secure origin. Image inference and translation require native runtimes and are unavailable on web. Android APKs currently include only `arm64-v8a`; the minimum Android API follows the Flutter SDK used to build.
 
@@ -228,7 +228,7 @@ Messages are transmitted as binary frames using a custom protocol optimized for 
 
 - **Theme**: System default, light, or dark mode
 - **Language**: Use one of 18 languages (English, Chinese, French, Spanish, Portuguese, German, Dutch, Polish, Swedish, Italian, Slovak, Slovenian, Bulgarian, Russian, Ukrainian, Hungarian, Japanese, Korean)
-- **Notifications**: Configurable for messages, channels, and node advertisements; per-channel muting; reply, mark-as-read, and mute actions on Android notifications and watches (reply and mark-as-read in Android Auto)
+- **Notifications**: Configurable for messages, channels, and node advertisements; per-channel muting; reply, mark-as-read, and mute actions on Android notifications and watches (reply and mark-as-read in Android Auto when built with `--android-project-arg=androidAuto=true`)
 - **Battery Chemistry**: Support for NMC, LiFePO4, LiPo, and LiPo HV battery types
 - **Message Retry**: Automatic retry with configurable path clearing
 
