@@ -427,6 +427,10 @@ class AppLocalizationsRu extends AppLocalizations {
       'Радиомодуль не применил эти настройки';
 
   @override
+  String get settings_pathHashModeNotApplied =>
+      'Radio settings were applied, but the radio did not confirm the new path hash size';
+
+  @override
   String get settings_regionSettings => 'Регионы';
 
   @override

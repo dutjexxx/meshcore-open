@@ -862,6 +862,12 @@ abstract class AppLocalizations {
   /// **'The radio did not apply these settings'**
   String get settings_radioSettingsNotApplied;
 
+  /// No description provided for @settings_pathHashModeNotApplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Radio settings were applied, but the radio did not confirm the new path hash size'**
+  String get settings_pathHashModeNotApplied;
+
   /// No description provided for @settings_regionSettings.
   ///
   /// In en, this message translates to:

@@ -408,6 +408,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings_radioSettingsNotApplied => 'ラジオがこれらの設定を適用しませんでした';
 
   @override
+  String get settings_pathHashModeNotApplied =>
+      'Radio settings were applied, but the radio did not confirm the new path hash size';
+
+  @override
   String get settings_regionSettings => '地域';
 
   @override

@@ -198,6 +198,7 @@
   "settings_radioSettingsSubtitle": "Frequency, power, spreading factor",
   "settings_radioSettingsUpdated": "Radio settings updated",
   "settings_radioSettingsNotApplied": "The radio did not apply these settings",
+  "settings_pathHashModeNotApplied": "Radio settings were applied, but the radio did not confirm the new path hash size",
   "settings_regionSettings": "Regions",
   "settings_regionSettingsSubtitle": "Limit channel floods to an area",
   "settings_regionEmptyExplanation": "Regions limit flood messages to repeaters in an area. Fetch them from nearby repeaters or add one by name.",
