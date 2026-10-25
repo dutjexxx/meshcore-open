@@ -1,5 +1,10 @@
 {
   "bg": [
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
     "contacts_keyPrefixSemantics",
     "networkMap_sourceLocalHint",
     "networkMap_sourceOnlineHint",
@@ -7,6 +12,11 @@
   ],
 
   "de": [
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
     "contacts_keyPrefixSemantics",
     "networkMap_sourceLocalHint",
     "networkMap_sourceOnlineHint",
@@ -14,6 +24,11 @@
   ],
 
   "es": [
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
     "contacts_keyPrefixSemantics",
     "networkMap_sourceLocalHint",
     "networkMap_sourceOnlineHint",
@@ -21,6 +36,11 @@
   ],
 
   "fr": [
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
     "contacts_keyPrefixSemantics",
     "networkMap_sourceLocalHint",
     "networkMap_sourceOnlineHint",
@@ -28,6 +48,11 @@
   ],
 
   "hu": [
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
     "contacts_keyPrefixSemantics",
     "networkMap_sourceLocalHint",
     "networkMap_sourceOnlineHint",
@@ -35,6 +60,11 @@
   ],
 
   "it": [
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
     "contacts_keyPrefixSemantics",
     "networkMap_sourceLocalHint",
     "networkMap_sourceOnlineHint",
@@ -42,6 +72,11 @@
   ],
 
   "ja": [
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
     "contacts_keyPrefixSemantics",
     "networkMap_sourceLocalHint",
     "networkMap_sourceOnlineHint",
@@ -49,6 +84,11 @@
   ],
 
   "ko": [
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
     "contacts_keyPrefixSemantics",
     "networkMap_sourceLocalHint",
     "networkMap_sourceOnlineHint",
@@ -56,6 +96,11 @@
   ],
 
   "nl": [
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
     "contacts_keyPrefixSemantics",
     "networkMap_sourceLocalHint",
     "networkMap_sourceOnlineHint",
@@ -63,6 +108,11 @@
   ],
 
   "pl": [
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
     "contacts_keyPrefixSemantics",
     "networkMap_sourceLocalHint",
     "networkMap_sourceOnlineHint",
@@ -70,6 +120,11 @@
   ],
 
   "pt": [
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
     "contacts_keyPrefixSemantics",
     "networkMap_sourceLocalHint",
     "networkMap_sourceOnlineHint",
@@ -77,6 +132,11 @@
   ],
 
   "ru": [
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
     "contacts_keyPrefixSemantics",
     "networkMap_sourceLocalHint",
     "networkMap_sourceOnlineHint",
@@ -84,6 +144,11 @@
   ],
 
   "sk": [
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
     "contacts_keyPrefixSemantics",
     "networkMap_sourceLocalHint",
     "networkMap_sourceOnlineHint",
@@ -91,6 +156,11 @@
   ],
 
   "sl": [
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
     "contacts_keyPrefixSemantics",
     "networkMap_sourceLocalHint",
     "networkMap_sourceOnlineHint",
@@ -98,6 +168,11 @@
   ],
 
   "sv": [
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
     "contacts_keyPrefixSemantics",
     "networkMap_sourceLocalHint",
     "networkMap_sourceOnlineHint",
@@ -105,6 +180,11 @@
   ],
 
   "uk": [
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
     "contacts_keyPrefixSemantics",
     "networkMap_sourceLocalHint",
     "networkMap_sourceOnlineHint",
@@ -112,6 +192,11 @@
   ],
 
   "zh": [
+    "notification_sharedLocation",
+    "notification_sharedLocationNamed",
+    "notification_reacted",
+    "notification_sentGif",
+    "notification_sentImage",
     "contacts_keyPrefixSemantics",
     "networkMap_sourceLocalHint",
     "networkMap_sourceOnlineHint",

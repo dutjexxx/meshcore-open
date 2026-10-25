@@ -8,12 +8,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
+import '../helpers/gif_helper.dart';
+import '../helpers/marker_message.dart';
 import '../helpers/message_url_image_helper.dart';
 import '../helpers/reaction_helper.dart';
 import '../l10n/app_localizations.dart';
 import '../storage/prefs_manager.dart';
 import '../utils/platform_info.dart';
 import 'notification_reply.dart';
+import 'received_image_store.dart' show ReceivedImageRef;
 
 class NotificationService {
   static final NotificationService _instance = NotificationService._internal();
@@ -278,15 +281,26 @@ class NotificationService {
     await requestPermissions();
   }
 
-  /// Format special message types for human-readable notifications.
-  static String formatNotificationText(String text) {
+  /// Summarizes structured payloads (reactions, images, GIFs, shared
+  /// locations) with the same parsers the chat bubbles use; other text is
+  /// returned unchanged.
+  static String formatNotificationText(String text, AppLocalizations l10n) {
     final trimmed = text.trim();
     final reaction = ReactionHelper.parseReaction(trimmed);
     if (reaction != null) {
-      return 'Reacted ${reaction.emoji}';
+      return l10n.notification_reacted(reaction.emoji);
     }
-    if (RegExp(r'^g:[A-Za-z0-9_-]+$').hasMatch(trimmed)) {
-      return 'Sent a GIF';
+    if (ReceivedImageRef.parse(trimmed) != null) {
+      return l10n.notification_sentImage;
+    }
+    if (GifHelper.parseGif(trimmed) != null) {
+      return l10n.notification_sentGif;
+    }
+    final marker = parseMarkerText(trimmed);
+    if (marker != null) {
+      return marker.label.isEmpty
+          ? l10n.notification_sharedLocation
+          : l10n.notification_sharedLocationNamed(marker.label);
     }
     return text;
   }
@@ -397,7 +411,7 @@ class NotificationService {
       message,
       urlImagesEnabled: urlImagesEnabled,
     );
-    final preview = formatNotificationText(message.trim());
+    final preview = formatNotificationText(message.trim(), _l10n);
     final body = preview.isEmpty
         ? _l10n.notification_receivedNewMessage
         : preview;
