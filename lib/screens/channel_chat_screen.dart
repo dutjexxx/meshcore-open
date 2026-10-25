@@ -2307,9 +2307,8 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
   }
 
   void _showEmojiPicker(ChannelMessage message) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
+    showMeshSheet(
+      context,
       builder: (context) => EmojiPicker(
         onEmojiSelected: (emoji) {
           _sendReaction(message, emoji);

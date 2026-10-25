@@ -1161,9 +1161,8 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void _showEmojiPicker(Message message, Contact senderContact) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
+    showMeshSheet(
+      context,
       builder: (context) => EmojiPicker(
         onEmojiSelected: (emoji) {
           _sendReaction(message, senderContact, emoji);
