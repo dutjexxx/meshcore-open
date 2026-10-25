@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
@@ -89,52 +87,6 @@ void main() {
         );
 
         expect(attachment, isNull);
-      },
-    );
-
-    test('does not upload when the upload endpoint is empty', () async {
-      var requestCount = 0;
-      MessageUrlImageHelper.httpClient = MockClient((request) async {
-        requestCount++;
-        return http.Response('{}', 200);
-      });
-
-      await expectLater(
-        MessageUrlImageHelper.uploadImage(
-          bytes: Uint8List.fromList(<int>[1, 2, 3]),
-          fileName: 'image.png',
-          mimeType: 'image/png',
-          uploadEndpoint: '',
-          uploadApiKey: '',
-        ),
-        throwsArgumentError,
-      );
-      expect(requestCount, 0);
-    });
-
-    test(
-      'uploads and returns an ipfs scheme when upload gateway is empty',
-      () async {
-        MessageUrlImageHelper.httpClient = MockClient((request) async {
-          expect(request.method, 'POST');
-          return http.Response(
-            '{"Hash":"bafybeibq75ws6nwk6wi473dch42wwy6woyj4dwdfy7nfz3buqx2caieoly"}',
-            200,
-          );
-        });
-
-        final message = await MessageUrlImageHelper.uploadImage(
-          bytes: Uint8List.fromList(<int>[1, 2, 3]),
-          fileName: 'image.png',
-          mimeType: 'image/png',
-          uploadEndpoint: 'http://127.0.0.1:5001/api/v0/add',
-          uploadApiKey: '',
-        );
-
-        expect(
-          message,
-          'ipfs://bafybeibq75ws6nwk6wi473dch42wwy6woyj4dwdfy7nfz3buqx2caieoly',
-        );
       },
     );
 

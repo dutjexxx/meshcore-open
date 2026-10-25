@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import '../models/app_settings.dart';
 
 class IpfsUploadHelper {
+  @visibleForTesting
   static http.Client? httpClient;
 
   static String mimeTypeForFileName(String fileName) {
@@ -69,40 +70,37 @@ class IpfsUploadHelper {
     }
 
     final Uri uploadUri;
-    final request = http.MultipartRequest('POST', endpointUri)
-      ..files.add(
-        http.MultipartFile.fromBytes('file', bytes, filename: safeFileName),
-      );
-
     if (isPinata) {
       if (token.isEmpty) {
         throw ArgumentError('Pinata requires an API key or JWT.');
       }
-      request.headers['Authorization'] = 'Bearer $token';
-      request.fields['pinataOptions'] = jsonEncode({'cidVersion': 1});
-      request.fields['pinataMetadata'] = jsonEncode({'name': safeFileName});
       uploadUri = endpointUri;
     } else {
-      final parameters = <String, String>{'cid-version': '1'};
-      if (isKubo) parameters['pin'] = 'true';
       uploadUri = endpointUri.replace(
-        queryParameters: {...endpointUri.queryParameters, ...parameters},
+        queryParameters: {
+          ...endpointUri.queryParameters,
+          'cid-version': '1',
+          if (isKubo) 'pin': 'true',
+        },
       );
-      if (token.isNotEmpty) {
-        request.headers['Authorization'] = 'Bearer $token';
-      }
     }
 
-    final finalRequest = request.url == uploadUri
-        ? request
-        : (http.MultipartRequest('POST', uploadUri)
-            ..headers.addAll(request.headers)
-            ..fields.addAll(request.fields)
-            ..files.addAll(request.files));
+    final request = http.MultipartRequest('POST', uploadUri)
+      ..files.add(
+        http.MultipartFile.fromBytes('file', bytes, filename: safeFileName),
+      );
+    if (token.isNotEmpty) {
+      request.headers['Authorization'] = 'Bearer $token';
+    }
+    if (isPinata) {
+      request.fields['pinataOptions'] = jsonEncode({'cidVersion': 1});
+      request.fields['pinataMetadata'] = jsonEncode({'name': safeFileName});
+    }
+
     final client = httpClient;
     final response = await (client == null
-        ? finalRequest.send()
-        : client.send(finalRequest));
+        ? request.send()
+        : client.send(request));
     final body = await response.stream.bytesToString();
     if (response.statusCode < 200 || response.statusCode >= 300) {
       throw Exception('IPFS upload failed (${response.statusCode}): $body');

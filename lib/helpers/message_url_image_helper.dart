@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:collection';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:http/http.dart' as http;
 
-import 'ipfs_upload_helper.dart';
 import '../models/app_settings.dart';
 
 /// Finds and renders image URLs embedded in ordinary text messages.
@@ -25,41 +23,6 @@ class MessageUrlImageHelper {
   /// Tests override this because `flutter_test` blocks real network requests.
   @visibleForTesting
   static http.Client? httpClient;
-
-  /// Compatibility facade for the dedicated IPFS upload helper.
-  static Future<String> uploadImageWithSettings({
-    required AppSettings settings,
-    required Uint8List bytes,
-    required String fileName,
-    required String mimeType,
-  }) {
-    IpfsUploadHelper.httpClient = httpClient;
-    return IpfsUploadHelper.uploadImageWithSettings(
-      settings: settings,
-      bytes: bytes,
-      fileName: fileName,
-      mimeType: mimeType,
-    );
-  }
-
-  static Future<String> uploadImage({
-    required Uint8List bytes,
-    required String fileName,
-    required String mimeType,
-    required String uploadEndpoint,
-    required String uploadApiKey,
-    String uploadGateway = '',
-  }) async {
-    IpfsUploadHelper.httpClient = httpClient;
-    return IpfsUploadHelper.uploadImage(
-      bytes: bytes,
-      fileName: fileName,
-      mimeType: mimeType,
-      uploadEndpoint: uploadEndpoint,
-      uploadApiKey: uploadApiKey,
-      uploadGateway: uploadGateway,
-    );
-  }
 
   static final RegExp _pyxPattern = RegExp(
     r'''https?://pyx\.li/\?i=([A-Za-z0-9_-]+)''',
