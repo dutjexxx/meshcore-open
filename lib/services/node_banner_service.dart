@@ -29,7 +29,8 @@ class NodeBannerConfig {
     this.action,
   });
 
-  /// Parses `key=value` pairs separated by `;` with URL-encoded values.
+  /// Parses `key=value` pairs separated by `;`. Values may be plain text;
+  /// percent-encoding is decoded when valid, so `%3B` can carry a `;`.
   /// Returns null when the banner is switched off (`on=0`), the version is
   /// unknown, or the link is missing or not https.
   static NodeBannerConfig? parse(String record) {
@@ -37,12 +38,14 @@ class NodeBannerConfig {
     for (final pair in record.split(';')) {
       final eq = pair.indexOf('=');
       if (eq <= 0) continue;
+      final raw = pair.substring(eq + 1).trim();
+      String value;
       try {
-        fields[pair.substring(0, eq).trim().toLowerCase()] =
-            Uri.decodeComponent(pair.substring(eq + 1).trim());
+        value = Uri.decodeComponent(raw);
       } on ArgumentError {
-        return null;
+        value = raw;
       }
+      fields[pair.substring(0, eq).trim().toLowerCase()] = value;
     }
     if (fields['v'] != '1' || fields['on'] != '1') return null;
     final url = Uri.tryParse(fields['url'] ?? '');

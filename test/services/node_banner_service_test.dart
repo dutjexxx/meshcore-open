@@ -34,6 +34,18 @@ void main() {
       expect(config.action, isNull);
     });
 
+    test('accepts plain-text values', () {
+      final config = NodeBannerConfig.parse(
+        'v=1;on=1;url=https://shop.example.com/node?ref=a&b=c;'
+        'title=Need a new node?;body=Waterproof, 50% off this week.;'
+        'cta=Get one here',
+      )!;
+      expect(config.url.toString(), 'https://shop.example.com/node?ref=a&b=c');
+      expect(config.title, 'Need a new node?');
+      expect(config.body, 'Waterproof, 50% off this week.');
+      expect(config.action, 'Get one here');
+    });
+
     test('is off for on=0, unknown versions, and non-https links', () {
       expect(
         NodeBannerConfig.parse(_record.replaceAll('on=1', 'on=0')),
