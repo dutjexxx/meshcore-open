@@ -9,6 +9,7 @@ import '../theme/mesh_theme.dart';
 import 'byte_count_input.dart';
 import 'gif_message.dart';
 import 'gif_picker.dart';
+import 'mesh_ui.dart';
 import 'message_translation_button.dart';
 
 /// One entry of the composer's "+" menu.
@@ -27,9 +28,8 @@ class ChatComposerAction {
 
 /// Opens the GIF picker and puts the chosen GIF into [controller].
 void showChatGifPicker(BuildContext context, TextEditingController controller) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
+  showMeshSheet<void>(
+    context,
     builder: (context) => GifPicker(
       onGifSelected: (gifId) {
         controller.text = GifHelper.encodeGif(gifId);
