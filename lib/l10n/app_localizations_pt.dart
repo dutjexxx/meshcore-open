@@ -428,6 +428,10 @@ class AppLocalizationsPt extends AppLocalizations {
       'O rádio não aplicou estas configurações';
 
   @override
+  String get settings_pathHashModeNotApplied =>
+      'Radio settings were applied, but the radio did not confirm the new path hash size';
+
+  @override
   String get settings_regionSettings => 'Regiões';
 
   @override

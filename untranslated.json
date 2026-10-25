@@ -1,86 +1,69 @@
 {
   "bg": [
-    "notification_lowBatteryTitle",
-    "notification_lowBatteryBody"
+    "settings_pathHashModeNotApplied"
   ],
 
   "de": [
-    "notification_lowBatteryTitle",
-    "notification_lowBatteryBody"
+    "settings_pathHashModeNotApplied"
   ],
 
   "es": [
-    "notification_lowBatteryTitle",
-    "notification_lowBatteryBody"
+    "settings_pathHashModeNotApplied"
   ],
 
   "fr": [
-    "notification_lowBatteryTitle",
-    "notification_lowBatteryBody"
+    "settings_pathHashModeNotApplied"
   ],
 
   "hu": [
-    "notification_lowBatteryTitle",
-    "notification_lowBatteryBody"
+    "settings_pathHashModeNotApplied"
   ],
 
   "it": [
-    "notification_lowBatteryTitle",
-    "notification_lowBatteryBody"
+    "settings_pathHashModeNotApplied"
   ],
 
   "ja": [
-    "notification_lowBatteryTitle",
-    "notification_lowBatteryBody"
+    "settings_pathHashModeNotApplied"
   ],
 
   "ko": [
-    "notification_lowBatteryTitle",
-    "notification_lowBatteryBody"
+    "settings_pathHashModeNotApplied"
   ],
 
   "nl": [
-    "notification_lowBatteryTitle",
-    "notification_lowBatteryBody"
+    "settings_pathHashModeNotApplied"
   ],
 
   "pl": [
-    "notification_lowBatteryTitle",
-    "notification_lowBatteryBody"
+    "settings_pathHashModeNotApplied"
   ],
 
   "pt": [
-    "notification_lowBatteryTitle",
-    "notification_lowBatteryBody"
+    "settings_pathHashModeNotApplied"
   ],
 
   "ru": [
-    "notification_lowBatteryTitle",
-    "notification_lowBatteryBody"
+    "settings_pathHashModeNotApplied"
   ],
 
   "sk": [
-    "notification_lowBatteryTitle",
-    "notification_lowBatteryBody"
+    "settings_pathHashModeNotApplied"
   ],
 
   "sl": [
-    "notification_lowBatteryTitle",
-    "notification_lowBatteryBody"
+    "settings_pathHashModeNotApplied"
   ],
 
   "sv": [
-    "notification_lowBatteryTitle",
-    "notification_lowBatteryBody"
+    "settings_pathHashModeNotApplied"
   ],
 
   "uk": [
-    "notification_lowBatteryTitle",
-    "notification_lowBatteryBody"
+    "settings_pathHashModeNotApplied"
   ],
 
   "zh": [
-    "notification_lowBatteryTitle",
-    "notification_lowBatteryBody"
+    "settings_pathHashModeNotApplied"
   ]
 }

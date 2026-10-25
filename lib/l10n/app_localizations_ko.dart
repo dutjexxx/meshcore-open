@@ -408,6 +408,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_radioSettingsNotApplied => '라디오가 이 설정을 적용하지 않았습니다';
 
   @override
+  String get settings_pathHashModeNotApplied =>
+      'Radio settings were applied, but the radio did not confirm the new path hash size';
+
+  @override
   String get settings_regionSettings => '지역';
 
   @override

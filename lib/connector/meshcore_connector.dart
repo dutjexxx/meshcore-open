@@ -697,6 +697,9 @@ class MeshCoreConnector extends ChangeNotifier {
   /// from ver code 8.
   bool get supportsNodeDiscover => (_firmwareVerCode ?? 0) >= 8;
 
+  /// CMD_SET_PATH_HASH_MODE exists from ver code 10 (v1.14.0).
+  bool get supportsPathHashMode => (_firmwareVerCode ?? 0) >= 10;
+
   /// CMD_GET/SET_DEFAULT_FLOOD_SCOPE exist from ver code 11 (v1.15.0).
   bool get supportsDefaultFloodScope => (_firmwareVerCode ?? 0) >= 11;
 
