@@ -4888,6 +4888,13 @@ class AppLocalizationsHu extends AppLocalizations {
       'Azok az átjátszók, amelyeket a rádió közvetlenül hallott, a legutóbb hallottak elöl.';
 
   @override
+  String get snrIndicator_unknownRepeater => 'Unknown repeater';
+
+  @override
+  String get snrIndicator_unknownRepeaterHint =>
+      'This repeater isn\'t in your contacts yet. Its name, location and options appear once your radio receives its advert.';
+
+  @override
   String get contactsSettings_title => 'Névjegyek beállításai';
 
   @override

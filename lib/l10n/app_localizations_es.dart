@@ -4892,6 +4892,13 @@ class AppLocalizationsEs extends AppLocalizations {
       'Repetidores que tu radio ha oído directamente, del más reciente al más antiguo.';
 
   @override
+  String get snrIndicator_unknownRepeater => 'Unknown repeater';
+
+  @override
+  String get snrIndicator_unknownRepeaterHint =>
+      'This repeater isn\'t in your contacts yet. Its name, location and options appear once your radio receives its advert.';
+
+  @override
   String get contactsSettings_title => 'Configuración de contactos';
 
   @override

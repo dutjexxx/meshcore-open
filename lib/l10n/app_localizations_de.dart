@@ -4901,6 +4901,13 @@ class AppLocalizationsDe extends AppLocalizations {
       'Repeater, die Ihr Funkgerät direkt gehört hat, zuletzt gehört zuerst.';
 
   @override
+  String get snrIndicator_unknownRepeater => 'Unknown repeater';
+
+  @override
+  String get snrIndicator_unknownRepeaterHint =>
+      'This repeater isn\'t in your contacts yet. Its name, location and options appear once your radio receives its advert.';
+
+  @override
   String get contactsSettings_title => 'Kontakteinstellungen';
 
   @override

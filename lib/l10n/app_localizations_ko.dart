@@ -4665,6 +4665,13 @@ class AppLocalizationsKo extends AppLocalizations {
       '이 라디오가 직접 들은 리피터입니다. 가장 최근에 들은 순으로 표시됩니다.';
 
   @override
+  String get snrIndicator_unknownRepeater => 'Unknown repeater';
+
+  @override
+  String get snrIndicator_unknownRepeaterHint =>
+      'This repeater isn\'t in your contacts yet. Its name, location and options appear once your radio receives its advert.';
+
+  @override
   String get contactsSettings_title => '연락처 설정';
 
   @override

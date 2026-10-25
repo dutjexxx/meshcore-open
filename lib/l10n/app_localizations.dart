@@ -8342,6 +8342,18 @@ abstract class AppLocalizations {
   /// **'Repeaters your radio heard directly, most recently heard first.'**
   String get snrIndicator_nearByRepeatersDescription;
 
+  /// No description provided for @snrIndicator_unknownRepeater.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown repeater'**
+  String get snrIndicator_unknownRepeater;
+
+  /// No description provided for @snrIndicator_unknownRepeaterHint.
+  ///
+  /// In en, this message translates to:
+  /// **'This repeater isn\'t in your contacts yet. Its name, location and options appear once your radio receives its advert.'**
+  String get snrIndicator_unknownRepeaterHint;
+
   /// No description provided for @contactsSettings_title.
   ///
   /// In en, this message translates to:

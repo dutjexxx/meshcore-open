@@ -4890,6 +4890,13 @@ class AppLocalizationsBg extends AppLocalizations {
       'Повторители, чути от вашето радио пряко, първо най-скорошните.';
 
   @override
+  String get snrIndicator_unknownRepeater => 'Unknown repeater';
+
+  @override
+  String get snrIndicator_unknownRepeaterHint =>
+      'This repeater isn\'t in your contacts yet. Its name, location and options appear once your radio receives its advert.';
+
+  @override
   String get contactsSettings_title => 'Настройки на контактите';
 
   @override

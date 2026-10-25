@@ -4655,6 +4655,13 @@ class AppLocalizationsJa extends AppLocalizations {
       'ラジオが直接受信したリピータ（最近受信した順）';
 
   @override
+  String get snrIndicator_unknownRepeater => 'Unknown repeater';
+
+  @override
+  String get snrIndicator_unknownRepeaterHint =>
+      'This repeater isn\'t in your contacts yet. Its name, location and options appear once your radio receives its advert.';
+
+  @override
   String get contactsSettings_title => '連絡先設定';
 
   @override

@@ -4540,6 +4540,13 @@ class AppLocalizationsZh extends AppLocalizations {
       '你的无线电直接听到的中继器，最近听到的排在前面。';
 
   @override
+  String get snrIndicator_unknownRepeater => 'Unknown repeater';
+
+  @override
+  String get snrIndicator_unknownRepeaterHint =>
+      'This repeater isn\'t in your contacts yet. Its name, location and options appear once your radio receives its advert.';
+
+  @override
   String get contactsSettings_title => '联系人设置';
 
   @override
