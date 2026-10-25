@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:file_selector/file_selector.dart' as file_selector;
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -42,30 +41,16 @@ Future<void> attachIpfsLinkToDraft({
     );
   }
 
-  final file_selector.XFile? file;
-  try {
-    file = await file_selector.openFile();
-  } on Exception catch (error) {
-    showFailure(error);
-    return;
-  }
-  if (file == null || !context.mounted) return;
-
-  final Uint8List bytes;
-  try {
-    bytes = await file.readAsBytes();
-  } on Exception catch (error) {
-    showFailure(error);
-    return;
-  }
-  if (!context.mounted) return;
-  if (bytes.isEmpty) {
-    showFailure('The selected file is empty.');
-    return;
-  }
-
   final String messageUrl;
   try {
+    final file = await file_selector.openFile();
+    if (file == null || !context.mounted) return;
+    final bytes = await file.readAsBytes();
+    if (!context.mounted) return;
+    if (bytes.isEmpty) {
+      showFailure('The selected file is empty.');
+      return;
+    }
     messageUrl = await IpfsUploadHelper.uploadImageWithSettings(
       settings: settings,
       bytes: bytes,
@@ -73,6 +58,16 @@ Future<void> attachIpfsLinkToDraft({
       mimeType: IpfsUploadHelper.mimeTypeForFileName(file.name),
     );
   } on Exception catch (error) {
+    showFailure(error);
+    return;
+  } catch (error, stackTrace) {
+    FlutterError.reportError(
+      FlutterErrorDetails(
+        exception: error,
+        stack: stackTrace,
+        library: 'ipfs link attach',
+      ),
+    );
     showFailure(error);
     return;
   }

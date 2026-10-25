@@ -5,6 +5,17 @@ import 'package:http/http.dart' as http;
 
 import '../models/app_settings.dart';
 
+/// Thrown when the IPFS upload settings can't be used, before or instead of
+/// a network failure.
+class IpfsUploadConfigException implements Exception {
+  const IpfsUploadConfigException(this.message);
+
+  final String message;
+
+  @override
+  String toString() => message;
+}
+
 class IpfsUploadHelper {
   @visibleForTesting
   static http.Client? httpClient;
@@ -55,14 +66,18 @@ class IpfsUploadHelper {
   }) async {
     final endpoint = uploadEndpoint.trim();
     if (endpoint.isEmpty) {
-      throw Exception('Configure an IPFS upload endpoint first.');
+      throw const IpfsUploadConfigException(
+        'Configure an IPFS upload endpoint first.',
+      );
     }
 
     final endpointUri = Uri.tryParse(endpoint);
     if (endpointUri == null ||
         !(endpointUri.isScheme('http') || endpointUri.isScheme('https')) ||
         endpointUri.host.isEmpty) {
-      throw Exception('The IPFS upload endpoint must be an http(s) URL.');
+      throw const IpfsUploadConfigException(
+        'The IPFS upload endpoint must be an http(s) URL.',
+      );
     }
 
     final token = uploadApiKey.trim();
@@ -74,13 +89,17 @@ class IpfsUploadHelper {
     final isKubo = !isPinata && !isFilebase;
     final safeFileName = _sanitizeUploadFileName(fileName);
     if (isPinata && token.isEmpty) {
-      throw Exception('Pinata requires an API key or JWT.');
+      throw const IpfsUploadConfigException(
+        'Pinata requires an API key or JWT.',
+      );
     }
     if (isFilebase && token.isEmpty) {
-      throw Exception('Filebase RPC requires an API token.');
+      throw const IpfsUploadConfigException(
+        'Filebase RPC requires an API token.',
+      );
     }
     if (isKubo && !_kuboAddPath.hasMatch(endpointUri.path)) {
-      throw Exception(
+      throw const IpfsUploadConfigException(
         'Custom (Kubo) upload endpoint must end with /api/v0/add.',
       );
     }
