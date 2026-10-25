@@ -153,7 +153,8 @@ class AppLocalizationsSl extends AppLocalizations {
       'Mogoča slika iz URL; omogočite jo v Nastavitvah.';
 
   @override
-  String get urlImage_disabledInAppSettings => 'Turned off in app settings';
+  String get urlImage_disabledInAppSettings =>
+      'Izklopljeno v nastavitvah aplikacije';
 
   @override
   String get common_reboot => 'Ponoviti';
@@ -430,7 +431,7 @@ class AppLocalizationsSl extends AppLocalizations {
 
   @override
   String get settings_pathHashModeNotApplied =>
-      'Radio settings were applied, but the radio did not confirm the new path hash size';
+      'Nastavitve radia so bile uporabljene, vendar radio ni potrdil nove velikosti zgoščene poti';
 
   @override
   String get settings_regionSettings => 'Regioni';
@@ -1069,32 +1070,32 @@ class AppLocalizationsSl extends AppLocalizations {
       'Število poskusov ponovnega poslanja, preden se sporočilo označuje kot neuspešno';
 
   @override
-  String get appSettings_ipfsImageLinks => 'IPFS provider configuration';
+  String get appSettings_ipfsImageLinks => 'Konfiguracija ponudnika IPFS';
 
   @override
   String get appSettings_ipfsImageLinksSubtitle =>
-      'Upload for url Images (or Files) via IPFS provider and default gateway to receive';
+      'Nalaganje slik URL (ali datotek) prek ponudnika IPFS in privzeti prehod za prejemanje';
 
   @override
-  String get appSettings_loadLinkImages => 'Load images from links';
+  String get appSettings_loadLinkImages => 'Naloži slike iz povezav';
 
   @override
   String get appSettings_loadLinkImagesSubtitle =>
-      'Show pictures from links in messages. Loading an image shares your IP address with the site that hosts it.';
+      'Prikaži slike iz povezav v sporočilih. Nalaganje slike deli vaš naslov IP s spletiščem, ki jo gosti.';
 
   @override
   String get appSettings_showLinkImagesByDefault =>
-      'Show link images in all chats by default';
+      'Privzeto prikaži slike iz povezav v vseh klepetih';
 
   @override
   String get appSettings_showLinkImagesByDefaultSubtitle =>
-      'Load link images in every chat unless you turned them off there. This shares your IP address with image hosts in every chat.';
+      'Naloži slike iz povezav v vsakem klepetu, razen če ste jih tam izklopili. To deli vaš naslov IP z gostitelji slik v vsakem klepetu.';
 
   @override
-  String get appSettings_publicIpfsGateway => 'Public gateway';
+  String get appSettings_publicIpfsGateway => 'Javni prehod';
 
   @override
-  String get appSettings_ipfsGatewayDeactivated => 'Deactivated';
+  String get appSettings_ipfsGatewayDeactivated => 'Deaktivirano';
 
   @override
   String get appSettings_ipfsGatewayIpfsIo => 'ipfs.io';
@@ -1106,31 +1107,31 @@ class AppLocalizationsSl extends AppLocalizations {
   String get appSettings_ipfsGatewayFilebase => 'Filebase';
 
   @override
-  String get appSettings_ipfsGatewayCustom => 'Custom (Kubo)';
+  String get appSettings_ipfsGatewayCustom => 'Po meri (Kubo)';
 
   @override
-  String get appSettings_uploadIpfsProvider => 'Upload provider';
+  String get appSettings_uploadIpfsProvider => 'Ponudnik nalaganja';
 
   @override
-  String get appSettings_uploadIpfsGateway => 'Upload gateway';
+  String get appSettings_uploadIpfsGateway => 'Prehod za nalaganje';
 
   @override
   String get appSettings_uploadIpfsGatewaySubtitle =>
-      'Gateway to share Image or File as url-link. Leave empty to use ipfs: format, which may not be opened by other clients.';
+      'Prehod za deljenje slike ali datoteke kot povezave URL. Pustite prazno za format ipfs:, ki ga drugi odjemalci morda ne bodo odprli.';
 
   @override
-  String get appSettings_uploadIpfsEndpoint => 'Upload endpoint';
+  String get appSettings_uploadIpfsEndpoint => 'Končna točka za nalaganje';
 
   @override
   String get appSettings_uploadIpfsEndpointSubtitle =>
-      'The API endpoint used to upload files';
+      'Končna točka API za nalaganje datotek';
 
   @override
-  String get appSettings_uploadIpfsApiKey => 'Upload API key';
+  String get appSettings_uploadIpfsApiKey => 'Ključ API za nalaganje';
 
   @override
   String get appSettings_ipfsImageLinksDescription =>
-      'Public gateway downloads ipfs: format images. Upload gateway is used to generate share links for uploaded url images or files.';
+      'Javni prehod prenaša slike v formatu ipfs:. Prehod za nalaganje se uporablja za ustvarjanje povezav za deljenje naloženih slik ali datotek URL.';
 
   @override
   String get appSettings_battery => 'Baterija';
@@ -1350,11 +1351,11 @@ class AppLocalizationsSl extends AppLocalizations {
 
   @override
   String get contacts_removeAutoAddNote =>
-      'Your radio auto-adds this contact type, so it will come back the next time it advertises. Turn off auto-add in Contacts settings to keep it removed.';
+      'Vaš radio samodejno doda to vrsto stika, zato se bo vrnil, ko bo naslednjič poslal oglas. Izklopite samodejno dodajanje v nastavitvah stikov, da ostane odstranjen.';
 
   @override
   String get contacts_removeFailed =>
-      'The radio did not confirm the removal. The contact was not removed.';
+      'Radio ni potrdil odstranitve. Stik ni bil odstranjen.';
 
   @override
   String contacts_discoveredNearby(int count) {
@@ -1543,7 +1544,7 @@ class AppLocalizationsSl extends AppLocalizations {
 
   @override
   String channels_notificationModeTooltip(String mode) {
-    return 'Notifications: $mode';
+    return 'Obvestila: $mode';
   }
 
   @override
@@ -1727,6 +1728,31 @@ class AppLocalizationsSl extends AppLocalizations {
   String get channels_scanQrCodeComingSoon => 'Prihajajoča';
 
   @override
+  String get channels_scanQrCodeDesc =>
+      'Pridružite se kanalu ali skupnosti s kodo QR.';
+
+  @override
+  String get channels_scanQrInstructions =>
+      'Usmerite kamero v kodo QR kanala ali skupnosti';
+
+  @override
+  String get channels_invalidQrCode =>
+      'To ni koda QR kanala ali skupnosti MeshCore';
+
+  @override
+  String get channels_joinChannelTitle => 'Pridruži se kanalu';
+
+  @override
+  String channels_joinChannelConfirm(String name) {
+    return 'Dodam »$name« na vaš radio?';
+  }
+
+  @override
+  String channels_alreadyOnRadio(String name) {
+    return '»$name« je že na vašem radiu';
+  }
+
+  @override
   String get channels_enterHashtag => 'Vnesite hashtag';
 
   @override
@@ -1846,43 +1872,43 @@ class AppLocalizationsSl extends AppLocalizations {
   String get chat_sendImageLora => 'Pošlji sliko prek MeshCore';
 
   @override
-  String get chat_sendImageIpfs => 'Send image or file via IPFS';
+  String get chat_sendImageIpfs => 'Pošlji sliko ali datoteko prek IPFS';
 
   @override
   String chat_ipfsUploadFailed(String error) {
-    return 'IPFS upload failed: $error';
+    return 'Nalaganje IPFS ni uspelo: $error';
   }
 
   @override
   String get chat_ipfsUploadNotConfigured =>
-      'Configure an IPFS upload provider in App Settings first.';
+      'Najprej nastavite ponudnika nalaganja IPFS v nastavitvah aplikacije.';
 
   @override
-  String get chat_ipfsSelectedFileEmpty => 'The selected file is empty.';
+  String get chat_ipfsSelectedFileEmpty => 'Izbrana datoteka je prazna.';
 
   @override
   String get chat_ipfsEndpointInvalid =>
-      'The IPFS upload endpoint must be a full http:// or https:// address. Check it in App Settings.';
+      'Končna točka za nalaganje IPFS mora biti polni naslov http:// ali https://. Preverite jo v nastavitvah aplikacije.';
 
   @override
   String get chat_ipfsPinataTokenMissing =>
-      'Pinata needs an API key or JWT. Add it in App Settings.';
+      'Pinata potrebuje ključ API ali JWT. Dodajte ga v nastavitvah aplikacije.';
 
   @override
   String get chat_ipfsFilebaseTokenMissing =>
-      'Filebase needs an API token. Add it in App Settings.';
+      'Filebase potrebuje žeton API. Dodajte ga v nastavitvah aplikacije.';
 
   @override
   String get chat_ipfsKuboPathInvalid =>
-      'The Kubo upload endpoint must end with /api/v0/add. Check it in App Settings.';
+      'Končna točka za nalaganje Kubo se mora končati z /api/v0/add. Preverite jo v nastavitvah aplikacije.';
 
   @override
   String get chat_ipfsLinkNoRoom =>
-      'Not enough room for the image link. Shorten your message, then try again.';
+      'Za povezavo slike ni dovolj prostora. Skrajšajte sporočilo in poskusite znova.';
 
   @override
   String get chat_ipfsLinkOverLimit =>
-      'Image link added, but the message is now too long. Shorten it before sending.';
+      'Povezava slike je dodana, vendar je sporočilo zdaj predolgo. Skrajšajte ga pred pošiljanjem.';
 
   @override
   String get chat_imagePickFailed => 'Nispeval sem tega ta slik';
@@ -2501,24 +2527,24 @@ class AppLocalizationsSl extends AppLocalizations {
 
   @override
   String get map_pathTraceAddMoreHint =>
-      'Tap more nodes to add hops, choose how the trace returns, then tap Run path trace.';
+      'Tapnite več vozlišč za dodajanje skokov, izberite, kako se sledenje vrne, nato tapnite Zaženi sledenje poti.';
 
   @override
-  String get map_pathTraceModeRoundTrip => 'Round trip';
+  String get map_pathTraceModeRoundTrip => 'Povratna pot';
 
   @override
   String get map_pathTraceModeRoundTripHint =>
-      'The trace goes out through these hops and comes back the same way.';
+      'Sledenje gre skozi te skoke in se vrne po isti poti.';
 
   @override
-  String get map_pathTraceModeAsEntered => 'As entered';
+  String get map_pathTraceModeAsEntered => 'Kot vneseno';
 
   @override
   String get map_pathTraceModeAsEnteredHint =>
-      'The trace follows these hops exactly. Add the hops back to you yourself.';
+      'Sledenje sledi tem skokom natančno. Skoke nazaj k sebi dodajte sami.';
 
   @override
-  String get map_pathTraceViewLast => 'View last result';
+  String get map_pathTraceViewLast => 'Poglej zadnji rezultat';
 
   @override
   String get mapCache_title =>
@@ -4867,11 +4893,11 @@ class AppLocalizationsSl extends AppLocalizations {
   String get notification_activityTitle => 'Aktivnost MeshCore';
 
   @override
-  String get notification_lowBatteryTitle => 'Low battery';
+  String get notification_lowBatteryTitle => 'Nizka baterija';
 
   @override
   String notification_lowBatteryBody(String deviceName, int percent) {
-    return '$deviceName battery is at $percent%';
+    return 'Baterija $deviceName je pri $percent %';
   }
 
   @override
@@ -4922,23 +4948,23 @@ class AppLocalizationsSl extends AppLocalizations {
   String get notification_receivedNewMessage => 'Prejeto novo sporočilo';
 
   @override
-  String get notification_sharedLocation => 'Shared a location';
+  String get notification_sharedLocation => 'Delil(-a) lokacijo';
 
   @override
   String notification_sharedLocationNamed(String label) {
-    return 'Shared a location: $label';
+    return 'Delil(-a) lokacijo: $label';
   }
 
   @override
   String notification_reacted(String emoji) {
-    return 'Reacted $emoji';
+    return 'Reakcija $emoji';
   }
 
   @override
-  String get notification_sentGif => 'Sent a GIF';
+  String get notification_sentGif => 'Poslal(-a) GIF';
 
   @override
-  String get notification_sentImage => 'Sent an image';
+  String get notification_sentImage => 'Poslal(-a) sliko';
 
   @override
   String get notification_actionReply => 'Odgovori';
@@ -5042,11 +5068,11 @@ class AppLocalizationsSl extends AppLocalizations {
       'Ponovitelji, ki jih je vaše radio slišalo neposredno, najprej nazadnje slišani.';
 
   @override
-  String get snrIndicator_unknownRepeater => 'Unknown repeater';
+  String get snrIndicator_unknownRepeater => 'Neznan ponovitelj';
 
   @override
   String get snrIndicator_unknownRepeaterHint =>
-      'This repeater isn\'t in your contacts yet. Its name, location and options appear once your radio receives its advert.';
+      'Ta ponovitelj še ni med vašimi stiki. Njegovo ime, lokacija in možnosti se prikažejo, ko vaš radio prejme njegov oglas.';
 
   @override
   String get contactsSettings_title => 'Nastavitve stikov';
@@ -6342,7 +6368,7 @@ class AppLocalizationsSl extends AppLocalizations {
 
   @override
   String contacts_keyPrefixSemantics(String prefix) {
-    return 'Key prefix $prefix';
+    return 'Predpona ključa $prefix';
   }
 
   @override
@@ -6429,15 +6455,16 @@ class AppLocalizationsSl extends AppLocalizations {
   String get networkMap_sourceBoth => 'Oboje';
 
   @override
-  String get networkMap_sourceLocalHint => 'Nodes your radio has heard';
+  String get networkMap_sourceLocalHint =>
+      'Vozlišča, ki jih je slišal vaš radio';
 
   @override
   String get networkMap_sourceOnlineHint =>
-      'Repeaters from the online network map';
+      'Ponovitelji z spletnega zemljevida omrežja';
 
   @override
   String get networkMap_sourceBothHint =>
-      'Your radio\'s nodes plus the online network map';
+      'Vozlišča vašega radia in spletni zemljevid omrežja';
 
   @override
   String get networkMap_zoomInHint =>

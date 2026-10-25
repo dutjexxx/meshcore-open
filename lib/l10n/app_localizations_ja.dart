@@ -148,7 +148,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get urlImage_possible => 'URL画像の可能性があります。設定で有効にしてください。';
 
   @override
-  String get urlImage_disabledInAppSettings => 'Turned off in app settings';
+  String get urlImage_disabledInAppSettings => 'アプリ設定でオフになっています';
 
   @override
   String get common_reboot => '再起動';
@@ -412,7 +412,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get settings_pathHashModeNotApplied =>
-      'Radio settings were applied, but the radio did not confirm the new path hash size';
+      'ラジオ設定は適用されましたが、ラジオが新しい経路ハッシュサイズを確認しませんでした';
 
   @override
   String get settings_regionSettings => '地域';
@@ -1015,32 +1015,31 @@ class AppLocalizationsJa extends AppLocalizations {
   String get appSettings_maxMessageRetriesSubtitle => 'メッセージを失敗として扱うまでの再試行回数';
 
   @override
-  String get appSettings_ipfsImageLinks => 'IPFS provider configuration';
+  String get appSettings_ipfsImageLinks => 'IPFSプロバイダー設定';
 
   @override
   String get appSettings_ipfsImageLinksSubtitle =>
-      'Upload for url Images (or Files) via IPFS provider and default gateway to receive';
+      'URL画像（またはファイル）のアップロードにIPFSプロバイダーを、受信にデフォルトゲートウェイを使用します';
 
   @override
-  String get appSettings_loadLinkImages => 'Load images from links';
+  String get appSettings_loadLinkImages => 'リンクの画像を読み込む';
 
   @override
   String get appSettings_loadLinkImagesSubtitle =>
-      'Show pictures from links in messages. Loading an image shares your IP address with the site that hosts it.';
+      'メッセージ内のリンクの画像を表示します。画像を読み込むと、ホスト先のサイトにIPアドレスが共有されます。';
 
   @override
-  String get appSettings_showLinkImagesByDefault =>
-      'Show link images in all chats by default';
+  String get appSettings_showLinkImagesByDefault => 'すべてのチャットでリンク画像を既定で表示';
 
   @override
   String get appSettings_showLinkImagesByDefaultSubtitle =>
-      'Load link images in every chat unless you turned them off there. This shares your IP address with image hosts in every chat.';
+      'チャットごとにオフにしていない限り、すべてのチャットでリンク画像を読み込みます。すべてのチャットで画像ホストにIPアドレスが共有されます。';
 
   @override
-  String get appSettings_publicIpfsGateway => 'Public gateway';
+  String get appSettings_publicIpfsGateway => '公開ゲートウェイ';
 
   @override
-  String get appSettings_ipfsGatewayDeactivated => 'Deactivated';
+  String get appSettings_ipfsGatewayDeactivated => '無効';
 
   @override
   String get appSettings_ipfsGatewayIpfsIo => 'ipfs.io';
@@ -1052,31 +1051,31 @@ class AppLocalizationsJa extends AppLocalizations {
   String get appSettings_ipfsGatewayFilebase => 'Filebase';
 
   @override
-  String get appSettings_ipfsGatewayCustom => 'Custom (Kubo)';
+  String get appSettings_ipfsGatewayCustom => 'カスタム（Kubo）';
 
   @override
-  String get appSettings_uploadIpfsProvider => 'Upload provider';
+  String get appSettings_uploadIpfsProvider => 'アップロードプロバイダー';
 
   @override
-  String get appSettings_uploadIpfsGateway => 'Upload gateway';
+  String get appSettings_uploadIpfsGateway => 'アップロードゲートウェイ';
 
   @override
   String get appSettings_uploadIpfsGatewaySubtitle =>
-      'Gateway to share Image or File as url-link. Leave empty to use ipfs: format, which may not be opened by other clients.';
+      '画像やファイルをURLリンクとして共有するためのゲートウェイです。空欄の場合は ipfs: 形式を使用しますが、他のクライアントでは開けない場合があります。';
 
   @override
-  String get appSettings_uploadIpfsEndpoint => 'Upload endpoint';
+  String get appSettings_uploadIpfsEndpoint => 'アップロードエンドポイント';
 
   @override
   String get appSettings_uploadIpfsEndpointSubtitle =>
-      'The API endpoint used to upload files';
+      'ファイルのアップロードに使用するAPIエンドポイント';
 
   @override
-  String get appSettings_uploadIpfsApiKey => 'Upload API key';
+  String get appSettings_uploadIpfsApiKey => 'アップロードAPIキー';
 
   @override
   String get appSettings_ipfsImageLinksDescription =>
-      'Public gateway downloads ipfs: format images. Upload gateway is used to generate share links for uploaded url images or files.';
+      '公開ゲートウェイは ipfs: 形式の画像をダウンロードします。アップロードゲートウェイは、アップロードしたURL画像やファイルの共有リンクの生成に使用されます。';
 
   @override
   String get appSettings_battery => 'バッテリー';
@@ -1288,11 +1287,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get contacts_removeAutoAddNote =>
-      'Your radio auto-adds this contact type, so it will come back the next time it advertises. Turn off auto-add in Contacts settings to keep it removed.';
+      'このタイプの連絡先はラジオが自動追加するため、次回アドバートを送信すると再び追加されます。削除したままにするには、連絡先設定で自動追加をオフにしてください。';
 
   @override
-  String get contacts_removeFailed =>
-      'The radio did not confirm the removal. The contact was not removed.';
+  String get contacts_removeFailed => 'ラジオが削除を確認しませんでした。連絡先は削除されていません。';
 
   @override
   String contacts_discoveredNearby(int count) {
@@ -1478,7 +1476,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String channels_notificationModeTooltip(String mode) {
-    return 'Notifications: $mode';
+    return '通知：$mode';
   }
 
   @override
@@ -1654,6 +1652,28 @@ class AppLocalizationsJa extends AppLocalizations {
   String get channels_scanQrCodeComingSoon => '近日公開';
 
   @override
+  String get channels_scanQrCodeDesc => 'QRコードからチャンネルまたはコミュニティに参加します。';
+
+  @override
+  String get channels_scanQrInstructions => 'チャンネルまたはコミュニティのQRコードにカメラを向けてください';
+
+  @override
+  String get channels_invalidQrCode => 'MeshCoreのチャンネルまたはコミュニティのQRコードではありません';
+
+  @override
+  String get channels_joinChannelTitle => 'チャンネルに参加';
+
+  @override
+  String channels_joinChannelConfirm(String name) {
+    return '「$name」をラジオに追加しますか？';
+  }
+
+  @override
+  String channels_alreadyOnRadio(String name) {
+    return '「$name」はすでにラジオにあります';
+  }
+
+  @override
   String get channels_enterHashtag => 'ハッシュタグを入力してください';
 
   @override
@@ -1772,43 +1792,43 @@ class AppLocalizationsJa extends AppLocalizations {
   String get chat_sendImageLora => 'MeshCore経由で画像を送信';
 
   @override
-  String get chat_sendImageIpfs => 'Send image or file via IPFS';
+  String get chat_sendImageIpfs => 'IPFSで画像またはファイルを送信';
 
   @override
   String chat_ipfsUploadFailed(String error) {
-    return 'IPFS upload failed: $error';
+    return 'IPFSアップロードに失敗しました：$error';
   }
 
   @override
   String get chat_ipfsUploadNotConfigured =>
-      'Configure an IPFS upload provider in App Settings first.';
+      '先にアプリ設定でIPFSアップロードプロバイダーを設定してください。';
 
   @override
-  String get chat_ipfsSelectedFileEmpty => 'The selected file is empty.';
+  String get chat_ipfsSelectedFileEmpty => '選択したファイルは空です。';
 
   @override
   String get chat_ipfsEndpointInvalid =>
-      'The IPFS upload endpoint must be a full http:// or https:// address. Check it in App Settings.';
+      'IPFSアップロードエンドポイントは http:// または https:// で始まる完全なアドレスにしてください。アプリ設定で確認してください。';
 
   @override
   String get chat_ipfsPinataTokenMissing =>
-      'Pinata needs an API key or JWT. Add it in App Settings.';
+      'PinataにはAPIキーまたはJWTが必要です。アプリ設定で追加してください。';
 
   @override
   String get chat_ipfsFilebaseTokenMissing =>
-      'Filebase needs an API token. Add it in App Settings.';
+      'FilebaseにはAPIトークンが必要です。アプリ設定で追加してください。';
 
   @override
   String get chat_ipfsKuboPathInvalid =>
-      'The Kubo upload endpoint must end with /api/v0/add. Check it in App Settings.';
+      'Kuboのアップロードエンドポイントは /api/v0/add で終わる必要があります。アプリ設定で確認してください。';
 
   @override
   String get chat_ipfsLinkNoRoom =>
-      'Not enough room for the image link. Shorten your message, then try again.';
+      '画像リンクを入れる余裕がありません。メッセージを短くしてからもう一度お試しください。';
 
   @override
   String get chat_ipfsLinkOverLimit =>
-      'Image link added, but the message is now too long. Shorten it before sending.';
+      '画像リンクを追加しましたが、メッセージが長すぎます。送信前に短くしてください。';
 
   @override
   String get chat_imagePickFailed => 'その画像を開けませんでした';
@@ -2413,24 +2433,24 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get map_pathTraceAddMoreHint =>
-      'Tap more nodes to add hops, choose how the trace returns, then tap Run path trace.';
+      'ノードをタップしてホップを追加し、トレースの戻り方を選んでから「経路トレースを実行」をタップします。';
 
   @override
-  String get map_pathTraceModeRoundTrip => 'Round trip';
+  String get map_pathTraceModeRoundTrip => '往復';
 
   @override
   String get map_pathTraceModeRoundTripHint =>
-      'The trace goes out through these hops and comes back the same way.';
+      'トレースはこれらのホップを経由して送信され、同じ経路で戻ってきます。';
 
   @override
-  String get map_pathTraceModeAsEntered => 'As entered';
+  String get map_pathTraceModeAsEntered => '入力どおり';
 
   @override
   String get map_pathTraceModeAsEnteredHint =>
-      'The trace follows these hops exactly. Add the hops back to you yourself.';
+      'トレースはこれらのホップをそのとおりにたどります。自分へ戻るホップは自分で追加してください。';
 
   @override
-  String get map_pathTraceViewLast => 'View last result';
+  String get map_pathTraceViewLast => '前回の結果を表示';
 
   @override
   String get mapCache_title => 'オフライン用地図キャッシュ';
@@ -4655,11 +4675,11 @@ class AppLocalizationsJa extends AppLocalizations {
   String get notification_activityTitle => 'メッシュコアの活動';
 
   @override
-  String get notification_lowBatteryTitle => 'Low battery';
+  String get notification_lowBatteryTitle => 'バッテリー残量低下';
 
   @override
   String notification_lowBatteryBody(String deviceName, int percent) {
-    return '$deviceName battery is at $percent%';
+    return '$deviceNameのバッテリー残量は$percent%です';
   }
 
   @override
@@ -4704,23 +4724,23 @@ class AppLocalizationsJa extends AppLocalizations {
   String get notification_receivedNewMessage => '新しいメッセージを受信';
 
   @override
-  String get notification_sharedLocation => 'Shared a location';
+  String get notification_sharedLocation => '位置情報を共有しました';
 
   @override
   String notification_sharedLocationNamed(String label) {
-    return 'Shared a location: $label';
+    return '位置情報を共有しました：$label';
   }
 
   @override
   String notification_reacted(String emoji) {
-    return 'Reacted $emoji';
+    return '$emojiでリアクションしました';
   }
 
   @override
-  String get notification_sentGif => 'Sent a GIF';
+  String get notification_sentGif => 'GIFを送信しました';
 
   @override
-  String get notification_sentImage => 'Sent an image';
+  String get notification_sentImage => '画像を送信しました';
 
   @override
   String get notification_actionReply => '返信';
@@ -4819,11 +4839,11 @@ class AppLocalizationsJa extends AppLocalizations {
       'ラジオが直接受信したリピータ（最近受信した順）';
 
   @override
-  String get snrIndicator_unknownRepeater => 'Unknown repeater';
+  String get snrIndicator_unknownRepeater => '不明なリピータ';
 
   @override
   String get snrIndicator_unknownRepeaterHint =>
-      'This repeater isn\'t in your contacts yet. Its name, location and options appear once your radio receives its advert.';
+      'このリピータはまだ連絡先にありません。ラジオがアドバートを受信すると、名前、場所、オプションが表示されます。';
 
   @override
   String get contactsSettings_title => '連絡先設定';
@@ -6070,7 +6090,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String contacts_keyPrefixSemantics(String prefix) {
-    return 'Key prefix $prefix';
+    return 'キープレフィックス $prefix';
   }
 
   @override
@@ -6156,15 +6176,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get networkMap_sourceBoth => '両方';
 
   @override
-  String get networkMap_sourceLocalHint => 'Nodes your radio has heard';
+  String get networkMap_sourceLocalHint => 'ラジオが受信したノード';
 
   @override
-  String get networkMap_sourceOnlineHint =>
-      'Repeaters from the online network map';
+  String get networkMap_sourceOnlineHint => 'オンラインネットワークマップのリピータ';
 
   @override
-  String get networkMap_sourceBothHint =>
-      'Your radio\'s nodes plus the online network map';
+  String get networkMap_sourceBothHint => 'ラジオのノードとオンラインネットワークマップ';
 
   @override
   String get networkMap_zoomInHint => 'ズームインするとオンラインのネットワークマップが表示されます';

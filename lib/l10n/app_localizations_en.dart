@@ -1710,6 +1710,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get channels_scanQrCodeComingSoon => 'Coming soon';
 
   @override
+  String get channels_scanQrCodeDesc =>
+      'Join a channel or community from its QR code.';
+
+  @override
+  String get channels_scanQrInstructions =>
+      'Point the camera at a channel or community QR code';
+
+  @override
+  String get channels_invalidQrCode =>
+      'Not a MeshCore channel or community QR code';
+
+  @override
+  String get channels_joinChannelTitle => 'Join Channel';
+
+  @override
+  String channels_joinChannelConfirm(String name) {
+    return 'Add \"$name\" to your radio?';
+  }
+
+  @override
+  String channels_alreadyOnRadio(String name) {
+    return '\"$name\" is already on your radio';
+  }
+
+  @override
   String get channels_enterHashtag => 'Enter hashtag';
 
   @override

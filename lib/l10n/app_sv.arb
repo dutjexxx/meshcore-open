@@ -3309,5 +3309,133 @@
   "networkMap_manage": "Hantera",
   "networkMap_addedToContacts": "Tillagd i kontakter",
   "networkMap_addFailed": "Det gick inte att lägga till i kontakter",
-  "networkMap_unnamed": "Namnlös repeater"
+  "networkMap_unnamed": "Namnlös repeater",
+  "urlImage_disabledInAppSettings": "Avstängt i appinställningarna",
+  "settings_pathHashModeNotApplied": "Radioinställningarna tillämpades, men radion bekräftade inte den nya storleken på ruttens hash",
+  "appSettings_ipfsImageLinks": "Konfiguration av IPFS-leverantör",
+  "appSettings_ipfsImageLinksSubtitle": "Uppladdning av URL-bilder (eller filer) via IPFS-leverantör och standardgateway för mottagning",
+  "appSettings_loadLinkImages": "Ladda bilder från länkar",
+  "appSettings_loadLinkImagesSubtitle": "Visa bilder från länkar i meddelanden. När en bild laddas delas din IP-adress med webbplatsen som hostar den.",
+  "appSettings_showLinkImagesByDefault": "Visa länkbilder i alla chattar som standard",
+  "appSettings_showLinkImagesByDefaultSubtitle": "Ladda länkbilder i alla chattar om du inte har stängt av det där. Det delar din IP-adress med bildhostar i varje chatt.",
+  "appSettings_publicIpfsGateway": "Offentlig gateway",
+  "appSettings_ipfsGatewayDeactivated": "Avaktiverad",
+  "appSettings_ipfsGatewayIpfsIo": "ipfs.io",
+  "appSettings_ipfsGatewayPinata": "Pinata",
+  "appSettings_ipfsGatewayFilebase": "Filebase",
+  "appSettings_ipfsGatewayCustom": "Egen (Kubo)",
+  "appSettings_uploadIpfsProvider": "Uppladdningsleverantör",
+  "appSettings_uploadIpfsGateway": "Uppladdningsgateway",
+  "appSettings_uploadIpfsGatewaySubtitle": "Gateway för att dela bild eller fil som URL-länk. Lämna tomt för att använda formatet ipfs:, som kanske inte kan öppnas av andra klienter.",
+  "appSettings_uploadIpfsEndpoint": "Uppladdningsslutpunkt",
+  "appSettings_uploadIpfsEndpointSubtitle": "API-slutpunkten som används för att ladda upp filer",
+  "appSettings_uploadIpfsApiKey": "API-nyckel för uppladdning",
+  "appSettings_ipfsImageLinksDescription": "Den offentliga gatewayen laddar ned bilder i formatet ipfs:. Uppladdningsgatewayen används för att skapa delningslänkar till uppladdade URL-bilder eller filer.",
+  "contacts_removeAutoAddNote": "Din radio lägger automatiskt till den här kontakttypen, så den kommer tillbaka nästa gång den skickar en annons. Stäng av automatisk tillägg i kontaktinställningarna för att behålla den borttagen.",
+  "contacts_removeFailed": "Radion bekräftade inte borttagningen. Kontakten togs inte bort.",
+  "channels_notificationModeTooltip": "Notiser: {mode}",
+  "@channels_notificationModeTooltip": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    }
+  },
+  "channels_scanQrCodeDesc": "Gå med i en kanal eller community med dess QR-kod.",
+  "channels_scanQrInstructions": "Rikta kameran mot en kanal- eller community-QR-kod",
+  "channels_invalidQrCode": "Inte en MeshCore-QR-kod för kanal eller community",
+  "channels_joinChannelTitle": "Gå med i kanal",
+  "channels_joinChannelConfirm": "Lägga till \"{name}\" på din radio?",
+  "@channels_joinChannelConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "channels_alreadyOnRadio": "\"{name}\" finns redan på din radio",
+  "@channels_alreadyOnRadio": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chat_sendImageIpfs": "Skicka bild eller fil via IPFS",
+  "chat_ipfsUploadFailed": "IPFS-uppladdningen misslyckades: {error}",
+  "@chat_ipfsUploadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "chat_ipfsUploadNotConfigured": "Konfigurera först en IPFS-uppladdningsleverantör i appinställningarna.",
+  "chat_ipfsSelectedFileEmpty": "Den valda filen är tom.",
+  "chat_ipfsEndpointInvalid": "IPFS-uppladdningsslutpunkten måste vara en fullständig http://- eller https://-adress. Kontrollera den i appinställningarna.",
+  "chat_ipfsPinataTokenMissing": "Pinata behöver en API-nyckel eller JWT. Lägg till den i appinställningarna.",
+  "chat_ipfsFilebaseTokenMissing": "Filebase behöver en API-token. Lägg till den i appinställningarna.",
+  "chat_ipfsKuboPathInvalid": "Kubo-uppladdningsslutpunkten måste sluta med /api/v0/add. Kontrollera den i appinställningarna.",
+  "chat_ipfsLinkNoRoom": "Det finns inte plats för bildlänken. Korta ned meddelandet och försök igen.",
+  "@chat_ipfsLinkNoRoom": {
+    "description": "Shown before an IPFS upload when the link would push the draft over the message size limit"
+  },
+  "chat_ipfsLinkOverLimit": "Bildlänken lades till, men meddelandet är nu för långt. Korta ned det innan du skickar.",
+  "@chat_ipfsLinkOverLimit": {
+    "description": "Shown after an IPFS upload when the link plus the draft no longer fits the message size limit"
+  },
+  "map_pathTraceAddMoreHint": "Tryck på fler noder för att lägga till hopp, välj hur spårningen returneras och tryck sedan på Kör ruttspårning.",
+  "map_pathTraceModeRoundTrip": "Tur och retur",
+  "map_pathTraceModeRoundTripHint": "Spårningen går ut via dessa hopp och kommer tillbaka samma väg.",
+  "map_pathTraceModeAsEntered": "Som inmatat",
+  "map_pathTraceModeAsEnteredHint": "Spårningen följer exakt dessa hopp. Lägg själv till hoppen tillbaka till dig.",
+  "map_pathTraceViewLast": "Visa senaste resultat",
+  "notification_lowBatteryTitle": "Lågt batteri",
+  "@notification_lowBatteryTitle": {
+    "description": "Title of the low battery notification"
+  },
+  "notification_lowBatteryBody": "Batteriet i {deviceName} är på {percent} %",
+  "@notification_lowBatteryBody": {
+    "description": "Body of the low battery notification; deviceName is the connected radio's node name",
+    "placeholders": {
+      "deviceName": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "notification_sharedLocation": "Delade en plats",
+  "notification_sharedLocationNamed": "Delade en plats: {label}",
+  "@notification_sharedLocationNamed": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_reacted": "Reagerade med {emoji}",
+  "@notification_reacted": {
+    "placeholders": {
+      "emoji": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_sentGif": "Skickade en GIF",
+  "notification_sentImage": "Skickade en bild",
+  "snrIndicator_unknownRepeater": "Okänd repeater",
+  "snrIndicator_unknownRepeaterHint": "Den här repeatern finns inte bland dina kontakter än. Dess namn, plats och alternativ visas när din radio tar emot dess annons.",
+  "contacts_keyPrefixSemantics": "Nyckelprefix {prefix}",
+  "@contacts_keyPrefixSemantics": {
+    "placeholders": {
+      "prefix": {
+        "type": "String"
+      }
+    }
+  },
+  "networkMap_sourceLocalHint": "Noder som din radio har hört",
+  "networkMap_sourceOnlineHint": "Repeatrar från den online-baserade nätverkskartan",
+  "networkMap_sourceBothHint": "Din radios noder plus den online-baserade nätverkskartan"
 }

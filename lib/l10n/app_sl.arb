@@ -3315,5 +3315,133 @@
   "networkMap_manage": "Upravljaj",
   "networkMap_addedToContacts": "Dodano med stike",
   "networkMap_addFailed": "Dodajanje med stike ni uspelo",
-  "networkMap_unnamed": "Repeater brez imena"
+  "networkMap_unnamed": "Repeater brez imena",
+  "urlImage_disabledInAppSettings": "Izklopljeno v nastavitvah aplikacije",
+  "settings_pathHashModeNotApplied": "Nastavitve radia so bile uporabljene, vendar radio ni potrdil nove velikosti zgoščene poti",
+  "appSettings_ipfsImageLinks": "Konfiguracija ponudnika IPFS",
+  "appSettings_ipfsImageLinksSubtitle": "Nalaganje slik URL (ali datotek) prek ponudnika IPFS in privzeti prehod za prejemanje",
+  "appSettings_loadLinkImages": "Naloži slike iz povezav",
+  "appSettings_loadLinkImagesSubtitle": "Prikaži slike iz povezav v sporočilih. Nalaganje slike deli vaš naslov IP s spletiščem, ki jo gosti.",
+  "appSettings_showLinkImagesByDefault": "Privzeto prikaži slike iz povezav v vseh klepetih",
+  "appSettings_showLinkImagesByDefaultSubtitle": "Naloži slike iz povezav v vsakem klepetu, razen če ste jih tam izklopili. To deli vaš naslov IP z gostitelji slik v vsakem klepetu.",
+  "appSettings_publicIpfsGateway": "Javni prehod",
+  "appSettings_ipfsGatewayDeactivated": "Deaktivirano",
+  "appSettings_ipfsGatewayIpfsIo": "ipfs.io",
+  "appSettings_ipfsGatewayPinata": "Pinata",
+  "appSettings_ipfsGatewayFilebase": "Filebase",
+  "appSettings_ipfsGatewayCustom": "Po meri (Kubo)",
+  "appSettings_uploadIpfsProvider": "Ponudnik nalaganja",
+  "appSettings_uploadIpfsGateway": "Prehod za nalaganje",
+  "appSettings_uploadIpfsGatewaySubtitle": "Prehod za deljenje slike ali datoteke kot povezave URL. Pustite prazno za format ipfs:, ki ga drugi odjemalci morda ne bodo odprli.",
+  "appSettings_uploadIpfsEndpoint": "Končna točka za nalaganje",
+  "appSettings_uploadIpfsEndpointSubtitle": "Končna točka API za nalaganje datotek",
+  "appSettings_uploadIpfsApiKey": "Ključ API za nalaganje",
+  "appSettings_ipfsImageLinksDescription": "Javni prehod prenaša slike v formatu ipfs:. Prehod za nalaganje se uporablja za ustvarjanje povezav za deljenje naloženih slik ali datotek URL.",
+  "contacts_removeAutoAddNote": "Vaš radio samodejno doda to vrsto stika, zato se bo vrnil, ko bo naslednjič poslal oglas. Izklopite samodejno dodajanje v nastavitvah stikov, da ostane odstranjen.",
+  "contacts_removeFailed": "Radio ni potrdil odstranitve. Stik ni bil odstranjen.",
+  "channels_notificationModeTooltip": "Obvestila: {mode}",
+  "@channels_notificationModeTooltip": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    }
+  },
+  "channels_scanQrCodeDesc": "Pridružite se kanalu ali skupnosti s kodo QR.",
+  "channels_scanQrInstructions": "Usmerite kamero v kodo QR kanala ali skupnosti",
+  "channels_invalidQrCode": "To ni koda QR kanala ali skupnosti MeshCore",
+  "channels_joinChannelTitle": "Pridruži se kanalu",
+  "channels_joinChannelConfirm": "Dodam »{name}« na vaš radio?",
+  "@channels_joinChannelConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "channels_alreadyOnRadio": "»{name}« je že na vašem radiu",
+  "@channels_alreadyOnRadio": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chat_sendImageIpfs": "Pošlji sliko ali datoteko prek IPFS",
+  "chat_ipfsUploadFailed": "Nalaganje IPFS ni uspelo: {error}",
+  "@chat_ipfsUploadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "chat_ipfsUploadNotConfigured": "Najprej nastavite ponudnika nalaganja IPFS v nastavitvah aplikacije.",
+  "chat_ipfsSelectedFileEmpty": "Izbrana datoteka je prazna.",
+  "chat_ipfsEndpointInvalid": "Končna točka za nalaganje IPFS mora biti polni naslov http:// ali https://. Preverite jo v nastavitvah aplikacije.",
+  "chat_ipfsPinataTokenMissing": "Pinata potrebuje ključ API ali JWT. Dodajte ga v nastavitvah aplikacije.",
+  "chat_ipfsFilebaseTokenMissing": "Filebase potrebuje žeton API. Dodajte ga v nastavitvah aplikacije.",
+  "chat_ipfsKuboPathInvalid": "Končna točka za nalaganje Kubo se mora končati z /api/v0/add. Preverite jo v nastavitvah aplikacije.",
+  "chat_ipfsLinkNoRoom": "Za povezavo slike ni dovolj prostora. Skrajšajte sporočilo in poskusite znova.",
+  "@chat_ipfsLinkNoRoom": {
+    "description": "Shown before an IPFS upload when the link would push the draft over the message size limit"
+  },
+  "chat_ipfsLinkOverLimit": "Povezava slike je dodana, vendar je sporočilo zdaj predolgo. Skrajšajte ga pred pošiljanjem.",
+  "@chat_ipfsLinkOverLimit": {
+    "description": "Shown after an IPFS upload when the link plus the draft no longer fits the message size limit"
+  },
+  "map_pathTraceAddMoreHint": "Tapnite več vozlišč za dodajanje skokov, izberite, kako se sledenje vrne, nato tapnite Zaženi sledenje poti.",
+  "map_pathTraceModeRoundTrip": "Povratna pot",
+  "map_pathTraceModeRoundTripHint": "Sledenje gre skozi te skoke in se vrne po isti poti.",
+  "map_pathTraceModeAsEntered": "Kot vneseno",
+  "map_pathTraceModeAsEnteredHint": "Sledenje sledi tem skokom natančno. Skoke nazaj k sebi dodajte sami.",
+  "map_pathTraceViewLast": "Poglej zadnji rezultat",
+  "notification_lowBatteryTitle": "Nizka baterija",
+  "@notification_lowBatteryTitle": {
+    "description": "Title of the low battery notification"
+  },
+  "notification_lowBatteryBody": "Baterija {deviceName} je pri {percent} %",
+  "@notification_lowBatteryBody": {
+    "description": "Body of the low battery notification; deviceName is the connected radio's node name",
+    "placeholders": {
+      "deviceName": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "notification_sharedLocation": "Delil(-a) lokacijo",
+  "notification_sharedLocationNamed": "Delil(-a) lokacijo: {label}",
+  "@notification_sharedLocationNamed": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_reacted": "Reakcija {emoji}",
+  "@notification_reacted": {
+    "placeholders": {
+      "emoji": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_sentGif": "Poslal(-a) GIF",
+  "notification_sentImage": "Poslal(-a) sliko",
+  "snrIndicator_unknownRepeater": "Neznan ponovitelj",
+  "snrIndicator_unknownRepeaterHint": "Ta ponovitelj še ni med vašimi stiki. Njegovo ime, lokacija in možnosti se prikažejo, ko vaš radio prejme njegov oglas.",
+  "contacts_keyPrefixSemantics": "Predpona ključa {prefix}",
+  "@contacts_keyPrefixSemantics": {
+    "placeholders": {
+      "prefix": {
+        "type": "String"
+      }
+    }
+  },
+  "networkMap_sourceLocalHint": "Vozlišča, ki jih je slišal vaš radio",
+  "networkMap_sourceOnlineHint": "Ponovitelji z spletnega zemljevida omrežja",
+  "networkMap_sourceBothHint": "Vozlišča vašega radia in spletni zemljevid omrežja"
 }

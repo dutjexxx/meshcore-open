@@ -151,7 +151,7 @@ class AppLocalizationsSv extends AppLocalizations {
       'Möjlig URL-bild; aktivera den i Inställningar.';
 
   @override
-  String get urlImage_disabledInAppSettings => 'Turned off in app settings';
+  String get urlImage_disabledInAppSettings => 'Avstängt i appinställningarna';
 
   @override
   String get common_reboot => 'Starta om';
@@ -428,7 +428,7 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get settings_pathHashModeNotApplied =>
-      'Radio settings were applied, but the radio did not confirm the new path hash size';
+      'Radioinställningarna tillämpades, men radion bekräftade inte den nya storleken på ruttens hash';
 
   @override
   String get settings_regionSettings => 'Regioner';
@@ -1058,32 +1058,32 @@ class AppLocalizationsSv extends AppLocalizations {
       'Antal försök att skicka om ett meddelande innan det markeras som misslyckat.';
 
   @override
-  String get appSettings_ipfsImageLinks => 'IPFS provider configuration';
+  String get appSettings_ipfsImageLinks => 'Konfiguration av IPFS-leverantör';
 
   @override
   String get appSettings_ipfsImageLinksSubtitle =>
-      'Upload for url Images (or Files) via IPFS provider and default gateway to receive';
+      'Uppladdning av URL-bilder (eller filer) via IPFS-leverantör och standardgateway för mottagning';
 
   @override
-  String get appSettings_loadLinkImages => 'Load images from links';
+  String get appSettings_loadLinkImages => 'Ladda bilder från länkar';
 
   @override
   String get appSettings_loadLinkImagesSubtitle =>
-      'Show pictures from links in messages. Loading an image shares your IP address with the site that hosts it.';
+      'Visa bilder från länkar i meddelanden. När en bild laddas delas din IP-adress med webbplatsen som hostar den.';
 
   @override
   String get appSettings_showLinkImagesByDefault =>
-      'Show link images in all chats by default';
+      'Visa länkbilder i alla chattar som standard';
 
   @override
   String get appSettings_showLinkImagesByDefaultSubtitle =>
-      'Load link images in every chat unless you turned them off there. This shares your IP address with image hosts in every chat.';
+      'Ladda länkbilder i alla chattar om du inte har stängt av det där. Det delar din IP-adress med bildhostar i varje chatt.';
 
   @override
-  String get appSettings_publicIpfsGateway => 'Public gateway';
+  String get appSettings_publicIpfsGateway => 'Offentlig gateway';
 
   @override
-  String get appSettings_ipfsGatewayDeactivated => 'Deactivated';
+  String get appSettings_ipfsGatewayDeactivated => 'Avaktiverad';
 
   @override
   String get appSettings_ipfsGatewayIpfsIo => 'ipfs.io';
@@ -1095,31 +1095,31 @@ class AppLocalizationsSv extends AppLocalizations {
   String get appSettings_ipfsGatewayFilebase => 'Filebase';
 
   @override
-  String get appSettings_ipfsGatewayCustom => 'Custom (Kubo)';
+  String get appSettings_ipfsGatewayCustom => 'Egen (Kubo)';
 
   @override
-  String get appSettings_uploadIpfsProvider => 'Upload provider';
+  String get appSettings_uploadIpfsProvider => 'Uppladdningsleverantör';
 
   @override
-  String get appSettings_uploadIpfsGateway => 'Upload gateway';
+  String get appSettings_uploadIpfsGateway => 'Uppladdningsgateway';
 
   @override
   String get appSettings_uploadIpfsGatewaySubtitle =>
-      'Gateway to share Image or File as url-link. Leave empty to use ipfs: format, which may not be opened by other clients.';
+      'Gateway för att dela bild eller fil som URL-länk. Lämna tomt för att använda formatet ipfs:, som kanske inte kan öppnas av andra klienter.';
 
   @override
-  String get appSettings_uploadIpfsEndpoint => 'Upload endpoint';
+  String get appSettings_uploadIpfsEndpoint => 'Uppladdningsslutpunkt';
 
   @override
   String get appSettings_uploadIpfsEndpointSubtitle =>
-      'The API endpoint used to upload files';
+      'API-slutpunkten som används för att ladda upp filer';
 
   @override
-  String get appSettings_uploadIpfsApiKey => 'Upload API key';
+  String get appSettings_uploadIpfsApiKey => 'API-nyckel för uppladdning';
 
   @override
   String get appSettings_ipfsImageLinksDescription =>
-      'Public gateway downloads ipfs: format images. Upload gateway is used to generate share links for uploaded url images or files.';
+      'Den offentliga gatewayen laddar ned bilder i formatet ipfs:. Uppladdningsgatewayen används för att skapa delningslänkar till uppladdade URL-bilder eller filer.';
 
   @override
   String get appSettings_battery => 'Batteri';
@@ -1340,11 +1340,11 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get contacts_removeAutoAddNote =>
-      'Your radio auto-adds this contact type, so it will come back the next time it advertises. Turn off auto-add in Contacts settings to keep it removed.';
+      'Din radio lägger automatiskt till den här kontakttypen, så den kommer tillbaka nästa gång den skickar en annons. Stäng av automatisk tillägg i kontaktinställningarna för att behålla den borttagen.';
 
   @override
   String get contacts_removeFailed =>
-      'The radio did not confirm the removal. The contact was not removed.';
+      'Radion bekräftade inte borttagningen. Kontakten togs inte bort.';
 
   @override
   String contacts_discoveredNearby(int count) {
@@ -1532,7 +1532,7 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String channels_notificationModeTooltip(String mode) {
-    return 'Notifications: $mode';
+    return 'Notiser: $mode';
   }
 
   @override
@@ -1714,6 +1714,31 @@ class AppLocalizationsSv extends AppLocalizations {
   String get channels_scanQrCodeComingSoon => 'Kommer snart';
 
   @override
+  String get channels_scanQrCodeDesc =>
+      'Gå med i en kanal eller community med dess QR-kod.';
+
+  @override
+  String get channels_scanQrInstructions =>
+      'Rikta kameran mot en kanal- eller community-QR-kod';
+
+  @override
+  String get channels_invalidQrCode =>
+      'Inte en MeshCore-QR-kod för kanal eller community';
+
+  @override
+  String get channels_joinChannelTitle => 'Gå med i kanal';
+
+  @override
+  String channels_joinChannelConfirm(String name) {
+    return 'Lägga till \"$name\" på din radio?';
+  }
+
+  @override
+  String channels_alreadyOnRadio(String name) {
+    return '\"$name\" finns redan på din radio';
+  }
+
+  @override
   String get channels_enterHashtag => 'Ange hashtag';
 
   @override
@@ -1834,43 +1859,43 @@ class AppLocalizationsSv extends AppLocalizations {
   String get chat_sendImageLora => 'Skicka bild via MeshCore';
 
   @override
-  String get chat_sendImageIpfs => 'Send image or file via IPFS';
+  String get chat_sendImageIpfs => 'Skicka bild eller fil via IPFS';
 
   @override
   String chat_ipfsUploadFailed(String error) {
-    return 'IPFS upload failed: $error';
+    return 'IPFS-uppladdningen misslyckades: $error';
   }
 
   @override
   String get chat_ipfsUploadNotConfigured =>
-      'Configure an IPFS upload provider in App Settings first.';
+      'Konfigurera först en IPFS-uppladdningsleverantör i appinställningarna.';
 
   @override
-  String get chat_ipfsSelectedFileEmpty => 'The selected file is empty.';
+  String get chat_ipfsSelectedFileEmpty => 'Den valda filen är tom.';
 
   @override
   String get chat_ipfsEndpointInvalid =>
-      'The IPFS upload endpoint must be a full http:// or https:// address. Check it in App Settings.';
+      'IPFS-uppladdningsslutpunkten måste vara en fullständig http://- eller https://-adress. Kontrollera den i appinställningarna.';
 
   @override
   String get chat_ipfsPinataTokenMissing =>
-      'Pinata needs an API key or JWT. Add it in App Settings.';
+      'Pinata behöver en API-nyckel eller JWT. Lägg till den i appinställningarna.';
 
   @override
   String get chat_ipfsFilebaseTokenMissing =>
-      'Filebase needs an API token. Add it in App Settings.';
+      'Filebase behöver en API-token. Lägg till den i appinställningarna.';
 
   @override
   String get chat_ipfsKuboPathInvalid =>
-      'The Kubo upload endpoint must end with /api/v0/add. Check it in App Settings.';
+      'Kubo-uppladdningsslutpunkten måste sluta med /api/v0/add. Kontrollera den i appinställningarna.';
 
   @override
   String get chat_ipfsLinkNoRoom =>
-      'Not enough room for the image link. Shorten your message, then try again.';
+      'Det finns inte plats för bildlänken. Korta ned meddelandet och försök igen.';
 
   @override
   String get chat_ipfsLinkOverLimit =>
-      'Image link added, but the message is now too long. Shorten it before sending.';
+      'Bildlänken lades till, men meddelandet är nu för långt. Korta ned det innan du skickar.';
 
   @override
   String get chat_imagePickFailed => 'Kunde inte öppna bilden';
@@ -2490,24 +2515,24 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get map_pathTraceAddMoreHint =>
-      'Tap more nodes to add hops, choose how the trace returns, then tap Run path trace.';
+      'Tryck på fler noder för att lägga till hopp, välj hur spårningen returneras och tryck sedan på Kör ruttspårning.';
 
   @override
-  String get map_pathTraceModeRoundTrip => 'Round trip';
+  String get map_pathTraceModeRoundTrip => 'Tur och retur';
 
   @override
   String get map_pathTraceModeRoundTripHint =>
-      'The trace goes out through these hops and comes back the same way.';
+      'Spårningen går ut via dessa hopp och kommer tillbaka samma väg.';
 
   @override
-  String get map_pathTraceModeAsEntered => 'As entered';
+  String get map_pathTraceModeAsEntered => 'Som inmatat';
 
   @override
   String get map_pathTraceModeAsEnteredHint =>
-      'The trace follows these hops exactly. Add the hops back to you yourself.';
+      'Spårningen följer exakt dessa hopp. Lägg själv till hoppen tillbaka till dig.';
 
   @override
-  String get map_pathTraceViewLast => 'View last result';
+  String get map_pathTraceViewLast => 'Visa senaste resultat';
 
   @override
   String get mapCache_title => 'Offline Kartcache';
@@ -4843,11 +4868,11 @@ class AppLocalizationsSv extends AppLocalizations {
   String get notification_activityTitle => 'MeshCore Aktivitet';
 
   @override
-  String get notification_lowBatteryTitle => 'Low battery';
+  String get notification_lowBatteryTitle => 'Lågt batteri';
 
   @override
   String notification_lowBatteryBody(String deviceName, int percent) {
-    return '$deviceName battery is at $percent%';
+    return 'Batteriet i $deviceName är på $percent %';
   }
 
   @override
@@ -4892,23 +4917,23 @@ class AppLocalizationsSv extends AppLocalizations {
   String get notification_receivedNewMessage => 'Nytt meddelande mottaget';
 
   @override
-  String get notification_sharedLocation => 'Shared a location';
+  String get notification_sharedLocation => 'Delade en plats';
 
   @override
   String notification_sharedLocationNamed(String label) {
-    return 'Shared a location: $label';
+    return 'Delade en plats: $label';
   }
 
   @override
   String notification_reacted(String emoji) {
-    return 'Reacted $emoji';
+    return 'Reagerade med $emoji';
   }
 
   @override
-  String get notification_sentGif => 'Sent a GIF';
+  String get notification_sentGif => 'Skickade en GIF';
 
   @override
-  String get notification_sentImage => 'Sent an image';
+  String get notification_sentImage => 'Skickade en bild';
 
   @override
   String get notification_actionReply => 'Svara';
@@ -5014,11 +5039,11 @@ class AppLocalizationsSv extends AppLocalizations {
       'Repeatrar som din radio hörde direkt, senast hörda först.';
 
   @override
-  String get snrIndicator_unknownRepeater => 'Unknown repeater';
+  String get snrIndicator_unknownRepeater => 'Okänd repeater';
 
   @override
   String get snrIndicator_unknownRepeaterHint =>
-      'This repeater isn\'t in your contacts yet. Its name, location and options appear once your radio receives its advert.';
+      'Den här repeatern finns inte bland dina kontakter än. Dess namn, plats och alternativ visas när din radio tar emot dess annons.';
 
   @override
   String get contactsSettings_title => 'Kontaktinställningar';
@@ -6308,7 +6333,7 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String contacts_keyPrefixSemantics(String prefix) {
-    return 'Key prefix $prefix';
+    return 'Nyckelprefix $prefix';
   }
 
   @override
@@ -6394,15 +6419,15 @@ class AppLocalizationsSv extends AppLocalizations {
   String get networkMap_sourceBoth => 'Båda';
 
   @override
-  String get networkMap_sourceLocalHint => 'Nodes your radio has heard';
+  String get networkMap_sourceLocalHint => 'Noder som din radio har hört';
 
   @override
   String get networkMap_sourceOnlineHint =>
-      'Repeaters from the online network map';
+      'Repeatrar från den online-baserade nätverkskartan';
 
   @override
   String get networkMap_sourceBothHint =>
-      'Your radio\'s nodes plus the online network map';
+      'Din radios noder plus den online-baserade nätverkskartan';
 
   @override
   String get networkMap_zoomInHint =>

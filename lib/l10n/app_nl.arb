@@ -298,6 +298,8 @@
   "contacts_removeFromContactsConfirm": "{contactName} wordt verplaatst naar Ontdekte contacten. De chatgeschiedenis wordt verwijderd.",
   "contacts_keepChatHistory": "Chatgeschiedenis behouden",
   "contacts_remove": "Verwijderen",
+  "contacts_removeAutoAddNote": "Je radio voegt dit contacttype automatisch toe, dus het komt terug zodra het weer een advert verstuurt. Zet automatisch toevoegen uit in de Contactinstellingen om het verwijderd te houden.",
+  "contacts_removeFailed": "De radio heeft de verwijdering niet bevestigd. Het contact is niet verwijderd.",
   "contacts_discoveredNearby": "In de buurt ontdekt ({count})",
   "contacts_noContactsDiscoveredHint": "Nodes die je radio hoort maar nog niet heeft toegevoegd, staan bij Ontdekte contacten",
   "contacts_manageRepeater": "Beheer Repeater",
@@ -379,6 +381,14 @@
   "channels_notifyAll": "Alle berichten",
   "channels_notifyMentionsOnly": "Alleen vermeldingen",
   "channels_notifyNone": "Gedempt",
+  "channels_notificationModeTooltip": "Meldingen: {mode}",
+  "@channels_notificationModeTooltip": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    }
+  },
   "channels_muteChannel": "Kanaal dempen",
   "channels_unmuteChannel": "Kanaal dempen opheffen",
   "channels_deleteChannel": "Kanaal verwijderen",
@@ -1607,6 +1617,26 @@
   "channels_joinHashtagChannelDesc": "Iedereen kan toetreden tot hashtag-kanalen.",
   "channels_scanQrCode": "Scan een QR-code",
   "channels_scanQrCodeComingSoon": "Binnenkort beschikbaar",
+  "channels_scanQrCodeDesc": "Word lid van een kanaal of community via de QR-code.",
+  "channels_scanQrInstructions": "Richt de camera op een kanaal- of community-QR-code",
+  "channels_invalidQrCode": "Geen MeshCore-kanaal- of community-QR-code",
+  "channels_joinChannelTitle": "Lid worden van kanaal",
+  "channels_joinChannelConfirm": "\"{name}\" aan je radio toevoegen?",
+  "@channels_joinChannelConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "channels_alreadyOnRadio": "\"{name}\" staat al op je radio",
+  "@channels_alreadyOnRadio": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "channels_enterHashtag": "Voer hashtag in",
   "channels_hashtagHint": "bijv. #team",
   "@neighbors_unknownContact": {
@@ -1811,11 +1841,46 @@
   "contacts_ShareContactZeroHop": "Contact delen via advert",
   "contacts_zeroHopContactAdvertFailed": "Contact verzenden mislukt.",
   "notification_activityTitle": "MeshCore Activiteit",
+  "notification_lowBatteryTitle": "Batterij bijna leeg",
+  "@notification_lowBatteryTitle": {
+    "description": "Title of the low battery notification"
+  },
+  "notification_lowBatteryBody": "Batterij van {deviceName} staat op {percent}%",
+  "@notification_lowBatteryBody": {
+    "description": "Body of the low battery notification; deviceName is the connected radio's node name",
+    "placeholders": {
+      "deviceName": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
   "notification_messagesCount": "{count} {count, plural, =1{bericht} other{berichten}}",
   "notification_channelMessagesCount": "{count} {count, plural, =1{kanaalbericht} other{kanaalberichten}}",
   "notification_newNodesCount": "{count} {count, plural, =1{nieuwe node} other{nieuwe nodes}}",
   "notification_newTypeDiscovered": "Nieuw {contactType} ontdekt",
   "notification_receivedNewMessage": "Nieuw bericht ontvangen",
+  "notification_sharedLocation": "Locatie gedeeld",
+  "notification_sharedLocationNamed": "Locatie gedeeld: {label}",
+  "@notification_sharedLocationNamed": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_reacted": "Reageerde {emoji}",
+  "@notification_reacted": {
+    "placeholders": {
+      "emoji": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_sentGif": "GIF verstuurd",
+  "notification_sentImage": "Afbeelding verstuurd",
   "settings_gpxExportRepeatersSubtitle": "Exporteert repeaters / roomserver met een locatie naar GPX-bestand.",
   "settings_gpxExportRepeaters": "Exporteer repeaters / roomserver naar GPX",
   "settings_gpxExportSuccess": "GPX-bestand succesvol geëxporteerd.",
@@ -1835,6 +1900,12 @@
   "map_removeLast": "Verwijder Laatste",
   "pathTrace_clearTooltip": "Pad wissen.",
   "map_pathTraceCancelled": "Pad traceren geannuleerd",
+  "map_pathTraceAddMoreHint": "Tik op meer nodes om hops toe te voegen, kies hoe de trace terugkomt en tik dan op Padtrace uitvoeren.",
+  "map_pathTraceModeRoundTrip": "Heen en terug",
+  "map_pathTraceModeRoundTripHint": "De trace gaat via deze hops heen en komt op dezelfde weg terug.",
+  "map_pathTraceModeAsEntered": "Zoals ingevoerd",
+  "map_pathTraceModeAsEnteredHint": "De trace volgt precies deze hops. Voeg zelf de hops terug naar jou toe.",
+  "map_pathTraceViewLast": "Laatste resultaat bekijken",
   "map_tapToAdd": "Tik op nodes om ze aan het pad toe te voegen.",
   "map_runTrace": "Padtrace uitvoeren",
   "scanner_enableBluetooth": "Activeer Bluetooth",
@@ -1844,6 +1915,8 @@
   "scanner_bluetoothOff": "Bluetooth is uitgeschakeld",
   "snrIndicator_lastSeen": "Laatst gezien",
   "snrIndicator_nearByRepeatersDescription": "Repeaters die je radio rechtstreeks heeft gehoord, meest recent gehoord eerst.",
+  "snrIndicator_unknownRepeater": "Onbekende repeater",
+  "snrIndicator_unknownRepeaterHint": "Deze repeater staat nog niet in je contacten. Naam, locatie en opties verschijnen zodra je radio zijn advert ontvangt.",
   "snrIndicator_nearByRepeaters": "Repeaters in de buurt",
   "chat_ShowAllPaths": "Toon alle paden",
   "settings_clientRepeat": "Off-Grid Herhalen",
@@ -2218,6 +2291,25 @@
   "appSettings_routeWeightFailureDecrementSubtitle": "Gewicht verwijderd van een pad na een mislukte levering",
   "appSettings_maxMessageRetries": "Max. aantal nieuwe pogingen",
   "appSettings_maxMessageRetriesSubtitle": "Aantal pogingen om een bericht opnieuw te versturen voordat het als mislukt wordt gemarkeerd",
+  "appSettings_ipfsImageLinks": "IPFS-providerconfiguratie",
+  "appSettings_ipfsImageLinksSubtitle": "Upload voor URL-afbeeldingen (of bestanden) via een IPFS-provider en standaardgateway om te ontvangen",
+  "appSettings_loadLinkImages": "Afbeeldingen uit links laden",
+  "appSettings_loadLinkImagesSubtitle": "Toon afbeeldingen uit links in berichten. Bij het laden van een afbeelding wordt je IP-adres gedeeld met de site die de afbeelding host.",
+  "appSettings_showLinkImagesByDefault": "Linkafbeeldingen standaard in alle chats tonen",
+  "appSettings_showLinkImagesByDefaultSubtitle": "Laad linkafbeeldingen in elke chat, tenzij je ze daar hebt uitgezet. Hierdoor wordt je IP-adres in elke chat gedeeld met afbeeldingshosts.",
+  "appSettings_publicIpfsGateway": "Publieke gateway",
+  "appSettings_ipfsGatewayDeactivated": "Uitgeschakeld",
+  "appSettings_ipfsGatewayIpfsIo": "ipfs.io",
+  "appSettings_ipfsGatewayPinata": "Pinata",
+  "appSettings_ipfsGatewayFilebase": "Filebase",
+  "appSettings_ipfsGatewayCustom": "Aangepast (Kubo)",
+  "appSettings_uploadIpfsProvider": "Uploadprovider",
+  "appSettings_uploadIpfsGateway": "Uploadgateway",
+  "appSettings_uploadIpfsGatewaySubtitle": "Gateway om afbeeldingen of bestanden als URL-link te delen. Laat leeg om het ipfs:-formaat te gebruiken, dat andere clients mogelijk niet kunnen openen.",
+  "appSettings_uploadIpfsEndpoint": "Upload-endpoint",
+  "appSettings_uploadIpfsEndpointSubtitle": "Het API-endpoint dat wordt gebruikt om bestanden te uploaden",
+  "appSettings_uploadIpfsApiKey": "Upload-API-sleutel",
+  "appSettings_ipfsImageLinksDescription": "De publieke gateway downloadt afbeeldingen in ipfs:-formaat. De uploadgateway maakt deellinks voor geüploade afbeeldingen of bestanden.",
   "path_routeWeight": "{weight}/{max}",
   "settings_telemetryModeUpdated": "Telemetrie-modus bijgewerkt",
   "settings_multiAck": "Multi-ACKs",
@@ -2880,6 +2972,29 @@
   "channels_regionEmpty": "Nog geen regio's.",
   "channels_manageRegions": "Regio's beheren",
   "chat_sendImageLora": "Afbeelding in lage resolutie via radio verzenden",
+  "chat_sendImageIpfs": "Afbeelding of bestand versturen via IPFS",
+  "chat_ipfsUploadFailed": "IPFS-upload mislukt: {error}",
+  "@chat_ipfsUploadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "chat_ipfsUploadNotConfigured": "Configureer eerst een IPFS-uploadprovider in de App-instellingen.",
+  "chat_ipfsSelectedFileEmpty": "Het geselecteerde bestand is leeg.",
+  "chat_ipfsEndpointInvalid": "Het IPFS-upload-endpoint moet een volledig http://- of https://-adres zijn. Controleer het in de App-instellingen.",
+  "chat_ipfsPinataTokenMissing": "Pinata heeft een API-sleutel of JWT nodig. Voeg die toe in de App-instellingen.",
+  "chat_ipfsFilebaseTokenMissing": "Filebase heeft een API-token nodig. Voeg dat toe in de App-instellingen.",
+  "chat_ipfsKuboPathInvalid": "Het Kubo-upload-endpoint moet eindigen op /api/v0/add. Controleer het in de App-instellingen.",
+  "chat_ipfsLinkNoRoom": "Niet genoeg ruimte voor de afbeeldingslink. Kort je bericht in en probeer het opnieuw.",
+  "@chat_ipfsLinkNoRoom": {
+    "description": "Shown before an IPFS upload when the link would push the draft over the message size limit"
+  },
+  "chat_ipfsLinkOverLimit": "Afbeeldingslink toegevoegd, maar het bericht is nu te lang. Kort het in voordat je het verstuurt.",
+  "@chat_ipfsLinkOverLimit": {
+    "description": "Shown after an IPFS upload when the link plus the draft no longer fits the message size limit"
+  },
   "chat_imagePickFailed": "Kon die afbeelding niet openen",
   "chat_receivedGif": "GIF ontvangen",
   "repeater_keySettings": "Identiteitssleutels wijzigen",
@@ -2994,8 +3109,10 @@
   "room_postsStored": "Opgeslagen posts",
   "settings_publicKeyCopied": "Openbare sleutel gekopieerd",
   "settings_radioSettingsNotApplied": "De radio heeft deze instellingen niet toegepast",
+  "settings_pathHashModeNotApplied": "Radio-instellingen zijn toegepast, maar de radio heeft de nieuwe padhashgrootte niet bevestigd",
   "urlImage_enable": "URL-afbeeldingen inschakelen",
   "urlImage_possible": "Mogelijke URL-afbeelding; schakel dit in bij Instellingen.",
+  "urlImage_disabledInAppSettings": "Uitgeschakeld in app-instellingen",
   "notification_actionReply": "Reageren",
   "notification_actionMarkRead": "Markeer als gelezen",
   "notification_actionMuteChannel": "Kanaal dempen",
@@ -3159,6 +3276,14 @@
   "repeater_prvKeyLengthError": "De privésleutel moet precies {length} hexadecimale tekens bevatten",
   "contacts_advertFailed": "Advertentie kon niet worden verzonden",
   "contacts_manageGroups": "Groepen beheren",
+  "contacts_keyPrefixSemantics": "Sleutelprefix {prefix}",
+  "@contacts_keyPrefixSemantics": {
+    "placeholders": {
+      "prefix": {
+        "type": "String"
+      }
+    }
+  },
   "community_shortId": "ID: {id}…",
   "tcpSectionTitle": "TCP / IP",
   "tcpConnectedToHeader": "Verbonden met",
@@ -3196,6 +3321,9 @@
   "networkMap_sourceLocal": "Lokaal",
   "networkMap_sourceOnline": "Online",
   "networkMap_sourceBoth": "Beide",
+  "networkMap_sourceLocalHint": "Nodes die je radio heeft gehoord",
+  "networkMap_sourceOnlineHint": "Repeaters van de online netwerkkaart",
+  "networkMap_sourceBothHint": "De nodes van je radio plus de online netwerkkaart",
   "networkMap_zoomInHint": "Zoom in om de online netwerkkaart te zien",
   "networkMap_loadFailed": "Kan de online netwerkkaart niet laden",
   "networkMap_inYourContacts": "In je contacten",

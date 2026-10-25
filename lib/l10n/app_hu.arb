@@ -285,6 +285,25 @@
   "appSettings_routeWeightFailureDecrementSubtitle": "Sikertelen szállítás után eltávolított súly az útvonalról",
   "appSettings_maxMessageRetries": "Üzenet újrapróbálkozások maximális száma",
   "appSettings_maxMessageRetriesSubtitle": "Az üzenet sikertelenként való megjelölése előtti újrapróbálkozások száma",
+  "appSettings_ipfsImageLinks": "IPFS-szolgáltató beállítása",
+  "appSettings_ipfsImageLinksSubtitle": "URL-képek (vagy fájlok) feltöltése IPFS-szolgáltatóval, fogadás az alapértelmezett átjárón keresztül",
+  "appSettings_loadLinkImages": "Képek betöltése hivatkozásokból",
+  "appSettings_loadLinkImagesSubtitle": "A hivatkozásokban lévő képek megjelenítése az üzenetekben. A kép betöltése megosztja az IP-címedet a képet tároló webhellyel.",
+  "appSettings_showLinkImagesByDefault": "Hivatkozott képek megjelenítése minden csevegésben",
+  "appSettings_showLinkImagesByDefaultSubtitle": "A hivatkozott képek betöltése minden csevegésben, ha ott nem kapcsoltad ki. Ez minden csevegésben megosztja az IP-címedet a képtárolókkal.",
+  "appSettings_publicIpfsGateway": "Nyilvános átjáró",
+  "appSettings_ipfsGatewayDeactivated": "Kikapcsolva",
+  "appSettings_ipfsGatewayIpfsIo": "ipfs.io",
+  "appSettings_ipfsGatewayPinata": "Pinata",
+  "appSettings_ipfsGatewayFilebase": "Filebase",
+  "appSettings_ipfsGatewayCustom": "Egyéni (Kubo)",
+  "appSettings_uploadIpfsProvider": "Feltöltési szolgáltató",
+  "appSettings_uploadIpfsGateway": "Feltöltési átjáró",
+  "appSettings_uploadIpfsGatewaySubtitle": "Átjáró a kép vagy fájl URL-hivatkozásként való megosztásához. Hagyd üresen az ipfs: formátumhoz, amelyet más kliensek esetleg nem tudnak megnyitni.",
+  "appSettings_uploadIpfsEndpoint": "Feltöltési végpont",
+  "appSettings_uploadIpfsEndpointSubtitle": "A fájlok feltöltéséhez használt API-végpont",
+  "appSettings_uploadIpfsApiKey": "Feltöltési API-kulcs",
+  "appSettings_ipfsImageLinksDescription": "A nyilvános átjáró az ipfs: formátumú képeket tölti le. A feltöltési átjáró a feltöltött URL-képek vagy fájlok megosztási hivatkozásait hozza létre.",
   "path_routeWeight": "{weight}/{max}",
   "@path_routeWeight": {
     "placeholders": {
@@ -515,6 +534,14 @@
   "channels_notifyAll": "Összes üzenet",
   "channels_notifyMentionsOnly": "Csak említések",
   "channels_notifyNone": "Némít",
+  "channels_notificationModeTooltip": "Értesítések: {mode}",
+  "@channels_notificationModeTooltip": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    }
+  },
   "channels_muteChannel": "Csatorna némítása",
   "channels_unmuteChannel": "Csatorna némításának feloldása",
   "channels_deleteChannel": "Csatorna törlése",
@@ -608,6 +635,26 @@
   "channels_joinHashtagChannelDesc": "Bárki csatlakozhat a hashtag csatornákhoz.",
   "channels_scanQrCode": "QR-kód beolvasása",
   "channels_scanQrCodeComingSoon": "Hamarosan",
+  "channels_scanQrCodeDesc": "Csatlakozz csatornához vagy közösséghez a QR-kódja alapján.",
+  "channels_scanQrInstructions": "Irányítsd a kamerát egy csatorna vagy közösség QR-kódjára",
+  "channels_invalidQrCode": "Nem MeshCore csatorna vagy közösség QR-kódja",
+  "channels_joinChannelTitle": "Csatlakozás csatornához",
+  "channels_joinChannelConfirm": "Hozzáadod a(z) \"{name}\" csatornát a rádiódhoz?",
+  "@channels_joinChannelConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "channels_alreadyOnRadio": "A(z) \"{name}\" már a rádiódon van",
+  "@channels_alreadyOnRadio": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "channels_enterHashtag": "Írja be a hashtaget",
   "channels_hashtagHint": "például #csapat",
   "chat_noMessages": "Még nincsenek üzenetek",
@@ -907,6 +954,12 @@
   "map_runTrace": "Futtatási útvonal nyomkövetése",
   "map_removeLast": "Utolsó eltávolítása",
   "map_pathTraceCancelled": "Útvonal nyomkövetés törölve.",
+  "map_pathTraceAddMoreHint": "Koppints további csomópontokra ugrások hozzáadásához, válaszd ki a nyomkövetés visszatérését, majd koppints az Útvonal-nyomkövetés indítása gombra.",
+  "map_pathTraceModeRoundTrip": "Oda-vissza",
+  "map_pathTraceModeRoundTripHint": "A nyomkövetés ezeken az ugrásokon át megy ki, és ugyanazon az úton jön vissza.",
+  "map_pathTraceModeAsEntered": "Megadott sorrendben",
+  "map_pathTraceModeAsEnteredHint": "A nyomkövetés pontosan ezeket az ugrásokat követi. A hozzád visszavezető ugrásokat magadnak kell hozzáadnod.",
+  "map_pathTraceViewLast": "Utolsó eredmény megtekintése",
   "mapCache_title": "Offline térképgyorsítótár",
   "mapCache_selectAreaFirst": "Válassza ki a gyorsítótárba helyezendő területet",
   "mapCache_noTilesToDownload": "Ehhez a területhez nem lehet letölteni csempét",
@@ -2077,6 +2130,22 @@
   "contacts_contactAdvertCopied": "A hirdetés a vágólapra másolva.",
   "contacts_contactAdvertCopyFailed": "A hirdetés vágólapra másolása nem sikerült.",
   "notification_activityTitle": "MeshCore tevékenység",
+  "notification_lowBatteryTitle": "Alacsony akkumulátorszint",
+  "@notification_lowBatteryTitle": {
+    "description": "Title of the low battery notification"
+  },
+  "notification_lowBatteryBody": "{deviceName} akkumulátora {percent}%-on van",
+  "@notification_lowBatteryBody": {
+    "description": "Body of the low battery notification; deviceName is the connected radio's node name",
+    "placeholders": {
+      "deviceName": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
   "notification_messagesCount": "{count} {count, plural, =1{üzenet} other{üzenetek}}",
   "@notification_messagesCount": {
     "placeholders": {
@@ -2110,6 +2179,25 @@
     }
   },
   "notification_receivedNewMessage": "Új üzenet érkezett",
+  "notification_sharedLocation": "Megosztott egy helyet",
+  "notification_sharedLocationNamed": "Megosztott egy helyet: {label}",
+  "@notification_sharedLocationNamed": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_reacted": "Reagált: {emoji}",
+  "@notification_reacted": {
+    "placeholders": {
+      "emoji": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_sentGif": "GIF-et küldött",
+  "notification_sentImage": "Képet küldött",
   "settings_gpxExportRepeaters": "Ismétlők / szobaszerver exportálása GPX-be",
   "settings_gpxExportRepeatersSubtitle": "Exportálja az átjátszókat / szobaszervereket a hellyel GPX-fájlba.",
   "settings_gpxExportContacts": "Exportáljon társokat a GPX-be",
@@ -2850,6 +2938,29 @@
   "channels_regionSelect_Title": "Válassz egy regionot",
   "channels_clearRegion": "Kéres kör",
   "chat_sendImageLora": "Kép küldése MeshCore-on keresztül",
+  "chat_sendImageIpfs": "Kép vagy fájl küldése IPFS-en",
+  "chat_ipfsUploadFailed": "Az IPFS-feltöltés sikertelen: {error}",
+  "@chat_ipfsUploadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "chat_ipfsUploadNotConfigured": "Először állíts be egy IPFS-feltöltési szolgáltatót az Alkalmazásbeállításokban.",
+  "chat_ipfsSelectedFileEmpty": "A kiválasztott fájl üres.",
+  "chat_ipfsEndpointInvalid": "Az IPFS-feltöltési végpontnak teljes http:// vagy https:// címnek kell lennie. Ellenőrizd az Alkalmazásbeállításokban.",
+  "chat_ipfsPinataTokenMissing": "A Pinatához API-kulcs vagy JWT szükséges. Add meg az Alkalmazásbeállításokban.",
+  "chat_ipfsFilebaseTokenMissing": "A Filebase-hez API-token szükséges. Add meg az Alkalmazásbeállításokban.",
+  "chat_ipfsKuboPathInvalid": "A Kubo feltöltési végpontnak /api/v0/add-ra kell végződnie. Ellenőrizd az Alkalmazásbeállításokban.",
+  "chat_ipfsLinkNoRoom": "Nincs elég hely a képhivatkozásnak. Rövidítsd az üzenetet, majd próbáld újra.",
+  "@chat_ipfsLinkNoRoom": {
+    "description": "Shown before an IPFS upload when the link would push the draft over the message size limit"
+  },
+  "chat_ipfsLinkOverLimit": "A képhivatkozás hozzáadva, de az üzenet túl hosszú lett. Küldés előtt rövidítsd.",
+  "@chat_ipfsLinkOverLimit": {
+    "description": "Shown after an IPFS upload when the link plus the draft no longer fits the message size limit"
+  },
   "chat_imagePickFailed": "Nem tudtam ezt a fenti fényre kapni",
   "chat_receivedGif": "GIF-ot kapott",
   "repeater_keySettings": "Képzőítsekei jelölt",
@@ -2953,8 +3064,10 @@
   "room_postsStored": "Bejegyzések",
   "settings_publicKeyCopied": "Nyilvános kulcs másolva",
   "settings_radioSettingsNotApplied": "A rádió nem alkalmazta ezeket a beállításokat",
+  "settings_pathHashModeNotApplied": "A rádióbeállítások érvénybe léptek, de a rádió nem erősítette meg az új útvonal-hash méretet",
   "urlImage_enable": "URL-képek engedélyezése",
   "urlImage_possible": "Lehetséges URL-kép; engedélyezze a Beállításokban.",
+  "urlImage_disabledInAppSettings": "Kikapcsolva az alkalmazásbeállításokban",
   "messageStatus_failedChannel": "A rádió nem tudta elküldeni ezt az üzenetet.",
   "messageStatus_resending": "Még nem hallották vissza elég átjátszó segítségével. Újraküldve {resends} alkalomból {maxResends} alkalomból.",
   "@messageStatus_resending": {
@@ -3057,6 +3170,8 @@
   },
   "contacts_keepChatHistory": "A csevegés előzményeinek megőrzése",
   "contacts_remove": "Eltávolítás",
+  "contacts_removeAutoAddNote": "A rádiód automatikusan hozzáadja ezt a névjegytípust, ezért a következő hirdetésekor visszakerül. Az eltávolítás megtartásához kapcsold ki az automatikus hozzáadást a Névjegyek beállításaiban.",
+  "contacts_removeFailed": "A rádió nem erősítette meg az eltávolítást. A névjegy nem lett eltávolítva.",
   "contacts_discoveredNearby": "Közelben felfedezve ({count})",
   "@contacts_discoveredNearby": {
     "placeholders": {
@@ -3111,6 +3226,8 @@
   "notification_replySendFailed": "Előfordulhat, hogy a válasz nem ment el. Ellenőrizze a MeshCore Open alkalmazásban, és próbálja újra.",
   "notification_replyAppNotRunning": "A MeshCore Open nem fut. Nyissa meg, és küldje el a választ újra.",
   "snrIndicator_nearByRepeatersDescription": "Azok az átjátszók, amelyeket a rádió közvetlenül hallott, a legutóbb hallottak elöl.",
+  "snrIndicator_unknownRepeater": "Ismeretlen ismétlő",
+  "snrIndicator_unknownRepeaterHint": "Ez az ismétlő még nincs a névjegyeid között. A neve, helye és beállításai akkor jelennek meg, amikor a rádiód megkapja a hirdetését.",
   "radioStats_sectionSignal": "Jel",
   "radioStats_sectionAirtime": "Műsoridő",
   "imageSend_lossyNote": "Tömörítve körülbelül {bytes} bájtra. A címzett modellje rekonstruálja, így a részletek eltérnek.",
@@ -3297,6 +3414,14 @@
   "repeater_prvKeyLengthError": "A privát kulcsnak pontosan {length} hexadecimális karakterből kell állnia",
   "contacts_advertFailed": "Nem sikerült elküldeni a hirdetést",
   "contacts_manageGroups": "Csoportok kezelése",
+  "contacts_keyPrefixSemantics": "Kulcs előtagja: {prefix}",
+  "@contacts_keyPrefixSemantics": {
+    "placeholders": {
+      "prefix": {
+        "type": "String"
+      }
+    }
+  },
   "community_shortId": "ID: {id}…",
   "tcpSectionTitle": "TCP / IP",
   "tcpConnectedToHeader": "Csatlakozva:",
@@ -3334,6 +3459,9 @@
   "networkMap_sourceLocal": "Helyi",
   "networkMap_sourceOnline": "Online",
   "networkMap_sourceBoth": "Mindkettő",
+  "networkMap_sourceLocalHint": "A rádiód által hallott csomópontok",
+  "networkMap_sourceOnlineHint": "Ismétlők az online hálózati térképről",
+  "networkMap_sourceBothHint": "A rádiód csomópontjai és az online hálózati térkép",
   "networkMap_zoomInHint": "Nagyíts rá az online hálózati térkép megtekintéséhez",
   "networkMap_loadFailed": "Nem sikerült betölteni az online hálózati térképet",
   "networkMap_inYourContacts": "A kapcsolataid között",

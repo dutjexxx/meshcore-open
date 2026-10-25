@@ -373,6 +373,14 @@
   "channels_notifyAll": "Alle Nachrichten",
   "channels_notifyMentionsOnly": "Nur Erwähnungen",
   "channels_notifyNone": "Stummgeschaltet",
+  "channels_notificationModeTooltip": "Benachrichtigungen: {mode}",
+  "@channels_notificationModeTooltip": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    }
+  },
   "channels_muteChannel": "Kanal stummschalten",
   "channels_unmuteChannel": "Kanal Stummschaltung aufheben",
   "channels_deleteChannel": "Kanal löschen",
@@ -1681,6 +1689,26 @@
   "channels_joinHashtagChannelDesc": "Jeder kann sich bei Hashtag-Kanälen beteiligen.",
   "channels_scanQrCode": "Scannen Sie einen QR-Code",
   "channels_scanQrCodeComingSoon": "Bald verfügbar",
+  "channels_scanQrCodeDesc": "Einem Kanal oder einer Community per QR-Code beitreten.",
+  "channels_scanQrInstructions": "Kamera auf einen Kanal- oder Community-QR-Code richten",
+  "channels_invalidQrCode": "Kein MeshCore-Kanal- oder Community-QR-Code",
+  "channels_joinChannelTitle": "Kanal beitreten",
+  "channels_joinChannelConfirm": "\"{name}\" zu Ihrem Funkgerät hinzufügen?",
+  "@channels_joinChannelConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "channels_alreadyOnRadio": "\"{name}\" ist bereits auf Ihrem Funkgerät",
+  "@channels_alreadyOnRadio": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "channels_enterHashtag": "Gib Hashtag ein",
   "channels_hashtagHint": "z.B. #team",
   "@neighbors_unknownContact": {
@@ -1880,6 +1908,22 @@
   "contacts_contactAdvertCopied": "Ankündigung in die Zwischenablage kopiert.",
   "contacts_contactAdvertCopyFailed": "Kopieren der Ankündigung in die Zwischenablage fehlgeschlagen.",
   "notification_activityTitle": "MeshCore Aktivität",
+  "notification_lowBatteryTitle": "Akku schwach",
+  "@notification_lowBatteryTitle": {
+    "description": "Title of the low battery notification"
+  },
+  "notification_lowBatteryBody": "Akku von {deviceName} bei {percent}%",
+  "@notification_lowBatteryBody": {
+    "description": "Body of the low battery notification; deviceName is the connected radio's node name",
+    "placeholders": {
+      "deviceName": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
   "notification_messagesCount": "{count} {count, plural, =1{Nachricht} other{Nachrichten}}",
   "@notification_messagesCount": {
     "placeholders": {
@@ -1913,6 +1957,25 @@
     }
   },
   "notification_receivedNewMessage": "Neue Nachricht empfangen",
+  "notification_sharedLocation": "Standort geteilt",
+  "notification_sharedLocationNamed": "Standort geteilt: {label}",
+  "@notification_sharedLocationNamed": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_reacted": "Reaktion {emoji}",
+  "@notification_reacted": {
+    "placeholders": {
+      "emoji": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_sentGif": "GIF gesendet",
+  "notification_sentImage": "Bild gesendet",
   "settings_gpxExportAll": "Alle Knoten als GPX exportieren",
   "settings_gpxExportAllSubtitle": "Exportiert alle Knoten mit einem Standort in eine GPX-Datei.",
   "settings_gpxExportRepeaters": "Repeater und Raumserver als GPX exportieren",
@@ -1934,6 +1997,12 @@
   "map_runTrace": "Pfadverlauf ausführen",
   "pathTrace_clearTooltip": "Pfad löschen",
   "map_pathTraceCancelled": "Pfadverfolgung abgebrochen.",
+  "map_pathTraceAddMoreHint": "Tippen Sie auf weitere Knoten, um Hops hinzuzufügen, wählen Sie den Rückweg der Verfolgung und tippen Sie dann auf Pfadverfolgung starten.",
+  "map_pathTraceModeRoundTrip": "Hin und zurück",
+  "map_pathTraceModeRoundTripHint": "Die Verfolgung geht über diese Hops hinaus und kommt auf demselben Weg zurück.",
+  "map_pathTraceModeAsEntered": "Wie eingegeben",
+  "map_pathTraceModeAsEnteredHint": "Die Verfolgung folgt genau diesen Hops. Fügen Sie die Hops zurück zu Ihnen selbst hinzu.",
+  "map_pathTraceViewLast": "Letztes Ergebnis anzeigen",
   "scanner_bluetoothOffMessage": "Bitte aktivieren Sie Bluetooth, um nach Geräten zu suchen.",
   "scanner_chromeRequired": "Chrome Browser erforderlich",
   "scanner_chromeRequiredMessage": "Diese Webanwendung erfordert Google Chrome oder einen Chromium-basierten Browser für die Bluetooth-Unterstützung.",
@@ -2306,6 +2375,25 @@
   "appSettings_routeWeightFailureDecrementSubtitle": "Gewicht, das nach einem fehlgeschlagenen Versand von einem Weg entfernt wurde",
   "appSettings_maxMessageRetries": "Maximale Anzahl an Wiederholungsversuchen",
   "appSettings_maxMessageRetriesSubtitle": "Anzahl der Versuche, eine Nachricht erneut zu senden, bevor sie als fehlgeschlagen markiert wird.",
+  "appSettings_ipfsImageLinks": "IPFS-Anbieter-Konfiguration",
+  "appSettings_ipfsImageLinksSubtitle": "Upload von Bildern (oder Dateien) per URL über einen IPFS-Anbieter; Standard-Gateway zum Empfangen",
+  "appSettings_loadLinkImages": "Bilder aus Links laden",
+  "appSettings_loadLinkImagesSubtitle": "Bilder aus Links in Nachrichten anzeigen. Beim Laden eines Bildes wird Ihre IP-Adresse an die Seite weitergegeben, die es hostet.",
+  "appSettings_showLinkImagesByDefault": "Link-Bilder standardmäßig in allen Chats anzeigen",
+  "appSettings_showLinkImagesByDefaultSubtitle": "Link-Bilder in jedem Chat laden, sofern sie dort nicht deaktiviert wurden. Dabei wird in jedem Chat Ihre IP-Adresse an Bild-Hosts weitergegeben.",
+  "appSettings_publicIpfsGateway": "Öffentliches Gateway",
+  "appSettings_ipfsGatewayDeactivated": "Deaktiviert",
+  "appSettings_ipfsGatewayIpfsIo": "ipfs.io",
+  "appSettings_ipfsGatewayPinata": "Pinata",
+  "appSettings_ipfsGatewayFilebase": "Filebase",
+  "appSettings_ipfsGatewayCustom": "Benutzerdefiniert (Kubo)",
+  "appSettings_uploadIpfsProvider": "Upload-Anbieter",
+  "appSettings_uploadIpfsGateway": "Upload-Gateway",
+  "appSettings_uploadIpfsGatewaySubtitle": "Gateway zum Teilen von Bildern oder Dateien als URL-Link. Leer lassen, um das ipfs:-Format zu verwenden, das andere Clients möglicherweise nicht öffnen können.",
+  "appSettings_uploadIpfsEndpoint": "Upload-Endpunkt",
+  "appSettings_uploadIpfsEndpointSubtitle": "Der API-Endpunkt zum Hochladen von Dateien",
+  "appSettings_uploadIpfsApiKey": "Upload-API-Schlüssel",
+  "appSettings_ipfsImageLinksDescription": "Das öffentliche Gateway lädt Bilder im ipfs:-Format herunter. Das Upload-Gateway erzeugt Links zum Teilen hochgeladener Bilder oder Dateien.",
   "path_routeWeight": "{weight}/{max}",
   "settings_telemetryModeUpdated": "Telemetriemodus aktualisiert",
   "map_showOverlaps": "Repeater-Schlüsselüberlappungen",
@@ -2682,6 +2770,7 @@
   "messageStatus_repeated": "Mehrfach gehört",
   "urlImage_enable": "URL-Bilder anzeigen",
   "urlImage_possible": "Mögliches URL-Bild; in den Einstellungen aktivieren.",
+  "urlImage_disabledInAppSettings": "In den App-Einstellungen deaktiviert",
   "contacts_moreOptions": "Weitere Optionen",
   "contacts_searchOpen": "Suche öffnen",
   "contacts_searchClose": "Suche schließen",
@@ -2948,6 +3037,29 @@
   "repeater_pathHashModeOption3": "3 - 4 Bytes",
   "appSettings_batteryLipoHv": "LiPo HV (3,0–4,35 V)",
   "chat_sendImageLora": "Bild über MeshCore senden",
+  "chat_sendImageIpfs": "Bild oder Datei über IPFS senden",
+  "chat_ipfsUploadFailed": "IPFS-Upload fehlgeschlagen: {error}",
+  "@chat_ipfsUploadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "chat_ipfsUploadNotConfigured": "Konfigurieren Sie zuerst in den App-Einstellungen einen IPFS-Upload-Anbieter.",
+  "chat_ipfsSelectedFileEmpty": "Die ausgewählte Datei ist leer.",
+  "chat_ipfsEndpointInvalid": "Der IPFS-Upload-Endpunkt muss eine vollständige http://- oder https://-Adresse sein. Prüfen Sie ihn in den App-Einstellungen.",
+  "chat_ipfsPinataTokenMissing": "Pinata benötigt einen API-Schlüssel oder JWT. Fügen Sie ihn in den App-Einstellungen hinzu.",
+  "chat_ipfsFilebaseTokenMissing": "Filebase benötigt ein API-Token. Fügen Sie es in den App-Einstellungen hinzu.",
+  "chat_ipfsKuboPathInvalid": "Der Kubo-Upload-Endpunkt muss auf /api/v0/add enden. Prüfen Sie ihn in den App-Einstellungen.",
+  "chat_ipfsLinkNoRoom": "Nicht genug Platz für den Bildlink. Kürzen Sie Ihre Nachricht und versuchen Sie es erneut.",
+  "@chat_ipfsLinkNoRoom": {
+    "description": "Shown before an IPFS upload when the link would push the draft over the message size limit"
+  },
+  "chat_ipfsLinkOverLimit": "Bildlink hinzugefügt, aber die Nachricht ist jetzt zu lang. Kürzen Sie sie vor dem Senden.",
+  "@chat_ipfsLinkOverLimit": {
+    "description": "Shown after an IPFS upload when the link plus the draft no longer fits the message size limit"
+  },
   "chat_imagePickFailed": "Konnte dieses Bild nicht öffnen.",
   "chat_receivedGif": "Erhalten eines GIF",
   "repeater_keySettings": "Identitätsschlüssel ändern",
@@ -3051,6 +3163,7 @@
   "room_postsStored": "Beiträge",
   "settings_publicKeyCopied": "Öffentlicher Schlüssel kopiert",
   "settings_radioSettingsNotApplied": "Das Funkgerät hat diese Einstellungen nicht übernommen",
+  "settings_pathHashModeNotApplied": "Funkeinstellungen wurden angewendet, aber das Funkgerät hat die neue Pfad-Hash-Größe nicht bestätigt",
   "messageStatus_failedChannel": "Ihr Funkgerät konnte diese Nachricht nicht senden.",
   "messageStatus_resending": "Noch nicht über genügend Repeater gehört. {resends} von {maxResends} Malen erneut gesendet.",
   "@messageStatus_resending": {
@@ -3153,6 +3266,8 @@
   },
   "contacts_keepChatHistory": "Chatverlauf behalten",
   "contacts_remove": "Entfernen",
+  "contacts_removeAutoAddNote": "Ihr Funkgerät fügt diesen Kontakttyp automatisch hinzu, daher kommt er beim nächsten Advert zurück. Deaktivieren Sie in den Kontakteinstellungen das automatische Hinzufügen, um ihn entfernt zu lassen.",
+  "contacts_removeFailed": "Das Funkgerät hat das Entfernen nicht bestätigt. Der Kontakt wurde nicht entfernt.",
   "contacts_discoveredNearby": "In der Nähe entdeckt ({count})",
   "@contacts_discoveredNearby": {
     "placeholders": {
@@ -3207,6 +3322,8 @@
   "notification_replySendFailed": "Ihre Antwort wurde möglicherweise nicht gesendet. Prüfen Sie dies in MeshCore Open und versuchen Sie es erneut.",
   "notification_replyAppNotRunning": "MeshCore Open wird nicht ausgeführt. Öffnen Sie die App und senden Sie Ihre Antwort erneut.",
   "snrIndicator_nearByRepeatersDescription": "Repeater, die Ihr Funkgerät direkt gehört hat, zuletzt gehört zuerst.",
+  "snrIndicator_unknownRepeater": "Unbekannter Repeater",
+  "snrIndicator_unknownRepeaterHint": "Dieser Repeater ist noch nicht in Ihren Kontakten. Name, Standort und Optionen erscheinen, sobald Ihr Funkgerät seinen Advert empfängt.",
   "radioStats_sectionSignal": "Signal",
   "radioStats_sectionAirtime": "Sendezeit",
   "imageSend_lossyNote": "Auf etwa {bytes} Bytes komprimiert. Das Modell des Empfängers rekonstruiert das Bild, daher weichen Details ab.",
@@ -3393,6 +3510,14 @@
   "repeater_prvKeyLengthError": "Der private Schlüssel muss genau {length} Hex-Zeichen lang sein",
   "contacts_advertFailed": "Advert konnte nicht gesendet werden",
   "contacts_manageGroups": "Gruppen verwalten",
+  "contacts_keyPrefixSemantics": "Schlüsselpräfix {prefix}",
+  "@contacts_keyPrefixSemantics": {
+    "placeholders": {
+      "prefix": {
+        "type": "String"
+      }
+    }
+  },
   "community_shortId": "ID: {id}…",
   "tcpSectionTitle": "TCP / IP",
   "tcpConnectedToHeader": "Verbunden mit",
@@ -3430,6 +3555,9 @@
   "networkMap_sourceLocal": "Lokal",
   "networkMap_sourceOnline": "Online",
   "networkMap_sourceBoth": "Beides",
+  "networkMap_sourceLocalHint": "Knoten, die Ihr Funkgerät gehört hat",
+  "networkMap_sourceOnlineHint": "Repeater aus der Online-Netzwerkkarte",
+  "networkMap_sourceBothHint": "Die Knoten Ihres Funkgeräts plus die Online-Netzwerkkarte",
   "networkMap_zoomInHint": "Zoome hinein, um die Online-Netzwerkkarte zu sehen",
   "networkMap_loadFailed": "Online-Netzwerkkarte konnte nicht geladen werden",
   "networkMap_inYourContacts": "In deinen Kontakten",

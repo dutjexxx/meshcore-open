@@ -856,6 +856,26 @@
   "channels_joinHashtagChannelDesc": "Anyone can join hashtag channels.",
   "channels_scanQrCode": "Scan a QR Code",
   "channels_scanQrCodeComingSoon": "Coming soon",
+  "channels_scanQrCodeDesc": "Join a channel or community from its QR code.",
+  "channels_scanQrInstructions": "Point the camera at a channel or community QR code",
+  "channels_invalidQrCode": "Not a MeshCore channel or community QR code",
+  "channels_joinChannelTitle": "Join Channel",
+  "channels_joinChannelConfirm": "Add \"{name}\" to your radio?",
+  "@channels_joinChannelConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "channels_alreadyOnRadio": "\"{name}\" is already on your radio",
+  "@channels_alreadyOnRadio": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "channels_enterHashtag": "Enter hashtag",
   "channels_hashtagHint": "e.g. #team",
   "channels_regionSetTo": "Region: {region}",

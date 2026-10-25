@@ -147,7 +147,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get urlImage_possible => '可能是URL图片，请在设置中启用。';
 
   @override
-  String get urlImage_disabledInAppSettings => 'Turned off in app settings';
+  String get urlImage_disabledInAppSettings => '已在应用设置中关闭';
 
   @override
   String get common_reboot => '重启';
@@ -405,8 +405,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settings_radioSettingsNotApplied => '收音机未应用这些设置';
 
   @override
-  String get settings_pathHashModeNotApplied =>
-      'Radio settings were applied, but the radio did not confirm the new path hash size';
+  String get settings_pathHashModeNotApplied => '无线电设置已应用，但无线电未确认新的路径哈希大小';
 
   @override
   String get settings_regionSettings => '地区';
@@ -999,32 +998,31 @@ class AppLocalizationsZh extends AppLocalizations {
   String get appSettings_maxMessageRetriesSubtitle => '在将消息标记为失败之前，允许尝试的次数';
 
   @override
-  String get appSettings_ipfsImageLinks => 'IPFS provider configuration';
+  String get appSettings_ipfsImageLinks => 'IPFS 提供商配置';
 
   @override
   String get appSettings_ipfsImageLinksSubtitle =>
-      'Upload for url Images (or Files) via IPFS provider and default gateway to receive';
+      '通过 IPFS 提供商上传 URL 图片（或文件），并使用默认网关接收';
 
   @override
-  String get appSettings_loadLinkImages => 'Load images from links';
+  String get appSettings_loadLinkImages => '加载链接中的图片';
 
   @override
   String get appSettings_loadLinkImagesSubtitle =>
-      'Show pictures from links in messages. Loading an image shares your IP address with the site that hosts it.';
+      '在消息中显示链接里的图片。加载图片会向托管该图片的网站暴露你的 IP 地址。';
 
   @override
-  String get appSettings_showLinkImagesByDefault =>
-      'Show link images in all chats by default';
+  String get appSettings_showLinkImagesByDefault => '默认在所有聊天中显示链接图片';
 
   @override
   String get appSettings_showLinkImagesByDefaultSubtitle =>
-      'Load link images in every chat unless you turned them off there. This shares your IP address with image hosts in every chat.';
+      '在每个聊天中加载链接图片，除非你在该聊天中已将其关闭。这会在每个聊天中向图片托管方暴露你的 IP 地址。';
 
   @override
-  String get appSettings_publicIpfsGateway => 'Public gateway';
+  String get appSettings_publicIpfsGateway => '公共网关';
 
   @override
-  String get appSettings_ipfsGatewayDeactivated => 'Deactivated';
+  String get appSettings_ipfsGatewayDeactivated => '已停用';
 
   @override
   String get appSettings_ipfsGatewayIpfsIo => 'ipfs.io';
@@ -1036,31 +1034,30 @@ class AppLocalizationsZh extends AppLocalizations {
   String get appSettings_ipfsGatewayFilebase => 'Filebase';
 
   @override
-  String get appSettings_ipfsGatewayCustom => 'Custom (Kubo)';
+  String get appSettings_ipfsGatewayCustom => '自定义 (Kubo)';
 
   @override
-  String get appSettings_uploadIpfsProvider => 'Upload provider';
+  String get appSettings_uploadIpfsProvider => '上传提供商';
 
   @override
-  String get appSettings_uploadIpfsGateway => 'Upload gateway';
+  String get appSettings_uploadIpfsGateway => '上传网关';
 
   @override
   String get appSettings_uploadIpfsGatewaySubtitle =>
-      'Gateway to share Image or File as url-link. Leave empty to use ipfs: format, which may not be opened by other clients.';
+      '用于将图片或文件作为 URL 链接分享的网关。留空则使用 ipfs: 格式，其他客户端可能无法打开。';
 
   @override
-  String get appSettings_uploadIpfsEndpoint => 'Upload endpoint';
+  String get appSettings_uploadIpfsEndpoint => '上传端点';
 
   @override
-  String get appSettings_uploadIpfsEndpointSubtitle =>
-      'The API endpoint used to upload files';
+  String get appSettings_uploadIpfsEndpointSubtitle => '用于上传文件的 API 端点';
 
   @override
-  String get appSettings_uploadIpfsApiKey => 'Upload API key';
+  String get appSettings_uploadIpfsApiKey => '上传 API 密钥';
 
   @override
   String get appSettings_ipfsImageLinksDescription =>
-      'Public gateway downloads ipfs: format images. Upload gateway is used to generate share links for uploaded url images or files.';
+      '公共网关用于下载 ipfs: 格式的图片。上传网关用于为已上传的 URL 图片或文件生成分享链接。';
 
   @override
   String get appSettings_battery => '电池';
@@ -1270,11 +1267,10 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get contacts_removeAutoAddNote =>
-      'Your radio auto-adds this contact type, so it will come back the next time it advertises. Turn off auto-add in Contacts settings to keep it removed.';
+      '你的无线电会自动添加此类联系人，因此它下次发送广播时会重新出现。如需保持移除，请在联系人设置中关闭自动添加。';
 
   @override
-  String get contacts_removeFailed =>
-      'The radio did not confirm the removal. The contact was not removed.';
+  String get contacts_removeFailed => '无线电未确认移除。该联系人未被移除。';
 
   @override
   String contacts_discoveredNearby(int count) {
@@ -1460,7 +1456,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String channels_notificationModeTooltip(String mode) {
-    return 'Notifications: $mode';
+    return '通知：$mode';
   }
 
   @override
@@ -1636,6 +1632,28 @@ class AppLocalizationsZh extends AppLocalizations {
   String get channels_scanQrCodeComingSoon => '即将推出';
 
   @override
+  String get channels_scanQrCodeDesc => '通过二维码加入频道或社区。';
+
+  @override
+  String get channels_scanQrInstructions => '将相机对准频道或社区二维码';
+
+  @override
+  String get channels_invalidQrCode => '不是 MeshCore 频道或社区二维码';
+
+  @override
+  String get channels_joinChannelTitle => '加入频道';
+
+  @override
+  String channels_joinChannelConfirm(String name) {
+    return '将 \"$name\" 添加到你的无线电？';
+  }
+
+  @override
+  String channels_alreadyOnRadio(String name) {
+    return '\"$name\" 已在你的无线电上';
+  }
+
+  @override
   String get channels_enterHashtag => '输入标签';
 
   @override
@@ -1752,43 +1770,38 @@ class AppLocalizationsZh extends AppLocalizations {
   String get chat_sendImageLora => '通过 MeshCore 发送图片';
 
   @override
-  String get chat_sendImageIpfs => 'Send image or file via IPFS';
+  String get chat_sendImageIpfs => '通过 IPFS 发送图片或文件';
 
   @override
   String chat_ipfsUploadFailed(String error) {
-    return 'IPFS upload failed: $error';
+    return 'IPFS 上传失败：$error';
   }
 
   @override
-  String get chat_ipfsUploadNotConfigured =>
-      'Configure an IPFS upload provider in App Settings first.';
+  String get chat_ipfsUploadNotConfigured => '请先在应用设置中配置 IPFS 上传提供商。';
 
   @override
-  String get chat_ipfsSelectedFileEmpty => 'The selected file is empty.';
+  String get chat_ipfsSelectedFileEmpty => '所选文件为空。';
 
   @override
   String get chat_ipfsEndpointInvalid =>
-      'The IPFS upload endpoint must be a full http:// or https:// address. Check it in App Settings.';
+      'IPFS 上传端点必须是完整的 http:// 或 https:// 地址。请在应用设置中检查。';
 
   @override
-  String get chat_ipfsPinataTokenMissing =>
-      'Pinata needs an API key or JWT. Add it in App Settings.';
+  String get chat_ipfsPinataTokenMissing => 'Pinata 需要 API 密钥或 JWT。请在应用设置中添加。';
 
   @override
-  String get chat_ipfsFilebaseTokenMissing =>
-      'Filebase needs an API token. Add it in App Settings.';
+  String get chat_ipfsFilebaseTokenMissing => 'Filebase 需要 API 令牌。请在应用设置中添加。';
 
   @override
   String get chat_ipfsKuboPathInvalid =>
-      'The Kubo upload endpoint must end with /api/v0/add. Check it in App Settings.';
+      'Kubo 上传端点必须以 /api/v0/add 结尾。请在应用设置中检查。';
 
   @override
-  String get chat_ipfsLinkNoRoom =>
-      'Not enough room for the image link. Shorten your message, then try again.';
+  String get chat_ipfsLinkNoRoom => '没有足够空间放置图片链接。请缩短消息后重试。';
 
   @override
-  String get chat_ipfsLinkOverLimit =>
-      'Image link added, but the message is now too long. Shorten it before sending.';
+  String get chat_ipfsLinkOverLimit => '图片链接已添加，但消息现在太长。请缩短后再发送。';
 
   @override
   String get chat_imagePickFailed => '无法打开该图片';
@@ -2383,25 +2396,22 @@ class AppLocalizationsZh extends AppLocalizations {
   String get map_pathTraceCancelled => '路径追踪已取消';
 
   @override
-  String get map_pathTraceAddMoreHint =>
-      'Tap more nodes to add hops, choose how the trace returns, then tap Run path trace.';
+  String get map_pathTraceAddMoreHint => '点击更多节点以添加跳数，选择追踪的返回方式，然后点击“运行路径追踪”。';
 
   @override
-  String get map_pathTraceModeRoundTrip => 'Round trip';
+  String get map_pathTraceModeRoundTrip => '往返';
 
   @override
-  String get map_pathTraceModeRoundTripHint =>
-      'The trace goes out through these hops and comes back the same way.';
+  String get map_pathTraceModeRoundTripHint => '追踪经由这些跳发出，并沿原路返回。';
 
   @override
-  String get map_pathTraceModeAsEntered => 'As entered';
+  String get map_pathTraceModeAsEntered => '按输入顺序';
 
   @override
-  String get map_pathTraceModeAsEnteredHint =>
-      'The trace follows these hops exactly. Add the hops back to you yourself.';
+  String get map_pathTraceModeAsEnteredHint => '追踪严格按这些跳进行。请自行添加返回你的跳。';
 
   @override
-  String get map_pathTraceViewLast => 'View last result';
+  String get map_pathTraceViewLast => '查看上次结果';
 
   @override
   String get mapCache_title => '离线地图缓存';
@@ -4563,11 +4573,11 @@ class AppLocalizationsZh extends AppLocalizations {
   String get notification_activityTitle => 'MeshCore 活动';
 
   @override
-  String get notification_lowBatteryTitle => 'Low battery';
+  String get notification_lowBatteryTitle => '电量低';
 
   @override
   String notification_lowBatteryBody(String deviceName, int percent) {
-    return '$deviceName battery is at $percent%';
+    return '$deviceName 电量为 $percent%';
   }
 
   @override
@@ -4594,23 +4604,23 @@ class AppLocalizationsZh extends AppLocalizations {
   String get notification_receivedNewMessage => '收到新消息';
 
   @override
-  String get notification_sharedLocation => 'Shared a location';
+  String get notification_sharedLocation => '分享了位置';
 
   @override
   String notification_sharedLocationNamed(String label) {
-    return 'Shared a location: $label';
+    return '分享了位置：$label';
   }
 
   @override
   String notification_reacted(String emoji) {
-    return 'Reacted $emoji';
+    return '回应了 $emoji';
   }
 
   @override
-  String get notification_sentGif => 'Sent a GIF';
+  String get notification_sentGif => '发送了 GIF';
 
   @override
-  String get notification_sentImage => 'Sent an image';
+  String get notification_sentImage => '发送了图片';
 
   @override
   String get notification_actionReply => '回复';
@@ -4704,11 +4714,11 @@ class AppLocalizationsZh extends AppLocalizations {
       '你的无线电直接听到的中继器，最近听到的排在前面。';
 
   @override
-  String get snrIndicator_unknownRepeater => 'Unknown repeater';
+  String get snrIndicator_unknownRepeater => '未知中继器';
 
   @override
   String get snrIndicator_unknownRepeaterHint =>
-      'This repeater isn\'t in your contacts yet. Its name, location and options appear once your radio receives its advert.';
+      '此中继器还不在你的联系人中。待你的无线电收到它的广播后，将显示其名称、位置和选项。';
 
   @override
   String get contactsSettings_title => '联系人设置';
@@ -5936,7 +5946,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String contacts_keyPrefixSemantics(String prefix) {
-    return 'Key prefix $prefix';
+    return '密钥前缀 $prefix';
   }
 
   @override
@@ -6021,15 +6031,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get networkMap_sourceBoth => '两者';
 
   @override
-  String get networkMap_sourceLocalHint => 'Nodes your radio has heard';
+  String get networkMap_sourceLocalHint => '你的无线电听到的节点';
 
   @override
-  String get networkMap_sourceOnlineHint =>
-      'Repeaters from the online network map';
+  String get networkMap_sourceOnlineHint => '来自在线网络地图的中继器';
 
   @override
-  String get networkMap_sourceBothHint =>
-      'Your radio\'s nodes plus the online network map';
+  String get networkMap_sourceBothHint => '你的无线电节点加上在线网络地图';
 
   @override
   String get networkMap_zoomInHint => '放大以查看在线网络地图';

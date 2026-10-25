@@ -152,7 +152,8 @@ class AppLocalizationsNl extends AppLocalizations {
       'Mogelijke URL-afbeelding; schakel dit in bij Instellingen.';
 
   @override
-  String get urlImage_disabledInAppSettings => 'Turned off in app settings';
+  String get urlImage_disabledInAppSettings =>
+      'Uitgeschakeld in app-instellingen';
 
   @override
   String get common_reboot => 'Herstarten';
@@ -428,7 +429,7 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get settings_pathHashModeNotApplied =>
-      'Radio settings were applied, but the radio did not confirm the new path hash size';
+      'Radio-instellingen zijn toegepast, maar de radio heeft de nieuwe padhashgrootte niet bevestigd';
 
   @override
   String get settings_regionSettings => 'Regio\'s';
@@ -1068,32 +1069,32 @@ class AppLocalizationsNl extends AppLocalizations {
       'Aantal pogingen om een bericht opnieuw te versturen voordat het als mislukt wordt gemarkeerd';
 
   @override
-  String get appSettings_ipfsImageLinks => 'IPFS provider configuration';
+  String get appSettings_ipfsImageLinks => 'IPFS-providerconfiguratie';
 
   @override
   String get appSettings_ipfsImageLinksSubtitle =>
-      'Upload for url Images (or Files) via IPFS provider and default gateway to receive';
+      'Upload voor URL-afbeeldingen (of bestanden) via een IPFS-provider en standaardgateway om te ontvangen';
 
   @override
-  String get appSettings_loadLinkImages => 'Load images from links';
+  String get appSettings_loadLinkImages => 'Afbeeldingen uit links laden';
 
   @override
   String get appSettings_loadLinkImagesSubtitle =>
-      'Show pictures from links in messages. Loading an image shares your IP address with the site that hosts it.';
+      'Toon afbeeldingen uit links in berichten. Bij het laden van een afbeelding wordt je IP-adres gedeeld met de site die de afbeelding host.';
 
   @override
   String get appSettings_showLinkImagesByDefault =>
-      'Show link images in all chats by default';
+      'Linkafbeeldingen standaard in alle chats tonen';
 
   @override
   String get appSettings_showLinkImagesByDefaultSubtitle =>
-      'Load link images in every chat unless you turned them off there. This shares your IP address with image hosts in every chat.';
+      'Laad linkafbeeldingen in elke chat, tenzij je ze daar hebt uitgezet. Hierdoor wordt je IP-adres in elke chat gedeeld met afbeeldingshosts.';
 
   @override
-  String get appSettings_publicIpfsGateway => 'Public gateway';
+  String get appSettings_publicIpfsGateway => 'Publieke gateway';
 
   @override
-  String get appSettings_ipfsGatewayDeactivated => 'Deactivated';
+  String get appSettings_ipfsGatewayDeactivated => 'Uitgeschakeld';
 
   @override
   String get appSettings_ipfsGatewayIpfsIo => 'ipfs.io';
@@ -1105,31 +1106,31 @@ class AppLocalizationsNl extends AppLocalizations {
   String get appSettings_ipfsGatewayFilebase => 'Filebase';
 
   @override
-  String get appSettings_ipfsGatewayCustom => 'Custom (Kubo)';
+  String get appSettings_ipfsGatewayCustom => 'Aangepast (Kubo)';
 
   @override
-  String get appSettings_uploadIpfsProvider => 'Upload provider';
+  String get appSettings_uploadIpfsProvider => 'Uploadprovider';
 
   @override
-  String get appSettings_uploadIpfsGateway => 'Upload gateway';
+  String get appSettings_uploadIpfsGateway => 'Uploadgateway';
 
   @override
   String get appSettings_uploadIpfsGatewaySubtitle =>
-      'Gateway to share Image or File as url-link. Leave empty to use ipfs: format, which may not be opened by other clients.';
+      'Gateway om afbeeldingen of bestanden als URL-link te delen. Laat leeg om het ipfs:-formaat te gebruiken, dat andere clients mogelijk niet kunnen openen.';
 
   @override
-  String get appSettings_uploadIpfsEndpoint => 'Upload endpoint';
+  String get appSettings_uploadIpfsEndpoint => 'Upload-endpoint';
 
   @override
   String get appSettings_uploadIpfsEndpointSubtitle =>
-      'The API endpoint used to upload files';
+      'Het API-endpoint dat wordt gebruikt om bestanden te uploaden';
 
   @override
-  String get appSettings_uploadIpfsApiKey => 'Upload API key';
+  String get appSettings_uploadIpfsApiKey => 'Upload-API-sleutel';
 
   @override
   String get appSettings_ipfsImageLinksDescription =>
-      'Public gateway downloads ipfs: format images. Upload gateway is used to generate share links for uploaded url images or files.';
+      'De publieke gateway downloadt afbeeldingen in ipfs:-formaat. De uploadgateway maakt deellinks voor geüploade afbeeldingen of bestanden.';
 
   @override
   String get appSettings_battery => 'Batterij';
@@ -1350,11 +1351,11 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get contacts_removeAutoAddNote =>
-      'Your radio auto-adds this contact type, so it will come back the next time it advertises. Turn off auto-add in Contacts settings to keep it removed.';
+      'Je radio voegt dit contacttype automatisch toe, dus het komt terug zodra het weer een advert verstuurt. Zet automatisch toevoegen uit in de Contactinstellingen om het verwijderd te houden.';
 
   @override
   String get contacts_removeFailed =>
-      'The radio did not confirm the removal. The contact was not removed.';
+      'De radio heeft de verwijdering niet bevestigd. Het contact is niet verwijderd.';
 
   @override
   String contacts_discoveredNearby(int count) {
@@ -1542,7 +1543,7 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String channels_notificationModeTooltip(String mode) {
-    return 'Notifications: $mode';
+    return 'Meldingen: $mode';
   }
 
   @override
@@ -1726,6 +1727,31 @@ class AppLocalizationsNl extends AppLocalizations {
   String get channels_scanQrCodeComingSoon => 'Binnenkort beschikbaar';
 
   @override
+  String get channels_scanQrCodeDesc =>
+      'Word lid van een kanaal of community via de QR-code.';
+
+  @override
+  String get channels_scanQrInstructions =>
+      'Richt de camera op een kanaal- of community-QR-code';
+
+  @override
+  String get channels_invalidQrCode =>
+      'Geen MeshCore-kanaal- of community-QR-code';
+
+  @override
+  String get channels_joinChannelTitle => 'Lid worden van kanaal';
+
+  @override
+  String channels_joinChannelConfirm(String name) {
+    return '\"$name\" aan je radio toevoegen?';
+  }
+
+  @override
+  String channels_alreadyOnRadio(String name) {
+    return '\"$name\" staat al op je radio';
+  }
+
+  @override
   String get channels_enterHashtag => 'Voer hashtag in';
 
   @override
@@ -1845,43 +1871,43 @@ class AppLocalizationsNl extends AppLocalizations {
       'Afbeelding in lage resolutie via radio verzenden';
 
   @override
-  String get chat_sendImageIpfs => 'Send image or file via IPFS';
+  String get chat_sendImageIpfs => 'Afbeelding of bestand versturen via IPFS';
 
   @override
   String chat_ipfsUploadFailed(String error) {
-    return 'IPFS upload failed: $error';
+    return 'IPFS-upload mislukt: $error';
   }
 
   @override
   String get chat_ipfsUploadNotConfigured =>
-      'Configure an IPFS upload provider in App Settings first.';
+      'Configureer eerst een IPFS-uploadprovider in de App-instellingen.';
 
   @override
-  String get chat_ipfsSelectedFileEmpty => 'The selected file is empty.';
+  String get chat_ipfsSelectedFileEmpty => 'Het geselecteerde bestand is leeg.';
 
   @override
   String get chat_ipfsEndpointInvalid =>
-      'The IPFS upload endpoint must be a full http:// or https:// address. Check it in App Settings.';
+      'Het IPFS-upload-endpoint moet een volledig http://- of https://-adres zijn. Controleer het in de App-instellingen.';
 
   @override
   String get chat_ipfsPinataTokenMissing =>
-      'Pinata needs an API key or JWT. Add it in App Settings.';
+      'Pinata heeft een API-sleutel of JWT nodig. Voeg die toe in de App-instellingen.';
 
   @override
   String get chat_ipfsFilebaseTokenMissing =>
-      'Filebase needs an API token. Add it in App Settings.';
+      'Filebase heeft een API-token nodig. Voeg dat toe in de App-instellingen.';
 
   @override
   String get chat_ipfsKuboPathInvalid =>
-      'The Kubo upload endpoint must end with /api/v0/add. Check it in App Settings.';
+      'Het Kubo-upload-endpoint moet eindigen op /api/v0/add. Controleer het in de App-instellingen.';
 
   @override
   String get chat_ipfsLinkNoRoom =>
-      'Not enough room for the image link. Shorten your message, then try again.';
+      'Niet genoeg ruimte voor de afbeeldingslink. Kort je bericht in en probeer het opnieuw.';
 
   @override
   String get chat_ipfsLinkOverLimit =>
-      'Image link added, but the message is now too long. Shorten it before sending.';
+      'Afbeeldingslink toegevoegd, maar het bericht is nu te lang. Kort het in voordat je het verstuurt.';
 
   @override
   String get chat_imagePickFailed => 'Kon die afbeelding niet openen';
@@ -2500,24 +2526,24 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get map_pathTraceAddMoreHint =>
-      'Tap more nodes to add hops, choose how the trace returns, then tap Run path trace.';
+      'Tik op meer nodes om hops toe te voegen, kies hoe de trace terugkomt en tik dan op Padtrace uitvoeren.';
 
   @override
-  String get map_pathTraceModeRoundTrip => 'Round trip';
+  String get map_pathTraceModeRoundTrip => 'Heen en terug';
 
   @override
   String get map_pathTraceModeRoundTripHint =>
-      'The trace goes out through these hops and comes back the same way.';
+      'De trace gaat via deze hops heen en komt op dezelfde weg terug.';
 
   @override
-  String get map_pathTraceModeAsEntered => 'As entered';
+  String get map_pathTraceModeAsEntered => 'Zoals ingevoerd';
 
   @override
   String get map_pathTraceModeAsEnteredHint =>
-      'The trace follows these hops exactly. Add the hops back to you yourself.';
+      'De trace volgt precies deze hops. Voeg zelf de hops terug naar jou toe.';
 
   @override
-  String get map_pathTraceViewLast => 'View last result';
+  String get map_pathTraceViewLast => 'Laatste resultaat bekijken';
 
   @override
   String get mapCache_title => 'Offline Kaarten Cache';
@@ -4861,11 +4887,11 @@ class AppLocalizationsNl extends AppLocalizations {
   String get notification_activityTitle => 'MeshCore Activiteit';
 
   @override
-  String get notification_lowBatteryTitle => 'Low battery';
+  String get notification_lowBatteryTitle => 'Batterij bijna leeg';
 
   @override
   String notification_lowBatteryBody(String deviceName, int percent) {
-    return '$deviceName battery is at $percent%';
+    return 'Batterij van $deviceName staat op $percent%';
   }
 
   @override
@@ -4910,23 +4936,23 @@ class AppLocalizationsNl extends AppLocalizations {
   String get notification_receivedNewMessage => 'Nieuw bericht ontvangen';
 
   @override
-  String get notification_sharedLocation => 'Shared a location';
+  String get notification_sharedLocation => 'Locatie gedeeld';
 
   @override
   String notification_sharedLocationNamed(String label) {
-    return 'Shared a location: $label';
+    return 'Locatie gedeeld: $label';
   }
 
   @override
   String notification_reacted(String emoji) {
-    return 'Reacted $emoji';
+    return 'Reageerde $emoji';
   }
 
   @override
-  String get notification_sentGif => 'Sent a GIF';
+  String get notification_sentGif => 'GIF verstuurd';
 
   @override
-  String get notification_sentImage => 'Sent an image';
+  String get notification_sentImage => 'Afbeelding verstuurd';
 
   @override
   String get notification_actionReply => 'Reageren';
@@ -5030,11 +5056,11 @@ class AppLocalizationsNl extends AppLocalizations {
       'Repeaters die je radio rechtstreeks heeft gehoord, meest recent gehoord eerst.';
 
   @override
-  String get snrIndicator_unknownRepeater => 'Unknown repeater';
+  String get snrIndicator_unknownRepeater => 'Onbekende repeater';
 
   @override
   String get snrIndicator_unknownRepeaterHint =>
-      'This repeater isn\'t in your contacts yet. Its name, location and options appear once your radio receives its advert.';
+      'Deze repeater staat nog niet in je contacten. Naam, locatie en opties verschijnen zodra je radio zijn advert ontvangt.';
 
   @override
   String get contactsSettings_title => 'Instellingen voor contacten';
@@ -6328,7 +6354,7 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String contacts_keyPrefixSemantics(String prefix) {
-    return 'Key prefix $prefix';
+    return 'Sleutelprefix $prefix';
   }
 
   @override
@@ -6414,15 +6440,15 @@ class AppLocalizationsNl extends AppLocalizations {
   String get networkMap_sourceBoth => 'Beide';
 
   @override
-  String get networkMap_sourceLocalHint => 'Nodes your radio has heard';
+  String get networkMap_sourceLocalHint => 'Nodes die je radio heeft gehoord';
 
   @override
   String get networkMap_sourceOnlineHint =>
-      'Repeaters from the online network map';
+      'Repeaters van de online netwerkkaart';
 
   @override
   String get networkMap_sourceBothHint =>
-      'Your radio\'s nodes plus the online network map';
+      'De nodes van je radio plus de online netwerkkaart';
 
   @override
   String get networkMap_zoomInHint =>

@@ -3448,5 +3448,133 @@
   "networkMap_manage": "관리",
   "networkMap_addedToContacts": "연락처에 추가됨",
   "networkMap_addFailed": "연락처에 추가하지 못했습니다",
-  "networkMap_unnamed": "이름 없는 리피터"
+  "networkMap_unnamed": "이름 없는 리피터",
+  "urlImage_disabledInAppSettings": "앱 설정에서 꺼져 있습니다",
+  "settings_pathHashModeNotApplied": "라디오 설정은 적용되었지만 라디오가 새 경로 해시 크기를 확인하지 않았습니다",
+  "appSettings_ipfsImageLinks": "IPFS 제공자 설정",
+  "appSettings_ipfsImageLinksSubtitle": "URL 이미지(또는 파일) 업로드에는 IPFS 제공자를, 수신에는 기본 게이트웨이를 사용합니다",
+  "appSettings_loadLinkImages": "링크의 이미지 불러오기",
+  "appSettings_loadLinkImagesSubtitle": "메시지 속 링크의 사진을 표시합니다. 이미지를 불러오면 호스팅하는 사이트에 내 IP 주소가 공유됩니다.",
+  "appSettings_showLinkImagesByDefault": "모든 채팅에서 링크 이미지를 기본으로 표시",
+  "appSettings_showLinkImagesByDefaultSubtitle": "채팅별로 끄지 않은 한 모든 채팅에서 링크 이미지를 불러옵니다. 모든 채팅에서 이미지 호스트에 내 IP 주소가 공유됩니다.",
+  "appSettings_publicIpfsGateway": "공개 게이트웨이",
+  "appSettings_ipfsGatewayDeactivated": "사용 안 함",
+  "appSettings_ipfsGatewayIpfsIo": "ipfs.io",
+  "appSettings_ipfsGatewayPinata": "Pinata",
+  "appSettings_ipfsGatewayFilebase": "Filebase",
+  "appSettings_ipfsGatewayCustom": "사용자 지정(Kubo)",
+  "appSettings_uploadIpfsProvider": "업로드 제공자",
+  "appSettings_uploadIpfsGateway": "업로드 게이트웨이",
+  "appSettings_uploadIpfsGatewaySubtitle": "이미지나 파일을 URL 링크로 공유하기 위한 게이트웨이입니다. 비워 두면 ipfs: 형식을 사용하며, 다른 클라이언트에서는 열리지 않을 수 있습니다.",
+  "appSettings_uploadIpfsEndpoint": "업로드 엔드포인트",
+  "appSettings_uploadIpfsEndpointSubtitle": "파일 업로드에 사용하는 API 엔드포인트",
+  "appSettings_uploadIpfsApiKey": "업로드 API 키",
+  "appSettings_ipfsImageLinksDescription": "공개 게이트웨이는 ipfs: 형식의 이미지를 다운로드합니다. 업로드 게이트웨이는 업로드한 URL 이미지나 파일의 공유 링크를 만드는 데 사용됩니다.",
+  "contacts_removeAutoAddNote": "라디오가 이 연락처 유형을 자동으로 추가하므로 다음에 어드버트를 보내면 다시 추가됩니다. 삭제된 상태로 두려면 연락처 설정에서 자동 추가를 끄세요.",
+  "contacts_removeFailed": "라디오가 삭제를 확인하지 않았습니다. 연락처가 삭제되지 않았습니다.",
+  "channels_notificationModeTooltip": "알림: {mode}",
+  "@channels_notificationModeTooltip": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    }
+  },
+  "channels_scanQrCodeDesc": "QR 코드로 채널이나 커뮤니티에 참여합니다.",
+  "channels_scanQrInstructions": "채널 또는 커뮤니티 QR 코드에 카메라를 향하세요",
+  "channels_invalidQrCode": "MeshCore 채널 또는 커뮤니티 QR 코드가 아닙니다",
+  "channels_joinChannelTitle": "채널 참여",
+  "channels_joinChannelConfirm": "\"{name}\" 채널을 라디오에 추가할까요?",
+  "@channels_joinChannelConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "channels_alreadyOnRadio": "\"{name}\"은(는) 이미 라디오에 있습니다",
+  "@channels_alreadyOnRadio": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chat_sendImageIpfs": "IPFS로 이미지 또는 파일 보내기",
+  "chat_ipfsUploadFailed": "IPFS 업로드 실패: {error}",
+  "@chat_ipfsUploadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "chat_ipfsUploadNotConfigured": "먼저 앱 설정에서 IPFS 업로드 제공자를 설정하세요.",
+  "chat_ipfsSelectedFileEmpty": "선택한 파일이 비어 있습니다.",
+  "chat_ipfsEndpointInvalid": "IPFS 업로드 엔드포인트는 http:// 또는 https://로 시작하는 전체 주소여야 합니다. 앱 설정에서 확인하세요.",
+  "chat_ipfsPinataTokenMissing": "Pinata에는 API 키 또는 JWT가 필요합니다. 앱 설정에서 추가하세요.",
+  "chat_ipfsFilebaseTokenMissing": "Filebase에는 API 토큰이 필요합니다. 앱 설정에서 추가하세요.",
+  "chat_ipfsKuboPathInvalid": "Kubo 업로드 엔드포인트는 /api/v0/add로 끝나야 합니다. 앱 설정에서 확인하세요.",
+  "chat_ipfsLinkNoRoom": "이미지 링크를 넣을 공간이 부족합니다. 메시지를 줄인 뒤 다시 시도하세요.",
+  "@chat_ipfsLinkNoRoom": {
+    "description": "Shown before an IPFS upload when the link would push the draft over the message size limit"
+  },
+  "chat_ipfsLinkOverLimit": "이미지 링크를 추가했지만 메시지가 너무 깁니다. 보내기 전에 줄이세요.",
+  "@chat_ipfsLinkOverLimit": {
+    "description": "Shown after an IPFS upload when the link plus the draft no longer fits the message size limit"
+  },
+  "map_pathTraceAddMoreHint": "노드를 더 탭해 홉을 추가하고, 추적이 돌아오는 방식을 선택한 뒤 경로 추적 실행을 탭하세요.",
+  "map_pathTraceModeRoundTrip": "왕복",
+  "map_pathTraceModeRoundTripHint": "추적이 이 홉들을 거쳐 나갔다가 같은 경로로 돌아옵니다.",
+  "map_pathTraceModeAsEntered": "입력한 대로",
+  "map_pathTraceModeAsEnteredHint": "추적이 이 홉들을 그대로 따라갑니다. 나에게 돌아오는 홉은 직접 추가하세요.",
+  "map_pathTraceViewLast": "마지막 결과 보기",
+  "notification_lowBatteryTitle": "배터리 부족",
+  "@notification_lowBatteryTitle": {
+    "description": "Title of the low battery notification"
+  },
+  "notification_lowBatteryBody": "{deviceName} 배터리가 {percent}%입니다",
+  "@notification_lowBatteryBody": {
+    "description": "Body of the low battery notification; deviceName is the connected radio's node name",
+    "placeholders": {
+      "deviceName": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "notification_sharedLocation": "위치를 공유했습니다",
+  "notification_sharedLocationNamed": "위치를 공유했습니다: {label}",
+  "@notification_sharedLocationNamed": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_reacted": "{emoji} 반응을 남겼습니다",
+  "@notification_reacted": {
+    "placeholders": {
+      "emoji": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_sentGif": "GIF를 보냈습니다",
+  "notification_sentImage": "이미지를 보냈습니다",
+  "snrIndicator_unknownRepeater": "알 수 없는 리피터",
+  "snrIndicator_unknownRepeaterHint": "이 리피터는 아직 연락처에 없습니다. 라디오가 어드버트를 수신하면 이름, 위치, 옵션이 표시됩니다.",
+  "contacts_keyPrefixSemantics": "키 접두사 {prefix}",
+  "@contacts_keyPrefixSemantics": {
+    "placeholders": {
+      "prefix": {
+        "type": "String"
+      }
+    }
+  },
+  "networkMap_sourceLocalHint": "내 라디오가 수신한 노드",
+  "networkMap_sourceOnlineHint": "온라인 네트워크 지도의 리피터",
+  "networkMap_sourceBothHint": "내 라디오의 노드와 온라인 네트워크 지도"
 }

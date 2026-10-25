@@ -3319,5 +3319,133 @@
   "networkMap_manage": "管理",
   "networkMap_addedToContacts": "已添加到联系人",
   "networkMap_addFailed": "无法添加到联系人",
-  "networkMap_unnamed": "未命名转发节点"
+  "networkMap_unnamed": "未命名转发节点",
+  "urlImage_disabledInAppSettings": "已在应用设置中关闭",
+  "settings_pathHashModeNotApplied": "无线电设置已应用，但无线电未确认新的路径哈希大小",
+  "appSettings_ipfsImageLinks": "IPFS 提供商配置",
+  "appSettings_ipfsImageLinksSubtitle": "通过 IPFS 提供商上传 URL 图片（或文件），并使用默认网关接收",
+  "appSettings_loadLinkImages": "加载链接中的图片",
+  "appSettings_loadLinkImagesSubtitle": "在消息中显示链接里的图片。加载图片会向托管该图片的网站暴露你的 IP 地址。",
+  "appSettings_showLinkImagesByDefault": "默认在所有聊天中显示链接图片",
+  "appSettings_showLinkImagesByDefaultSubtitle": "在每个聊天中加载链接图片，除非你在该聊天中已将其关闭。这会在每个聊天中向图片托管方暴露你的 IP 地址。",
+  "appSettings_publicIpfsGateway": "公共网关",
+  "appSettings_ipfsGatewayDeactivated": "已停用",
+  "appSettings_ipfsGatewayIpfsIo": "ipfs.io",
+  "appSettings_ipfsGatewayPinata": "Pinata",
+  "appSettings_ipfsGatewayFilebase": "Filebase",
+  "appSettings_ipfsGatewayCustom": "自定义 (Kubo)",
+  "appSettings_uploadIpfsProvider": "上传提供商",
+  "appSettings_uploadIpfsGateway": "上传网关",
+  "appSettings_uploadIpfsGatewaySubtitle": "用于将图片或文件作为 URL 链接分享的网关。留空则使用 ipfs: 格式，其他客户端可能无法打开。",
+  "appSettings_uploadIpfsEndpoint": "上传端点",
+  "appSettings_uploadIpfsEndpointSubtitle": "用于上传文件的 API 端点",
+  "appSettings_uploadIpfsApiKey": "上传 API 密钥",
+  "appSettings_ipfsImageLinksDescription": "公共网关用于下载 ipfs: 格式的图片。上传网关用于为已上传的 URL 图片或文件生成分享链接。",
+  "contacts_removeAutoAddNote": "你的无线电会自动添加此类联系人，因此它下次发送广播时会重新出现。如需保持移除，请在联系人设置中关闭自动添加。",
+  "contacts_removeFailed": "无线电未确认移除。该联系人未被移除。",
+  "channels_notificationModeTooltip": "通知：{mode}",
+  "@channels_notificationModeTooltip": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    }
+  },
+  "channels_scanQrCodeDesc": "通过二维码加入频道或社区。",
+  "channels_scanQrInstructions": "将相机对准频道或社区二维码",
+  "channels_invalidQrCode": "不是 MeshCore 频道或社区二维码",
+  "channels_joinChannelTitle": "加入频道",
+  "channels_joinChannelConfirm": "将 \"{name}\" 添加到你的无线电？",
+  "@channels_joinChannelConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "channels_alreadyOnRadio": "\"{name}\" 已在你的无线电上",
+  "@channels_alreadyOnRadio": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chat_sendImageIpfs": "通过 IPFS 发送图片或文件",
+  "chat_ipfsUploadFailed": "IPFS 上传失败：{error}",
+  "@chat_ipfsUploadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "chat_ipfsUploadNotConfigured": "请先在应用设置中配置 IPFS 上传提供商。",
+  "chat_ipfsSelectedFileEmpty": "所选文件为空。",
+  "chat_ipfsEndpointInvalid": "IPFS 上传端点必须是完整的 http:// 或 https:// 地址。请在应用设置中检查。",
+  "chat_ipfsPinataTokenMissing": "Pinata 需要 API 密钥或 JWT。请在应用设置中添加。",
+  "chat_ipfsFilebaseTokenMissing": "Filebase 需要 API 令牌。请在应用设置中添加。",
+  "chat_ipfsKuboPathInvalid": "Kubo 上传端点必须以 /api/v0/add 结尾。请在应用设置中检查。",
+  "chat_ipfsLinkNoRoom": "没有足够空间放置图片链接。请缩短消息后重试。",
+  "@chat_ipfsLinkNoRoom": {
+    "description": "Shown before an IPFS upload when the link would push the draft over the message size limit"
+  },
+  "chat_ipfsLinkOverLimit": "图片链接已添加，但消息现在太长。请缩短后再发送。",
+  "@chat_ipfsLinkOverLimit": {
+    "description": "Shown after an IPFS upload when the link plus the draft no longer fits the message size limit"
+  },
+  "map_pathTraceAddMoreHint": "点击更多节点以添加跳数，选择追踪的返回方式，然后点击“运行路径追踪”。",
+  "map_pathTraceModeRoundTrip": "往返",
+  "map_pathTraceModeRoundTripHint": "追踪经由这些跳发出，并沿原路返回。",
+  "map_pathTraceModeAsEntered": "按输入顺序",
+  "map_pathTraceModeAsEnteredHint": "追踪严格按这些跳进行。请自行添加返回你的跳。",
+  "map_pathTraceViewLast": "查看上次结果",
+  "notification_lowBatteryTitle": "电量低",
+  "@notification_lowBatteryTitle": {
+    "description": "Title of the low battery notification"
+  },
+  "notification_lowBatteryBody": "{deviceName} 电量为 {percent}%",
+  "@notification_lowBatteryBody": {
+    "description": "Body of the low battery notification; deviceName is the connected radio's node name",
+    "placeholders": {
+      "deviceName": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "notification_sharedLocation": "分享了位置",
+  "notification_sharedLocationNamed": "分享了位置：{label}",
+  "@notification_sharedLocationNamed": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_reacted": "回应了 {emoji}",
+  "@notification_reacted": {
+    "placeholders": {
+      "emoji": {
+        "type": "String"
+      }
+    }
+  },
+  "notification_sentGif": "发送了 GIF",
+  "notification_sentImage": "发送了图片",
+  "snrIndicator_unknownRepeater": "未知中继器",
+  "snrIndicator_unknownRepeaterHint": "此中继器还不在你的联系人中。待你的无线电收到它的广播后，将显示其名称、位置和选项。",
+  "contacts_keyPrefixSemantics": "密钥前缀 {prefix}",
+  "@contacts_keyPrefixSemantics": {
+    "placeholders": {
+      "prefix": {
+        "type": "String"
+      }
+    }
+  },
+  "networkMap_sourceLocalHint": "你的无线电听到的节点",
+  "networkMap_sourceOnlineHint": "来自在线网络地图的中继器",
+  "networkMap_sourceBothHint": "你的无线电节点加上在线网络地图"
 }
