@@ -5831,6 +5831,17 @@ class AppLocalizationsZh extends AppLocalizations {
   String get networkMap_sourceBoth => '两者';
 
   @override
+  String get networkMap_sourceLocalHint => 'Nodes your radio has heard';
+
+  @override
+  String get networkMap_sourceOnlineHint =>
+      'Repeaters from the online network map';
+
+  @override
+  String get networkMap_sourceBothHint =>
+      'Your radio\'s nodes plus the online network map';
+
+  @override
   String get networkMap_zoomInHint => '放大以查看在线网络地图';
 
   @override

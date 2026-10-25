@@ -5976,6 +5976,17 @@ class AppLocalizationsKo extends AppLocalizations {
   String get networkMap_sourceBoth => '모두';
 
   @override
+  String get networkMap_sourceLocalHint => 'Nodes your radio has heard';
+
+  @override
+  String get networkMap_sourceOnlineHint =>
+      'Repeaters from the online network map';
+
+  @override
+  String get networkMap_sourceBothHint =>
+      'Your radio\'s nodes plus the online network map';
+
+  @override
   String get networkMap_zoomInHint => '온라인 네트워크 지도를 보려면 확대하세요';
 
   @override

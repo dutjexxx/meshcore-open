@@ -6278,6 +6278,17 @@ class AppLocalizationsUk extends AppLocalizations {
   String get networkMap_sourceBoth => 'Обидві';
 
   @override
+  String get networkMap_sourceLocalHint => 'Nodes your radio has heard';
+
+  @override
+  String get networkMap_sourceOnlineHint =>
+      'Repeaters from the online network map';
+
+  @override
+  String get networkMap_sourceBothHint =>
+      'Your radio\'s nodes plus the online network map';
+
+  @override
   String get networkMap_zoomInHint =>
       'Наблизьте, щоб побачити онлайн-карту мережі';
 

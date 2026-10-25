@@ -1,69 +1,120 @@
 {
   "bg": [
-    "contacts_keyPrefixSemantics"
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "de": [
-    "contacts_keyPrefixSemantics"
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "es": [
-    "contacts_keyPrefixSemantics"
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "fr": [
-    "contacts_keyPrefixSemantics"
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "hu": [
-    "contacts_keyPrefixSemantics"
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "it": [
-    "contacts_keyPrefixSemantics"
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "ja": [
-    "contacts_keyPrefixSemantics"
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "ko": [
-    "contacts_keyPrefixSemantics"
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "nl": [
-    "contacts_keyPrefixSemantics"
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "pl": [
-    "contacts_keyPrefixSemantics"
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "pt": [
-    "contacts_keyPrefixSemantics"
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "ru": [
-    "contacts_keyPrefixSemantics"
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "sk": [
-    "contacts_keyPrefixSemantics"
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "sl": [
-    "contacts_keyPrefixSemantics"
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "sv": [
-    "contacts_keyPrefixSemantics"
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "uk": [
-    "contacts_keyPrefixSemantics"
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ],
 
   "zh": [
-    "contacts_keyPrefixSemantics"
+    "contacts_keyPrefixSemantics",
+    "networkMap_sourceLocalHint",
+    "networkMap_sourceOnlineHint",
+    "networkMap_sourceBothHint"
   ]
 }

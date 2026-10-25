@@ -1080,7 +1080,11 @@ class _MapScreenState extends State<MapScreen> with DisconnectNavigationMixin {
                 ? FloatingActionButton(
                     onPressed: () => _showFilterSheet(context, settingsService),
                     tooltip: context.l10n.map_filterNodes,
-                    child: const Icon(Icons.filter_list),
+                    child: Badge.count(
+                      count: _activeFilterCount(settings),
+                      isLabelVisible: _activeFilterCount(settings) > 0,
+                      child: const Icon(Icons.filter_list),
+                    ),
                   )
                 : null,
           ),
@@ -2023,69 +2027,6 @@ class _MapScreenState extends State<MapScreen> with DisconnectNavigationMixin {
           ),
           const SizedBox(height: 6),
           _buildMapSourceSwitch(context, mapSource),
-          const SizedBox(height: 6),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              final chips = <Widget>[
-                _mapChip(
-                  label: context.l10n.time_allTime,
-                  selected: _freshness == _Freshness.all,
-                  onTap: () => setState(() => _freshness = _Freshness.all),
-                ),
-                _mapChip(
-                  label: context.l10n.map_online,
-                  selected: _freshness == _Freshness.online,
-                  color: MapPalette.online,
-                  onTap: () => setState(() => _freshness = _Freshness.online),
-                ),
-                _mapChip(
-                  label: context.l10n.map_recent,
-                  selected: _freshness == _Freshness.recent,
-                  color: MapPalette.stale,
-                  onTap: () => setState(() => _freshness = _Freshness.recent),
-                ),
-                _mapChip(
-                  label: context.l10n.map_stale,
-                  selected: _freshness == _Freshness.stale,
-                  color: MapPalette.offline,
-                  onTap: () => setState(() => _freshness = _Freshness.stale),
-                ),
-                _mapChip(
-                  label: context.l10n.map_repeaters,
-                  selected: settings.mapShowRepeaters,
-                  color: MapPalette.repeater,
-                  onTap: () => settingsService.setMapShowRepeaters(
-                    !settings.mapShowRepeaters,
-                  ),
-                ),
-                _mapChip(
-                  label: context.l10n.map_chatNodes,
-                  selected: settings.mapShowChatNodes,
-                  color: MapPalette.selected,
-                  onTap: () => settingsService.setMapShowChatNodes(
-                    !settings.mapShowChatNodes,
-                  ),
-                ),
-                _mapChip(
-                  label: context.l10n.map_groupChip,
-                  selected: settings.mapClusterNodes,
-                  color: MapPalette.cluster,
-                  onTap: () => settingsService.setMapClusterNodes(
-                    !settings.mapClusterNodes,
-                  ),
-                ),
-              ];
-
-              if (constraints.maxWidth < 600) {
-                return Wrap(runSpacing: 6, children: chips);
-              }
-
-              return SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(children: chips),
-              );
-            },
-          ),
           if (hasQuery)
             _buildSearchResults(context, allContacts, guessedLocations)
           else if (_statsExpanded)
@@ -2106,6 +2047,14 @@ class _MapScreenState extends State<MapScreen> with DisconnectNavigationMixin {
       ),
     );
   }
+
+  int _activeFilterCount(AppSettings settings) => [
+    _freshness != _Freshness.all,
+    !settings.mapShowChatNodes,
+    !settings.mapShowRepeaters,
+    !settings.mapShowOtherNodes,
+    settings.mapKeyPrefixEnabled,
+  ].where((active) => active).length;
 
   Widget _buildMapSourceSwitch(BuildContext context, MapSourceOption source) {
     final l10n = context.l10n;
@@ -2128,16 +2077,19 @@ class _MapScreenState extends State<MapScreen> with DisconnectNavigationMixin {
             value: MapSourceOption.local,
             icon: const Icon(Icons.radio, size: 20),
             label: Text(l10n.networkMap_sourceLocal),
+            tooltip: l10n.networkMap_sourceLocalHint,
           ),
           ButtonSegment(
             value: MapSourceOption.online,
             icon: const Icon(Icons.public, size: 20),
             label: Text(l10n.networkMap_sourceOnline),
+            tooltip: l10n.networkMap_sourceOnlineHint,
           ),
           ButtonSegment(
             value: MapSourceOption.both,
             icon: const Icon(Icons.layers, size: 20),
             label: Text(l10n.networkMap_sourceBoth),
+            tooltip: l10n.networkMap_sourceBothHint,
           ),
         ],
         selected: {source},
@@ -2171,70 +2123,6 @@ class _MapScreenState extends State<MapScreen> with DisconnectNavigationMixin {
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _mapChip({
-    required String label,
-    required bool selected,
-    required VoidCallback onTap,
-    Color? color,
-  }) {
-    final accent = color ?? MapPalette.selected;
-    return Padding(
-      padding: const EdgeInsets.only(right: 6),
-      child: Semantics(
-        button: true,
-        selected: selected,
-        child: Material(
-          color: selected
-              ? Color.alphaBlend(
-                  accent.withValues(alpha: 0.34),
-                  _overlayPanelColor,
-                )
-              : _overlayPanelColor,
-          shape: StadiumBorder(
-            side: BorderSide(
-              color: selected ? accent : _overlayBorderColor,
-              width: selected ? 1.5 : 1,
-            ),
-          ),
-          clipBehavior: Clip.antiAlias,
-          child: InkWell(
-            onTap: () {
-              HapticFeedback.selectionClick();
-              onTap();
-            },
-            child: Container(
-              constraints: const BoxConstraints(minHeight: 44),
-              padding: const EdgeInsets.symmetric(horizontal: 14),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (selected) ...[
-                    Icon(
-                      Icons.check,
-                      size: 16,
-                      color: _overlayPrimaryTextColor,
-                    ),
-                    const SizedBox(width: 4),
-                  ],
-                  Text(
-                    label,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: selected
-                          ? _overlayPrimaryTextColor
-                          : _overlaySecondaryTextColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ),
         ),
       ),

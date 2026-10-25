@@ -6254,6 +6254,17 @@ class AppLocalizationsPt extends AppLocalizations {
   String get networkMap_sourceBoth => 'Ambos';
 
   @override
+  String get networkMap_sourceLocalHint => 'Nodes your radio has heard';
+
+  @override
+  String get networkMap_sourceOnlineHint =>
+      'Repeaters from the online network map';
+
+  @override
+  String get networkMap_sourceBothHint =>
+      'Your radio\'s nodes plus the online network map';
+
+  @override
   String get networkMap_zoomInHint =>
       'Aproxime o zoom para ver o mapa da rede online';
 

@@ -6290,6 +6290,17 @@ class AppLocalizationsPl extends AppLocalizations {
   String get networkMap_sourceBoth => 'Obie';
 
   @override
+  String get networkMap_sourceLocalHint => 'Nodes your radio has heard';
+
+  @override
+  String get networkMap_sourceOnlineHint =>
+      'Repeaters from the online network map';
+
+  @override
+  String get networkMap_sourceBothHint =>
+      'Your radio\'s nodes plus the online network map';
+
+  @override
   String get networkMap_zoomInHint =>
       'Przybliż, aby zobaczyć mapę sieci online';
 
