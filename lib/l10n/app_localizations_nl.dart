@@ -1278,6 +1278,14 @@ class AppLocalizationsNl extends AppLocalizations {
   String get contacts_remove => 'Verwijderen';
 
   @override
+  String get contacts_removeAutoAddNote =>
+      'Your radio auto-adds this contact type, so it will come back the next time it advertises. Turn off auto-add in Contacts settings to keep it removed.';
+
+  @override
+  String get contacts_removeFailed =>
+      'The radio did not confirm the removal. The contact was not removed.';
+
+  @override
   String contacts_discoveredNearby(int count) {
     return 'In de buurt ontdekt ($count)';
   }

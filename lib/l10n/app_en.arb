@@ -608,6 +608,8 @@
   },
   "contacts_keepChatHistory": "Keep chat history",
   "contacts_remove": "Remove",
+  "contacts_removeAutoAddNote": "Your radio auto-adds this contact type, so it will come back the next time it advertises. Turn off auto-add in Contacts settings to keep it removed.",
+  "contacts_removeFailed": "The radio did not confirm the removal. The contact was not removed.",
   "contacts_discoveredNearby": "Discovered nearby ({count})",
   "@contacts_discoveredNearby": {
     "placeholders": {

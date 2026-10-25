@@ -1,5 +1,7 @@
 {
   "bg": [
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
     "map_pathTraceAddMoreHint",
     "map_pathTraceModeRoundTrip",
     "map_pathTraceModeRoundTripHint",
@@ -20,6 +22,8 @@
   ],
 
   "de": [
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
     "map_pathTraceAddMoreHint",
     "map_pathTraceModeRoundTrip",
     "map_pathTraceModeRoundTripHint",
@@ -40,6 +44,8 @@
   ],
 
   "es": [
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
     "map_pathTraceAddMoreHint",
     "map_pathTraceModeRoundTrip",
     "map_pathTraceModeRoundTripHint",
@@ -60,6 +66,8 @@
   ],
 
   "fr": [
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
     "map_pathTraceAddMoreHint",
     "map_pathTraceModeRoundTrip",
     "map_pathTraceModeRoundTripHint",
@@ -80,6 +88,8 @@
   ],
 
   "hu": [
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
     "map_pathTraceAddMoreHint",
     "map_pathTraceModeRoundTrip",
     "map_pathTraceModeRoundTripHint",
@@ -100,6 +110,8 @@
   ],
 
   "it": [
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
     "map_pathTraceAddMoreHint",
     "map_pathTraceModeRoundTrip",
     "map_pathTraceModeRoundTripHint",
@@ -120,6 +132,8 @@
   ],
 
   "ja": [
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
     "map_pathTraceAddMoreHint",
     "map_pathTraceModeRoundTrip",
     "map_pathTraceModeRoundTripHint",
@@ -140,6 +154,8 @@
   ],
 
   "ko": [
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
     "map_pathTraceAddMoreHint",
     "map_pathTraceModeRoundTrip",
     "map_pathTraceModeRoundTripHint",
@@ -160,6 +176,8 @@
   ],
 
   "nl": [
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
     "map_pathTraceAddMoreHint",
     "map_pathTraceModeRoundTrip",
     "map_pathTraceModeRoundTripHint",
@@ -180,6 +198,8 @@
   ],
 
   "pl": [
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
     "map_pathTraceAddMoreHint",
     "map_pathTraceModeRoundTrip",
     "map_pathTraceModeRoundTripHint",
@@ -200,6 +220,8 @@
   ],
 
   "pt": [
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
     "map_pathTraceAddMoreHint",
     "map_pathTraceModeRoundTrip",
     "map_pathTraceModeRoundTripHint",
@@ -220,6 +242,8 @@
   ],
 
   "ru": [
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
     "map_pathTraceAddMoreHint",
     "map_pathTraceModeRoundTrip",
     "map_pathTraceModeRoundTripHint",
@@ -240,6 +264,8 @@
   ],
 
   "sk": [
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
     "map_pathTraceAddMoreHint",
     "map_pathTraceModeRoundTrip",
     "map_pathTraceModeRoundTripHint",
@@ -260,6 +286,8 @@
   ],
 
   "sl": [
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
     "map_pathTraceAddMoreHint",
     "map_pathTraceModeRoundTrip",
     "map_pathTraceModeRoundTripHint",
@@ -280,6 +308,8 @@
   ],
 
   "sv": [
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
     "map_pathTraceAddMoreHint",
     "map_pathTraceModeRoundTrip",
     "map_pathTraceModeRoundTripHint",
@@ -300,6 +330,8 @@
   ],
 
   "uk": [
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
     "map_pathTraceAddMoreHint",
     "map_pathTraceModeRoundTrip",
     "map_pathTraceModeRoundTripHint",
@@ -320,6 +352,8 @@
   ],
 
   "zh": [
+    "contacts_removeAutoAddNote",
+    "contacts_removeFailed",
     "map_pathTraceAddMoreHint",
     "map_pathTraceModeRoundTrip",
     "map_pathTraceModeRoundTripHint",

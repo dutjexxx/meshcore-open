@@ -1758,6 +1758,16 @@ class _ContactsScreenState extends State<ContactsScreen>
               Text(
                 context.l10n.contacts_removeFromContactsConfirm(contact.name),
               ),
+              if (connector.autoAddsContactType(contact.type)) ...[
+                const SizedBox(height: 12),
+                Text(
+                  context.l10n.contacts_removeAutoAddNote,
+                  style: TextStyle(
+                    color: Theme.of(dialogContext).colorScheme.error,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
               CheckboxListTile(
                 contentPadding: EdgeInsets.zero,
                 controlAffinity: ListTileControlAffinity.leading,
@@ -1774,9 +1784,24 @@ class _ContactsScreenState extends State<ContactsScreen>
               child: Text(context.l10n.common_cancel),
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 Navigator.pop(dialogContext);
-                connector.removeContact(contact, keepMessages: keepHistory);
+                try {
+                  await connector.removeContact(
+                    contact,
+                    keepMessages: keepHistory,
+                  );
+                } catch (e) {
+                  appLogger.warn(
+                    'Remove contact failed: $e',
+                    tag: 'ContactsScreen',
+                  );
+                  if (!context.mounted) return;
+                  showDismissibleSnackBar(
+                    context,
+                    content: Text(context.l10n.contacts_removeFailed),
+                  );
+                }
               },
               child: Text(
                 context.l10n.contacts_remove,

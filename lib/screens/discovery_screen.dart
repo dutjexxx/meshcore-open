@@ -316,7 +316,15 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
         content: Text(context.l10n.discoveredContacts_contactAdded),
         action: SnackBarAction(
           label: context.l10n.common_undo,
-          onPressed: () => connector.removeContact(contact),
+          onPressed: () => unawaited(
+            connector.removeContact(contact).catchError((Object _) {
+              if (!context.mounted) return;
+              showDismissibleSnackBar(
+                context,
+                content: Text(context.l10n.contacts_removeFailed),
+              );
+            }),
+          ),
         ),
       );
     } catch (_) {
