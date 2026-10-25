@@ -5902,13 +5902,20 @@ class MeshCoreConnector extends ChangeNotifier {
     await sendFrame(buildSetChannelFrame(index, '', Uint8List(16)));
     _channelMessages.remove(index);
     _processedChannelReactions.remove(index);
-    // Refresh before clearing history so messages from an in-flight queue sync
-    // cannot recreate the channel's stored history after it has been deleted.
-    await getChannels(force: true);
-    // Another slot holding the same PSK keeps the shared history.
-    final stillHeld = _slotChannelIds.containsValue(channelId);
-    if (channelId != null && !stillHeld) {
-      await _clearChannelStorage(channelId);
+    try {
+      // Refresh before clearing history so messages from an in-flight queue
+      // sync cannot recreate the channel's stored history after it is deleted.
+      await getChannels(force: true);
+    } finally {
+      // Another slot holding the same PSK keeps the shared history. The
+      // deleted slot is skipped: a failed or partial refresh can leave it in
+      // the map.
+      final stillHeld = _slotChannelIds.entries.any(
+        (entry) => entry.key != index && entry.value == channelId,
+      );
+      if (channelId != null && !stillHeld) {
+        await _clearChannelStorage(channelId);
+      }
     }
   }
 
