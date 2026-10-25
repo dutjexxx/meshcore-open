@@ -2644,6 +2644,12 @@ abstract class AppLocalizations {
   /// **'Muted'**
   String get channels_notifyNone;
 
+  /// No description provided for @channels_notificationModeTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications: {mode}'**
+  String channels_notificationModeTooltip(String mode);
+
   /// No description provided for @channels_muteChannel.
   ///
   /// In en, this message translates to:

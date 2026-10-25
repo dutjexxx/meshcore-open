@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../services/app_settings_service.dart'
     show AppSettingsService, ChannelNotificationMode;
 import '../services/storage_service.dart';
@@ -6,9 +8,10 @@ import '../storage/legacy_key_migration.dart';
 import '../storage/prefs_manager.dart';
 import 'review_radio.dart';
 
-/// Muted channel names as they were when review mode started. Persisted so an
-/// interrupted session (crash, app killed) is still undone on the next launch.
-const _savedMutedChannelsKey = 'review_mode_saved_muted_channels';
+/// Channel notification modes (JSON map of channel name to mode name) as they
+/// were when review mode started. Persisted so an interrupted session (crash,
+/// app killed) is still undone on the next launch.
+const _savedChannelModesKey = 'review_mode_saved_channel_modes';
 
 /// Prefix for snapshots of app-wide repeater keys (saved passwords, clock sync
 /// toggles) taken when review mode starts. An empty snapshot means the key did
@@ -32,10 +35,11 @@ Future<void> clearReviewModeData() async {
 /// Starts a review session from a clean slate.
 ///
 /// The simulated radio's scope never adopts legacy unscoped keys, so real
-/// radio data cannot be pulled into it. Channel mutes are app-wide and keyed
-/// by channel name (muting the simulated "Public" would mute the real one),
-/// so the current mutes are saved for [endReviewModeSession] to put back, as
-/// are the app-wide repeater keys. Delivery timing is not recorded meanwhile.
+/// radio data cannot be pulled into it. Channel notification modes are
+/// app-wide and keyed by channel name (muting the simulated "Public" would
+/// mute the real one), so the current modes are saved for
+/// [endReviewModeSession] to put back, as are the app-wide repeater keys.
+/// Delivery timing is not recorded meanwhile.
 Future<void> beginReviewModeSession(AppSettingsService? settings) async {
   scopesWithoutLegacyMigration.add(ReviewRadio.storagePrefix);
   TimeoutPredictionService.recordingSuspended = true;
@@ -48,19 +52,16 @@ Future<void> beginReviewModeSession(AppSettingsService? settings) async {
     await prefs.setString(savedKey, prefs.getString(key) ?? '');
   }
   // An earlier interrupted session's record holds the real pre-review state.
-  if (settings != null && !prefs.containsKey(_savedMutedChannelsKey)) {
-    // Save all channel notification modes
-    final channelModes = settings.settings.channelNotificationModes;
-    final mutedChannels = channelModes.entries
-        .where((e) => e.value == ChannelNotificationMode.muted)
-        .map((e) => e.key)
-        .toList();
-    await prefs.setStringList(_savedMutedChannelsKey, mutedChannels);
+  if (settings != null && !prefs.containsKey(_savedChannelModesKey)) {
+    final modes = settings.settings.channelNotificationModes.map(
+      (channel, mode) => MapEntry(channel, mode.name),
+    );
+    await prefs.setString(_savedChannelModesKey, jsonEncode(modes));
   }
 }
 
-/// Deletes the review session's data and restores the channel mutes and
-/// repeater keys saved by [beginReviewModeSession]. Also called at startup to finish a session that
+/// Deletes the review session's data and restores the channel notification
+/// modes and repeater keys saved by [beginReviewModeSession]. Also called at startup to finish a session that
 /// was interrupted; it does nothing when no session was left behind.
 Future<void> endReviewModeSession(AppSettingsService? settings) async {
   TimeoutPredictionService.recordingSuspended = false;
@@ -77,19 +78,19 @@ Future<void> endReviewModeSession(AppSettingsService? settings) async {
     }
     await prefs.remove(savedKey);
   }
-  final savedMutes = prefs.getStringList(_savedMutedChannelsKey);
-  if (savedMutes == null || settings == null) return;
-  final updatedModes = Map<String, ChannelNotificationMode>.from(
-    settings.settings.channelNotificationModes,
-  );
-  updatedModes.removeWhere(
-    (key, value) => value == ChannelNotificationMode.muted,
-  );
-  for (final channelName in savedMutes) {
-    updatedModes[channelName] = ChannelNotificationMode.muted;
+  final savedModes = prefs.getString(_savedChannelModesKey);
+  if (savedModes == null || settings == null) return;
+  final restored = <String, ChannelNotificationMode>{};
+  final decoded = jsonDecode(savedModes);
+  if (decoded is Map) {
+    final byName = ChannelNotificationMode.values.asNameMap();
+    for (final entry in decoded.entries) {
+      final mode = byName[entry.value];
+      if (mode != null) restored[entry.key.toString()] = mode;
+    }
   }
   await settings.updateSettings(
-    settings.settings.copyWith(channelNotificationModes: updatedModes),
+    settings.settings.copyWith(channelNotificationModes: restored),
   );
-  await prefs.remove(_savedMutedChannelsKey);
+  await prefs.remove(_savedChannelModesKey);
 }

@@ -1247,8 +1247,9 @@ class MeshCoreConnector extends ChangeNotifier {
   /// (notification shade, watch, or Android Auto).
   Future<void> handleNotificationReply(NotificationReply reply) async {
     if (reply.action == NotificationReplyAction.mute) {
-      await _appSettingsService?.muteChannel(
+      await _appSettingsService?.setChannelNotificationMode(
         _channelDisplayName(reply.channelIndex!),
+        ChannelNotificationMode.muted,
       );
       await _notificationService.clearChannelNotification(
         reply.channelIndex!,
@@ -7369,9 +7370,11 @@ class MeshCoreConnector extends ChangeNotifier {
         ? translationResult.translatedText.trim()
         : message.text.trim();
 
-    // If mode is mentionsOnly, check if message mentions us
+    // Mentions are matched on the untranslated text.
     if (notificationMode == ChannelNotificationMode.mentionsOnly) {
-      if (!_doesMessageMentionUs(resolvedText, message)) return;
+      if (!textMentionsName(message.originalText ?? message.text, _selfName)) {
+        return;
+      }
     }
 
     unawaited(() async {
@@ -7386,22 +7389,20 @@ class MeshCoreConnector extends ChangeNotifier {
     }());
   }
 
-  /// Checks if a message mentions the current user.
-  /// Detects: @[username] format only.
-  bool _doesMessageMentionUs(String messageText, ChannelMessage message) {
-    final selfName = _selfName;
-    final lowerMessage = messageText.toLowerCase();
-
-    // Check for @[username] pattern (bracketed mention format)
-    if (selfName != null && selfName.isNotEmpty) {
-      final lowerSelfName = selfName.toLowerCase();
-      final bracketedMentionPattern = RegExp(
-        r'@\[(' + RegExp.escape(lowerSelfName) + r')\]',
-      );
-      if (bracketedMentionPattern.hasMatch(lowerMessage)) return true;
-    }
-
-    return false;
+  /// Whether [text] mentions [name], case-insensitively, as either
+  /// `@[name]` (the reply/mention prefix the app sends) or a plain `@name`.
+  /// The plain form needs a word boundary on both sides, so `@bobby` does
+  /// not mention `bob` and `x@bob.com` is not a mention. Names containing
+  /// spaces must be written out in full.
+  @visibleForTesting
+  static bool textMentionsName(String text, String? name) {
+    if (name == null || name.isEmpty) return false;
+    final escaped = RegExp.escape(name);
+    return RegExp(
+      '@\\[$escaped\\]|(?<![\\p{L}\\p{N}_])@$escaped(?![\\p{L}\\p{N}_])',
+      caseSensitive: false,
+      unicode: true,
+    ).hasMatch(text);
   }
 
   /// Handles RESP_CODE_CHANNEL_DATA_RECV (GRP_DATA). Frames whose dataType is

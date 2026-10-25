@@ -1463,6 +1463,11 @@ class AppLocalizationsSl extends AppLocalizations {
   String get channels_notifyNone => 'Utišano';
 
   @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
+
+  @override
   String get channels_muteChannel => 'Utišaj kanal';
 
   @override

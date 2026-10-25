@@ -1451,6 +1451,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get channels_notifyNone => 'Muted';
 
   @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
+
+  @override
   String get channels_muteChannel => 'Mute channel';
 
   @override

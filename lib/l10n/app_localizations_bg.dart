@@ -1477,6 +1477,11 @@ class AppLocalizationsBg extends AppLocalizations {
   String get channels_notifyNone => 'Заглушено';
 
   @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
+
+  @override
   String get channels_muteChannel => 'Заглуши канала';
 
   @override

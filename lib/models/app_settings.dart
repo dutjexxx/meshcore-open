@@ -198,12 +198,6 @@ class AppSettings {
     return profile.charMap;
   }
 
-  // Backward compatibility: returns true if channel is muted (mode == muted)
-  bool isChannelMuted(String channelName) {
-    return channelNotificationModes[channelName] ==
-        ChannelNotificationMode.muted;
-  }
-
   AppSettings({
     this.clearPathOnMaxRetry = false,
     this.mapShowRepeaters = true,
@@ -330,8 +324,13 @@ class AppSettings {
       'battery_chemistry_by_device_id': batteryChemistryByDeviceId,
       'battery_chemistry_by_repeater_id': batteryChemistryByRepeaterId,
       'unit_system': unitSystem.value,
+      // Written for older builds that only read the muted set.
+      'muted_channels': [
+        for (final entry in channelNotificationModes.entries)
+          if (entry.value == ChannelNotificationMode.muted) entry.key,
+      ],
       'channel_notification_modes': channelNotificationModes.map(
-        (key, value) => MapEntry(key, value.index),
+        (key, value) => MapEntry(key, value.name),
       ),
       'map_show_discovery_contacts': mapShowDiscoveryContacts,
       'evict_discovered_contacts_enabled': evictDiscoveredContactsEnabled,
@@ -392,13 +391,10 @@ class AppSettings {
       // Load new modes (overrides old muted channels if present)
       if (newModes != null) {
         for (final entry in newModes.entries) {
-          final channelName = entry.key;
-          final modeIndex = entry.value as int?;
-          if (modeIndex != null &&
-              modeIndex >= 0 &&
-              modeIndex < ChannelNotificationMode.values.length) {
-            result[channelName] = ChannelNotificationMode.values[modeIndex];
-          }
+          final value = entry.value;
+          if (value is! String) continue;
+          final mode = ChannelNotificationMode.values.asNameMap()[value];
+          if (mode != null) result[entry.key.toString()] = mode;
         }
       }
 

@@ -1471,6 +1471,11 @@ class AppLocalizationsDe extends AppLocalizations {
   String get channels_notifyNone => 'Stummgeschaltet';
 
   @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
+
+  @override
   String get channels_muteChannel => 'Kanal stummschalten';
 
   @override

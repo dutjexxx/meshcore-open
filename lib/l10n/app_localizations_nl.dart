@@ -1462,6 +1462,11 @@ class AppLocalizationsNl extends AppLocalizations {
   String get channels_notifyNone => 'Gedempt';
 
   @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
+
+  @override
   String get channels_muteChannel => 'Kanaal dempen';
 
   @override

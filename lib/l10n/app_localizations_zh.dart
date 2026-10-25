@@ -1380,6 +1380,11 @@ class AppLocalizationsZh extends AppLocalizations {
   String get channels_notifyNone => '静音';
 
   @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
+
+  @override
   String get channels_muteChannel => '静音频道';
 
   @override

@@ -1488,6 +1488,11 @@ class AppLocalizationsPl extends AppLocalizations {
   String get channels_notifyNone => 'Wyciszone';
 
   @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
+
+  @override
   String get channels_muteChannel => 'Wycisz kanał';
 
   @override

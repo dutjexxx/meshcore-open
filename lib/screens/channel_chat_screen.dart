@@ -37,6 +37,7 @@ import '../utils/image_save.dart';
 import '../utils/lora_airtime.dart';
 import '../widgets/marker_label_dialog.dart';
 import '../widgets/received_image_message.dart';
+import '../widgets/channel_notification_mode_sheet.dart';
 import '../widgets/chat_day_separator.dart';
 import '../widgets/empty_state.dart';
 
@@ -408,7 +409,9 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                 muteKey,
               );
               return IconButton(
-                tooltip: context.l10n.channels_notificationSettings,
+                tooltip: context.l10n.channels_notificationModeTooltip(
+                  channelNotificationModeLabel(context, notificationMode),
+                ),
                 icon: Icon(
                   notificationMode == ChannelNotificationMode.muted
                       ? Icons.notifications_off
@@ -416,21 +419,8 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                       ? Icons.notification_important
                       : Icons.notifications,
                 ),
-                onPressed: () {
-                  final currentMode = settings.getChannelNotificationMode(
-                    muteKey,
-                  );
-                  ChannelNotificationMode newMode;
-                  if (currentMode == ChannelNotificationMode.all) {
-                    newMode = ChannelNotificationMode.mentionsOnly;
-                  } else if (currentMode ==
-                      ChannelNotificationMode.mentionsOnly) {
-                    newMode = ChannelNotificationMode.muted;
-                  } else {
-                    newMode = ChannelNotificationMode.all;
-                  }
-                  settings.setChannelNotificationMode(muteKey, newMode);
-                },
+                onPressed: () =>
+                    showChannelNotificationModeSheet(context, muteKey),
               );
             },
           ),

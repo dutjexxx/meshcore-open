@@ -1475,6 +1475,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get channels_notifyNone => 'Désactivé';
 
   @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
+
+  @override
   String get channels_muteChannel => 'Désactiver les notifications du canal';
 
   @override

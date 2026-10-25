@@ -1403,6 +1403,11 @@ class AppLocalizationsKo extends AppLocalizations {
   String get channels_notifyNone => '음소거';
 
   @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
+
+  @override
   String get channels_muteChannel => '음소거 채널';
 
   @override

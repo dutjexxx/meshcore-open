@@ -719,6 +719,14 @@
   "channels_notifyAll": "All messages",
   "channels_notifyMentionsOnly": "Mentions only",
   "channels_notifyNone": "Muted",
+  "channels_notificationModeTooltip": "Notifications: {mode}",
+  "@channels_notificationModeTooltip": {
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    }
+  },
   "channels_muteChannel": "Mute channel",
   "channels_unmuteChannel": "Unmute channel",
   "channels_deleteChannel": "Delete channel",

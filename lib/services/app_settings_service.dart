@@ -288,11 +288,6 @@ class AppSettingsService extends ChangeNotifier {
     await updateSettings(_settings.copyWith(unitSystem: value));
   }
 
-  // Backward compatibility: delegates to AppSettings.isChannelMuted
-  bool isChannelMuted(String channelName) {
-    return _settings.isChannelMuted(channelName);
-  }
-
   ChannelNotificationMode getChannelNotificationMode(String channelName) {
     return _settings.channelNotificationModes[channelName] ??
         ChannelNotificationMode.all;
@@ -305,19 +300,12 @@ class AppSettingsService extends ChangeNotifier {
     final updated = Map<String, ChannelNotificationMode>.from(
       _settings.channelNotificationModes,
     );
-    updated[channelName] = mode;
+    if (mode == ChannelNotificationMode.all) {
+      updated.remove(channelName);
+    } else {
+      updated[channelName] = mode;
+    }
     await updateSettings(_settings.copyWith(channelNotificationModes: updated));
-  }
-
-  Future<void> muteChannel(String channelName) async {
-    await setChannelNotificationMode(
-      channelName,
-      ChannelNotificationMode.muted,
-    );
-  }
-
-  Future<void> unmuteChannel(String channelName) async {
-    await setChannelNotificationMode(channelName, ChannelNotificationMode.all);
   }
 
   Future<void> setTcpServerAddress(String value) async {

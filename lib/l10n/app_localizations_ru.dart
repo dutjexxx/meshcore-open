@@ -1477,6 +1477,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get channels_notifyNone => 'Без звука';
 
   @override
+  String channels_notificationModeTooltip(String mode) {
+    return 'Notifications: $mode';
+  }
+
+  @override
   String get channels_muteChannel => 'Отключить уведомления канала';
 
   @override

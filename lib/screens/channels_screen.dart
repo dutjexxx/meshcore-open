@@ -20,6 +20,7 @@ import '../theme/mesh_theme.dart';
 import '../utils/dialog_utils.dart';
 import '../utils/disconnect_navigation_mixin.dart';
 import '../utils/route_transitions.dart';
+import '../widgets/channel_notification_mode_sheet.dart';
 import '../widgets/list_filter_widget.dart';
 import '../widgets/empty_state.dart';
 import '../widgets/mesh_ui.dart';
@@ -583,9 +584,7 @@ class _ChannelsScreenState extends State<ChannelsScreen>
                   children: [
                     if (notificationMode != ChannelNotificationMode.all) ...[
                       Icon(
-                        notificationMode == ChannelNotificationMode.muted
-                            ? Icons.notifications_off
-                            : Icons.notification_important,
+                        channelNotificationModeIcon(notificationMode),
                         size: 18,
                         color: scheme.onSurfaceVariant,
                       ),
@@ -651,9 +650,15 @@ class _ChannelsScreenState extends State<ChannelsScreen>
               leading: const Icon(Icons.notifications_outlined),
               title: Text(sheetContext.l10n.channels_notificationSettings),
               trailing: const Icon(Icons.chevron_right),
-              onTap: () {
+              onTap: () async {
                 Navigator.pop(sheetContext);
-                _showNotificationModeDialog(sheetContext, connector, channel);
+                await Future.delayed(const Duration(milliseconds: 100));
+                if (parentContext.mounted) {
+                  showChannelNotificationModeSheet(
+                    parentContext,
+                    channel.muteKey,
+                  );
+                }
               },
             ),
             ListTile(
@@ -673,83 +678,6 @@ class _ChannelsScreenState extends State<ChannelsScreen>
                 if (parentContext.mounted) {
                   _confirmDeleteChannel(parentContext, connector, channel);
                 }
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showNotificationModeDialog(
-    BuildContext context,
-    MeshCoreConnector connector,
-    Channel channel,
-  ) {
-    final settingsService = context.read<AppSettingsService>();
-    final currentMode = settingsService.getChannelNotificationMode(
-      channel.muteKey,
-    );
-
-    showMeshSheet(
-      context,
-      builder: (sheetContext) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // All notifications
-            ListTile(
-              leading: Icon(
-                Icons.notifications,
-                color: currentMode == ChannelNotificationMode.all
-                    ? Theme.of(sheetContext).colorScheme.primary
-                    : Theme.of(sheetContext).colorScheme.onSurfaceVariant,
-              ),
-              title: Text(sheetContext.l10n.channels_notifyAll),
-              trailing: currentMode == ChannelNotificationMode.all
-                  ? const Icon(Icons.check)
-                  : null,
-              onTap: () async {
-                Navigator.pop(sheetContext);
-                await settingsService.setChannelNotificationMode(
-                  channel.muteKey,
-                  ChannelNotificationMode.all,
-                );
-              },
-            ),
-            // Mentions only
-            ListTile(
-              leading: const Icon(Icons.notification_important),
-              title: Text(sheetContext.l10n.channels_notifyMentionsOnly),
-              trailing: currentMode == ChannelNotificationMode.mentionsOnly
-                  ? const Icon(Icons.check)
-                  : null,
-              onTap: () async {
-                Navigator.pop(sheetContext);
-                await settingsService.setChannelNotificationMode(
-                  channel.muteKey,
-                  ChannelNotificationMode.mentionsOnly,
-                );
-              },
-            ),
-            // Muted
-            ListTile(
-              leading: Icon(
-                Icons.notifications_off,
-                color: currentMode == ChannelNotificationMode.muted
-                    ? Theme.of(sheetContext).colorScheme.primary
-                    : Theme.of(sheetContext).colorScheme.onSurfaceVariant,
-              ),
-              title: Text(sheetContext.l10n.channels_notifyNone),
-              trailing: currentMode == ChannelNotificationMode.muted
-                  ? const Icon(Icons.check)
-                  : null,
-              onTap: () async {
-                Navigator.pop(sheetContext);
-                await settingsService.setChannelNotificationMode(
-                  channel.muteKey,
-                  ChannelNotificationMode.muted,
-                );
               },
             ),
           ],
